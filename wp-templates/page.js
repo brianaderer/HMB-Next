@@ -6,7 +6,6 @@ import {
   Footer,
   Main,
   Container,
-  ContentWrapper,
   EntryHeader,
   NavigationMenu,
   FeaturedImage,
@@ -71,6 +70,8 @@ Component.query = gql`
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   ${components.CoreParagraph.fragments.entry}
+  ${components.AcfReviews.fragments.entry}
+  ${components.AcfTransientContactForm.fragments.entry}
   query GetPageData(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -86,6 +87,20 @@ Component.query = gql`
         id: clientId
         parentClientId
         ...${components.CoreParagraph.fragments.key}
+      }
+      editorBlocks(flat: false) {
+        __typename
+        renderedHtml
+        id: clientId
+        parentClientId
+        ...${components.AcfReviews.fragments.key}
+      }
+      editorBlocks(flat: false) {
+        __typename
+        renderedHtml
+        id: clientId
+        parentClientId
+        ...${components.AcfTransientContactForm.fragments.key}
       }
       ...FeaturedImageFragment
     }
