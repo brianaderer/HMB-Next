@@ -1,7 +1,7 @@
 const Select = props => {
     const{options} = props;
     return(
-        <select defaultValue={0}>
+        <select>
             {
                 Object.keys(options).map((option, index) => {
                     return(
