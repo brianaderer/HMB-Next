@@ -8,11 +8,10 @@ export default function AcfTransientContactForm(props) {
 
     return (
         Object.keys(fieldsData).map( (field, index) => {
-            const {type, label}= (fieldsData[field]);
-            console.log(field);
+            const {type, label, ...otherProps}= (fieldsData[field]);
             return(
                 <div key={index}>
-                    <FormElement type={type} label={label} slug={field} />
+                    <FormElement type={type} label={label} slug={field} {...otherProps} />
                 </div>
             )
         } )

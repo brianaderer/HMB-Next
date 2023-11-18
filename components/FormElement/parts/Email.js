@@ -1,7 +1,7 @@
-const Text = props => {
+const Email = props => {
     return(
         <input placeholder={'foo'}>
         </input>
     )
 }
-export default Text;
+export default Email;

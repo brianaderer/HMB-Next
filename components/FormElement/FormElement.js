@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Parts from './parts';
-console.log(Parts);
 const FormElement = props => {
     const { type, label, slug, ...otherProps } = props;
     const ucType =

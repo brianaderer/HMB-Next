@@ -1,5 +1,4 @@
 const Number = props => {
-    console.log(props);
     return(
         <range>
         </range>
