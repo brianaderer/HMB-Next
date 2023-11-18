@@ -52,8 +52,8 @@ export default function Component(props) {
             author={author?.node?.name}
           />
           <Container>
-            {/*<WordPressBlocksViewer blocks={blocks}/>*/}
-            <ContentWrapper content={content} />
+            <WordPressBlocksViewer blocks={blocks}/>
+            {/*<ContentWrapper content={content} />*/}
           </Container>
         </>
       </Main>
