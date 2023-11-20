@@ -29,6 +29,7 @@ export default function Component(props) {
 
   const { editorBlocks } = props.data.page;
   const blocks = flatListToHierarchical(editorBlocks);
+  console.log(blocks);
 
   return (
     <>
@@ -87,19 +88,7 @@ Component.query = gql`
         id: clientId
         parentClientId
         ...${components.CoreParagraph.fragments.key}
-      }
-      editorBlocks(flat: false) {
-        __typename
-        renderedHtml
-        id: clientId
-        parentClientId
         ...${components.AcfReviews.fragments.key}
-      }
-      editorBlocks(flat: false) {
-        __typename
-        renderedHtml
-        id: clientId
-        parentClientId
         ...${components.AcfTransientContactForm.fragments.key}
       }
       ...FeaturedImageFragment
@@ -119,3 +108,5 @@ Component.query = gql`
     }
   }
 `;
+
+console.log(Component.query);
