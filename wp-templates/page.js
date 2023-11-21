@@ -30,7 +30,7 @@ export default function Component(props) {
   const { editorBlocks } = props.data.page;
   const blocks = flatListToHierarchical(editorBlocks);
   console.log(blocks);
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY);
+  const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
   return (
     <>
