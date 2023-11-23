@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
@@ -6,69 +6,65 @@ import {
   Footer,
   Main,
   Container,
+  EntryHeader,
   NavigationMenu,
-  Hero,
+  FeaturedImage,
   SEO,
 } from '../components';
+import { pageQuery } from "../queries/pageQuery";
+import { WordPressBlocksViewer } from '@faustwp/blocks';
+import components from '../wp-blocks';
+import {flatListToHierarchical} from "@faustwp/core";
 
-export default function Component() {
-  const { data } = useQuery(Component.query, {
-    variables: Component.variables(),
-  });
+export default function Component(props) {
+  // Loading state for previews
+  if (props.loading) {
+    return <>Loading...</>;
+  }
 
   const { title: siteTitle, description: siteDescription } =
-    data?.generalSettings;
-  const primaryMenu = data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = data?.footerMenuItems?.nodes ?? [];
+      props?.data?.generalSettings;
+  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
+  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
+  const { title, content, featuredImage } = props?.data?.page ?? { title: '' };
+
+  const { editorBlocks } = props.data.page;
+  const blocks = flatListToHierarchical(editorBlocks);
+  const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
   return (
-    <>
-      <SEO title={siteTitle} description={siteDescription} />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
-      <Main>
-        <Container>
-          <Hero title={'Front Page'} />
-          <div className="text-center">
-            <p>This page is utilizing the "front-page" WordPress template.</p>
-            <code>wp-templates/front-page.js</code>
-          </div>
-        </Container>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
-    </>
+      <>
+        <SEO
+            title={siteTitle}
+            description={siteDescription}
+            imageUrl={featuredImage?.node?.sourceUrl}
+        />
+        <Header
+            title={siteTitle}
+            description={siteDescription}
+            menuItems={primaryMenu}
+        />
+        <Main>
+          <>
+            <EntryHeader title={title} image={featuredImage?.node} />
+            <Container>
+              <WordPressBlocksViewer blocks={blocks}/>
+              {/*<ContentWrapper content={content} />*/}
+            </Container>
+          </>
+        </Main>
+        <Footer title={siteTitle} menuItems={footerMenu} />
+      </>
   );
 }
-
-Component.query = gql`
-  ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
-  query GetPageData(
-    $headerLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
-  ) {
-    generalSettings {
-      ...BlogInfoFragment
-    }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-  }
-`;
-
-Component.variables = () => {
+//@TODO need a handler here so that selecting 'latest posts' as the homepage doesn't break it
+Component.variables = ({ databaseId }, ctx) => {
   return {
+    databaseId,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
+    asPreview: ctx?.asPreview,
   };
 };
+
+Component.query = pageQuery;

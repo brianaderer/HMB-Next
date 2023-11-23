@@ -14,6 +14,7 @@ import {
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import components from '../wp-blocks';
 import {flatListToHierarchical} from "@faustwp/core";
+import {pageQuery} from "../queries/pageQuery";
 
 export default function Component(props) {
   // Loading state for previews
@@ -67,45 +68,4 @@ Component.variables = ({ databaseId }, ctx) => {
   };
 };
 
-Component.query = gql`
-  ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
-  ${FeaturedImage.fragments.entry}
-  ${components.CoreParagraph.fragments.entry}
-  ${components.AcfReviews.fragments.entry}
-  ${components.AcfTransientContactForm.fragments.entry}
-  query GetPageData(
-    $databaseId: ID!
-    $headerLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
-    $asPreview: Boolean = false
-  ) {
-    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
-      title
-      content
-      editorBlocks(flat: false) {
-        __typename
-        renderedHtml
-        id: clientId
-        parentClientId
-        ...${components.CoreParagraph.fragments.key}
-        ...${components.AcfReviews.fragments.key}
-        ...${components.AcfTransientContactForm.fragments.key}
-      }
-      ...FeaturedImageFragment
-    }
-    generalSettings {
-      ...BlogInfoFragment
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-  }
-`;
+Component.query = pageQuery;
