@@ -14,15 +14,6 @@ export default function CreateBlockAttractions(props) {
         }
         </>
     )
-    // return (
-    //     Object.keys(fieldsData).map( (field, index) => {
-    //         // const {type, label, ...otherProps}= (fieldsData[field]);
-    //         return(
-    //             <h1>{field.title}</h1>
-    //         )
-    //     } )
-
- //   );
 }
 
 CreateBlockAttractions.fragments = {

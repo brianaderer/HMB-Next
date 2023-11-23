@@ -14,6 +14,7 @@
     "@faustwp/blocks": "^2.0.0",
     "@faustwp/cli": "^1.2.0",
     "@faustwp/core": "^1.2.0",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@wordpress/base-styles": "^4.26.0",
     "@wordpress/block-library": "^7.19.0",
     "@wordpress/style-engine": "^1.29.0",
@@ -27,10 +28,5 @@
   "engines": {
     "node": ">=16",
     "npm": ">=8"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.5"
   }
 }
