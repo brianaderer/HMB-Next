@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {ContentWrapper, FormElement} from "../components";
+import {ContentWrapper, FormElement, Map} from "../components";
 
 export default function CreateBlockAttractions(props) {
     const {renderedHtml} = props;
     const data = JSON.parse( renderedHtml );
     return(
         <>
+            <Map />
         {
             data.map( (location, index ) =>{
                 return(<h1 key={index}>{location.title}</h1>)

@@ -14,7 +14,7 @@
     "@faustwp/blocks": "^2.0.0",
     "@faustwp/cli": "^1.2.0",
     "@faustwp/core": "^1.2.0",
-    "@googlemaps/js-api-loader": "^1.16.2",
+    "@react-google-maps/api": "^2.19.2",
     "@wordpress/base-styles": "^4.26.0",
     "@wordpress/block-library": "^7.19.0",
     "@wordpress/style-engine": "^1.29.0",
@@ -23,7 +23,8 @@
     "next": "^12.1.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "sass": "^1.54.9"
+    "sass": "^1.54.9",
+    "use-places-autocomplete": "^4.0.1"
   },
   "engines": {
     "node": ">=16",
