@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 const Map = () => {
     const libraries = useMemo(() => ['places'], []);
     const mapCenter = useMemo(
-        () => ({ lat: 27.672932021393862, lng: 85.31184012689732 }),
+        () => ({ lat: 41.1973179, lng: -73.8885881 }),
         []
     );
 
@@ -13,6 +13,8 @@ const Map = () => {
             disableDefaultUI: true,
             clickableIcons: true,
             scrollwheel: false,
+            zoomControl: true,
+            mapTypeControl: true,
         }),[]
     );
 
@@ -32,10 +34,10 @@ const Map = () => {
             </div>
             <GoogleMap
                 options={mapOptions}
-                zoom={14}
+                zoom={13}
                 center={mapCenter}
                 mapTypeId={google.maps.MapTypeId.ROADMAP}
-                mapContainerStyle={{ width: '800px', height: '800px' }}
+                mapContainerStyle={{ width: '800px', height: '600px' }}
                 onLoad={() => console.log('Map Component Loaded...')}
             />
         </div>
