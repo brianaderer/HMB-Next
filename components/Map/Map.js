@@ -28,11 +28,11 @@ const render = (status)=> {
 };
 
 const Map = () => {
-    const center = { lat: -34.397, lng: 150.644 };
-    const zoom = 12;
+    const center = { lat: 41.1973179, lng: -73.8885881 };
+    const zoom = 9;
 
     return (
-        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY} render={render}>
+        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY} render={render} libraries={['marker']}>
             <MapComponent center={center} zoom={zoom} />
         </Wrapper>
     );

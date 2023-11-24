@@ -7,7 +7,4 @@
 @import 'base';
 @import 'blocks';
 @import 'utilities';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwind.css';

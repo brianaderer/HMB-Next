@@ -10,6 +10,6 @@ const MapComponent = ({ center, zoom }) => {
         });
     });
 
-    return <div ref={ref} id="map" />;
+    return <div className={`h-[600px] w-full`} ref={ref} id="map" />;
 }
 export default MapComponent;
