@@ -1,15 +1,20 @@
 import { gql } from '@apollo/client';
-import React from 'react';
-import {ContentWrapper, FormElement, Map} from "../components";
+import React, {useEffect, useState} from 'react';
+import {Map} from "../components";
 
 export default function CreateBlockAttractions(props) {
     const {renderedHtml} = props;
-    const data = JSON.parse( renderedHtml );
+    const [locations, setLocations] = useState([]);
+    const data = JSON.parse(renderedHtml);
+    useEffect(() => {
+        const newLocations = JSON.parse(renderedHtml).map(location => location);
+        setLocations(newLocations);
+    }, [renderedHtml]);
     return(
         <>
-            <Map />
+            <Map locations={locations} />
         {
-            data.map( (location, index ) =>{
+            data?.map( (location, index ) =>{
                 return(<h1 key={index}>{location.title}</h1>)
             } )
         }
