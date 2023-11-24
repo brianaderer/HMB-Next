@@ -1,47 +1,52 @@
-import { useLoadScript, GoogleMap } from '@react-google-maps/api';
-import { useMemo } from 'react';
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import React, { useEffect, useRef } from "react";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
-const Map = () => {
-    const libraries = useMemo(() => ['places'], []);
-    const mapCenter = useMemo(
-        () => ({ lat: 41.1973179, lng: -73.8885881 }),
-        []
-    );
+const render = (status)=> {
+    if (status === Status.LOADING) return <h3>{status} ..</h3>;
+    if (status === Status.FAILURE) return <h3>{status} ...</h3>;
+    return null;
+};
 
-    const mapOptions = useMemo(
-        () => ({
-            disableDefaultUI: true,
-            clickableIcons: true,
-            scrollwheel: false,
-            zoomControl: true,
-            mapTypeControl: true,
-        }),[]
-    );
+function MyMapComponent({
+                            center,
+                            zoom,
+                        }) {
+    const ref = useRef();
 
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
-        libraries: libraries,
+    useEffect(() => {
+        new window.google.maps.Map(ref.current, {
+            center,
+            zoom,
+        });
     });
 
-    if (!isLoaded) {
-        return <p>Loading...</p>;
-    }
+    return <div ref={ref} id="map" />;
+}
+
+const Map = () => {
+    const center = { lat: -34.397, lng: 150.644 };
+    const zoom = 4;
 
     return (
-        <div>
-            <div>
-                <p>This is Sidebar...</p>
-            </div>
-            <GoogleMap
-                options={mapOptions}
-                zoom={13}
-                center={mapCenter}
-                mapTypeId={google.maps.MapTypeId.ROADMAP}
-                mapContainerStyle={{ width: '800px', height: '600px' }}
-                onLoad={() => console.log('Map Component Loaded...')}
-            />
-        </div>
+        <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY} render={render}>
+            <MyMapComponent center={center} zoom={zoom} />
+        </Wrapper>
     );
-};
+}
 
 export default Map;
