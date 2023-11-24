@@ -13,38 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import MapComponent from "./MapComponent";
+import {
+    Loading,
+    Error
+} from "../index";
 
 const render = (status)=> {
-    if (status === Status.LOADING) return <h3>{status} ..</h3>;
-    if (status === Status.FAILURE) return <h3>{status} ...</h3>;
+    if (status === Status.LOADING) return <Loading />;
+    if (status === Status.FAILURE) return <Error />;
     return null;
 };
 
-function MyMapComponent({
-                            center,
-                            zoom,
-                        }) {
-    const ref = useRef();
-
-    useEffect(() => {
-        new window.google.maps.Map(ref.current, {
-            center,
-            zoom,
-        });
-    });
-
-    return <div ref={ref} id="map" />;
-}
-
 const Map = () => {
     const center = { lat: -34.397, lng: 150.644 };
-    const zoom = 4;
+    const zoom = 12;
 
     return (
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY} render={render}>
-            <MyMapComponent center={center} zoom={zoom} />
+            <MapComponent center={center} zoom={zoom} />
         </Wrapper>
     );
 }

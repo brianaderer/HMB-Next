@@ -1,12 +1,14 @@
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
 export { EntryHeader } from './EntryHeader';
+export { Error } from './Error';
 export { FeaturedImage } from './FeaturedImage';
 export { Footer } from './Footer';
 export { FormatDate } from './FormatDate';
 export { FormElement } from './FormElement';
 export { Header } from './Header';
 export { Heading } from './Heading';
+export { Loading } from './Loading';
 export { Main } from './Main';
 export { NavigationMenu } from './NavigationMenu';
 export { PostInfo } from './PostInfo';
