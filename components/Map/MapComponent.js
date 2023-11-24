@@ -17,20 +17,36 @@ const MapComponent = ({ center, zoom, locationData }) => {
 
 
     useEffect(() => {
-        const markerInstance = marker({document, title: 'Half Moon Bay Marina'});
+        const markerInstance = marker({document});
         if (map) {
             newMarker().then(AdvancedMarkerElement => {
-                createElement({markerInstance, AdvancedMarkerElement});
+                createElement({markerInstance, AdvancedMarkerElement,  title: 'Half Moon Bay Marina', position: center});
+                locationData.map((location, index) => {
+                    const place =  location.location;
+                    const position = {'lat': place?.lat, 'lng': place?.lng};
+                    if(position.lat){
+                        const title = location.title;
+                        const category = location.category;
+                        createElement({markerInstance, AdvancedMarkerElement, title: title, position: position, category: category});
+                    }
+
+                } );
             });
         }
     }, [map, locationData]); // Depend on map and center to add markers
 
-    function createElement({markerInstance, AdvancedMarkerElement}) {
-        new AdvancedMarkerElement({
-            position: center,
-            map,
-            title: 'Half Moon Bay Marina',
-            content: markerInstance,
+    function createElement({markerInstance, AdvancedMarkerElement, title, position}) {
+        const marker = new AdvancedMarkerElement({
+                        position: position,
+                        map,
+                        title: title,
+                        collisionBehavior: 'REQUIRED_AND_HIDES_OPTIONAL',
+            //content: markerInstance,
+        });
+        // Add a click listener for each marker, and set up the info window.
+        marker.addListener("click", ({ domEvent }) => {
+            const { target } = domEvent;
+            console.log(marker.title);
         });
     }
     async function newMarker(center){
