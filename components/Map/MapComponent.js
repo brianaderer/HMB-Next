@@ -1,12 +1,22 @@
 import React, {useEffect, useRef, useState} from "react";
 import marker from "./marker";
 import Category from './Category';
+import PlaceInfo from "./PlaceInfo";
+import {isArray} from "@apollo/client/utilities";
 
 const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
-    const [activeMarkers, setActiveMarkers] = useState([]);
+    const [activeMarker, setActiveMarker] = useState({
+        title: null,
+        address: null,
+        description: null,
+        tags: [],
+        categories: [],
+        website: null,
+        telephone: null,
+    });
     const [activeCategories, setActiveCategories] = useState([]);
 
     const mapOptions = {
@@ -60,11 +70,30 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     });
                     // Add a click listener for each marker, and set up the info window.
                     marker.addListener("click", ({ domEvent }) => {
-                        const { target } = domEvent;
-                        console.log(marker.title);
+                        showInfo({index});
                     });
         if(locationData[index]){
             locationData[index].marker=marker;
+        }
+    }
+    function showInfo({index}){
+        const location = locationData[index];
+        if( location ){
+            let tags = [];
+            if( 'tag' in location && isArray( location.tags ) ) {
+                tags = location.tags.map( tag => tag.name );
+            }
+            //const tags = location.tags?.map(tag => tag.name) || [];
+            const setData = {
+                title: location.title,
+                address: location.location.address,
+                description: location.description,
+                tags: tags,
+                categories: location.category,
+                website: location.website,
+                telephone: location.telephone,
+            }
+            setActiveMarker(setData);
         }
     }
     async function newMarker(center){
@@ -104,13 +133,15 @@ const MapComponent = ({ center, zoom, locationData }) => {
     return (
     <>
         <div className={`h-[600px] w-full`} ref={ref} id="map" />
+        <PlaceInfo {...activeMarker} />
         <form>
             <fieldset>
-        {categories.map( (finalCat, index) => {
-            return(
-                <Category key={index} handler={handler}>{finalCat}</Category>
-            )
-        } )}
+                    {categories.map( (finalCat, index) => {
+                        return(
+                            <Category key={index} handler={handler}>{finalCat}</Category>
+                            )
+                        })
+                    }
             </fieldset>
         </form>
     </>
