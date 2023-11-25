@@ -6,7 +6,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
-    const [activeLocations, setActiveLocations] = useState([]);
+    const [activeMarkers, setActiveMarkers] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
 
     const mapOptions = {
@@ -19,17 +19,13 @@ const MapComponent = ({ center, zoom, locationData }) => {
         setMap( new window.google.maps.Map( ref.current, mapOptions ) );
     }, [locationData]);
 
-    async function init(){
-        new window.google.maps.Map( ref.current, mapOptions ).then(map => {
-
-        })
-    }
 
     useEffect(() => {
         const markerInstance = marker({document});
         if (map) {
             newMarker().then(AdvancedMarkerElement => {
-                createElement({markerInstance, AdvancedMarkerElement,  title: 'Half Moon Bay Marina', position: center});
+                createElement({index: 'home', AdvancedMarkerElement, title: 'Half Moon Bay Marina', position: center});
+
                 let categorySet = [];
                 locationData.map((location, index) => {
                     const place =  location.location;
@@ -43,7 +39,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                         }
                     )
                     if(position.lat){
-                        createElement({markerInstance, AdvancedMarkerElement, title: title, position: position, category: categoryList});
+                        createElement({index, markerInstance, AdvancedMarkerElement, title: title, position: position, category: categoryList});
                     }
 
                 } );
@@ -51,33 +47,59 @@ const MapComponent = ({ center, zoom, locationData }) => {
                 setActiveCategories(categorySet);
             });
         }
-    }, [map, locationData]); // Depend on map and center to add markers
+    }, [map]); // Depend on map and center to add markers
 
-    useEffect(() => {
-    }, [categories]);
 
-    function createElement({markerInstance, AdvancedMarkerElement, title, position}) {
+    function createElement({markerInstance, index ,AdvancedMarkerElement, title, position}) {
         const marker = new AdvancedMarkerElement({
                         position: position,
                         map,
                         title: title,
                         collisionBehavior: 'REQUIRED_AND_HIDES_OPTIONAL',
-            //content: markerInstance,
-        });
-        // Add a click listener for each marker, and set up the info window.
-        marker.addListener("click", ({ domEvent }) => {
-            const { target } = domEvent;
-            console.log(marker.title);
-        });
+                        //content: markerInstance,
+                    });
+                    // Add a click listener for each marker, and set up the info window.
+                    marker.addListener("click", ({ domEvent }) => {
+                        const { target } = domEvent;
+                        console.log(marker.title);
+                    });
+        if(locationData[index]){
+            locationData[index].marker=marker;
+        }
     }
     async function newMarker(center){
         const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
         return AdvancedMarkerElement;
     }
 
-    const handler = props =>{
-        console.log(props.target.checked);
+    const handler = async props =>{
+        const {category, bool} = props;
+        let newCategories;
+        if( !bool ){
+            newCategories = (activeCategories.filter((activeCat) => activeCat !== category ));
+        } else if( bool ){
+            newCategories = [...activeCategories, category];
+        }
+        setActiveCategories( newCategories );
     }
+
+    useEffect(() => {
+        locationData.map((location, index) => {
+            const categoryList = location.category;
+            let bool = false;
+            categoryList.map(category => {
+                if( activeCategories.includes(category) ){
+                    bool=true;
+                }
+            })
+            if( bool && location.marker ){
+                location.marker.map=map;
+            } else if ( !bool && location.marker ){
+                location.marker.map=null;
+            }
+        })
+    }, [activeCategories]);
+
 
     return (
     <>
