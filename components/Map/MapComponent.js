@@ -5,7 +5,7 @@ import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
 import * as svg from '../../svg';
-import {parseSvg} from "../../utilities";
+import {parseSvg, categoryLookup} from "../../utilities";
 
 const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
@@ -39,7 +39,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
         const markerInstance = marker({document});
         if (map) {
             newMarker().then(({AdvancedMarkerElement,PinElement}) => {
-                createElement({index: 'home', AdvancedMarkerElement, PinElement ,title: 'Half Moon Bay Marina', position: center});
+                createElement({index: 'home', AdvancedMarkerElement, PinElement ,title: 'Half Moon Bay Marina', position: center, category: 'home'});
                 let categoriesTaxList = [];
                 locationData.map((location, index) => {
                     const place =  location.location;
@@ -51,7 +51,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                         }
                     });
                     if(position.lat){
-                        createElement({index, markerInstance, PinElement ,AdvancedMarkerElement, title: title, position: position});
+                        createElement({index, markerInstance, PinElement ,AdvancedMarkerElement, title: title, position: position, category: location.category_tax[0]});
                     }
 
                 } );
@@ -62,14 +62,15 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }, [map]);
 
 
-    function createElement({markerInstance, index ,AdvancedMarkerElement, PinElement, title, position}) {
+    function createElement({markerInstance, index ,AdvancedMarkerElement, PinElement, title, position, category}) {
         const parser = new DOMParser();
-        const pinSvg = parseSvg({parser});
+        const {pinData, slug} = categoryLookup({parser, category});
+        const pinSvg = parseSvg({parser, slug});
         const glyphSvgPinElement = new PinElement({
             glyph: pinSvg,
-            glyphColor: "#ff8300",
-            background: "#FFD514",
-            borderColor: "#ff8300",
+            glyphColor: pinData?.glyphColor,
+            background: pinData?.background,
+            borderColor: pinData?.borderColor,
         });
         const marker = new AdvancedMarkerElement({
                         position: position,

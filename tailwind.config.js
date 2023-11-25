@@ -34,6 +34,7 @@ module.exports = {
           'orange' : '#fe9a0e',
           'ember' : '#dd2d0b',
           'grass' : '#8bbf00',
+          'forest' : '#059400F7',
           'torquoise' : '#2ccbcf',
           'stone' : '#7b92a7',
 
