@@ -3,6 +3,7 @@ import marker from "./marker";
 import Category from './Category';
 import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
+import Places from "./Places";
 
 const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
@@ -18,6 +19,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
         telephone: null,
     });
     const [activeCategories, setActiveCategories] = useState([]);
+    const [activePlaces, setActivePlaces] = useState([]);
 
     const mapOptions = {
         center: center,
@@ -113,11 +115,13 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
 
     useEffect(() => {
+        let newPlaces = [];
         locationData.map((location, index) => {
             const categoryList = location.category;
             let bool = false;
             categoryList.map(category => {
                 if( activeCategories.includes(category) ){
+                    newPlaces.push(location);
                     bool=true;
                 }
             })
@@ -126,7 +130,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
             } else if ( !bool && location.marker ){
                 location.marker.map=null;
             }
-        })
+        });
+        setActivePlaces(newPlaces);
     }, [activeCategories]);
 
 
@@ -134,6 +139,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
     <>
         <div className={`h-[600px] w-full`} ref={ref} id="map" />
         <PlaceInfo {...activeMarker} />
+        <Places {...activePlaces} />
         <form>
             <fieldset>
                     {categories.map( (finalCat, index) => {
