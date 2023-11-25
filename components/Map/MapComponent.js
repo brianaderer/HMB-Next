@@ -34,6 +34,13 @@ const MapComponent = ({ center, zoom, locationData }) => {
         setMap( new window.google.maps.Map( ref.current, mapOptions ) );
     }, [locationData]);
 
+    useEffect(() => {
+        if(map){
+            map.addListener('click', () => {
+               setActiveMarker([]);
+            });
+        }
+    }, [map]);
 
     useEffect(() => {
         const markerInstance = marker({document});
@@ -71,6 +78,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
             glyphColor: pinData?.glyphColor,
             background: pinData?.background,
             borderColor: pinData?.borderColor,
+            scale: 1.2,
         });
         const marker = new AdvancedMarkerElement({
                         position: position,
@@ -84,6 +92,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     marker.addListener("click", ({ domEvent }) => {
                         showInfo({index, domEvent});
                     });
+        marker.content.classList.add('transition-all','origin-bottom');
         if(locationData[index]){
             locationData[index].marker=marker;
         }
@@ -105,10 +114,33 @@ const MapComponent = ({ center, zoom, locationData }) => {
                 categories: location.category_tax,
                 website: location.website,
                 telephone: location.telephone,
+                index: index,
             }
             setActiveMarker(setData);
         }
     }
+
+    useEffect(() => {
+        locationData.map( (location, index) => {
+            if( index !== activeMarker.index ){
+                location?.marker?.content?.classList.remove('scale-150', 'drop-shadow-xl');
+                if( location.marker ){
+                    location.marker.borderColor =
+                    location.marker.zIndex = index;
+                }
+            } else {
+                location?.marker?.content?.classList.add('scale-150', 'drop-shadow-xl');
+                if( location.marker ){
+                    const placeData = location.location;
+                    location.marker.zIndex = 100;
+                    if( map.getZoom() < placeData.zoom ){
+                        map.setZoom(placeData.zoom);
+                    }
+                    map.panTo({lat: placeData.lat, lng: placeData.lng});
+                }
+            }
+        } )
+    }, [activeMarker]);
     async function newMarker(center){
         const { AdvancedMarkerElement, PinElement } = await window.google.maps.importLibrary("marker");
         return {AdvancedMarkerElement, PinElement};
