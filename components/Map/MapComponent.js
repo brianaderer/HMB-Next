@@ -1,9 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import marker from "./marker";
+import Category from './Category';
 
 const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
+    const [categories, setCategories] = useState([]);
+    const [activeLocations, setActiveLocations] = useState([]);
+    const [activeCategories, setActiveCategories] = useState([]);
 
     const mapOptions = {
         center: center,
@@ -15,25 +19,42 @@ const MapComponent = ({ center, zoom, locationData }) => {
         setMap( new window.google.maps.Map( ref.current, mapOptions ) );
     }, [locationData]);
 
+    async function init(){
+        new window.google.maps.Map( ref.current, mapOptions ).then(map => {
+
+        })
+    }
 
     useEffect(() => {
         const markerInstance = marker({document});
         if (map) {
             newMarker().then(AdvancedMarkerElement => {
                 createElement({markerInstance, AdvancedMarkerElement,  title: 'Half Moon Bay Marina', position: center});
+                let categorySet = [];
                 locationData.map((location, index) => {
                     const place =  location.location;
                     const position = {'lat': place?.lat, 'lng': place?.lng};
+                    const title = location.title;
+                    const categoryList = location.category;
+                    categoryList.map( category => {
+                        if(!(categorySet.includes(category))){
+                                categorySet.push(category);
+                            }
+                        }
+                    )
                     if(position.lat){
-                        const title = location.title;
-                        const category = location.category;
-                        createElement({markerInstance, AdvancedMarkerElement, title: title, position: position, category: category});
+                        createElement({markerInstance, AdvancedMarkerElement, title: title, position: position, category: categoryList});
                     }
 
                 } );
+                setCategories(categorySet);
+                setActiveCategories(categorySet);
             });
         }
     }, [map, locationData]); // Depend on map and center to add markers
+
+    useEffect(() => {
+    }, [categories]);
 
     function createElement({markerInstance, AdvancedMarkerElement, title, position}) {
         const marker = new AdvancedMarkerElement({
@@ -54,21 +75,22 @@ const MapComponent = ({ center, zoom, locationData }) => {
         return AdvancedMarkerElement;
     }
 
+    const handler = props =>{
+        console.log(props.target.checked);
+    }
 
     return (
     <>
         <div className={`h-[600px] w-full`} ref={ref} id="map" />
-        {/*{map && locationData.map( (location, index) => {*/}
-        {/*    return(*/}
-        {/*        <Marker key={index} map={map} location={location}>*/}
-        {/*            <div>*/}
-        {/*                <h2>*/}
-        {/*                    {location.title}*/}
-        {/*                </h2>*/}
-        {/*            </div>*/}
-        {/*        </Marker>*/}
-        {/*    )*/}
-        {/*} )}*/}
+        <form>
+            <fieldset>
+        {categories.map( (finalCat, index) => {
+            return(
+                <Category key={index} handler={handler}>{finalCat}</Category>
+            )
+        } )}
+            </fieldset>
+        </form>
     </>
     );
 }
