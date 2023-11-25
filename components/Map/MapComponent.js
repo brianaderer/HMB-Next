@@ -4,6 +4,7 @@ import Category from './Category';
 import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
+import { BiHealth } from "react-icons/bi";
 
 const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
@@ -36,8 +37,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
     useEffect(() => {
         const markerInstance = marker({document});
         if (map) {
-            newMarker().then(AdvancedMarkerElement => {
-                createElement({index: 'home', AdvancedMarkerElement, title: 'Half Moon Bay Marina', position: center});
+            newMarker().then(({AdvancedMarkerElement,PinElement}) => {
+                createElement({index: 'home', AdvancedMarkerElement, PinElement ,title: 'Half Moon Bay Marina', position: center});
                 let categoriesTaxList = [];
                 locationData.map((location, index) => {
                     const place =  location.location;
@@ -49,7 +50,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                         }
                     });
                     if(position.lat){
-                        createElement({index, markerInstance, AdvancedMarkerElement, title: title, position: position});
+                        createElement({index, markerInstance, PinElement ,AdvancedMarkerElement, title: title, position: position});
                     }
 
                 } );
@@ -60,11 +61,24 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }, [map]);
 
 
-    function createElement({markerInstance, index ,AdvancedMarkerElement, title, position}) {
+    function createElement({markerInstance, index ,AdvancedMarkerElement, PinElement, title, position}) {
+        const svg = <BiHealth/>;
+        console.log(svg);
+        const icon = document.createElement('div');
+
+        icon.innerHTML = svg;
+
+        const faPin = new PinElement({
+            glyph: icon,
+            glyphColor: "#ff8300",
+            background: "#FFD514",
+            borderColor: "#ff8300",
+        });
         const marker = new AdvancedMarkerElement({
                         position: position,
                         map,
                         title: title,
+                        content: faPin.element,
                         collisionBehavior: 'REQUIRED_AND_HIDES_OPTIONAL',
                         //content: markerInstance,
                     });
@@ -98,8 +112,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
         }
     }
     async function newMarker(center){
-        const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
-        return AdvancedMarkerElement;
+        const { AdvancedMarkerElement, PinElement } = await window.google.maps.importLibrary("marker");
+        return {AdvancedMarkerElement, PinElement};
     }
 
     const handler = async props =>{
