@@ -15,6 +15,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
         description: null,
         tags: [],
         categories: [],
+        category_tax: [],
         website: null,
         telephone: null,
     });
@@ -37,12 +38,17 @@ const MapComponent = ({ center, zoom, locationData }) => {
         if (map) {
             newMarker().then(AdvancedMarkerElement => {
                 createElement({index: 'home', AdvancedMarkerElement, title: 'Half Moon Bay Marina', position: center});
-
+                let categories = [];
                 let categorySet = [];
                 locationData.map((location, index) => {
                     const place =  location.location;
                     const position = {'lat': place?.lat, 'lng': place?.lng};
                     const title = location.title;
+                    location.category_tax.map(category => {
+                        if( !categories.hasOwnProperty(category.term_id)){
+                            categories[category.term_id] = {'slug': category.slug, 'name': category.name };
+                        }
+                    });
                     const categoryList = location.category;
                     categoryList.map( category => {
                         if(!(categorySet.includes(category))){
@@ -55,11 +61,11 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     }
 
                 } );
-                setCategories(categorySet);
-                setActiveCategories(categorySet);
+                setCategories(categories);
+                setActiveCategories(categories);
             });
         }
-    }, [map]); // Depend on map and center to add markers
+    }, [map]);
 
 
     function createElement({markerInstance, index ,AdvancedMarkerElement, title, position}) {
@@ -72,20 +78,21 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     });
                     // Add a click listener for each marker, and set up the info window.
                     marker.addListener("click", ({ domEvent }) => {
-                        showInfo({index});
+                        showInfo({index, domEvent});
                     });
         if(locationData[index]){
             locationData[index].marker=marker;
         }
     }
-    function showInfo({index}){
+    function showInfo({index, domEvent}){
+        const {target} = domEvent;
+        console.log(target);
         const location = locationData[index];
         if( location ){
             let tags = [];
-            if( 'tag' in location && isArray( location.tags ) ) {
+            if( isArray( location.tags ) ) {
                 tags = location.tags.map( tag => tag.name );
             }
-            //const tags = location.tags?.map(tag => tag.name) || [];
             const setData = {
                 title: location.title,
                 address: location.location.address,
@@ -105,11 +112,16 @@ const MapComponent = ({ center, zoom, locationData }) => {
 
     const handler = async props =>{
         const {category, bool} = props;
-        let newCategories;
+        let newCategories= [];
         if( !bool ){
-            newCategories = (activeCategories.filter((activeCat) => activeCat !== category ));
+            activeCategories.map((active, key) => {
+                if(key !== category){
+                    newCategories[key] = active;
+                }
+            })
         } else if( bool ){
-            newCategories = [...activeCategories, category];
+            newCategories = [...activeCategories];
+            newCategories[category] = categories[category];
         }
         setActiveCategories( newCategories );
     }
@@ -117,10 +129,10 @@ const MapComponent = ({ center, zoom, locationData }) => {
     useEffect(() => {
         let newPlaces = [];
         locationData.map((location, index) => {
-            const categoryList = location.category;
+            const categoryList = location.category_tax;
             let bool = false;
             categoryList.map(category => {
-                if( activeCategories.includes(category) ){
+                if( activeCategories.hasOwnProperty(category.term_id) ){
                     newPlaces.push(location);
                     bool=true;
                 }
@@ -142,9 +154,9 @@ const MapComponent = ({ center, zoom, locationData }) => {
         <Places {...activePlaces} />
         <form>
             <fieldset>
-                    {categories.map( (finalCat, index) => {
+                    {categories.map( (cat, index) => {
                         return(
-                            <Category key={index} handler={handler}>{finalCat}</Category>
+                            <Category key={index} handler={handler} category={cat} index={index} />
                             )
                         })
                     }

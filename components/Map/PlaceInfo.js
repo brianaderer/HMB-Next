@@ -6,7 +6,7 @@ const PlaceInfo = props => {
         <div id={`placeInfo`}>
             <h3>Title: {title}</h3>
             <p>Address: {address}</p>
-            <div><h3>Our Take:</h3><div dangerouslySetInnerHTML={{ __html: description }} /> </div>
+            <div><h3>Our Take:</h3><div dangerouslySetInnerHTML={{ __html: description }} /></div>
             <div>
                 Tags:
                 {tags?.map((tag, index) => {
