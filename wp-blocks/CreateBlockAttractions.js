@@ -13,11 +13,6 @@ export default function CreateBlockAttractions(props) {
     return(
         <>
             <Map locations={locations} />
-        {
-            data?.map( (location, index ) =>{
-                return(<h1 key={index}>{location.title}</h1>)
-            } )
-        }
         </>
     )
 }
