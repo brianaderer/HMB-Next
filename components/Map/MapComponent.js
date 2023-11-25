@@ -38,31 +38,23 @@ const MapComponent = ({ center, zoom, locationData }) => {
         if (map) {
             newMarker().then(AdvancedMarkerElement => {
                 createElement({index: 'home', AdvancedMarkerElement, title: 'Half Moon Bay Marina', position: center});
-                let categories = [];
-                let categorySet = [];
+                let categoriesTaxList = [];
                 locationData.map((location, index) => {
                     const place =  location.location;
                     const position = {'lat': place?.lat, 'lng': place?.lng};
                     const title = location.title;
                     location.category_tax.map(category => {
-                        if( !categories.hasOwnProperty(category.term_id)){
-                            categories[category.term_id] = {'slug': category.slug, 'name': category.name };
+                        if( !categoriesTaxList.hasOwnProperty(category.term_id)){
+                            categoriesTaxList[category.term_id] = {'slug': category.slug, 'name': category.name };
                         }
                     });
-                    const categoryList = location.category;
-                    categoryList.map( category => {
-                        if(!(categorySet.includes(category))){
-                                categorySet.push(category);
-                            }
-                        }
-                    )
                     if(position.lat){
-                        createElement({index, markerInstance, AdvancedMarkerElement, title: title, position: position, category: categoryList});
+                        createElement({index, markerInstance, AdvancedMarkerElement, title: title, position: position});
                     }
 
                 } );
-                setCategories(categories);
-                setActiveCategories(categories);
+                setCategories(categoriesTaxList);
+                setActiveCategories(categoriesTaxList);
             });
         }
     }, [map]);
@@ -98,7 +90,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                 address: location.location.address,
                 description: location.description,
                 tags: tags,
-                categories: location.category,
+                categories: location.category_tax,
                 website: location.website,
                 telephone: location.telephone,
             }

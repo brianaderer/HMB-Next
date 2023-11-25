@@ -16,7 +16,7 @@ const PlaceInfo = props => {
             <div>
                 Categories:
                 {categories?.map((category, index) => {
-                    return( <p key={index}>{category}</p> )
+                    return( <p key={index}>{category.name}</p> )
                 })}
             </div>
             <a href={website}>Visit Online</a>
