@@ -22,8 +22,13 @@ const Form = props => {
     const handleValidation = () => {
         let tempErrors = {};
         let isValid = true;
+        Object.keys(values)?.map((key) => {
+            if (values[key].length <= 0) {
+                tempErrors[key] = true;
+                isValid = false;
+            }
+        })
         setErrors({ ...tempErrors });
-        console.log("errors", errors);
         return isValid;
     };
 
@@ -36,7 +41,6 @@ const Form = props => {
 
         if (isValidForm) {
             setButtonText("Sending");
-            console.log(JSON.stringify(values));
             const res = await fetch("/api/hello", {
                 method: "POST",
                 body: JSON.stringify(values),
