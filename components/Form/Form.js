@@ -95,11 +95,6 @@ const Form = props => {
                         )
                     })
                 }
-                {/*<FormElements.Text slug={'fullName'} classes={classes} handler={setFullname} value={fullname} title={'Full Name'} required={true}/>*/}
-                {/*<FormElements.Email slug={'email'}  classes={classes} handler={setEmail} value={email} title={'Email'} required={true}/>*/}
-                {/*<FormElements.Text slug={'subject'} classes={classes} handler={setSubject} value={subject} title={'Subject'} required={true}/>*/}
-                {/*<FormElements.Textarea slug={'message'} classes={classes} handler={setMessage} value={message} title={'Message'} required={true}/>*/}
-                {/*<FormElements.Select options={{foo: 'bar', baz: 'bap'}}/>*/}
                 <Submit buttonText={buttonText} />
         </FormWrapper>
     );
