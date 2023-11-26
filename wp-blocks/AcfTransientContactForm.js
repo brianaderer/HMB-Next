@@ -20,18 +20,6 @@ export default function AcfTransientContactForm(props) {
     return (
         <SubmitterContext.Provider value={submitter}>
             <Form fieldsData={fieldsData}/>
-            <form>
-                {
-                    Object.keys(fieldsData).map((field, index) => {
-                        const {type, label, ...otherProps} = (fieldsData[field]);
-                        return (
-                            <div key={index}>
-                                {/*<FormElement type={type} label={label} slug={field} {...otherProps} />*/}
-                            </div>
-                        )
-                    })
-                }
-            </form>
         </SubmitterContext.Provider>
     );
 }
