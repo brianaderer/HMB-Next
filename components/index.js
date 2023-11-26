@@ -6,7 +6,7 @@ export { FeaturedImage } from './FeaturedImage';
 export { Footer } from './Footer';
 export { Form } from './Form';
 export { FormatDate } from './FormatDate';
-export { FormElement } from './FormElement';
+export { FormElements } from './FormElements';
 export { Header } from './Header';
 export { Heading } from './Heading';
 export { Loading } from './Loading';
@@ -19,4 +19,3 @@ export { SkipNavigationLink } from './SkipNavigationLink';
 export { Hero } from './Hero';
 export { Post } from './Post';
 export { SEO } from './SEO';
-
