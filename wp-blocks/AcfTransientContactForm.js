@@ -70,7 +70,6 @@ export default function AcfTransientContactForm(props) {
                     "Content-Type": "application/json",
                 },
             });
-            console.log(res);
 
             const { error } = await res.json();
             if (error) {
@@ -83,7 +82,7 @@ export default function AcfTransientContactForm(props) {
             setShowSuccessMessage(true);
             setShowFailureMessage(false);
             setButtonText("Send");
-        };
+        }
     };
 
     return (
