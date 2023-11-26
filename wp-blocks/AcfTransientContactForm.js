@@ -73,7 +73,6 @@ export default function AcfTransientContactForm(props) {
 
             const { error } = await res.json();
             if (error) {
-                console.log(error);
                 setShowSuccessMessage(false);
                 setShowFailureMessage(true);
                 setButtonText("Send");

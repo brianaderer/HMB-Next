@@ -3,7 +3,7 @@ sendgrid.setApiKey(process.env.SENDGRID_KEY);
 export default async function handler(req, res) {
         try {
             await sendgrid.send({
-                to: "ennigmatick@gmail.com", // Your email where you'll receive emails
+                to: "brian@brianaderer.com", // Your email where you'll receive emails
                 from: "info@hmbmarina.com", // your website email address here
                 subject: `[Lead from website] : ${req.body.subject}`,
                 replyTo: req.body.email,
