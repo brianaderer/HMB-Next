@@ -10,7 +10,7 @@ const Email = props => {
                 type="email"
                 name={slug}
                 value={value}
-                onChange={(e) => handler(e.target.value)}
+                onChange={(e) => handler({value: e.target.value, slug: slug})}
                 className={`${inputClasses}`}
             />
         </>

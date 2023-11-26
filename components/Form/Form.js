@@ -1,14 +1,12 @@
 import React, {useState} from "react";
 import { FormElements } from '../FormElements';
+import {formatError} from "graphql/error";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const {fieldsData} = props;
     // States for contact form fields
-    const [fullname, setFullname] = useState("");
-    const [email, setEmail] = useState("");
-    const [subject, setSubject] = useState("");
-    const [message, setMessage] = useState("");
+    const [values, setValues] = useState([]);
 
     //   Form validation state
     const [errors, setErrors] = useState({});
@@ -24,26 +22,8 @@ const Form = props => {
     const handleValidation = () => {
         let tempErrors = {};
         let isValid = true;
-
-        if (fullname.length <= 0) {
-            tempErrors["fullname"] = true;
-            isValid = false;
-        }
-        if (email.length <= 0) {
-            tempErrors["email"] = true;
-            isValid = false;
-        }
-        if (subject.length <= 0) {
-            tempErrors["subject"] = true;
-            isValid = false;
-        }
-        if (message.length <= 0) {
-            tempErrors["message"] = true;
-            isValid = false;
-        }
-
         setErrors({ ...tempErrors });
-        //console.log("errors", errors);
+        console.log("errors", errors);
         return isValid;
     };
 
@@ -56,15 +36,10 @@ const Form = props => {
 
         if (isValidForm) {
             setButtonText("Sending");
-            //console.log(message);
+            console.log(JSON.stringify(values));
             const res = await fetch("/api/hello", {
                 method: "POST",
-                body: JSON.stringify({
-                    email: email,
-                    fullname: fullname,
-                    subject: subject,
-                    message: message,
-                }),
+                body: JSON.stringify(values),
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -82,6 +57,25 @@ const Form = props => {
             setButtonText("Send");
         }
     };
+
+    function slugify(str) {
+        return String(str)
+            .normalize('NFKD') // split accented characters into their base characters and diacritical marks
+            .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+            .trim() // trim leading or trailing whitespace
+            .toLowerCase() // convert to lowercase
+            .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
+            .replace(/\s+/g, '-') // replace spaces with hyphens
+            .replace(/-+/g, '-'); // remove consecutive hyphens
+    }
+
+    function handleValues({ value, slug }) {
+        setValues(prevValues => ({
+            ...prevValues,
+            [slug]: value
+        }));
+    }
+
     const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
     const spanClasses = "text-red-500";
     const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
@@ -90,20 +84,26 @@ const Form = props => {
             <FormWrapper handleSubmit={handleSubmit} prompt={'Send Us a Message'}>
                 {
                     Object.keys(fieldsData).map((field, index) => {
-                        console.log(fieldsData[field]);
                         const {type, label, ...otherProps} = (fieldsData[field]);
+                        const E = type.charAt(0).toUpperCase() +  type.slice(1);
+                        const {value, options, placeholder} = otherProps;
+                        const slug = slugify(label);
+                        let Elem;
+                        if ( FormElements[E] ){
+                            Elem = FormElements[E];
+                        } else {
+                            return <h1>We could not find that form element</h1>
+                        }
                         return (
-                            <div key={index}>
-                                {/*<FormElement type={type} label={label} slug={field} {...otherProps} />*/}
-                            </div>
+                            <Elem key={index} slug={slug} classes={classes} options={options} title={label} required={true} value={values[slug] || ''} handler={handleValues} />
                         )
                     })
                 }
-                <FormElements.Text slug={'fullName'} classes={classes} handler={setFullname} value={fullname} title={'Full Name'} required={true}/>
-                <FormElements.Email slug={'email'}  classes={classes} handler={setEmail} value={email} title={'Email'} required={true}/>
-                <FormElements.Text slug={'subject'} classes={classes} handler={setSubject} value={subject} title={'Subject'} required={true}/>
-                <FormElements.Textarea slug={'message'} classes={classes} handler={setMessage} value={message} title={'Message'} required={true}/>
-                <FormElements.Select options={{foo: 'bar', baz: 'bap'}}/>
+                {/*<FormElements.Text slug={'fullName'} classes={classes} handler={setFullname} value={fullname} title={'Full Name'} required={true}/>*/}
+                {/*<FormElements.Email slug={'email'}  classes={classes} handler={setEmail} value={email} title={'Email'} required={true}/>*/}
+                {/*<FormElements.Text slug={'subject'} classes={classes} handler={setSubject} value={subject} title={'Subject'} required={true}/>*/}
+                {/*<FormElements.Textarea slug={'message'} classes={classes} handler={setMessage} value={message} title={'Message'} required={true}/>*/}
+                {/*<FormElements.Select options={{foo: 'bar', baz: 'bap'}}/>*/}
                 <Submit buttonText={buttonText} />
         </FormWrapper>
     );

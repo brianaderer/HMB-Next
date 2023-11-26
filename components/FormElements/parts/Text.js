@@ -10,7 +10,7 @@ const Text = props => {
                 type="text"
                 name={slug}
                 value={value}
-                onChange={(e) => handler(e.target.value)}
+                onChange={(e) => handler({value: e.target.value, slug: slug})}
                 className={`${inputClasses}`}
             />
         </>
