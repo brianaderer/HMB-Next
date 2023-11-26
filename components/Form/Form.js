@@ -84,10 +84,12 @@ const Form = props => {
     };
     const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
     const spanClasses = "text-red-500";
+    const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
     return (
             <FormWrapper handleSubmit={handleSubmit} prompt={'Send Us a Message'}>
                 {
                     Object.keys(fieldsData).map((field, index) => {
+                        console.log(fieldsData[field]);
                         const {type, label, ...otherProps} = (fieldsData[field]);
                         return (
                             <div key={index}>
@@ -96,14 +98,7 @@ const Form = props => {
                         )
                     })
                 }
-                <label htmlFor="fullname" className={`${labelClasses}`}>Full name<span className={`${spanClasses}`}>*</span></label>
-                <input
-                    type="text"
-                    name="fullname"
-                    value={fullname}
-                    onChange={(e) => setFullname(e.target.value)}
-                    className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50"
-                />
+                <FormElements.Text slug={'fullName'} labelClasses={labelClasses} spanClasses={spanClasses} handler={setFullname} inputClasses={inputClasses} value={fullname} title={'Full Name'} required={true}/>
                 <label htmlFor="email" className={`${labelClasses}`}>E-mail<span className={`${spanClasses}`}>*</span></label>
                 <input
                     type="email"
