@@ -85,6 +85,7 @@ const Form = props => {
     const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
     const spanClasses = "text-red-500";
     const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
+    const classes = {labelClasses, spanClasses, inputClasses};
     return (
             <FormWrapper handleSubmit={handleSubmit} prompt={'Send Us a Message'}>
                 {
@@ -98,32 +99,11 @@ const Form = props => {
                         )
                     })
                 }
-                <FormElements.Text slug={'fullName'} labelClasses={labelClasses} spanClasses={spanClasses} handler={setFullname} inputClasses={inputClasses} value={fullname} title={'Full Name'} required={true}/>
-                <label htmlFor="email" className={`${labelClasses}`}>E-mail<span className={`${spanClasses}`}>*</span></label>
-                <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50"
-                />
-
-                <label htmlFor="subject" className={`${labelClasses}`}>Subject<span className={`${spanClasses}`}>*</span></label>
-                <input
-                    type="text"
-                    name="subject"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50"
-                />
-
-                <label htmlFor="message" className={`${labelClasses}`}>Message<span className={`${spanClasses}`}>*</span></label>
-                <textarea
-                    name="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50"
-                ></textarea>
+                <FormElements.Text slug={'fullName'} classes={classes} handler={setFullname} value={fullname} title={'Full Name'} required={true}/>
+                <FormElements.Email slug={'email'}  classes={classes} handler={setEmail} value={email} title={'Email'} required={true}/>
+                <FormElements.Text slug={'subject'} classes={classes} handler={setSubject} value={subject} title={'Subject'} required={true}/>
+                <FormElements.Textarea slug={'message'} classes={classes} handler={setMessage} value={message} title={'Message'} required={true}/>
+                <FormElements.Select options={{foo: 'bar', baz: 'bap'}}/>
                 <Submit buttonText={buttonText} />
         </FormWrapper>
     );
