@@ -9,7 +9,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        'blueStandard': '0 25px 25px 10px rgba(0, 49, 58, 0.45)',
+      },
       colors: {
+        'hmbBright': {
+          'cyan': '#22D3EE',
+          'cyanDeep': '#018296',
+        },
         'hmbNeutral' : {
           DEFAULT: '#5d5d5d',
           500: '#5d5d5d',
