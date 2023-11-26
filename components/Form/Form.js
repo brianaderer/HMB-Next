@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import { FormElements } from '../FormElements';
 
-const { Submit } = FormElements;
-const Form = () => {
+const { Submit, FormWrapper } = FormElements;
+const Form = props => {
+    const {fieldsData} = props;
     // States for contact form fields
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
@@ -84,9 +85,17 @@ const Form = () => {
     const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
     const spanClasses = "text-red-500";
     return (
-        <main>
-            <form className="rounded-lg shadow-xl flex flex-col px-8 py-8 bg-white dark:bg-hmbBlue-300 drop-shadow-blueStandard" onSubmit={handleSubmit}>
-                <h1 className="text-2xl font-bold dark:text-gray-50">Send a message</h1>
+            <FormWrapper handleSubmit={handleSubmit} prompt={'Send Us a Message'}>
+                {
+                    Object.keys(fieldsData).map((field, index) => {
+                        const {type, label, ...otherProps} = (fieldsData[field]);
+                        return (
+                            <div key={index}>
+                                {/*<FormElement type={type} label={label} slug={field} {...otherProps} />*/}
+                            </div>
+                        )
+                    })
+                }
                 <label htmlFor="fullname" className={`${labelClasses}`}>Full name<span className={`${spanClasses}`}>*</span></label>
                 <input
                     type="text"
@@ -121,9 +130,7 @@ const Form = () => {
                     className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50"
                 ></textarea>
                 <Submit buttonText={buttonText} />
-            </form>
-
-        </main>
+        </FormWrapper>
     );
 }
 export default Form;

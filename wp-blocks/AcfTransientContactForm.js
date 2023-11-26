@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import React, {useState} from 'react';
-import {FormElements, Form} from "../components";
+import {Form} from "../components";
 
 export default function AcfTransientContactForm(props) {
     const data = props.contactData;
