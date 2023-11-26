@@ -4,7 +4,6 @@ import Category from './Category';
 import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
-import * as svg from '../../svg';
 import {parseSvg, categoryLookup} from "../../utilities";
 
 const MapComponent = ({ center, zoom, locationData }) => {

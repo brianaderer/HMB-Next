@@ -3,6 +3,7 @@ import tag from './tag';
 import frontPage from './front-page';
 import page from './page';
 import single from './single';
+import guestBook from './guestBook';
 
 export default {
   category,
@@ -10,4 +11,5 @@ export default {
   'front-page': frontPage,
   page,
   single,
+  'template-Guest Book': guestBook,
 };
