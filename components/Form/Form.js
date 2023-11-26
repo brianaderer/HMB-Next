@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import { FormElements } from '../FormElements';
-import {formatError} from "graphql/error";
+import {SubmitterContext} from "../Contexts";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
+    const submitter = useContext(SubmitterContext);
     const {fieldsData} = props;
     // States for contact form fields
     const [values, setValues] = useState([]);
-
     //   Form validation state
     const [errors, setErrors] = useState({});
 
@@ -17,6 +17,28 @@ const Form = props => {
     // Setting success or failure messages states
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showFailureMessage, setShowFailureMessage] = useState(false);
+
+    //   Handling form submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        let isValidForm = handleValidation();
+
+        if (isValidForm) {
+            setButtonText("Sending");
+            const res = await submitter(values);
+            const { error } = await res.json();
+            if (error) {
+                setShowSuccessMessage(false);
+                setShowFailureMessage(true);
+                setButtonText("Send");
+                return;
+            }
+            setShowSuccessMessage(true);
+            setShowFailureMessage(false);
+            setButtonText("Send");
+        }
+    };
 
     // Validation check method
     const handleValidation = () => {
@@ -30,36 +52,6 @@ const Form = props => {
         })
         setErrors({ ...tempErrors });
         return isValid;
-    };
-
-    //   Handling form submit
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        let isValidForm = handleValidation();
-
-        if (isValidForm) {
-            setButtonText("Sending");
-            const res = await fetch("/api/hello", {
-                method: "POST",
-                body: JSON.stringify(values),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            const { error } = await res.json();
-            if (error) {
-                setShowSuccessMessage(false);
-                setShowFailureMessage(true);
-                setButtonText("Send");
-                return;
-            }
-            setShowSuccessMessage(true);
-            setShowFailureMessage(false);
-            setButtonText("Send");
-        }
     };
 
     function slugify(str) {
