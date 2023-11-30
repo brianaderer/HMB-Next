@@ -4,7 +4,14 @@ import {Form, Login} from "../components";
 import { SubmitterContext, AuthContext } from "../contexts";
 
 export default function AcfGuestBookEntryEntry(props) {
-    const auth = useContext( AuthContext );
+    const {user, setUser, signIn, signOut} = useContext( AuthContext );
+
+    const handleSignIn = () => {
+        signIn({setUser});
+    };
+    const handleSignOut = () => {
+        signOut({setUser});
+    };
 
     const submitter = async props => {
         // const values = [];
@@ -21,12 +28,15 @@ export default function AcfGuestBookEntryEntry(props) {
 
     return (
         <>
-            {auth ? (
+            {user? (
             <SubmitterContext.Provider value={submitter}>
+                <button onClick={handleSignOut}>Sign Out with Google</button>
                 <Form fieldsData={fieldsData}/>
             </SubmitterContext.Provider>
             ) : (
-                <Login/>
+                <Login>
+                    <button onClick={handleSignIn}>Sign In with Google</button>
+                </ Login>
             )
             }
         </>
