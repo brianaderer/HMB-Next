@@ -13,6 +13,7 @@ export const pageQuery = gql`
   ${components.AcfReviews.fragments.entry}
   ${components.AcfTransientContactForm.fragments.entry}
   ${components.CreateBlockAttractions.fragments.entry}
+  ${components.AcfGuestBook.fragments.entry}
   query GetPageData(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -31,6 +32,7 @@ export const pageQuery = gql`
         ...${components.AcfReviews.fragments.key}
         ...${components.AcfTransientContactForm.fragments.key}
         ...${components.CreateBlockAttractions.fragments.key}
+        ...${components.AcfGuestBook.fragments.key}
       }
       ...FeaturedImageFragment
     }

@@ -3,7 +3,7 @@ import React from 'react';
 import {Form} from "../components";
 import { SubmitterContext } from "../components/Contexts";
 
-export default function AcfTransientContactForm(props) {
+export default function AcfGuestBookEntryEntry(props) {
     const submitter = async props => {
         const values = [];
         return await fetch("/api/hello", {
@@ -14,7 +14,7 @@ export default function AcfTransientContactForm(props) {
             },
         });
     };
-    const data = props.contactData;
+    const data = props.guestBookData;
     const fieldsData = JSON.parse(data);
 
     return (
@@ -24,13 +24,13 @@ export default function AcfTransientContactForm(props) {
     );
 }
 
-AcfTransientContactForm.fragments = {
+AcfGuestBookEntryEntry.fragments = {
     entry: gql`
-    fragment AcfTransientsContactFormFragment on AcfTransientContactForm {
-      contactData
+    fragment AcfGuestBookEntryFormFragment on AcfGuestBookEntry {
+      guestBookData
     }
   `,
-    key: `AcfTransientsContactFormFragment`,
+    key: `AcfGuestBookEntryFormFragment`,
 };
 
-AcfTransientContactForm.displayName = 'AcfTransientContactForm';
+AcfGuestBookEntryEntry.displayName = 'AcfGuestBookEntry';
