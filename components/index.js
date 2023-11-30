@@ -10,6 +10,7 @@ export { FormElements } from './FormElements';
 export { Header } from './Header';
 export { Heading } from './Heading';
 export { Loading } from './Loading';
+export { Login } from './Login';
 export { Main } from './Main';
 export { Map } from './Map';
 export { NavigationMenu } from './NavigationMenu';

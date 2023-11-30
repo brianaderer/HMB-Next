@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import { FormElements } from '../FormElements';
-import {SubmitterContext} from "../Contexts";
+import {SubmitterContext} from "../../Contexts";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
@@ -88,7 +88,6 @@ const Form = props => {
                         if ( FormElements[E] ){
                             Elem = FormElements[E];
                         } else {
-                            console.log(E);
                             return <h1 key={index}>We could not find that form element</h1>
                         }
                         return (

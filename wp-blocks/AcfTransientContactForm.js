@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import React from 'react';
 import {Form} from "../components";
-import { SubmitterContext } from "../components/Contexts";
+import { SubmitterContext } from "../contexts";
 
 export default function AcfTransientContactForm(props) {
     const submitter = async props => {
