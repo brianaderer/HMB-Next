@@ -88,7 +88,8 @@ const Form = props => {
                         if ( FormElements[E] ){
                             Elem = FormElements[E];
                         } else {
-                            return <h1>We could not find that form element</h1>
+                            console.log(E);
+                            return <h1 key={index}>We could not find that form element</h1>
                         }
                         return (
                             <Elem key={index} slug={slug} classes={classes} options={options} title={label} required={true} value={values[slug] || ''} handler={handleValues} />
