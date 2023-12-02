@@ -1,11 +1,9 @@
 import React, {useContext, useState} from "react";
 import { FormElements } from '../FormElements';
-import {SubmitterContext} from "../../Contexts";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
-    const submitter = useContext(SubmitterContext);
-    const {fieldsData} = props;
+    const {fieldsData, submitter} = props;
     // States for contact form fields
     const [values, setValues] = useState([]);
     //   Form validation state
@@ -25,6 +23,7 @@ const Form = props => {
         let isValidForm = handleValidation();
 
         if (isValidForm) {
+            console.log(values);
             setButtonText("Sending");
             const res = await submitter(values);
             const { error } = await res.json();
@@ -85,14 +84,17 @@ const Form = props => {
                         const {value, options, placeholder} = otherProps;
                         const slug = slugify(label);
                         let Elem;
-                        if ( FormElements[E] ){
-                            Elem = FormElements[E];
-                        } else {
-                            return <h1 key={index}>We could not find that form element</h1>
+                        if( fieldsData[field].display ) {
+                            if (FormElements[E]) {
+                                Elem = FormElements[E];
+                            } else {
+                                return <h1 key={index}>We could not find that form element</h1>
+                            }
+                            return (
+                                <Elem key={index} slug={slug} classes={classes} options={options} title={label}
+                                      required={true} value={values[slug] || ''} handler={handleValues}/>
+                            )
                         }
-                        return (
-                            <Elem key={index} slug={slug} classes={classes} options={options} title={label} required={true} value={values[slug] || ''} handler={handleValues} />
-                        )
                     })
                 }
                 <Submit buttonText={buttonText} />

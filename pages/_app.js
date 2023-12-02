@@ -1,5 +1,5 @@
 import '../faust.config';
-import React, {useState} from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { FaustProvider } from '@faustwp/core';
 import '@faustwp/core/dist/css/toolbar.css';
@@ -12,7 +12,7 @@ import {useFirebaseAuth} from "../utilities/auth";
 export default function MyApp({ Component, pageProps }) {
   const { user, loading, signIn, signOut, setUser } = useFirebaseAuth();
   const router = useRouter();
-
+  console.log(user);
   return (
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut}}>

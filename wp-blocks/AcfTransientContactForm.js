@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import React from 'react';
 import {Form} from "../components";
-import { SubmitterContext } from "../contexts";
 
 export default function AcfTransientContactForm(props) {
     const submitter = async props => {
@@ -18,9 +17,7 @@ export default function AcfTransientContactForm(props) {
     const fieldsData = JSON.parse(data);
 
     return (
-        <SubmitterContext.Provider value={submitter}>
-            <Form fieldsData={fieldsData}/>
-        </SubmitterContext.Provider>
+            <Form fieldsData={fieldsData} submitter={submitter}/>
     );
 }
 

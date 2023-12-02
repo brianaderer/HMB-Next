@@ -4,8 +4,6 @@ sendgrid.setApiKey(process.env.SENDGRID_KEY);
 export default async function handler(req, res) {
     try {
         let messageContent = "";
-        // Assuming req.body.fields is the array you want to iterate over
-        // Replace 'fields' with the actual field name that contains the array
         messageContent = Object.keys(req.body).map((key) => {
             return `<p>${key}: ${req.body[key]}</p>`;
         }).join("");

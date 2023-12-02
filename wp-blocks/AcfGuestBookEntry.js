@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import React, {useContext} from 'react';
 import {Form, Login} from "../components";
-import { SubmitterContext, AuthContext } from "../contexts";
+import {AuthContext } from "../contexts";
 
 export default function AcfGuestBookEntryEntry(props) {
     const {user, setUser, signIn, signOut} = useContext( AuthContext );
@@ -14,25 +14,26 @@ export default function AcfGuestBookEntryEntry(props) {
     };
 
     const submitter = async props => {
-        // const values = [];
-        // return await fetch("/api/hello", {
-        //     method: "POST",
-        //     body: JSON.stringify(props),
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        // });
+        const values = [];
+        return await fetch("/api/comment", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     };
+
     const data = props.guestBookData;
     const fieldsData = JSON.parse(data);
 
     return (
         <>
             {user? (
-            <SubmitterContext.Provider value={submitter}>
+            <>
                 <button onClick={handleSignOut}>Sign Out with Google</button>
-                <Form fieldsData={fieldsData}/>
-            </SubmitterContext.Provider>
+                <Form fieldsData={fieldsData} submitter={submitter}/>
+            </>
             ) : (
                 <Login>
                     <button onClick={handleSignIn}>Sign In with Google</button>
