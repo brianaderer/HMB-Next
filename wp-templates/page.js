@@ -30,6 +30,7 @@ export default function Component(props) {
 
   const { editorBlocks } = props.data.page;
   const blocks = flatListToHierarchical(editorBlocks);
+  console.log(blocks);
 
   return (
     <>
