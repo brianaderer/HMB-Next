@@ -21,24 +21,26 @@ const CREATE_GUEST_BOOK_ENTRY = gql`
 export default async function handler(req, res) {
     try {
         const { body } = req; // Extract the body from the request
-        const variables = {
-            beam: parseFloat(body.beam),
-            boat_name: body["boat-name"],
-            boat_type: body["hull-plan"],
-            draft: parseFloat(body.draft),
-            year_make_model: body["year-make-model"],
-            boat_length_loa: parseFloat(body["boat-length-loa"]),
-            email: body.email,
-            full_name: body["full-name"],
-            message: body.message,
-            phone_number: body["phone-number"]
-        };
-        // Execute GraphQL Mutation
-        const response = await client.mutate({
-            mutation: CREATE_GUEST_BOOK_ENTRY,
-            variables: variables
-        });
-
+        console.log(body);
+        // const variables = {
+        //     beam: parseFloat(body.beam),
+        //     boat_name: body["boat-name"],
+        //     boat_type: body["hull-plan"],
+        //     draft: parseFloat(body.draft),
+        //     year_make_model: body["year-make-model"],
+        //     boat_length_loa: parseFloat(body["boat-length-loa"]),
+        //     email: body.email,
+        //     full_name: body["full-name"],
+        //     message: body.message,
+        //     phone_number: body["phone-number"]
+        // };
+        // // Execute GraphQL Mutation
+        // const response = await client.mutate({
+        //     mutation: CREATE_GUEST_BOOK_ENTRY,
+        //     variables: variables
+        // });
+        //
+        const response = {data: 'good'};
         return res.status(200).json(response.data); // Return the response data
     } catch (error) {
         console.log(error);
