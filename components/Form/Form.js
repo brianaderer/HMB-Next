@@ -25,9 +25,7 @@ const Form = props => {
 
         if (isValidForm) {
             setButtonText("Sending");
-            console.log('sending');
             const res = await submitter(values);
-            console.log(images);
             await uploadFiles(images);
             const { error } = await res.json();
             if (error) {
@@ -126,7 +124,7 @@ const Form = props => {
                             } else {
                                 return (
                                     <Elem key={index} slug={slug} classes={classes} options={options} title={label}
-                                          required={true} setState={setImages}/>
+                                          required={true} setState={setImages} state={images}/>
                                 )
                             }
                         }

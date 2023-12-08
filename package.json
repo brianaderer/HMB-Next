@@ -1,5 +1,5 @@
 {
-  "name": "@faustwp/getting-started-example",
+  "name": "@faustwp/hmbmarina",
   "private": true,
   "version": "0.1.0",
   "scripts": {
@@ -31,6 +31,7 @@
     "next-connect": "^1.0.0-next.4",
     "node-fetch": "^3.3.2",
     "react": "^17.0.2",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^4.12.0",
     "sass": "^1.54.9",
     "use-file-picker": "^2.1.1"
