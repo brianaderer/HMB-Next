@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         // Parse the incoming form data
         const form = new IncomingForm();
         await form.parse(req, async (err, fields, files) => {
-            console.log(fields.description[0]);
+            const caption = fields.caption[0];
             const file = files.file[0];
             if (err) {
                 return res.status(500).json({success: false, error: err.message});
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
 
                 // Read the file into a buffer
                 const fileBuffer = fs.readFileSync(file.filepath);
+                const date = new Date();
 
                 // Make the request to WordPress
                 const response = await axios.post(wpApiUrl, fileBuffer, {
@@ -34,9 +35,9 @@ export default async function handler(req, res) {
                         'Authorization': 'Basic ' + nextBase64.encode('rest-uploader:' + process.env.REST_API_APPLICATION_PASSWORD),
                     },
                     params: {
-                        description: null,
-                        alt_text: null,
-                        caption: null,
+                        description: 'Uploaded from the HMB Marina Guest Contact form on ' + date,
+                        alt_text: file.originalFilename,
+                        caption: caption,
                     }
                 });
 

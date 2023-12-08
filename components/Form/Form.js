@@ -67,7 +67,7 @@ const Form = props => {
         files.map( async file => {
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('description', 'foo');
+            formData.append('caption', file.caption);
             try {
                 const response = await fetch('/api/uploads', { // Adjust the URL to match your API route
                     method: 'POST',
@@ -85,11 +85,8 @@ const Form = props => {
                 console.error('Upload error:', error);
             }
         } );
+        setImages([]);
     };
-
-    useEffect(() => {
-        console.log(images);
-    }, [images]);
 
     async function handleValues({ value, slug }) {
         setValues(prevValues => ({
