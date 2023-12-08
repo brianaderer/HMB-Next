@@ -25,7 +25,10 @@ const Form = props => {
 
         if (isValidForm) {
             setButtonText("Sending");
+            console.log('sending');
             const res = await submitter(values);
+            console.log(images);
+            await uploadFiles(images);
             const { error } = await res.json();
             if (error) {
                 setShowSuccessMessage(false);
@@ -62,6 +65,33 @@ const Form = props => {
             .replace(/\s+/g, '-') // replace spaces with hyphens
             .replace(/-+/g, '-'); // remove consecutive hyphens
     }
+    const uploadFiles = async (files) => {
+        files.map( async file => {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('description', 'foo');
+            try {
+                const response = await fetch('/api/uploads', { // Adjust the URL to match your API route
+                    method: 'POST',
+                    body: formData,
+                    // Don't set Content-Type header, as the browser will set it correctly with the boundary
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('Upload successful:', result);
+            } catch (error) {
+                console.error('Upload error:', error);
+            }
+        } );
+    };
+
+    useEffect(() => {
+        console.log(images);
+    }, [images]);
 
     async function handleValues({ value, slug }) {
         setValues(prevValues => ({

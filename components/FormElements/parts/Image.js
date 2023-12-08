@@ -6,6 +6,7 @@ import {
     ImageDimensionsValidator,
 } from 'use-file-picker/validators';
 import { Media } from '../../Media';
+//@todo refactor to react-dropzone
 import {useEffect, useState} from "react";
 const Image = props => {
     const {slug, classes, title, setState, required} = props
@@ -26,12 +27,12 @@ const Image = props => {
         onFilesSuccessfullySelected: ({ plainFiles, filesContent }) => {
             // this callback is called when there were no validation errors
             console.log('onFilesSuccessfullySelected', plainFiles, filesContent);
-            setState(filesContent);
+            setState(plainFiles);
         },
         onFileRemoved: (removedFile, removedIndex) => {
             // this callback is called when a file is removed from the list of selected files
 
-            const newFiles = filesContent.filter((_, i) => i !== removedIndex);
+            const newFiles = plainFiles.filter((_, i) => i !== removedIndex);
             setState(newFiles);
         },
         validators: [

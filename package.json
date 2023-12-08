@@ -20,11 +20,17 @@
     "@wordpress/base-styles": "^4.26.0",
     "@wordpress/block-library": "^7.19.0",
     "@wordpress/style-engine": "^1.29.0",
+    "axios": "^1.6.2",
     "classnames": "^2.3.1",
     "cross-fetch": "^4.0.0",
     "firebase": "^10.7.0",
+    "formidable": "^3.5.1",
     "graphql": "^16.6.0",
+    "multer": "^1.4.5-lts.1",
     "next": "^12.1.6",
+    "next-base64": "^1.1.0",
+    "next-connect": "^1.0.0-next.4",
+    "node-fetch": "^3.3.2",
     "react": "^17.0.2",
     "react-icons": "^4.12.0",
     "sass": "^1.54.9",
@@ -37,6 +43,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.3.5",
+    "typescript": "5.3.2"
   }
 }
