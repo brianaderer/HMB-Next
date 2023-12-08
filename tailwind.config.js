@@ -24,6 +24,7 @@ module.exports = {
         'hmbSlate': {
           DEFAULT: '#4a6880',
           500: '#4a6880',
+          100: '#9ab6c7',
         },
         'hmbBlue': {
           DEFAULT: '#0c3657',

@@ -12,6 +12,10 @@ const Image = props => {
         });
         setState(newFiles);
     }
+    const removeImage = ({index}) => {
+        const newFiles = state.filter((elem, key) => (key !== index) );
+        setState(newFiles);
+    }
     const {getRootProps, getInputProps} = useDropzone({
         accept: {
             'image/*': []
@@ -31,9 +35,10 @@ const Image = props => {
             preview: (URL.createObjectURL(file)),
         })
         return (
-            <div className={``} key={index}>
-                <div className={``} >
-                    <img className={`h-32 w-auto`}
+            <div className={`flex flex-row items-center`} key={index}>
+                <div className={`border-2 border-hmbBlue-100 bg-hmbSlate-100 p-4 rounded-lg drop-shadow-lg flex-shrink-0`} >
+                    <button type={'button'} onClick={() => removeImage({index})} >x</button>
+                    <img className={`h-32 border border-hmbBlue-100 w-auto m-auto rounded drop-shadow-lg`}
                         alt={file.name}
                         src={file.preview}
                         // Revoke data uri after image is loaded
@@ -41,7 +46,7 @@ const Image = props => {
                             URL.revokeObjectURL(file.preview)
                         }}
                     />
-                    <textarea placeholder={'Give your image a caption!'} className={`rounded mt-4 h-32 w-full bg-hmbBlue-100 p-4`} onChange={content => handleTyping({content, index}) } />
+                    <textarea placeholder={'Give your image a caption!'} className={`text-center rounded mt-4 h-32 w-full bg-hmbBlue-100 p-4`} onChange={content => handleTyping({content, index}) } />
                 </div>
             </div>
         )
@@ -51,9 +56,9 @@ const Image = props => {
         <section className="container">
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
+                <div className={`mt-4 p-4 w-full h-48 bg-hmbSlate-100 rounded-lg border-2 border-hmbBlue-100 drop-shadow-lg`}>Drag 'n' drop some files here, or click to select files</div>
             </div>
-            <aside className={`flex flex-row space-x-2`}>
+            <aside className={`flex flex-row space-x-2 justify-evenly flex-wrap mt-8`}>
                 {thumbs}
             </aside>
         </section>
