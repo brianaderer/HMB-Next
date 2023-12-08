@@ -1,34 +1,62 @@
 import { Media } from '../../Media';
-import React from 'react'
-import Dropzone from 'react-dropzone'
-
-//@todo refactor to react-dropzone
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react'
+import {useDropzone} from "react-dropzone";
 const Image = props => {
     const {slug, classes, title, setState, state, required} = props
     const {labelClasses, inputClasses, spanClasses} = classes;
+    const handleTyping = ({content, index}) => {
+        const caption = content.target.value;
+        const newFiles = [...state];
+        Object.assign(newFiles[index], {
+            caption: caption,
+        });
+        setState(newFiles);
+    }
+    const {getRootProps, getInputProps} = useDropzone({
+        accept: {
+            'image/*': []
+        },
+        onDrop: acceptedFiles => {
+            setState([...acceptedFiles, ...state]);
+        }
+    });
+
+    useEffect(() => {
+        // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+        return () => state.forEach(file => URL.revokeObjectURL(file.preview));
+    }, []);
+
+    const thumbs = state.map((file, index) => {
+        Object.assign(file, {
+            preview: (URL.createObjectURL(file)),
+        })
+        return (
+            <div className={``} key={index}>
+                <div className={``} >
+                    <img className={`h-32 w-auto`}
+                        alt={file.name}
+                        src={file.preview}
+                        // Revoke data uri after image is loaded
+                        onLoad={() => {
+                            URL.revokeObjectURL(file.preview)
+                        }}
+                    />
+                    <textarea placeholder={'Give your image a caption!'} className={`rounded mt-4 h-32 w-full bg-hmbBlue-100 p-4`} onChange={content => handleTyping({content, index}) } />
+                </div>
+            </div>
+        )
+    });
 
     return(
-        <>
-            {
-                state.map((image, key) => {
-                    const url = URL.createObjectURL(image);
-                    return (
-                        <Media.Image key={key} src={url} alt={image.name} size={'thumb'} />
-                        )
-                } )
-            }
-            <Dropzone onDrop={acceptedFiles => setState([...state, ...acceptedFiles])}>
-                {({getRootProps, getInputProps}) => (
-                    <section>
-                        <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <div className={`h-32 w-full bg-hmbBlue-100 rounded mt-10`}>Drag 'n' drop some files here, or click to select files</div>
-                        </div>
-                    </section>
-                )}
-            </Dropzone>
-        </>
+        <section className="container">
+            <div {...getRootProps({className: 'dropzone'})}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+            </div>
+            <aside className={`flex flex-row space-x-2`}>
+                {thumbs}
+            </aside>
+        </section>
     )
 }
 export default Image;
