@@ -108,6 +108,7 @@ const Form = props => {
 
             // Reset the flag
             setUploadComplete(false);
+            setValues([]);
         }
     }, [uploadComplete, values]); // Depend on uploadComplete and values
 
