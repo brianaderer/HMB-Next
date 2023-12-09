@@ -1,7 +1,7 @@
 import { Media } from '../../Media';
 import React, {useEffect, useState} from 'react'
 import {useDropzone} from "react-dropzone";
-const Image = props => {
+const Gallery = props => {
     const {slug, classes, title, setState, state, required} = props
     const {labelClasses, inputClasses, spanClasses} = classes;
     const handleTyping = ({content, index}) => {
@@ -64,4 +64,4 @@ const Image = props => {
         </section>
     )
 }
-export default Image;
+export default Gallery;

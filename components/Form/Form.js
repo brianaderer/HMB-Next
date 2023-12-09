@@ -134,10 +134,11 @@ const Form = props => {
                         if( fieldsData[field].display ) {
                             if (FormElements[E]) {
                                 Elem = FormElements[E];
-                            } else {
+                            }
+                            else {
                                 return <h1 key={index}>We could not find that form element</h1>
                             }
-                            if(E !== 'Image') {
+                            if(E !== 'Gallery') {
                                 return (
                                     <Elem key={index} slug={slug} classes={classes} options={options} title={label}
                                           required={true} value={values[slug] || ''} handler={handleValues}/>

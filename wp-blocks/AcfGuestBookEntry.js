@@ -26,6 +26,7 @@ export default function AcfGuestBookEntryEntry(props) {
 
     const data = props.guestBookData;
     const fieldsData = JSON.parse(data);
+    console.log(fieldsData);
 
     return (
         <>
