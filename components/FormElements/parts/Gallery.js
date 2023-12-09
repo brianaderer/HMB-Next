@@ -58,7 +58,7 @@ const Gallery = props => {
                 <input {...getInputProps()} />
                 <div className={`mt-4 p-4 w-full h-48 bg-hmbSlate-100 rounded-lg border-2 border-hmbBlue-100 drop-shadow-lg`}>Drag 'n' drop some files here, or click to select files</div>
             </div>
-            <aside className={`flex flex-row space-x-2 justify-evenly flex-wrap mt-8`}>
+            <aside className={`flex flex-row justify-evenly flex-wrap mt-8`}>
                 {thumbs}
             </aside>
         </section>

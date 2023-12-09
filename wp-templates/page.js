@@ -17,6 +17,7 @@ import {flatListToHierarchical} from "@faustwp/core";
 import {pageQuery} from "../queries/pageQuery";
 
 export default function Component(props) {
+  console.log(props);
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;

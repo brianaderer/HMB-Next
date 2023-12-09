@@ -26,14 +26,13 @@ export default function AcfGuestBookEntryEntry(props) {
 
     const data = props.guestBookData;
     const fieldsData = JSON.parse(data);
-    console.log(fieldsData);
 
     return (
         <>
             {user? (
             <>
                 <button onClick={handleSignOut}>Sign Out with Google</button>
-                <Form fieldsData={fieldsData} submitter={submitter}/>
+                <Form user={user} fieldsData={fieldsData} submitter={submitter}/>
             </>
             ) : (
                 <Login>

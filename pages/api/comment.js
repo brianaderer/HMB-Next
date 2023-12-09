@@ -9,9 +9,37 @@ const client = new ApolloClient({
 
 // GraphQL Mutation
 const CREATE_GUEST_BOOK_ENTRY = gql`
-    mutation MyMutation($beam: Float, $boat_name: String, $boat_type: String, $draft: Float, $year_make_model: String, $boat_length_loa: Float, $email: String, $full_name: String, $message: String, $phone_number: String, $boat_image: [Int]) {
+    mutation GuestBook(
+    $beam: Float, 
+    $boat_name: String, 
+    $boat_type: String, 
+    $draft: Float, 
+    $year_make_model: String, 
+    $boat_length_loa: Float, 
+    $email: String, 
+    $full_name: String, 
+    $message: String, 
+    $phone_number: String, 
+    $boat_image: [Int],
+    $title: String
+    ) {
       createGuestBookEntry(
-        input: {guestBookEntry: {beam: $beam, boat_name: $boat_name, boat_type: $boat_type, draft: $draft, year_make_model: $year_make_model, boat_length_loa: $boat_length_loa, email: $email, full_name: $full_name, message: $message, phone_number: $phone_number, boat_image: $boat_image}}
+        input: {
+        guestBookEntry: {
+        beam: $beam, 
+        boat_name: $boat_name, 
+        boat_type: $boat_type, 
+        draft: $draft, 
+        year_make_model: $year_make_model, 
+        boat_length_loa: $boat_length_loa, 
+        email: $email, 
+        full_name: $full_name, 
+        message: $message, 
+        phone_number: $phone_number, 
+        boat_image: $boat_image
+        }, 
+        title: $title,
+        }
       ) {
         success
       }
@@ -33,7 +61,8 @@ export default async function handler(req, res) {
             full_name: body["full-name"],
             message: body.message,
             phone_number: body["phone-number"],
-            boat_image: body["boat_images"]
+            boat_image: body["boat_images"],
+            title: body["title"],
         };
         // Execute GraphQL Mutation
         const response = await client.mutate({

@@ -1,5 +1,3 @@
-
-
 import {gql} from "@apollo/client";
 import {BlogInfoFragment} from "../fragments/GeneralSettings";
 import {FeaturedImage, NavigationMenu} from "../components";
@@ -10,10 +8,11 @@ export const pageQuery = gql`
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   ${components.CoreParagraph.fragments.entry}
-  ${components.AcfReviews.fragments.entry}
   ${components.AcfTransientContactForm.fragments.entry}
   ${components.CreateBlockAttractions.fragments.entry}
   ${components.AcfGuestBook.fragments.entry}
+  ${components.CreateBlockReviews.fragments.entry}
+  ${components.CreateBlockInstagramGallery.fragments.entry}
   query GetPageData(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -29,10 +28,11 @@ export const pageQuery = gql`
         id: clientId
         parentClientId
         ...${components.CoreParagraph.fragments.key}
-        ...${components.AcfReviews.fragments.key}
         ...${components.AcfTransientContactForm.fragments.key}
         ...${components.CreateBlockAttractions.fragments.key}
         ...${components.AcfGuestBook.fragments.key}
+        ...${components.CreateBlockReviews.fragments.key}
+        ...${components.CreateBlockInstagramGallery.fragments.key}
       }
       ...FeaturedImageFragment
     }

@@ -3,9 +3,12 @@ import { FormElements } from '../FormElements';
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
-    const {fieldsData, submitter} = props;
+    const {fieldsData, submitter, user} = props;
+    const time = new Date();
     // States for contact form fields
-    const [values, setValues] = useState([]);
+    const [values, setValues] = useState({
+        title: user?.displayName + ' at ' + time,
+    });
     const [images, setImages] = useState([]);
     //   Form validation state
     const [errors, setErrors] = useState({});
@@ -30,7 +33,6 @@ const Form = props => {
             await uploadFiles(images);
         }
     };
-
     // Validation check method
     const handleValidation = () => {
         let tempErrors = {};
@@ -69,7 +71,6 @@ const Form = props => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-
                 const result = await response.json();
                 console.log('Upload successful:', result);
                 return result.data.id; // return the id from each upload
