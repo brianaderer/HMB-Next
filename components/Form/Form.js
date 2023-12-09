@@ -16,6 +16,8 @@ const Form = props => {
     // Setting success or failure messages states
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showFailureMessage, setShowFailureMessage] = useState(false);
+    const [uploadComplete, setUploadComplete] = useState(false);
+
 
     //   Handling form submit
     const handleSubmit = async (e) => {
@@ -25,18 +27,7 @@ const Form = props => {
 
         if (isValidForm) {
             setButtonText("Sending");
-            const res = await submitter(values);
             await uploadFiles(images);
-            const { error } = await res.json();
-            if (error) {
-                setShowSuccessMessage(false);
-                setShowFailureMessage(true);
-                setButtonText("Send");
-                return;
-            }
-            setShowSuccessMessage(true);
-            setShowFailureMessage(false);
-            setButtonText("Send");
         }
     };
 
@@ -64,15 +55,15 @@ const Form = props => {
             .replace(/-+/g, '-'); // remove consecutive hyphens
     }
     const uploadFiles = async (files) => {
-        files.map( async file => {
+        const uploadPromises = files.map(async file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('caption', file.caption);
+
             try {
-                const response = await fetch('/api/uploads', { // Adjust the URL to match your API route
+                const response = await fetch('/api/uploads', {
                     method: 'POST',
                     body: formData,
-                    // Don't set Content-Type header, as the browser will set it correctly with the boundary
                 });
 
                 if (!response.ok) {
@@ -81,14 +72,47 @@ const Form = props => {
 
                 const result = await response.json();
                 console.log('Upload successful:', result);
+                return result.data.id; // return the id from each upload
             } catch (error) {
                 console.error('Upload error:', error);
+                return null; // return null or handle the error as needed
             }
-        } );
-        setImages([]);
-    };
+        });
 
-    async function handleValues({ value, slug }) {
+        try {
+            const uploadedIds = await Promise.all(uploadPromises);
+            const validIds = uploadedIds.filter(id => id != null); // Filter out null values (failed uploads)
+            setImages([]);
+            handleValues({slug: 'boat_images', value: validIds});
+            return new Promise(resolve => {
+                setUploadComplete(true);
+                resolve();
+            });
+        } catch (error) {
+            console.error('Error in uploading files:', error);
+        }
+    };
+    useEffect(async () => {
+        if (uploadComplete) {
+            const res = await submitter(values);
+            const { error } = await res.json();
+            if (error) {
+                setShowSuccessMessage(false);
+                setShowFailureMessage(true);
+                setButtonText("Send");
+                return;
+            }
+            setShowSuccessMessage(true);
+            setShowFailureMessage(false);
+            setButtonText("Send");
+
+            // Reset the flag
+            setUploadComplete(false);
+        }
+    }, [uploadComplete, values]); // Depend on uploadComplete and values
+
+
+    function handleValues({ value, slug }) {
         setValues(prevValues => ({
             ...prevValues,
             [slug]: value
