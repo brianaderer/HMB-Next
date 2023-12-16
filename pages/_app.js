@@ -12,7 +12,6 @@ import {useFirebaseAuth} from "../utilities/auth";
 export default function MyApp({ Component, pageProps }) {
   const { user, loading, signIn, signOut, setUser } = useFirebaseAuth();
   const router = useRouter();
-  console.log(user);
   return (
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut}}>
