@@ -9,6 +9,7 @@ export const pageQuery = gql`
   ${FeaturedImage.fragments.entry}
   ${components.CoreParagraph.fragments.entry}
   ${components.AcfTransientContactForm.fragments.entry}
+  ${components.AcfSignUpForm.fragments.entry}
   ${components.CreateBlockAttractions.fragments.entry}
   ${components.AcfGuestBook.fragments.entry}
   ${components.CreateBlockReviews.fragments.entry}
@@ -29,6 +30,7 @@ export const pageQuery = gql`
         parentClientId
         ...${components.CoreParagraph.fragments.key}
         ...${components.AcfTransientContactForm.fragments.key}
+        ...${components.AcfSignUpForm.fragments.key}
         ...${components.CreateBlockAttractions.fragments.key}
         ...${components.AcfGuestBook.fragments.key}
         ...${components.CreateBlockReviews.fragments.key}
