@@ -7,10 +7,10 @@ import '../styles/global.scss';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
 import {AuthContext} from "../contexts";
-import {useFirebaseAuth} from "../utilities/auth";
+import {useAuth} from "../utilities/auth";
 
 export default function MyApp({ Component, pageProps }) {
-  const { user, loading, signIn, signOut, setUser } = useFirebaseAuth();
+  const { user, loading, signIn, signOut, setUser } = useAuth();
   const router = useRouter();
   return (
       <FaustProvider pageProps={pageProps}>

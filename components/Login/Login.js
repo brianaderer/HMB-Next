@@ -1,9 +1,11 @@
 import React, {useContext} from "react";
 import {AuthContext} from "../../contexts";
+import {Button} from '../index';
 const Login = props => {
     const {user, setUser, signIn, signOut} = useContext( AuthContext );
-    const handleSignIn = () => {
-        signIn({setUser});
+    const handleSignIn = props => {
+        const {providerName} = props;
+        signIn({setUser, providerName});
     };
     const handleSignOut = () => {
         signOut({setUser});
@@ -13,13 +15,14 @@ const Login = props => {
         <>
         {user? (
             <>
-                <button onClick={handleSignOut}>Sign Out with Google</button>
+                <button className={`btn btn-outline`} onClick={handleSignOut}>
+                    Sign Out</button>
                 {children}
             </>
             ) : (
             <div>
                 <h3>{message}</h3>
-                <button className={`btn`} onClick={handleSignIn}>Sign In with Google</button>
+                <Button.AuthButton callback={handleSignIn} />
             </div>
             )
         }
