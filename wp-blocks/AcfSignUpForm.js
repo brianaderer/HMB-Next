@@ -1,6 +1,9 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {Form} from "../components";
+import {
+    Form,
+    Login,
+} from "../components";
 
 export default function AcfSignUpForm(props) {
     const submitter = async props => {
@@ -15,9 +18,12 @@ export default function AcfSignUpForm(props) {
     };
     const data = props.contactData;
     const fieldsData = JSON.parse(data);
+    const message = 'Please Log In to Edit Your Information';
 
     return (
+        <Login message={message}>
             <Form fieldsData={fieldsData} submitter={submitter}/>
+        </Login>
     );
 }
 

@@ -1,9 +1,11 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { FormElements } from '../FormElements';
+import {AuthContext} from "../../contexts";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
-    const {fieldsData, submitter, user} = props;
+    const {user, setUser, signIn, signOut} = useContext( AuthContext );
+    const {fieldsData, submitter} = props;
     const time = new Date();
     // States for contact form fields
     const [values, setValues] = useState({

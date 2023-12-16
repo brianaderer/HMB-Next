@@ -1,17 +1,8 @@
 import { gql } from '@apollo/client';
-import React, {useContext} from 'react';
+import React from 'react';
 import {Form, Login} from "../components";
-import {AuthContext } from "../contexts";
 
 export default function AcfGuestBookEntryEntry(props) {
-    const {user, setUser, signIn, signOut} = useContext( AuthContext );
-
-    const handleSignIn = () => {
-        signIn({setUser});
-    };
-    const handleSignOut = () => {
-        signOut({setUser});
-    };
 
     const submitter = async props => {
         const values = [];
@@ -26,20 +17,14 @@ export default function AcfGuestBookEntryEntry(props) {
 
     const data = props.guestBookData;
     const fieldsData = JSON.parse(data);
-
+    const message = 'Please Log In to Write In Our Guest Book';
     return (
         <>
-            {user? (
-            <>
-                <button onClick={handleSignOut}>Sign Out with Google</button>
-                <Form user={user} fieldsData={fieldsData} submitter={submitter}/>
-            </>
-            ) : (
-                <Login>
-                    <button onClick={handleSignIn}>Sign In with Google</button>
+                <Login message={message}>
+                    <>
+                        <Form fieldsData={fieldsData} submitter={submitter}/>
+                    </>
                 </ Login>
-            )
-            }
         </>
     );
 }
