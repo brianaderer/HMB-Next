@@ -5,7 +5,6 @@ import {Media} from "../components";
 
 export default function CreateBlockInstagramGallery(props) {
     const {renderedHtml} = props;
-    console.log(renderedHtml)
     const [posts, setPosts] = useState([]);
     const [key, setKey] = useState('');
     useEffect(() => {
@@ -18,7 +17,6 @@ export default function CreateBlockInstagramGallery(props) {
         <>
             {Object.keys(posts).map((post,index) => {
                 if( index < limit ){
-                    console.log(posts[post]);
                     return(
                         <div key={index}>
                             {posts[post]?.media_type}

@@ -4,6 +4,7 @@ import {ContentWrapper, Review} from "../components";
 
 export default function CreateBlockReviews(props) {
     const data = props.renderedHtml;
+    console.log(data);
     const reviewsData = JSON.parse(data);
     const reviews = reviewsData.map((review, index) => ({
             reviewersName: review.reviewers_name,

@@ -17,7 +17,6 @@ import {flatListToHierarchical} from "@faustwp/core";
 import {pageQuery} from "../queries/pageQuery";
 
 export default function Component(props) {
-  console.log(props);
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;
@@ -31,7 +30,6 @@ export default function Component(props) {
 
   const { editorBlocks } = props.data.page;
   const blocks = flatListToHierarchical(editorBlocks);
-  console.log(blocks);
 
   return (
     <>

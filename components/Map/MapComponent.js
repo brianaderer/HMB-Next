@@ -98,7 +98,6 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
     function showInfo({index, domEvent}){
         const {target} = domEvent;
-        console.log(target);
         const location = locationData[index];
         if( location ){
             let tags = [];

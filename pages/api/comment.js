@@ -49,7 +49,6 @@ const CREATE_GUEST_BOOK_ENTRY = gql`
 export default async function handler(req, res) {
     try {
         const { body } = req; // Extract the body from the request
-        console.log(body);
         const variables = {
             beam: parseFloat(body.beam),
             boat_name: body["boat-name"],
