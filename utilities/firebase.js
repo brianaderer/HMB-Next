@@ -22,5 +22,10 @@ const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
 
 export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
-export const facebookProvider = new FacebookAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
+export const providers = {
+    'Google': googleProvider,
+    'Facebook': facebookProvider,
+}

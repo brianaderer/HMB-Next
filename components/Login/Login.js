@@ -23,6 +23,7 @@ const Login = props => {
             <div>
                 <h3>{message}</h3>
                 <Button.AuthButton message={'Google'} providerName={'Google'} callback={handleSignIn} />
+                <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={handleSignIn} />
             </div>
             )
         }

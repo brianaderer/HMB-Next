@@ -1,5 +1,5 @@
 import { signInWithPopup, getAuth, onAuthStateChanged } from "firebase/auth";
-import { auth, googleProvider, facebookProvider } from './firebase';
+import { auth, providers } from './firebase';
 import { useEffect, useState } from 'react';
 export const useAuth = () => {
     const [user, setUser] = useState(null);
@@ -8,9 +8,8 @@ export const useAuth = () => {
     // Sign In Function
     const signIn = async props => {
         const {providerName} = props;
-        console.log(providerName);
         try {
-            const result = await signInWithPopup(auth, googleProvider);
+            const result = await signInWithPopup(auth, providers[providerName]);
             setUser(result.user);
         } catch (error) {
             console.error("Authentication error:", error);
