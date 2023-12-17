@@ -13,7 +13,6 @@ export const useAuth = () => {
         try {
                 const result = await signInWithPopup(auth, providers[providerName]);
                 const user = await isNewUser({uuid: result.user.uid, id: id});
-                console.log(user);
                 setUser(result.user);
         } catch (error) {
             console.error("Authentication error:", error);

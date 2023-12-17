@@ -10,18 +10,11 @@ const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
-    const [activeMarker, setActiveMarker] = useState({
-        title: null,
-        address: null,
-        description: null,
-        tags: [],
-        categories: [],
-        category_tax: [],
-        website: null,
-        telephone: null,
-    });
+    const [activeMarker, setActiveMarker] = useState({});
     const [activeCategories, setActiveCategories] = useState([]);
     const [activePlaces, setActivePlaces] = useState([]);
+    const activePlacesRef = useRef(activePlaces);
+
 
     const mapOptions = {
         center: center,
@@ -30,13 +23,17 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
 
     useEffect(() => {
+        activePlacesRef.current = activePlaces;
+    }, [activePlaces]);
+
+    useEffect(() => {
         setMap( new window.google.maps.Map( ref.current, mapOptions ) );
     }, [locationData]);
 
     useEffect(() => {
         if(map){
             map.addListener('click', () => {
-               setActiveMarker([]);
+               setActiveMarker({});
             });
         }
     }, [map]);
@@ -62,7 +59,11 @@ const MapComponent = ({ center, zoom, locationData }) => {
 
                 } );
                 setCategories(categoriesTaxList);
-                setActiveCategories(categoriesTaxList);
+                let newCategories = [];
+                for (let category in categoriesTaxList){
+                    newCategories.push(Number(category));
+                }
+                setActiveCategories(newCategories);
             });
         }
     }, [map]);
@@ -89,7 +90,12 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     });
                     // Add a click listener for each marker, and set up the info window.
                     marker.addListener("click", ({ domEvent }) => {
-                        showInfo({index, domEvent});
+                        for ( let place in activePlacesRef.current ) {
+                            if(locationData[index] && activePlacesRef.current[place].location.place_id === locationData[index].location.place_id){
+                                showInfo({index: Number(place), domEvent});
+                                break;
+                            }
+                        }
                     });
         marker.content.classList.add('transition-all','origin-bottom');
         if(locationData[index]){
@@ -98,7 +104,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
     function showInfo({index, domEvent}){
         const {target} = domEvent;
-        const location = locationData[index];
+        const location = activePlacesRef.current[index];
         if( location ){
             let tags = [];
             if( isArray( location.tags ) ) {
@@ -119,7 +125,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
 
     useEffect(() => {
-        locationData.map( (location, index) => {
+        activePlaces.map( (location, index) => {
             if( index !== activeMarker.index ){
                 location?.marker?.content?.classList.remove('scale-150', 'drop-shadow-xl');
                 if( location.marker ){
@@ -144,48 +150,52 @@ const MapComponent = ({ center, zoom, locationData }) => {
         return {AdvancedMarkerElement, PinElement};
     }
 
-    const handler = async props =>{
-        const {category, bool} = props;
-        let newCategories= [];
-        if( !bool ){
-            activeCategories.map((active, key) => {
-                if(key !== category){
-                    newCategories[key] = active;
+    const handler = async ({ category, bool }) => {
+        let newCategories = [];
+        if( bool ){
+            newCategories=[...activeCategories];
+            newCategories.push(category);
+        } else {
+            newCategories = activeCategories.filter(listCategory => {
+                    return Number(listCategory) !== category;
                 }
-            })
-        } else if( bool ){
-            newCategories = [...activeCategories];
-            newCategories[category] = categories[category];
+            )
         }
-        setActiveCategories( newCategories );
-    }
+        setActiveCategories(newCategories);
+    };
+
 
     useEffect(() => {
-        let newPlaces = [];
-        locationData.map((location, index) => {
-            const categoryList = location.category_tax;
-            let bool = false;
-            categoryList.map(category => {
-                if( activeCategories.hasOwnProperty(category.term_id) ){
-                    newPlaces.push(location);
-                    bool=true;
+        const newPlaces = locationData.filter((location) => {
+            const hasActiveCategory = location.category_tax.some(category => {
+                    return activeCategories.includes(category.term_id);
                 }
-            })
-            if( bool && location.marker ){
-                location.marker.map=map;
-            } else if ( !bool && location.marker ){
-                location.marker.map=null;
+            );
+            // Set marker map based on category match
+            if (location.marker) {
+                location.marker.map = hasActiveCategory ? map : null;
             }
+
+            return hasActiveCategory;
         });
+
         setActivePlaces(newPlaces);
-    }, [activeCategories]);
+    }, [activeCategories, locationData, map]); // Ensure to include all dependencies
 
 
     return (
     <>
-        <div className={`h-[600px] w-full`} ref={ref} id="map" />
-        <PlaceInfo {...activeMarker} />
-        <Places {...activePlaces} />
+        <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
+                <div className="flex flex-row h-[500px]">
+                    {Object.keys(activeMarker).length ? (
+                        <PlaceInfo {...activeMarker} callback={setActiveMarker} />
+                    ) : (
+                        <Places callback={showInfo} {...activePlaces} />
+                    )}
+
+                    <div className={`h-full rounded-r w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
+                </div>
+            </div>
         <form>
             <fieldset>
                     {categories.map( (cat, index) => {

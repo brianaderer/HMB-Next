@@ -1,9 +1,12 @@
-import {useEffect, useState} from "react";
-
+import {Button} from '../../components';
 const PlaceInfo = props => {
-    const {title, address, description, tags, categories, website, telephone} = props;
+    const {title, address, description, tags, categories, website, telephone, callback} = props;
+    const handleClick = () => {
+        callback({});
+    }
     return(
-        <div id={`placeInfo`}>
+        <div id={`placeInfo`} className={`grow-0 w-1/3 overflow-auto h-auto`}>
+            <Button.StandardButton callback={handleClick}>X</Button.StandardButton>
             <h3>Title: {title}</h3>
             <p>Address: {address}</p>
             <div><h3>Our Take:</h3><div dangerouslySetInnerHTML={{ __html: description }} /></div>

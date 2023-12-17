@@ -10,7 +10,7 @@ const Login = props => {
 
     const submitter = async props => {
         const values = [];
-        return await fetch("/api/hello", {
+        return await fetch("/api/firebase", {
             method: "POST",
             body: JSON.stringify(props),
             headers: {

@@ -7,6 +7,6 @@ export const isNewUser = async props => {
     if(docSnap.exists()) {
         return 'found that fucker';
     } else {
-        document.getElementById(id).showModal();
+        document.getElementById(id)?.showModal();
     }
 }
