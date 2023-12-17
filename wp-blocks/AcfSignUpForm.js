@@ -1,11 +1,13 @@
 import { gql } from '@apollo/client';
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Form,
     Login,
+    Modal,
 } from "../components";
 
 export default function AcfSignUpForm(props) {
+    const [modalOpen, setModalOpen] = useState(false);
     const submitter = async props => {
         const values = [];
         return await fetch("/api/hello", {
@@ -20,10 +22,18 @@ export default function AcfSignUpForm(props) {
     const fieldsData = JSON.parse(data);
     const headline = 'Care to tell us about yourself? All fields are optional';
     const message = 'Please Log In to Edit Your Information';
+    const id = 'signUp';
+
+    const handleCloseModal = async props => {
+        document?.getElementById(id).close();
+        console.log('closed');
+    }
 
     return (
-        <Login message={message}>
-            <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
+        <Login id={id} message={message}>
+            <Modal id={id} onModalClose={handleCloseModal}>
+                <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
+            </Modal>
         </Login>
     );
 }

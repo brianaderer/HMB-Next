@@ -9,10 +9,10 @@ export const useAuth = () => {
 
     // Sign In Function
     const signIn = async props => {
-        const {providerName} = props;
+        const {providerName, id} = props;
         try {
                 const result = await signInWithPopup(auth, providers[providerName]);
-                const user = await isNewUser({uuid: result.user.uid});
+                const user = await isNewUser({uuid: result.user.uid, id: id});
                 console.log(user);
                 setUser(result.user);
         } catch (error) {

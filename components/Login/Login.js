@@ -3,14 +3,15 @@ import {AuthContext} from "../../contexts";
 import {Button} from '../index';
 const Login = props => {
     const {user, setUser, signIn, signOut} = useContext( AuthContext );
+
     const handleSignIn = props => {
-        const {providerName} = props;
-        signIn({setUser, providerName});
+        const {id, providerName} = props;
+        signIn({setUser, providerName, id});
     };
     const handleSignOut = () => {
         signOut({setUser});
     };
-    const {children, message} = props;
+    const {children, message, id} = props;
     return (
         <>
         {user? (
@@ -22,8 +23,8 @@ const Login = props => {
             ) : (
             <div>
                 <h3>{message}</h3>
-                <Button.AuthButton message={'Google'} providerName={'Google'} callback={handleSignIn} />
-                <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={handleSignIn} />
+                <Button.AuthButton message={'Google'} providerName={'Google'} id={id} callback={() => handleSignIn({id, providerName: 'Google'})} />
+                <Button.AuthButton message={'Facebook'} providerName={'Facebook'} id={id} callback={() => handleSignIn({id, providerName: 'Facebook'})} />
             </div>
             )
         }
