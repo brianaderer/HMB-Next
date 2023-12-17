@@ -18,11 +18,12 @@ export default function AcfSignUpForm(props) {
     };
     const data = props.contactData;
     const fieldsData = JSON.parse(data);
+    const headline = 'Care to tell us about yourself? All fields are optional';
     const message = 'Please Log In to Edit Your Information';
 
     return (
         <Login message={message}>
-            <Form fieldsData={fieldsData} submitter={submitter}/>
+            <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
         </Login>
     );
 }

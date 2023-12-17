@@ -11,6 +11,7 @@ import {useAuth} from "../utilities/auth";
 
 export default function MyApp({ Component, pageProps }) {
   const { user, loading, signIn, signOut, setUser } = useAuth();
+  console.log(user);
   const router = useRouter();
   return (
       <FaustProvider pageProps={pageProps}>

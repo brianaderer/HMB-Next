@@ -1,6 +1,8 @@
 import { signInWithPopup, getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth, providers } from './firebase';
 import { useEffect, useState } from 'react';
+import {isNewUser} from "./isNewUser";
+
 export const useAuth = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -9,8 +11,10 @@ export const useAuth = () => {
     const signIn = async props => {
         const {providerName} = props;
         try {
-            const result = await signInWithPopup(auth, providers[providerName]);
-            setUser(result.user);
+                const result = await signInWithPopup(auth, providers[providerName]);
+                const user = await isNewUser({uuid: result.user.uid});
+                console.log(user);
+                setUser(result.user);
         } catch (error) {
             console.error("Authentication error:", error);
         }

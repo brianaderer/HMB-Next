@@ -5,7 +5,7 @@ import {AuthContext} from "../../contexts";
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const {user, setUser, signIn, signOut} = useContext( AuthContext );
-    const {fieldsData, submitter} = props;
+    const {fieldsData, submitter, headline} = props;
     const time = new Date();
     // States for contact form fields
     const [values, setValues] = useState({
@@ -127,7 +127,7 @@ const Form = props => {
     const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
     const classes = {labelClasses, spanClasses, inputClasses};
     return (
-            <FormWrapper handleSubmit={handleSubmit} prompt={'Send Us a Message'}>
+            <FormWrapper handleSubmit={handleSubmit} prompt={headline ? headline : 'Send us a message!'}>
                 {
                     Object.keys(fieldsData).map((field, index) => {
                         const {type, label, ...otherProps} = (fieldsData[field]);
