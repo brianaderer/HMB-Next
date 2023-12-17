@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styles from './NavigationMenu.module.scss';
 import stylesFromWP from './NavigationMenuClassesFromWP.module.scss';
 import { flatListToHierarchical } from '@faustwp/core';
+import {Button} from '../../components';
 
 let cx = classNames.bind(styles);
 let cxFromWp = classNames.bind(stylesFromWP);
@@ -40,10 +41,11 @@ export default function NavigationMenu({ menuItems, className }) {
 
   return (
     <nav
-      className={cx(['component', className])}
+      className={cx(['component', className]) + ' flex flex-row '}
       role="navigation"
       aria-label={`${menuItems[0]?.menu?.node?.name} menu`}>
       {renderMenu(hierarchicalMenuItems)}
+      <Button.SignInButton classes={'ml-4'}/>
     </nav>
   );
 }

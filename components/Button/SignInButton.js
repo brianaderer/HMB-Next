@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import {AuthContext} from "../../contexts";
 
 const SignInButton = props => {
+    const {classes} = props;
     const {user, promptSignIn, handleSignOut} = useContext( AuthContext );
     const callback = () => {
         if (user) {
@@ -11,7 +12,7 @@ const SignInButton = props => {
         }
     }
     return(
-        <button className={`btn btn-outline`} onClick={callback}>
+        <button className={`${classes} btn btn-outline`} onClick={callback}>
             {user ? 'Sign Out' : 'Sign In'}
         </button>
     )

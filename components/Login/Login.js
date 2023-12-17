@@ -31,7 +31,7 @@ const Login = props => {
         <>
         {user? (
             <>
-                <Modal id={id}>
+                <Modal id={'signUp'}>
                     { loading ? ( <Loading/> ) : (
                         <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
                         )

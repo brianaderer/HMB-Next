@@ -7,7 +7,7 @@ import '../styles/global.scss';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
 import {AuthContext} from "../contexts";
-import {Button} from '../components';
+import {Button, Modal} from '../components';
 import {useAuth} from "../utilities/auth";
 
 export default function MyApp({ Component, pageProps }) {
@@ -15,14 +15,18 @@ export default function MyApp({ Component, pageProps }) {
   const { user, loading, signIn, signOut, setUser } = useAuth();
     const handleSignIn = props => {
         const {id, providerName} = props;
-        signIn({setUser, providerName, id});
+        signIn({setUser, providerName, id}).then(() => {
+            document.getElementById('signIn').close();
+        });
     };
     const handleSignOut = () => {
-        signOut({setUser});
+        signOut({setUser}).then(() => {
+            console.log('user logged out');
+        });
     };
 
     const promptSignIn = () => {
-        console.log('sign that fucker in');
+        document.getElementById('signIn').showModal();
     }
   const router = useRouter();
   return (
@@ -33,10 +37,12 @@ export default function MyApp({ Component, pageProps }) {
                       blocks,
                   }}>
                   <Component {...pageProps} key={router.asPath} />
-                  <div>
-                      <Button.AuthButton message={'Google'} providerName={'Google'} callback={() => handleSignIn({id: 'signUp', providerName: 'Google'})} />
-                      <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
-                  </div>
+                  <Modal id={'signIn'}>
+                      <div>
+                          <Button.AuthButton message={'Google'} providerName={'Google'} callback={() => handleSignIn({id: 'signUp', providerName: 'Google'})} />
+                          <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
+                      </div>
+                  </Modal>
               </WordPressBlocksProvider>
           </AuthContext.Provider>
       </FaustProvider>
