@@ -3,14 +3,13 @@ import React, {useState} from 'react';
 import {
     Form,
     Login,
-    Modal,
+
 } from "../components";
 
 export default function AcfSignUpForm(props) {
-    const [modalOpen, setModalOpen] = useState(false);
     const submitter = async props => {
         const values = [];
-        return await fetch("/api/hello", {
+        return await fetch("/api/firestore", {
             method: "POST",
             body: JSON.stringify(props),
             headers: {
@@ -24,16 +23,9 @@ export default function AcfSignUpForm(props) {
     const message = 'Please Log In to Edit Your Information';
     const id = 'signUp';
 
-    const handleCloseModal = async props => {
-        document?.getElementById(id).close();
-        console.log('closed');
-    }
-
     return (
         <Login id={id} message={message}>
-            <Modal id={id} onModalClose={handleCloseModal}>
-                <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
-            </Modal>
+            <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
         </Login>
     );
 }

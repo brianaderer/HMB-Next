@@ -1,31 +1,50 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {AuthContext} from "../../contexts";
-import {Button} from '../index';
-const Login = props => {
-    const {user, setUser, signIn, signOut} = useContext( AuthContext );
+import {Button, Form, Modal, Loading} from '../index';
+import {signUpFormQuery} from "../../queries/signUpFormQuery";
+import {useQuery} from "@apollo/client";
 
-    const handleSignIn = props => {
-        const {id, providerName} = props;
-        signIn({setUser, providerName, id});
+const Login = props => {
+    const {user, handleSignIn, handleSignOut} = useContext( AuthContext );
+    const { data, loading, error } = useQuery(signUpFormQuery);
+
+    const submitter = async props => {
+        const values = [];
+        return await fetch("/api/hello", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     };
-    const handleSignOut = () => {
-        signOut({setUser});
-    };
+
+    let fieldsData = [];
+    if (data) {
+        // Parse data if it's defined
+        fieldsData = JSON.parse(data.globalSignUpForm);
+    }
+    const headline = 'Care to tell us about yourself? All fields are optional';
+
     const {children, message, id} = props;
     return (
         <>
         {user? (
             <>
+                <Modal id={id}>
+                    { loading ? ( <Loading/> ) : (
+                        <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
+                        )
+                    }
+                </Modal>
                 <button className={`btn btn-outline`} onClick={handleSignOut}>
-                    Sign Out</button>
-                {children}
+                Sign Out</button>
+            {children}
             </>
             ) : (
-            <div>
-                <h3>{message}</h3>
-                <Button.AuthButton message={'Google'} providerName={'Google'} id={id} callback={() => handleSignIn({id, providerName: 'Google'})} />
-                <Button.AuthButton message={'Facebook'} providerName={'Facebook'} id={id} callback={() => handleSignIn({id, providerName: 'Facebook'})} />
-            </div>
+            <>
+                <Button.SignInButton/>
+            </>
             )
         }
     </>

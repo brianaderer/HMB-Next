@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
   Header,
   Footer,
@@ -12,7 +10,6 @@ import {
   SEO,
 } from '../components';
 import { WordPressBlocksViewer } from '@faustwp/blocks';
-import components from '../wp-blocks';
 import {flatListToHierarchical} from "@faustwp/core";
 import {pageQuery} from "../queries/pageQuery";
 
