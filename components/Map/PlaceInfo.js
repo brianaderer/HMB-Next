@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 
 const PlaceInfo = props => {
-    console.log(props);
     const {title, address, description, tags, categories, website, telephone} = props;
     return(
         <div id={`placeInfo`}>

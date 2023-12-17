@@ -42,7 +42,6 @@ export default function Component(props) {
       />
       <Main>
         <>
-          <EntryHeader title={title} image={featuredImage?.node} />
           <Container>
             <WordPressBlocksViewer blocks={blocks}/>
             {/*<ContentWrapper content={content} />*/}
