@@ -6,7 +6,7 @@ export const CATEGORIES = {
         glyphColor: colors.hmbBlue[100],
         background: colors.hmbEnv['cyan'],
         borderColor: colors.hmbSlate[500],
-        backgroundColor: 'bg-hmbSlate-500',
+        backgroundColor: 'bg-hmbEnv-cyan',
         textColor: 'text-hmbBlue-100',
     },
     'home': {

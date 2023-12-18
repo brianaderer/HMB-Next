@@ -60,9 +60,9 @@ const MapComponent = ({ center, zoom, locationData }) => {
                 } );
                 setCategories(categoriesTaxList);
                 let newCategories = [];
-                for (let category in categoriesTaxList){
-                    newCategories.push(Number(category));
-                }
+                // for (let category in categoriesTaxList){
+                //     newCategories.push(Number(category));
+                // }
                 setActiveCategories(newCategories);
             });
         }
@@ -187,18 +187,18 @@ const MapComponent = ({ center, zoom, locationData }) => {
     <>
         <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
                 <div className="flex flex-row h-[500px]">
-                    {Object.keys(activeMarker).length ? (
+                    {Object.keys(activeCategories).length || Object.keys(activeMarker).length ? Object.keys(activeMarker).length ? (
                         <PlaceInfo {...activeMarker} callback={setActiveMarker} />
                     ) : (
                         <Places callback={showInfo} {...activePlaces} />
-                    )}
+                    ) : ''}
                     <div className={`h-full rounded-r w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                 </div>
             <form>
-                <fieldset className={`px-10 flex flex-row items-justified-space-between mt-4`}>
+                <fieldset className={`pl-10 flex flex-row items-justified-space-between mt-4`}>
                     {categories.map( (cat, index) => {
                         return(
-                            <Category key={index} handler={handler} category={cat} index={index} />
+                            <Category isChecked={activeCategories.includes(index)} key={index} handler={handler} category={cat} index={index} />
                         )
                     })
                     }
