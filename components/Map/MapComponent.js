@@ -192,20 +192,19 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     ) : (
                         <Places callback={showInfo} {...activePlaces} />
                     )}
-
                     <div className={`h-full rounded-r w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                 </div>
-            </div>
-        <form>
-            <fieldset>
+            <form>
+                <fieldset className={`px-10 flex flex-row items-justified-space-between mt-4`}>
                     {categories.map( (cat, index) => {
                         return(
                             <Category key={index} handler={handler} category={cat} index={index} />
-                            )
-                        })
+                        )
+                    })
                     }
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+            </div>
     </>
     );
 }
