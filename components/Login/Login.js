@@ -10,7 +10,7 @@ const Login = props => {
 
     const submitter = async props => {
         const values = [];
-        return await fetch("/api/firebase", {
+        return await fetch("/api/updateUserInfo", {
             method: "POST",
             body: JSON.stringify(props),
             headers: {
@@ -37,8 +37,6 @@ const Login = props => {
                         )
                     }
                 </Modal>
-                <button className={`btn btn-outline`} onClick={handleSignOut}>
-                Sign Out</button>
             {children}
             </>
             ) : (

@@ -1,6 +1,7 @@
 import CoreParagraph from './CoreParagraph';
 import AcfTransientContactForm from "./AcfTransientContactForm";
 import AcfSignUpForm from "./AcfSignUpForm";
+import AcfUserInfoForm from "./AcfUserInfoForm";
 import CreateBlockAttractions from "./CreateBlockAttractions";
 import CreateBlockInstagramGallery from "./CreateBlockInstagramGallery";
 import AcfGuestBookEntry from "./AcfGuestBookEntry";
@@ -13,4 +14,5 @@ export default {
     CreateBlockInstagramGallery,
     CreateBlockReviews,
     AcfSignUpForm,
+    AcfUserInfoForm,
 };

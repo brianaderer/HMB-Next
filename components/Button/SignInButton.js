@@ -3,7 +3,10 @@ import {AuthContext} from "../../contexts";
 
 const SignInButton = props => {
     const {classes} = props;
-    const {user, promptSignIn, handleSignOut} = useContext( AuthContext );
+
+    const authContext = useContext(AuthContext);
+    const { user, promptSignIn, handleSignOut } = authContext || {};
+
     const callback = () => {
         if (user) {
             handleSignOut();

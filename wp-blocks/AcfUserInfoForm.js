@@ -3,10 +3,12 @@ import React, {useState} from 'react';
 import {
     Form,
     Login,
+
 } from "../components";
 
-export default function AcfSignUpForm(props) {
+export default function AcfUserInfoForm(props) {
     const submitter = async props => {
+        const values = [];
         return await fetch("/api/updateUserInfo", {
             method: "POST",
             body: JSON.stringify(props),
@@ -15,7 +17,7 @@ export default function AcfSignUpForm(props) {
             },
         });
     };
-    const data = props.contactData;
+    const data = props.userInfoData;
     const fieldsData = JSON.parse(data);
     const headline = 'Care to tell us about yourself? All fields are optional';
     const message = 'Please Log In to Edit Your Information';
@@ -28,13 +30,13 @@ export default function AcfSignUpForm(props) {
     );
 }
 
-AcfSignUpForm.fragments = {
+AcfUserInfoForm.fragments = {
     entry: gql`
-    fragment AcfSignUpFormFragment on AcfSignUpForm {
-      contactData
+    fragment AcfUserInfoFormFragment on AcfUserInfoForm {
+      userInfoData
     }
   `,
-    key: `AcfSignUpFormFragment`,
+    key: `AcfUserInfoFormFragment`,
 };
 
-AcfSignUpForm.displayName = 'AcfSignUpForm';
+AcfUserInfoForm.displayName = 'AcfUserInfoForm';

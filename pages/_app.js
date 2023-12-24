@@ -43,6 +43,7 @@ export default function MyApp({ Component, pageProps }) {
     const promptSignIn = () => {
         document.getElementById('signIn').showModal();
     }
+
   const router = useRouter();
   return (
       <FaustProvider pageProps={pageProps}>

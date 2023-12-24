@@ -9,12 +9,12 @@ import {getAuth, GoogleAuthProvider, FacebookAuthProvider} from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
-    apiKey: "AIzaSyCsF3tdbU0l_ojmp_B32DIukcsHrRKxJXo",
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: "hmb-marina.firebaseapp.com",
     projectId: "hmb-marina",
     storageBucket: "hmb-marina.appspot.com",
     messagingSenderId: "91848530196",
-    appId: "1:91848530196:web:ef68dbe2e735385f9bca01",
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     measurementId: "G-BGVLN882LC"
 };
 

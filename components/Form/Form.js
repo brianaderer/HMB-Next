@@ -4,17 +4,15 @@ import {AuthContext} from "../../contexts";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
-    const {user, setUser, signIn, signOut} = useContext( AuthContext );
+    const authContext = useContext( AuthContext );
+    const {user, setUser, signIn, signOut} = authContext || {};
     const {fieldsData, submitter, headline} = props;
     const time = new Date();
     // States for contact form fields
-    const [values, setValues] = useState({
-        title: user?.displayName + ' at ' + time,
-    });
+    const [values, setValues] = useState({});
     const [images, setImages] = useState([]);
     //   Form validation state
     const [errors, setErrors] = useState({});
-
     //   Setting button text on form submission
     const [buttonText, setButtonText] = useState("Send");
 
@@ -22,8 +20,6 @@ const Form = props => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showFailureMessage, setShowFailureMessage] = useState(false);
     const [uploadComplete, setUploadComplete] = useState(false);
-
-
     //   Handling form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,6 +44,12 @@ const Form = props => {
         setErrors({ ...tempErrors });
         return isValid;
     };
+    useEffect(() => {
+        setValues({
+            uid: user?.uid,
+            title: user?.displayName + ' at ' + time
+        });
+    }, [user]);
     function slugify(str) {
         return String(str)
             .normalize('NFKD') // split accented characters into their base characters and diacritical marks
@@ -95,7 +97,11 @@ const Form = props => {
             console.error('Error in uploading files:', error);
         }
     };
-    useEffect(async () => {
+    useEffect( () => {
+        handleUpload();
+    }, [uploadComplete, values]); // Depend on uploadComplete and values
+
+    const handleUpload = async () => {
         if (uploadComplete) {
             const res = await submitter(values);
             const { error } = await res.json();
@@ -103,7 +109,7 @@ const Form = props => {
                 setShowSuccessMessage(false);
                 setShowFailureMessage(true);
                 setButtonText("Send");
-                return;
+                return () => {};
             }
             setShowSuccessMessage(true);
             setShowFailureMessage(false);
@@ -111,10 +117,12 @@ const Form = props => {
 
             // Reset the flag
             setUploadComplete(false);
-            setValues([]);
+            setValues({
+                uid: user?.uid,
+                title: user?.displayName + ' at ' + time
+            });
         }
-    }, [uploadComplete, values]); // Depend on uploadComplete and values
-
+    }
 
     function handleValues({ value, slug }) {
         setValues(prevValues => ({
