@@ -88,7 +88,7 @@ const Form = props => {
             const uploadedIds = await Promise.all(uploadPromises);
             const validIds = uploadedIds.filter(id => id != null); // Filter out null values (failed uploads)
             setImages([]);
-            handleValues({slug: 'boat_images', value: validIds});
+            handleValues({slug: 'image_gallery', value: validIds});
             return new Promise(resolve => {
                 setUploadComplete(true);
                 resolve();

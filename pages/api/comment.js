@@ -20,7 +20,7 @@ const CREATE_GUEST_BOOK_ENTRY = gql`
     $full_name: String, 
     $message: String, 
     $phone_number: String, 
-    $boat_image: [Int],
+    $image_gallery: [Int],
     $title: String
     ) {
       createGuestBookEntry(
@@ -36,7 +36,7 @@ const CREATE_GUEST_BOOK_ENTRY = gql`
         full_name: $full_name, 
         message: $message, 
         phone_number: $phone_number, 
-        boat_image: $boat_image
+        image_gallery: $image_gallery
         }, 
         title: $title,
         }
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
             full_name: body["full-name"],
             message: body.message,
             phone_number: body["phone-number"],
-            boat_image: body["boat_images"],
+            image_gallery: body["image_gallery"],
             title: body["title"],
         };
         // Execute GraphQL Mutation

@@ -1,7 +1,7 @@
 import {db} from '../../utilities/firebase'
 import { collection, doc, setDoc } from "firebase/firestore";
 export default async function handler(req, res) {
-    const { boat_images, ...data } = req.body;
+    const { image_gallery, ...data } = req.body;
 
 
     try {

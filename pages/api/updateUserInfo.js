@@ -1,7 +1,7 @@
 import {db} from '../../utilities/firebase'
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 export default async function handler(req, res) {
-    const { boat_images, uid, title, lastLogin, ...data } = req.body || {};
+    const { image_gallery, uid, title, lastLogin, ...data } = req.body || {};
     try {
         if( uid ){
             const docRef = doc(db, 'uuids', uid);
