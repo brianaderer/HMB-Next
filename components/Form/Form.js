@@ -142,7 +142,7 @@ const Form = props => {
                     Object.keys(fieldsData).map((field, index) => {
                         const {type, label, ...otherProps} = (fieldsData[field]);
                         const E = type.charAt(0).toUpperCase() +  type.slice(1);
-                        const {value, options, placeholder} = otherProps;
+                        const {value, options, placeholder, message} = otherProps;
                         const slug = slugify(label);
                         let Elem;
                         if( fieldsData[field].display ) {
@@ -150,11 +150,11 @@ const Form = props => {
                                 Elem = FormElements[E];
                             }
                             else {
-                                return <h1 key={index}>We could not find that form element</h1>
+                                return <h1 key={index}>We could not find {E} form element</h1>
                             }
                             if(E !== 'Gallery') {
                                 return (
-                                    <Elem key={index} slug={slug} classes={classes} options={options} title={label}
+                                    <Elem message={message} key={index} slug={slug} classes={classes} options={options} title={label}
                                           required={true} value={values[slug] || ''} handler={handleValues}/>
                                 )
                             } else {
