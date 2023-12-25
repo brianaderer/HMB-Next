@@ -89,12 +89,11 @@ const Form = props => {
 
         try {
             const uploadedIds = await Promise.all(uploadPromises);
-            const validIds = uploadedIds.filter(id => id != null); // Filter out null values (failed uploads)
-
-            setImages([]);
-            const newImages = addImageIds({ids: validIds});
-            handleValues({slug: 'image-gallery', value: newImages});
             return new Promise(resolve => {
+                const validIds = uploadedIds.filter(id => id != null); // Filter out null values (failed uploads)
+                setImages([]);
+                const newImages = addImageIds({ids: validIds});
+                handleValues({slug: 'image-gallery', value: newImages});
                 setUploadComplete(true);
                 resolve();
             });
@@ -107,7 +106,7 @@ const Form = props => {
     }, [uploadComplete, values]); // Depend on uploadComplete and values
     const addImageIds = props => {
         const { ids } = props;
-        const newImageGallery = [...values['image-gallery']];
+        const newImageGallery = [...(values['image-gallery'] || [])];
         ids.forEach(id => {
             newImageGallery.push(id);
         });

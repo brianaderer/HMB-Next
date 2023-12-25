@@ -15,7 +15,7 @@ const Review = props => {
     };
     return(
     <div className={`m-auto h-full flex flex-row justify-center items-center w-5/6`}>
-        <div className={`bg-hmbBlue-100 h-full py-5 px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center border-8 border-hmbBlue-200 drop-shadow-lg mx-10 overflow-x-auto`}>
+        <div className={`bg-hmbBlue-100 h-full py-10 px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center border-8 border-hmbBlue-200 drop-shadow-lg mx-10`}>
             <p className={`text-center`}>{review}</p>
             <p>- {reviewersName}</p>
             <h3>{getFormattedDate( date )}</h3>
