@@ -65,6 +65,8 @@ const Form = props => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('caption', file.caption);
+            formData.append('uuid', user.uid);
+            formData.append('uploaded_by', user.displayName);
 
             try {
                 const response = await fetch('/api/uploads', {
