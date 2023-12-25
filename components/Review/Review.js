@@ -1,13 +1,27 @@
 import {StarRating} from "../StarRating";
 
 const Review = props => {
-    const {reviewersName, rating, review, date} = props.data;
+    const {reviewersName, rating, review, date, sourceLabel, index} = props.data;
+    const getFormattedDate = (date) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+
+        const d = new Date(date);
+        const day = d.getDate();
+        const monthIndex = d.getMonth();
+        const year = d.getFullYear();
+
+        return `${monthNames[monthIndex]}, ${day} ${year}`;
+    };
     return(
-    <div className={`bg-hmbBlue-100 w-fit p-10 rounded-lg flex flex-col items-center grow-0 justify-center border-8 border-hmbBlue-200 drop-shadow-lg`}>
-        <h1>{reviewersName}</h1>
-        <p>{review}</p>
-        <h3>{date}</h3>
-        <StarRating value={rating}/>
+    <div className={`m-auto h-full flex flex-row justify-center items-center w-5/6`}>
+        <div className={`bg-hmbBlue-100 h-full py-5 px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center border-8 border-hmbBlue-200 drop-shadow-lg mx-10 overflow-x-auto`}>
+            <p className={`text-center`}>{review}</p>
+            <p>- {reviewersName}</p>
+            <h3>{getFormattedDate( date )}</h3>
+            <StarRating value={rating}/>
+            <p>{sourceLabel}</p>
+        </div>
     </div>
     )
 }

@@ -6,6 +6,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./wp-blocks/**/*.{js,ts,jsx,tsx,mdx}",
     "./constants/**/*.{js,ts,jsx,tsx,mdx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   theme: {
     extend: {
@@ -50,6 +51,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+      require("daisyui"),
+      require('flowbite/plugin')
+  ],
 }
 
