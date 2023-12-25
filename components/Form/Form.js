@@ -23,13 +23,13 @@ const Form = props => {
     //   Handling form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        let isValidForm = handleValidation();
-
-        if (isValidForm) {
-            setButtonText("Sending");
-            await uploadFiles(images);
-        }
+        // let isValidForm = handleValidation();
+        // if (isValidForm) {
+        //     setButtonText("Sending");
+        //     await uploadFiles(images);
+        // }
+        setButtonText("Sending");
+        await uploadFiles(images);
     };
     // Validation check method
     const handleValidation = () => {

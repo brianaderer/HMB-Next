@@ -6,9 +6,9 @@ const PlaceCard = props => {
     const{data, onClick} = props;
     return (
         <Card className="w-full mt-4 relative">
-            <ul className=" absolute top-2 right-2">{data.category_tax.map( category => {
+            <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
                 return (
-                    <li className={`text-sm`}> {category.name} </li>
+                    <li key={key} className={`text-sm`}> {category.name} </li>
                 )
             } )}</ul>
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -21,9 +21,9 @@ const PlaceCard = props => {
                     </div>
                 }
                 <div className="min-w-[33%] w-auto flex flex-col h-full justify-center flex-wrap items-center">
-                    {data.tags.map(tag => {
+                    {data.tags.map((tag, key) => {
                     return(
-                        <Tag> {tag.name} </Tag>
+                        <Tag key={key}> {tag.name} </Tag>
                         )
                     })}
                 </div>
