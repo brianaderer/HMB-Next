@@ -1,6 +1,6 @@
 import {PlaceCard} from '../PlaceCard';
 const Places = props => {
-    const {callback} = props;
+    const {callback, activeMarker} = props;
     const array = Object.keys(props);
     return(
         <div className="p-10 h-auto overflow-auto">

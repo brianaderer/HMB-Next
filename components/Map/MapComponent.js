@@ -5,6 +5,7 @@ import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
+import {act} from "react-dom/test-utils";
 
 const MapComponent = ({ center, zoom, locationData }) => {
     const ref = useRef();
@@ -13,6 +14,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
     const [activeMarker, setActiveMarker] = useState({});
     const [activeCategories, setActiveCategories] = useState([]);
     const [activePlaces, setActivePlaces] = useState([]);
+    const [sortedActivePlaces, setSortedActivePlaces] = useState([]);
     const activePlacesRef = useRef(activePlaces);
 
 
@@ -60,14 +62,26 @@ const MapComponent = ({ center, zoom, locationData }) => {
                 } );
                 setCategories(categoriesTaxList);
                 let newCategories = [];
-                // for (let category in categoriesTaxList){
-                //     newCategories.push(Number(category));
-                // }
                 setActiveCategories(newCategories);
             });
         }
     }, [map]);
 
+    useEffect(() => {
+        if( Object.keys(activeMarker).length === 0 ) {
+            setSortedActivePlaces(activePlaces);
+        } else {
+            // Find the active place
+            const activePlace = activePlaces.find(place => place.location.place_id === activeMarker.id);
+
+            // Filter out the activeMarker from activePlaces
+            const filteredPlaces = activePlaces.filter(place => place.location.place_id !== activeMarker.id);
+
+            // Place activeMarker as the first element, followed by the rest of the places
+            const newSortedActivePlaces = activePlace ? [activePlace, ...filteredPlaces] : [...filteredPlaces];
+            setSortedActivePlaces(newSortedActivePlaces);
+        }
+    }, [activePlaces, activeMarker]);
 
     function createElement({markerInstance, index ,AdvancedMarkerElement, PinElement, title, position, category}) {
         const parser = new DOMParser();
@@ -119,6 +133,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                 website: location.website,
                 telephone: location.telephone,
                 index: index,
+                id: location.location.place_id,
             }
             setActiveMarker(setData);
         }
@@ -199,7 +214,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     }
                 </fieldset>
             </form>
-            <Places callback={showInfo} {...activePlaces} />
+            <Places callback={showInfo} {...sortedActivePlaces} />
             </div>
     </>
     );
