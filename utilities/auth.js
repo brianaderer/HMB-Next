@@ -108,7 +108,7 @@ export const useAuth = () => {
         // Clean up subscription on unmount
         return () => unsubscribe();
     }, []);
-    return { user, loading, signIn, signOut, setUser, dbUser, setDbUser, checkUser };
+    return { user, loading, signIn, signOut, setUser, dbUser, setDbUser, checkUser, updateUserDb };
 };
 
 

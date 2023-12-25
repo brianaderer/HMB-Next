@@ -7,7 +7,7 @@ import {
 
 export default function AcfUploadMediaForm(props) {
     const submitter = async props => {
-        return await fetch("/api/upload", {
+        return await fetch("/api/updateUserInfo", {
             method: "POST",
             body: JSON.stringify(props),
             headers: {

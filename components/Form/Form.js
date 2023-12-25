@@ -5,7 +5,7 @@ import {AuthContext} from "../../contexts";
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
-    const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser} = authContext || {};
+    const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser, updateUserDb} = authContext || {};
     const {fieldsData, submitter, headline} = props;
     const time = new Date();
     // States for contact form fields
@@ -90,8 +90,10 @@ const Form = props => {
         try {
             const uploadedIds = await Promise.all(uploadPromises);
             const validIds = uploadedIds.filter(id => id != null); // Filter out null values (failed uploads)
+
             setImages([]);
-            handleValues({slug: 'image_gallery', value: validIds});
+            const newImages = addImageIds({ids: validIds});
+            handleValues({slug: 'image-gallery', value: newImages});
             return new Promise(resolve => {
                 setUploadComplete(true);
                 resolve();
@@ -103,6 +105,14 @@ const Form = props => {
     useEffect( () => {
         handleUpload().then(()=>{});
     }, [uploadComplete, values]); // Depend on uploadComplete and values
+    const addImageIds = props => {
+        const { ids } = props;
+        const newImageGallery = [...values['image-gallery']];
+        ids.forEach(id => {
+            newImageGallery.push(id);
+        });
+        return newImageGallery;
+    }
 
     const handleUpload = async () => {
         if (uploadComplete) {

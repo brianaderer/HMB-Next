@@ -2,7 +2,6 @@ import React from "react";
 
 const Email = props => {
     const {slug, handler, value, title, classes, required} = props;
-    console.log(value);
     const {labelClasses, inputClasses, spanClasses} = classes;
     return(
         <>

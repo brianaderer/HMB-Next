@@ -75,7 +75,6 @@ export default async function handler(req, res) {
                         caption: caption,
                     }
                 });
-                console.log(response);
                 const variables = {
                     uploaded_by: uploaded_by,
                     image_uuid: uuid,
