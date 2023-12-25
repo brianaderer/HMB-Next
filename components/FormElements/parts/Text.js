@@ -1,7 +1,7 @@
 import React from "react";
 
 const Text = props => {
-    const {slug, handler, classes, value, title, required} = props
+    const {slug, handler, classes, value, title, required} = props;
     const {labelClasses, inputClasses, spanClasses} = classes;
     return(
         <>

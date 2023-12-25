@@ -24,6 +24,18 @@ export const useAuth = () => {
         }
     };
 
+    useEffect(() => {
+        checkUser().then(() => {});
+    }, [user]);
+
+    const checkUser = async props => {
+        if(user){
+            const returnedDbUser = await preUserLogin({uuid: user?.uid, id: 'signIn'});
+            setDbUser(returnedDbUser);
+            setChecked(true);
+        }
+    }
+
     // Sign Out Function
     const signOut = async props => {
         try {
@@ -67,7 +79,7 @@ export const useAuth = () => {
                     console.error('There has been a problem with your fetch operation:', error);
                 });
         }
-    }, [user, checked, dbUser]);
+    }, [user, checked]);
     const createUserDb = async props => {
         return await fetch("/api/checkUserInfo", {
             method: "POST",
@@ -96,7 +108,6 @@ export const useAuth = () => {
         // Clean up subscription on unmount
         return () => unsubscribe();
     }, []);
-
     return { user, loading, signIn, signOut, setUser, dbUser, setDbUser };
 };
 

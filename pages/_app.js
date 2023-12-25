@@ -27,7 +27,7 @@ export default function MyApp({ Component, pageProps }) {
         };
     }, []);
 
-  const { user, loading, signIn, signOut, setUser } = useAuth();
+  const { user, loading, signIn, signOut, setUser, dbUser, setDbUser } = useAuth();
     const handleSignIn = props => {
         const {id, providerName} = props;
         signIn({setUser, providerName, id}).then(() => {
@@ -47,7 +47,7 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
       <FaustProvider pageProps={pageProps}>
-          <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut}}>
+          <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut, dbUser, setDbUser}}>
               <WordPressBlocksProvider
                   config={{
                       blocks,

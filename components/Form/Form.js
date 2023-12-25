@@ -5,7 +5,7 @@ import {AuthContext} from "../../contexts";
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
-    const {user, setUser, signIn, signOut} = authContext || {};
+    const {user, setUser, signIn, signOut, dbUser, setDbUser} = authContext || {};
     const {fieldsData, submitter, headline} = props;
     const time = new Date();
     // States for contact form fields
@@ -46,6 +46,7 @@ const Form = props => {
     };
     useEffect(() => {
         setValues({
+            ...dbUser,
             uid: user?.uid,
             title: user?.displayName + ' at ' + time
         });
@@ -132,6 +133,13 @@ const Form = props => {
             [slug]: value
         }));
     }
+
+    useEffect(() => {
+
+        Object.keys(dbUser).map( key => {
+            handleValues({value: dbUser[key], slug: key});
+        })
+    }, [dbUser]);
     const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
     const spanClasses = "text-red-500";
     const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
@@ -153,6 +161,7 @@ const Form = props => {
                                 return <h1 key={index}>We could not find {E} form element</h1>
                             }
                             if(E !== 'Gallery') {
+                                console.log(values[slug]);
                                 return (
                                     <Elem message={message} key={index} slug={slug} classes={classes} options={options} title={label}
                                           required={true} value={values[slug] || ''} handler={handleValues}/>
