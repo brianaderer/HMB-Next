@@ -5,7 +5,7 @@ import {AuthContext} from "../../contexts";
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
-    const {user, setUser, signIn, signOut, dbUser, setDbUser} = authContext || {};
+    const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser} = authContext || {};
     const {fieldsData, submitter, headline} = props;
     const time = new Date();
     // States for contact form fields
@@ -101,7 +101,7 @@ const Form = props => {
         }
     };
     useEffect( () => {
-        handleUpload();
+        handleUpload().then(()=>{});
     }, [uploadComplete, values]); // Depend on uploadComplete and values
 
     const handleUpload = async () => {
@@ -124,6 +124,8 @@ const Form = props => {
                 uid: user?.uid,
                 title: user?.displayName + ' at ' + time
             });
+            checkUser();
+            mapDbUser();
         }
     }
 
@@ -133,12 +135,15 @@ const Form = props => {
             [slug]: value
         }));
     }
-
+    const mapDbUser = props => {
+        if(dbUser){
+            Object.keys(dbUser).map( key => {
+                handleValues({value: dbUser[key], slug: key});
+            })
+        }
+    };
     useEffect(() => {
-
-        Object.keys(dbUser).map( key => {
-            handleValues({value: dbUser[key], slug: key});
-        })
+        mapDbUser();
     }, [dbUser]);
     const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
     const spanClasses = "text-red-500";
@@ -161,7 +166,6 @@ const Form = props => {
                                 return <h1 key={index}>We could not find {E} form element</h1>
                             }
                             if(E !== 'Gallery') {
-                                console.log(values[slug]);
                                 return (
                                     <Elem message={message} key={index} slug={slug} classes={classes} options={options} title={label}
                                           required={true} value={values[slug] || ''} handler={handleValues}/>

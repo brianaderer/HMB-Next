@@ -30,7 +30,7 @@ export const useAuth = () => {
 
     const checkUser = async props => {
         if(user){
-            const returnedDbUser = await preUserLogin({uuid: user?.uid, id: 'signIn'});
+            const returnedDbUser = await preUserLogin({uuid: user?.uid, id: 'signUp'});
             setDbUser(returnedDbUser);
             setChecked(true);
         }
@@ -108,7 +108,7 @@ export const useAuth = () => {
         // Clean up subscription on unmount
         return () => unsubscribe();
     }, []);
-    return { user, loading, signIn, signOut, setUser, dbUser, setDbUser };
+    return { user, loading, signIn, signOut, setUser, dbUser, setDbUser, checkUser };
 };
 
 

@@ -75,12 +75,12 @@ export default async function handler(req, res) {
                         caption: caption,
                     }
                 });
+                console.log(response);
                 const variables = {
                     uploaded_by: uploaded_by,
                     image_uuid: uuid,
                     media_id: response.data.id,
                 };
-
                 // Execute GraphQL Mutation
                 const apiResponse = await client.mutate({
                     mutation: UPDATE_IMAGE_META,

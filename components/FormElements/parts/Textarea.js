@@ -7,6 +7,7 @@ const Textarea = props => {
         <>
         <label htmlFor={slug} className={`${labelClasses}`}>{title}<span className={`${spanClasses}`}>*</span></label>
         <textarea
+            rows={8}
             name={slug}
             value={value}
             onChange={(e) => handler({value: e.target.value, slug: slug})}
