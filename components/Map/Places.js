@@ -1,14 +1,19 @@
+import {PlaceCard} from '../PlaceCard';
 const Places = props => {
     const {callback} = props;
     const array = Object.keys(props);
     return(
-        <ul className={`pr-4 h-auto overflow-auto w-1/3 grow-0`}>
-            {array?.map((place,index) => {
-                return(
-                        <li onClick={ e => callback({index: index, domEvent: e})} className={`text-right`} key={index}>{props[place].title}</li>
+        <div className="p-10 h-auto overflow-auto">
+            {array?.map((place, index) => {
+                if (props[place].title) {
+                    return (
+                        <PlaceCard data={props[place]} key={index} title={props[place].title} onClick={e => callback({index: index, domEvent: e})} />
                     );
+                }
+                return null;
             })}
-        </ul>
+        </div>
+
     )
 }
 export default Places;

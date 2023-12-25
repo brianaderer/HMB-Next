@@ -181,18 +181,13 @@ const MapComponent = ({ center, zoom, locationData }) => {
 
         setActivePlaces(newPlaces);
     }, [activeCategories, locationData, map]); // Ensure to include all dependencies
-    let expand = Object.keys(activeCategories).length || Object.keys(activeMarker).length;
+    let expand = Object.keys(activeMarker).length;
 
     return (
     <>
         <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
                 <div className="flex flex-row h-[500px]">
-                    { expand ? Object.keys(activeMarker).length ? (
-                        <PlaceInfo {...activeMarker} callback={setActiveMarker} />
-                    ) : (
-                        <Places callback={showInfo} {...activePlaces} />
-                    ) : ''}
-                    <div className={`h-full ${ expand ? `rounded-r` : `rounded` } w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
+                    <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                 </div>
             <form>
                 <fieldset className={`px-4 flex flex-row items-justified-space-between mt-4`}>
@@ -204,6 +199,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     }
                 </fieldset>
             </form>
+            <Places callback={showInfo} {...activePlaces} />
             </div>
     </>
     );

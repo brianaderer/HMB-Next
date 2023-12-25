@@ -22,5 +22,7 @@ export { Review } from './Review';
 export { SkipNavigationLink } from './SkipNavigationLink';
 export { Hero } from './Hero';
 export { Post } from './Post';
+export { PlaceCard } from './PlaceCard';
+export { Tag } from './Tag';
 export { SEO } from './SEO';
 export { StarRating } from './StarRating';
