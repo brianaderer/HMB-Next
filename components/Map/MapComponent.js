@@ -214,7 +214,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     }
                 </fieldset>
             </form>
-            <Places callback={showInfo} {...sortedActivePlaces} />
+            <Places callback={showInfo} activeMarker={activeMarker} places={sortedActivePlaces} />
             </div>
     </>
     );

@@ -1,9 +1,13 @@
 import { Button, Card } from 'flowbite-react';
+import {Link} from './Link';
 import { Tag } from '../Tag';
 
 
 const PlaceCard = props => {
-    const{data, onClick} = props;
+    const{data, onClick, activeMarker} = props;
+    console.log(data);
+    const expanded = activeMarker?.id === data.location.place_id;
+    console.log(expanded);
     return (
         <Card className="w-full mt-4 relative">
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
@@ -28,8 +32,16 @@ const PlaceCard = props => {
                     })}
                 </div>
             </div>
-            {/*<p className="font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: data.description }}></p>*/}
-            <Button onClick={onClick}>
+            {expanded &&
+                <div className="flex flex-col">
+                    <div className="flex flex-row">
+                        {data.telephone && <Link href={`tel:${data.telephone}`}>{data.telephone}</Link>}
+                        {data.website && <Link href={`${data.website}`}>{data.website}</Link>}
+                    </div>
+                    <p className="font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: data.description }}></p>
+                </div>}
+            { !expanded &&
+                <Button onClick={onClick}>
                 Read more
                 <svg className="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -38,7 +50,7 @@ const PlaceCard = props => {
                         clipRule="evenodd"
                     />
                 </svg>
-            </Button>
+            </Button>}
         </Card>
     );
 }

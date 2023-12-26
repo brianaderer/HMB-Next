@@ -1,13 +1,13 @@
 import {PlaceCard} from '../PlaceCard';
 const Places = props => {
-    const {callback, activeMarker} = props;
-    const array = Object.keys(props);
+    const {callback, places, activeMarker} = props;
+    const array = Object.keys(places);
     return(
         <div className="p-10 h-auto overflow-auto">
             {array?.map((place, index) => {
-                if (props[place].title) {
+                if (places[place].title) {
                     return (
-                        <PlaceCard data={props[place]} key={index} title={props[place].title} onClick={e => callback({index: index, domEvent: e})} />
+                        <PlaceCard activeMarker={activeMarker} data={places[place]} key={index} title={places[place].title} onClick={e => callback({index: index, domEvent: e})} />
                     );
                 }
                 return null;
