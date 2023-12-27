@@ -7,7 +7,7 @@ import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
 import {act} from "react-dom/test-utils";
 
-const MapComponent = ({ center, zoom, locationData }) => {
+const MapComponent = ({ center, zoom, locations }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -16,6 +16,14 @@ const MapComponent = ({ center, zoom, locationData }) => {
     const [activePlaces, setActivePlaces] = useState([]);
     const [sortedActivePlaces, setSortedActivePlaces] = useState([]);
     const activePlacesRef = useRef(activePlaces);
+    let locationData = {};
+    locations.map((location, index) => {
+        if( location.location?.place_id ){
+            locationData[location.location.place_id] = location;
+        } else {
+            locationData[index] = location;
+        }
+    });
 
 
     const mapOptions = {
@@ -30,7 +38,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
 
     useEffect(() => {
         setMap( new window.google.maps.Map( ref.current, mapOptions ) );
-    }, [locationData]);
+    }, [locations]);
 
     useEffect(() => {
         if(map){
@@ -46,7 +54,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
             newMarker().then(({AdvancedMarkerElement,PinElement}) => {
                 createElement({index: 'home', AdvancedMarkerElement, PinElement ,title: 'Half Moon Bay Marina', position: center, category: 'home'});
                 let categoriesTaxList = [];
-                locationData.map((location, index) => {
+                Object.keys(locationData).map((locationKey) => {
+                    const location = locationData[locationKey];
                     const place =  location.location;
                     const position = {'lat': place?.lat, 'lng': place?.lng};
                     const title = location.title;
@@ -56,9 +65,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
                         }
                     });
                     if(position.lat){
-                        createElement({index, markerInstance, PinElement ,AdvancedMarkerElement, title: title, position: position, category: location.category_tax[0]});
+                        createElement({index: locationKey, markerInstance, PinElement ,AdvancedMarkerElement, title: title, position: position, category: location.category_tax[0]});
                     }
-
                 } );
                 setCategories(categoriesTaxList);
                 let newCategories = [];
@@ -71,16 +79,16 @@ const MapComponent = ({ center, zoom, locationData }) => {
         if( Object.keys(activeMarker).length === 0 ) {
             setSortedActivePlaces(activePlaces);
         } else {
-            // Find the active place
-            const activePlace = activePlaces.find(place => place.location.place_id === activeMarker.id);
-
+            const activePlace = activePlaces.find(place => {
+                return place === activeMarker.id;
+            });
             // Filter out the activeMarker from activePlaces
-            const filteredPlaces = activePlaces.filter(place => place.location.place_id !== activeMarker.id);
+            const filteredPlaces = activePlaces.filter(place => place !== activeMarker.id);
 
             // Place activeMarker as the first element, followed by the rest of the places
             const newSortedActivePlaces = activePlace ? [activePlace, ...filteredPlaces] : [...filteredPlaces];
             setSortedActivePlaces(newSortedActivePlaces);
-        }
+         }
     }, [activePlaces, activeMarker]);
 
     function createElement({markerInstance, index ,AdvancedMarkerElement, PinElement, title, position, category}) {
@@ -104,12 +112,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     });
                     // Add a click listener for each marker, and set up the info window.
                     marker.addListener("click", ({ domEvent }) => {
-                        for ( let place in activePlacesRef.current ) {
-                            if(locationData[index] && activePlacesRef.current[place].location.place_id === locationData[index].location.place_id){
-                                showInfo({index: Number(place), domEvent});
-                                break;
-                            }
-                        }
+                        const clickedMarkerIndex = index; // Retrieve the index here
+                        showInfo({index, domEvent})
                     });
         marker.content.classList.add('transition-all','origin-bottom');
         if(locationData[index]){
@@ -118,7 +122,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
     function showInfo({index, domEvent}){
         const {target} = domEvent;
-        const location = activePlacesRef.current[index];
+        const location = locationData[index];
         if( location ){
             let tags = [];
             if( isArray( location.tags ) ) {
@@ -140,12 +144,13 @@ const MapComponent = ({ center, zoom, locationData }) => {
     }
 
     useEffect(() => {
-        activePlaces.map( (location, index) => {
-            if( index !== activeMarker.index ){
+        activePlacesRef.current.map( (id) => {
+            const location = locationData[id];
+            if( id !== activeMarker.index ){
                 location?.marker?.content?.classList.remove('scale-150', 'drop-shadow-xl');
                 if( location.marker ){
-                    location.marker.borderColor =
-                    location.marker.zIndex = index;
+                    //location.marker.borderColor =
+                    location.marker.zIndex = 1;
                 }
             } else {
                 location?.marker?.content?.classList.add('scale-150', 'drop-shadow-xl');
@@ -181,7 +186,8 @@ const MapComponent = ({ center, zoom, locationData }) => {
 
 
     useEffect(() => {
-        const newPlaces = locationData.filter((location) => {
+        const newPlaces = Object.keys(locationData).filter((key) => {
+            const location = locationData[key];
             const hasActiveCategory = location.category_tax.some(category => {
                     return activeCategories.includes(category.term_id);
                 }
@@ -190,12 +196,10 @@ const MapComponent = ({ center, zoom, locationData }) => {
             if (location.marker) {
                 location.marker.map = hasActiveCategory ? map : null;
             }
-
             return hasActiveCategory;
         });
-
         setActivePlaces(newPlaces);
-    }, [activeCategories, locationData, map]); // Ensure to include all dependencies
+    }, [activeCategories, locations, map]); // Ensure to include all dependencies
     let expand = Object.keys(activeMarker).length;
 
     return (
@@ -214,7 +218,7 @@ const MapComponent = ({ center, zoom, locationData }) => {
                     }
                 </fieldset>
             </form>
-            <Places callback={showInfo} activeMarker={activeMarker} places={sortedActivePlaces} />
+            <Places locationData={locationData} callback={showInfo} activeMarker={activeMarker} places={sortedActivePlaces} />
             </div>
     </>
     );

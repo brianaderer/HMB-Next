@@ -4,10 +4,8 @@ import { Tag } from '../Tag';
 
 
 const PlaceCard = props => {
-    const{data, onClick, activeMarker} = props;
-    console.log(data);
-    const expanded = activeMarker?.id === data.location.place_id;
-    console.log(expanded);
+    const{data, onClick, activeMarker, id} = props;
+    const expanded = activeMarker?.id === id;
     return (
         <Card className="w-full mt-4 relative">
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
