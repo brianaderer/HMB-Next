@@ -5,7 +5,6 @@ export default function AcfGallery(props) {
     const { galleryFields } = props;
     const gallery = galleryFields ? JSON.parse( galleryFields ) : {};
     const { imageGallery, tagline, galleryParagraph } = gallery;
-    console.log(gallery);
     return (
         <>
             <h1 className={`text-center text-3xl mb-8`}>{tagline}</h1>
