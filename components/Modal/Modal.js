@@ -3,7 +3,6 @@ const Modal = props => {
     const {children, id, onModalClose} = props;
     const handleCloseModal = props => {
         document?.getElementById(id).close();
-        console.log('closed');
     }
     useEffect(() => {
         const handleEsc = (event) => {

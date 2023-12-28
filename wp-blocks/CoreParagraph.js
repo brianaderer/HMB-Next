@@ -13,6 +13,16 @@ CoreParagraph.fragments = {
     entry: gql`
     fragment CoreParagraphFragment on CoreParagraph {
       attributes {
+        cssClassName
+        backgroundColor
+        style
+        textColor
+        fontSize
+        fontFamily
+        direction
+        dropCap
+        gradient
+        align
         content
       }
     }

@@ -8,6 +8,7 @@ export const pageQuery = gql`
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   ${components.CoreParagraph.fragments.entry}
+  ${components.AcfGallery.fragments.entry}
   ${components.AcfTransientContactForm.fragments.entry}
   ${components.AcfSignUpForm.fragments.entry}
   ${components.AcfUserInfoForm.fragments.entry}
@@ -31,6 +32,7 @@ export const pageQuery = gql`
         id: clientId
         parentClientId
         ...${components.CoreParagraph.fragments.key}
+        ...${components.AcfGallery.fragments.key}
         ...${components.AcfTransientContactForm.fragments.key}
         ...${components.AcfSignUpForm.fragments.key}
         ...${components.AcfUserInfoForm.fragments.key}

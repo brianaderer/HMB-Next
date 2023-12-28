@@ -26,7 +26,7 @@ export default function Component(props) {
   const { title, content, featuredImage } = props?.data?.page ?? { title: '' };
 
   const { editorBlocks } = props.data.page;
-  const blocks = flatListToHierarchical(editorBlocks);
+  const returnedBlocks = flatListToHierarchical(editorBlocks);
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function Component(props) {
       <Main>
         <>
           <Container>
-            <WordPressBlocksViewer blocks={blocks}/>
+            <WordPressBlocksViewer blocks={returnedBlocks}/>
             {/*<ContentWrapper content={content} />*/}
           </Container>
         </>

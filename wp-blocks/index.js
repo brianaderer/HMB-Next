@@ -7,6 +7,7 @@ import CreateBlockInstagramGallery from "./CreateBlockInstagramGallery";
 import AcfGuestBookEntry from "./AcfGuestBookEntry";
 import CreateBlockReviews from "./CreateBlockReviews";
 import AcfUploadMediaForm from "./AcfUploadMediaForm";
+import AcfGallery from "./AcfGallery";
 export default {
     CoreParagraph,
     AcfTransientContactForm,
@@ -17,4 +18,5 @@ export default {
     AcfSignUpForm,
     AcfUserInfoForm,
     AcfUploadMediaForm,
+    AcfGallery,
 };
