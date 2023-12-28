@@ -16,8 +16,8 @@ export default function AcfGallery(props) {
                         Object.keys(imageGallery).map( index => {
                             const image = imageGallery[index];
                             return(
-                                <div className={`shrink grow w-auto basis-0`}>
-                                    <img className={`w-full h-full object-cover`} key={index} src={image.url} alt={image.alt}/>
+                                <div key={index} className={`shrink grow w-auto basis-0`}>
+                                    <img className={`w-full h-full object-cover`} src={image.url} alt={image.alt}/>
                                 </div>
                                     )
                         } )

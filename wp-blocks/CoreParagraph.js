@@ -3,7 +3,8 @@ import React from 'react';
 import {ContentWrapper} from "../components";
 
 export default function CoreParagraph(props) {
-    const attributes = props.attributes;
+    const {attributes, customAttributes} = props;
+    console.log(customAttributes);
     return (
         <ContentWrapper content={attributes.content} />
     );
@@ -12,14 +13,13 @@ export default function CoreParagraph(props) {
 CoreParagraph.fragments = {
     entry: gql`
     fragment CoreParagraphFragment on CoreParagraph {
+    customAttributes
       attributes {
-        cssClassName
         backgroundColor
         style
         textColor
         fontSize
         fontFamily
-        direction
         dropCap
         gradient
         align
