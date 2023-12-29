@@ -8,6 +8,8 @@ import AcfGuestBookEntry from "./AcfGuestBookEntry";
 import CreateBlockReviews from "./CreateBlockReviews";
 import AcfUploadMediaForm from "./AcfUploadMediaForm";
 import AcfGallery from "./AcfGallery";
+import CoreImage from "./CoreImage";
+import AcfHmbMap from "./AcfHmbMap";
 export default {
     CoreParagraph,
     AcfTransientContactForm,
@@ -19,4 +21,6 @@ export default {
     AcfUserInfoForm,
     AcfUploadMediaForm,
     AcfGallery,
+    CoreImage,
+    AcfHmbMap
 };

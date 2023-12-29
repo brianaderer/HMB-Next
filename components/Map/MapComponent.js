@@ -59,7 +59,7 @@ const MapComponent = ({ center, zoom, locations }) => {
                     const place =  location.location;
                     const position = {'lat': place?.lat, 'lng': place?.lng};
                     const title = location.title;
-                    location.category_tax.map(category => {
+                    location.category_tax?.map(category => {
                         if( !categoriesTaxList.hasOwnProperty(category.term_id)){
                             categoriesTaxList[category.term_id] = {'slug': category.slug, 'name': category.name };
                         }
@@ -188,7 +188,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     useEffect(() => {
         const newPlaces = Object.keys(locationData).filter((key) => {
             const location = locationData[key];
-            const hasActiveCategory = location.category_tax.some(category => {
+            const hasActiveCategory = location.category_tax?.some(category => {
                     return activeCategories.includes(category.term_id);
                 }
             );
@@ -208,17 +208,22 @@ const MapComponent = ({ center, zoom, locations }) => {
                 <div className="flex flex-row h-[500px]">
                     <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                 </div>
-            <form>
+            {categories.length > 0 && <>
+                <form>
                 <fieldset className={`px-4 flex flex-row items-justified-space-between mt-4`}>
-                    {categories.map( (cat, index) => {
-                        return(
-                            <Category isChecked={activeCategories.includes(index)} key={index} handler={handler} category={cat} index={index} />
+                    {categories.map((cat, index) => {
+                        return (
+                            <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
+                                      category={cat} index={index}/>
                         )
                     })
                     }
                 </fieldset>
             </form>
-            <Places locationData={locationData} callback={showInfo} activeMarker={activeMarker} places={sortedActivePlaces} />
+                <Places locationData={locationData} callback={showInfo} activeMarker={activeMarker}
+                                                    places={sortedActivePlaces}/>
+                </>
+        }
             </div>
     </>
     );

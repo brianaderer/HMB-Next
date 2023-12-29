@@ -8,10 +8,12 @@ export const pageQuery = gql`
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   ${components.CoreParagraph.fragments.entry}
+  ${components.CoreImage.fragments.entry}
   ${components.AcfGallery.fragments.entry}
   ${components.AcfTransientContactForm.fragments.entry}
   ${components.AcfSignUpForm.fragments.entry}
   ${components.AcfUserInfoForm.fragments.entry}
+  ${components.AcfHmbMap.fragments.entry}
   ${components.AcfUploadMediaForm.fragments.entry}
   ${components.CreateBlockAttractions.fragments.entry}
   ${components.AcfGuestBook.fragments.entry}
@@ -32,10 +34,12 @@ export const pageQuery = gql`
         id: clientId
         parentClientId
         ...${components.CoreParagraph.fragments.key}
+        ...${components.CoreImage.fragments.key}
         ...${components.AcfGallery.fragments.key}
         ...${components.AcfTransientContactForm.fragments.key}
         ...${components.AcfSignUpForm.fragments.key}
         ...${components.AcfUserInfoForm.fragments.key}
+        ...${components.AcfHmbMap.fragments.key}
         ...${components.AcfUploadMediaForm.fragments.key}
         ...${components.CreateBlockAttractions.fragments.key}
         ...${components.AcfGuestBook.fragments.key}
