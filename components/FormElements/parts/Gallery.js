@@ -2,7 +2,7 @@ import { Media } from '../../Media';
 import React, {useEffect, useState} from 'react'
 import {useDropzone} from "react-dropzone";
 const Gallery = props => {
-    const {slug, classes, title, setState, state, required} = props
+    const {slug, classes, title, setState, state, required, message} = props
     const {labelClasses, inputClasses, spanClasses} = classes;
     const handleTyping = ({content, index}) => {
         const caption = content.target.value;

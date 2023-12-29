@@ -8,6 +8,7 @@ export { Footer } from './Footer';
 export { Form } from './Form';
 export { FormatDate } from './FormatDate';
 export { FormElements } from './FormElements';
+export { Galleries } from './Gallery';
 export { Header } from './Header';
 export { Heading } from './Heading';
 export { Loading } from './Loading';

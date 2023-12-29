@@ -4,7 +4,6 @@ import {ContentWrapper} from "../components";
 
 export default function CoreParagraph(props) {
     const {attributes, customAttributes} = props;
-    console.log(customAttributes);
     return (
         <ContentWrapper content={attributes.content} />
     );

@@ -4,8 +4,6 @@ import {ContentWrapper} from "../components";
 
 export default function CoreImage(props) {
     const {attributes, customAttributes} = props;
-    console.log(customAttributes);
-    console.log(attributes);
     return (
         <div className="aspect-video w-full h-auto overflow-clip">
             <img className={`min-w-full min-h-full`} src={attributes.src} alt={attributes.alt}/>

@@ -29,7 +29,6 @@ const render = (status)=> {
 
 const Map = props => {
     const {locations} = props;
-    console.log(locations);
     const center = { lat: 41.1973179, lng: -73.8885881 };
     const zoom = 8;
 

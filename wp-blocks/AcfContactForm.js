@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import React from 'react';
 import {Form} from "../components";
 
-export default function AcfTransientContactForm(props) {
+export default function AcfContactForm(props) {
     const submitter = async props => {
         const values = [];
         return await fetch("/api/hello", {
@@ -21,13 +21,13 @@ export default function AcfTransientContactForm(props) {
     );
 }
 
-AcfTransientContactForm.fragments = {
+AcfContactForm.fragments = {
     entry: gql`
-    fragment AcfTransientsContactFormFragment on AcfTransientContactForm {
+    fragment AcfContactFormFragment on AcfContactForm {
       contactData
     }
   `,
-    key: `AcfTransientsContactFormFragment`,
+    key: `AcfContactFormFragment`,
 };
 
-AcfTransientContactForm.displayName = 'AcfTransientContactForm';
+AcfContactForm.displayName = 'AcfContactForm';

@@ -10,7 +10,7 @@ export const pageQuery = gql`
   ${components.CoreParagraph.fragments.entry}
   ${components.CoreImage.fragments.entry}
   ${components.AcfGallery.fragments.entry}
-  ${components.AcfTransientContactForm.fragments.entry}
+  ${components.AcfContactForm.fragments.entry}
   ${components.AcfSignUpForm.fragments.entry}
   ${components.AcfUserInfoForm.fragments.entry}
   ${components.AcfHmbMap.fragments.entry}
@@ -36,7 +36,7 @@ export const pageQuery = gql`
         ...${components.CoreParagraph.fragments.key}
         ...${components.CoreImage.fragments.key}
         ...${components.AcfGallery.fragments.key}
-        ...${components.AcfTransientContactForm.fragments.key}
+        ...${components.AcfContactForm.fragments.key}
         ...${components.AcfSignUpForm.fragments.key}
         ...${components.AcfUserInfoForm.fragments.key}
         ...${components.AcfHmbMap.fragments.key}
