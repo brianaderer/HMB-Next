@@ -18,6 +18,7 @@ export { Main } from './Main';
 export { Map } from './Map';
 export { Media } from './Media';
 export { Modal } from './Modal';
+export { Nav } from './Nav';
 export { NavigationMenu } from './NavigationMenu';
 export { PostInfo } from './PostInfo';
 export { Review } from './Review';

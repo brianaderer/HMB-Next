@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { Navbar, NavbarCollapse, NavbarLink, NavbarToggle } from 'flowbite-react';
 import { Container, NavigationMenu, SkipNavigationLink } from '../../components';
 import styles from './Header.module.scss';
-import {Brand} from '../index';
+import {Brand, Nav} from '../index';
 let cx = classNames.bind(styles);
 
 export default function Header({
@@ -16,27 +17,14 @@ export default function Header({
   const {logo} = siteLogo;
 
   return (
-    <header className={cx('component')}>
-      <SkipNavigationLink />
-        <Container>
-          <div className={cx('navbar')}>
-            <Brand description={description} title={title} logo={logo} />
-            <button
-              type="button"
-              className={cx('nav-toggle')}
-              onClick={() => setIsNavShown(!isNavShown)}
-              aria-label="Toggle navigation"
-              aria-controls={cx('primary-navigation')}
-              aria-expanded={isNavShown}
-            >
-              ☰
-            </button>
-            <NavigationMenu
-              className={cx(['primary-navigation', isNavShown ? 'show' : undefined])}
-              menuItems={menuItems}
-            />
-        </div>
-      </Container>
-    </header>
+      <div className={`min-h-28 bg-hmbBlue-100 flex w-full items-end flex-row pr-[5%] pb-2`}>
+      <Navbar className={`bg-transparent w-full`} fluid>
+        <Brand description={description} menuItems={menuItems} logo={logo} title={title} />
+        <NavbarToggle />
+        <NavbarCollapse>
+          <Nav menuItems={menuItems} />
+        </NavbarCollapse>
+      </Navbar>
+      </div>
   );
 }
