@@ -1,6 +1,7 @@
 const sizes = {
     'default': '',
     'thumb' : 'max-h-28',
+    'thumb-sm' : 'max-h-16',
 }
 
 const Image = props => {

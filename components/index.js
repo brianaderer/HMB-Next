@@ -1,4 +1,5 @@
 export * as Button from './Button';
+export { Brand } from './Brand';
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
 export { EntryHeader } from './EntryHeader';

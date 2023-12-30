@@ -19,11 +19,12 @@ export default function Component(props) {
     return <>Loading...</>;
   }
 
-  const { title: siteTitle, description: siteDescription } =
+  const { title: siteTitle, description: siteDescription, siteLogo } =
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const { title, content, featuredImage } = props?.data?.page ?? { title: '' };
+  const parsedSiteLogo = siteLogo?.length > 0 ? JSON.parse(siteLogo) : {};
 
   const { editorBlocks } = props.data.page;
   const returnedBlocks = flatListToHierarchical(editorBlocks);
@@ -36,6 +37,7 @@ export default function Component(props) {
         imageUrl={featuredImage?.node?.sourceUrl}
       />
       <Header
+        siteLogo={parsedSiteLogo}
         title={siteTitle}
         description={siteDescription}
         menuItems={primaryMenu}

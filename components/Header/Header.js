@@ -3,27 +3,24 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { Container, NavigationMenu, SkipNavigationLink } from '../../components';
 import styles from './Header.module.scss';
-
+import {Brand} from '../index';
 let cx = classNames.bind(styles);
 
 export default function Header({
   title = 'Headless by WP Engine',
   description,
-  menuItems
+  menuItems,
+  siteLogo
 }) {
   const [isNavShown, setIsNavShown] = useState(false);
+  const {logo} = siteLogo;
 
   return (
     <header className={cx('component')}>
       <SkipNavigationLink />
         <Container>
           <div className={cx('navbar')}>
-            <div className={cx('brand')}>
-              <Link legacyBehavior href="/">
-                <a className={cx('title')}>{title}</a>
-              </Link>
-              {description && <p className={cx('description')}>{description}</p>}
-            </div>
+            <Brand description={description} title={title} logo={logo} />
             <button
               type="button"
               className={cx('nav-toggle')}
