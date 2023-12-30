@@ -158,9 +158,9 @@ const Form = props => {
     const spanClasses = "text-red-500";
     const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
     const classes = {labelClasses, spanClasses, inputClasses};
-    const {formHeadline, fields} = fieldsData;
+    const {formHeadline, fields, anchor} = fieldsData;
     return (
-            <FormWrapper handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
+            <FormWrapper anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
                 {
                     Object.keys(fields).map((field, index) => {
                         const {type, label, ...otherProps} = (fields[field]);

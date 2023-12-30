@@ -2,9 +2,12 @@ import sendgrid from "@sendgrid/mail";
 sendgrid.setApiKey(process.env.SENDGRID_KEY);
 
 export default async function handler(req, res) {
+    const { 'image-gallery': imageGallery, uid, ...sendFields } = req.body;
+
+// Now, `sendFields` contains all fields from req.body except `uid` and `image-gallery`
+
     try {
-        let messageContent = "";
-        messageContent = Object.keys(req.body).map((key) => {
+        const messageContent = Object.keys(sendFields).map((key) => {
             return `<p>${key}: ${req.body[key]}</p>`;
         }).join("");
 
