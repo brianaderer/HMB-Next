@@ -41,8 +41,8 @@ export default function Component(props) {
         title={siteTitle}
         description={siteDescription}
         menuItems={primaryMenu}
-      />
-      <Main>
+      >
+      <Main className={`pb-12`}>
         <>
           <Container>
             <WordPressBlocksViewer blocks={returnedBlocks}/>
@@ -50,6 +50,7 @@ export default function Component(props) {
         </>
       </Main>
       <Footer title={siteTitle} menuItems={footerMenu} />
+      </Header>
     </>
   );
 }
