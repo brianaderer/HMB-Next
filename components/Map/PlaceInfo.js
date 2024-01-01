@@ -1,11 +1,11 @@
 import {Button} from '../../components';
 const PlaceInfo = props => {
-    const {title, address, description, tags, categories, website, telephone, callback} = props;
+    const {id, title, address, description, tags, categories, website, telephone, callback} = props;
     const handleClick = () => {
         callback({});
     }
     return(
-        <div id={`placeInfo`} className={`grow-0 w-1/3 overflow-auto h-auto`}>
+        <div id={id} className={`grow-0 w-1/3 overflow-auto h-auto`}>
             <Button.StandardButton callback={handleClick}>X</Button.StandardButton>
             <h3>Title: {title}</h3>
             <p>Address: {address}</p>

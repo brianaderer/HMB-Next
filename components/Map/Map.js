@@ -34,7 +34,7 @@ const Map = props => {
 
     return (
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY} render={render} libraries={['marker']}>
-            <MapComponent center={center} zoom={zoom} locations={locations} />
+            <MapComponent center={center} zoom={zoom} locations={locations || {}} />
         </Wrapper>
     );
 }

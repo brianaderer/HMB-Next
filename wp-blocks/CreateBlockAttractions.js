@@ -5,7 +5,6 @@ import {Map} from "../components";
 export default function CreateBlockAttractions(props) {
     const {renderedHtml} = props;
     const [locations, setLocations] = useState([]);
-    const data = JSON.parse(renderedHtml);
     useEffect(() => {
         const newLocations = JSON.parse(renderedHtml).map(location => location);
         setLocations(newLocations);

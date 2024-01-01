@@ -5,17 +5,20 @@ import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
-import {act} from "react-dom/test-utils";
+import { useRouter } from 'next/router';
 
 const MapComponent = ({ center, zoom, locations }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
     const [activeMarker, setActiveMarker] = useState({});
+    const [lastActiveMarker, setLastActiveMarker] = useState({});
     const [activeCategories, setActiveCategories] = useState([]);
     const [activePlaces, setActivePlaces] = useState([]);
     const [sortedActivePlaces, setSortedActivePlaces] = useState([]);
     const activePlacesRef = useRef(activePlaces);
+    const [clickedOnMap, setClickedOnMap] = useState(false);
+    const router = useRouter();
     let locationData = {};
     locations.map((location, index) => {
         if( location.location?.place_id ){
@@ -47,6 +50,25 @@ const MapComponent = ({ center, zoom, locations }) => {
             });
         }
     }, [map]);
+
+    useEffect(() => {
+        const handleClickAnywhere = (event) => {
+            // Your logic here
+            if(event.target.closest('#map')){
+                setClickedOnMap(true);
+            } else {
+                setClickedOnMap(false);
+            }
+        };
+
+        // Bind the event listener
+        document.addEventListener("click", handleClickAnywhere);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            document.removeEventListener("click", handleClickAnywhere);
+        };
+    }, []);
 
     useEffect(() => {
         const markerInstance = marker({document});
@@ -120,6 +142,12 @@ const MapComponent = ({ center, zoom, locations }) => {
             locationData[index].marker=marker;
         }
     }
+
+    useEffect(() => {
+        if(activeMarker.id){
+            setLastActiveMarker(activeMarker);
+        }
+    }, [activeMarker]);
     function showInfo({index, domEvent}){
         const {target} = domEvent;
         const location = locationData[index];
@@ -140,6 +168,39 @@ const MapComponent = ({ center, zoom, locations }) => {
                 id: location.location.place_id,
             }
             setActiveMarker(setData);
+        }
+    }
+
+    useEffect(() => {
+        if (activeMarker.id) {
+            // Delay the scroll to allow for the DOM to update
+            setTimeout(() => {
+                scrollToElement(`${activeMarker.index}`, 'end');
+                // After scrolling, then set the focus
+                setFocusToElement(`${activeMarker.index}`);
+            }, 0);
+        } else if(lastActiveMarker.id && !clickedOnMap) {
+            // Delay the scroll to allow for the DOM to update
+            setTimeout(() => {
+                scrollToElement(`${lastActiveMarker.index}`, 'start');
+                // After scrolling, then set the focus
+                setFocusToElement(`${lastActiveMarker.index}`);
+                setLastActiveMarker({});
+            }, 0);
+        }
+    }, [sortedActivePlaces, activeMarker]);
+
+    function setFocusToElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.focus({ preventScroll: true });
+        }
+    }
+
+    function scrollToElement(elementId, target) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: target, inline: 'nearest' });
         }
     }
 
@@ -199,6 +260,10 @@ const MapComponent = ({ center, zoom, locations }) => {
             return hasActiveCategory;
         });
         setActivePlaces(newPlaces);
+        if( newPlaces?.find( element => element === activeMarker.index) === undefined ){
+            setActiveMarker({});
+            setLastActiveMarker({});
+        }
     }, [activeCategories, locations, map]); // Ensure to include all dependencies
     let expand = Object.keys(activeMarker).length;
 

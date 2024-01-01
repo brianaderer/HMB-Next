@@ -7,7 +7,7 @@ const PlaceCard = props => {
     const{data, onClick, activeMarker, id} = props;
     const expanded = activeMarker?.id === id;
     return (
-        <Card className="w-full mt-4 relative">
+        <Card id={id} className="w-full mt-4 relative">
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
                 return (
                     <li key={key} className={`text-sm`}> {category.name} </li>
