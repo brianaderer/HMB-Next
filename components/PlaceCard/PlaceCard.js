@@ -1,5 +1,3 @@
-import {Link} from './Link';
-import { Tag } from '../Tag';
 import { Card } from '../Card';
 
 
@@ -9,8 +7,9 @@ const PlaceCard = props => {
     const handleDestroy = props => {
         destroy({clickedOnMap: false});
     }
+
     return (
-        <Card id={id} key={id} data={data} onClick={onClick} destroy={destroy} activeMarker={activeMarker} />
+        <Card expanded={expanded} id={id} key={id} data={data} callback={onClick} handleDestroy={handleDestroy} activeMarker={activeMarker} />
     );
 }
 
