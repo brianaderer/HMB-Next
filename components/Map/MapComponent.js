@@ -18,6 +18,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     const [sortedActivePlaces, setSortedActivePlaces] = useState([]);
     const activePlacesRef = useRef(activePlaces);
     const [clickedOnMap, setClickedOnMap] = useState(false);
+    const clickedOnMapRef = useRef(clickedOnMap);
     const router = useRouter();
     let locationData = {};
     locations.map((location, index) => {
@@ -47,28 +48,14 @@ const MapComponent = ({ center, zoom, locations }) => {
         if(map){
             map.addListener('click', () => {
                setActiveMarker({});
+               setClickedOnMap(true);
             });
         }
     }, [map]);
 
     useEffect(() => {
-        const handleClickAnywhere = (event) => {
-            // Your logic here
-            if(event.target.closest('#map')){
-                setClickedOnMap(true);
-            } else {
-                setClickedOnMap(false);
-            }
-        };
-
-        // Bind the event listener
-        document.addEventListener("click", handleClickAnywhere);
-
-        // Clean up the event listener when the component unmounts
-        return () => {
-            document.removeEventListener("click", handleClickAnywhere);
-        };
-    }, []);
+        clickedOnMapRef.current = clickedOnMap;
+    }, [clickedOnMap]);
 
     useEffect(() => {
         const markerInstance = marker({document});
@@ -150,6 +137,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     }, [activeMarker]);
     function showInfo({index, domEvent}){
         const {target} = domEvent;
+        const isMapClick = target.closest('#map') != null;
         const location = locationData[index];
         if( location ){
             let tags = [];
@@ -167,11 +155,13 @@ const MapComponent = ({ center, zoom, locations }) => {
                 index: index,
                 id: location.location.place_id,
             }
+            setClickedOnMap(isMapClick);
             setActiveMarker(setData);
         }
     }
 
     useEffect(() => {
+        //console.log(clickedOnMapRef.current);
         if (activeMarker.id) {
             // Delay the scroll to allow for the DOM to update
             setTimeout(() => {
@@ -179,7 +169,7 @@ const MapComponent = ({ center, zoom, locations }) => {
                 // After scrolling, then set the focus
                 setFocusToElement(`${activeMarker.index}`);
             }, 0);
-        } else if(lastActiveMarker.id && !clickedOnMap) {
+        } else if(lastActiveMarker.id && !clickedOnMapRef.current) {
             // Delay the scroll to allow for the DOM to update
             setTimeout(() => {
                 scrollToElement(`${lastActiveMarker.index}`, 'start');
@@ -188,7 +178,10 @@ const MapComponent = ({ center, zoom, locations }) => {
                 setLastActiveMarker({});
             }, 0);
         }
-    }, [sortedActivePlaces, activeMarker]);
+        else {
+            setLastActiveMarker({});
+        }
+    }, [activeMarker, clickedOnMap]);
 
     function setFocusToElement(elementId) {
         const element = document.getElementById(elementId);
