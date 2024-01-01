@@ -1,10 +1,9 @@
 import classNames from 'classnames/bind';
-import { Navbar, NavbarCollapse, NavbarLink, NavbarToggle } from 'flowbite-react';
-import { Container, NavigationMenu, SkipNavigationLink } from '../../components';
 import styles from './Header.module.scss';
 import {Brand, Nav} from '../index';
 let cx = classNames.bind(styles);
 import { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Header({
   title = 'Headless by WP Engine',
@@ -14,33 +13,46 @@ export default function Header({
   children,
 }) {
   const [isNavShown, setIsNavShown] = useState(false);
-  const useMediaQuery = (width) => {
-    const [targetReached, setTargetReached] = useState(false);
+  const {logo} = siteLogo;
+  const [open, setOpen] = useState('');
+  const router = useRouter();
 
-    const updateTarget = useCallback((e) => {
-      if (e.matches) {
-        setTargetReached(true);
-      } else {
-        setTargetReached(false);
-      }
-    }, []);
+
 
     useEffect(() => {
-      const media = window.matchMedia(`(max-width: ${width}px)`);
-      media.addListener(updateTarget);
+        const handleBodyClick = (evt) => {
+            if (evt.target.tagName === 'A') {
+                const href = evt.target.getAttribute('href');
+                if (href) {
+                    router.push(href);
+                    setOpen('');
+                    return; // Exit the function after navigating
+                }
+            }
+            // Check if the parent of the target element is a <details> element
+            const parentDetails = evt.target.closest('details');
+            if (parentDetails) {
+                evt.stopPropagation();
+                evt.preventDefault();
+                const id = parentDetails.id;
+                if ( open=== id ){
+                    setOpen('');
+                } else {
+                    setOpen(id);
+                }
+            } else {
+                setOpen('');
+            }
 
-      // Check on mount (callback is not called until a change occurs)
-      if (media.matches) {
-        setTargetReached(true);
-      }
+        };
+        // Add event listener
+        document.body.addEventListener("click", handleBodyClick);
 
-      return () => media.removeListener(updateTarget);
-    }, []);
-
-    return targetReached;
-  };
-  console.log(useMediaQuery('768'));
-  const {logo} = siteLogo;
+        // Remove event listener on cleanup
+        return () => {
+            document.body.removeEventListener("click", handleBodyClick);
+        };
+    }, [open]);
 
   return (
       <div className="drawer">
@@ -55,7 +67,7 @@ export default function Header({
             </div>
             <Brand description={description} title={title} logo={logo} />
             <div className="flex-none hidden xl:block">
-              <Nav.Top menuItems={menuItems} />
+              <Nav.Top open={open} menuItems={menuItems} />
             </div>
           </div>
           {children}

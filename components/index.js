@@ -1,3 +1,4 @@
+export * as Avatar from './Avatar';
 export * as Button from './Button';
 export { Brand } from './Brand';
 export { Container } from './Container';

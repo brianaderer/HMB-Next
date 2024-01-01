@@ -14,6 +14,7 @@ export default function MyApp({ Component, pageProps }) {
     useEffect(() => {
         const bodyChildDiv = document.body.querySelector('body > div#__next');
         // Add class to body
+        document.documentElement.classList.add('scroll-smooth');
         document.body.classList.add('min-h-screen');
         const divClasses = 'min-h-screen relative';
         const classList = divClasses.split(' '); // Splitting the string into an array of classes

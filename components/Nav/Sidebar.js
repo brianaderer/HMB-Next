@@ -21,9 +21,7 @@ const Sidebar = props => {
                             <li key={id}><a href={path}>{label}</a></li>
                         );
                     } else {
-                        return (
-                            <></>
-                        )
+                        return null;
                     }
                 })
             }
