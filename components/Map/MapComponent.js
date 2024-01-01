@@ -47,11 +47,16 @@ const MapComponent = ({ center, zoom, locations }) => {
     useEffect(() => {
         if(map){
             map.addListener('click', () => {
-               setActiveMarker({});
-               setClickedOnMap(true);
+                destroyMarker({clickedOnMap: true});
             });
         }
     }, [map]);
+
+    const destroyMarker = props => {
+        const {clickedOnMap} = props;
+        setClickedOnMap(clickedOnMap);
+        setActiveMarker({});
+    }
 
     useEffect(() => {
         clickedOnMapRef.current = clickedOnMap;
@@ -131,7 +136,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     }
 
     useEffect(() => {
-        if(activeMarker.id){
+        if(activeMarker.index){
             setLastActiveMarker(activeMarker);
         }
     }, [activeMarker]);
@@ -161,8 +166,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     }
 
     useEffect(() => {
-        //console.log(clickedOnMapRef.current);
-        if (activeMarker.id) {
+        if (activeMarker.index) {
             // Delay the scroll to allow for the DOM to update
             setTimeout(() => {
                 scrollToElement(`${activeMarker.index}`, 'end');
@@ -181,7 +185,7 @@ const MapComponent = ({ center, zoom, locations }) => {
         else {
             setLastActiveMarker({});
         }
-    }, [activeMarker, clickedOnMap]);
+    }, [activeMarker]);
 
     function setFocusToElement(elementId) {
         const element = document.getElementById(elementId);
@@ -278,7 +282,7 @@ const MapComponent = ({ center, zoom, locations }) => {
                     }
                 </fieldset>
             </form>
-                <Places locationData={locationData} callback={showInfo} activeMarker={activeMarker}
+                <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarker}
                                                     places={sortedActivePlaces}/>
                 </>
         }

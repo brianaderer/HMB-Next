@@ -4,10 +4,14 @@ import { Tag } from '../Tag';
 
 
 const PlaceCard = props => {
-    const{data, onClick, activeMarker, id} = props;
-    const expanded = activeMarker?.id === id;
+    const{data, onClick, activeMarker, id, destroy} = props;
+    const expanded = activeMarker?.index === id;
+    const handleDestroy = props => {
+        destroy({clickedOnMap: false});
+    }
     return (
         <Card id={id} className="w-full mt-4 relative">
+            {expanded && <Button onClick={handleDestroy}>X</Button>}
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
                 return (
                     <li key={key} className={`text-sm`}> {category.name} </li>

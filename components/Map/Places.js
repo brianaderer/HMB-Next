@@ -1,6 +1,6 @@
 import {PlaceCard} from '../PlaceCard';
 const Places = props => {
-    const {callback, places, activeMarker, locationData} = props;
+    const {callback, places, activeMarker, locationData, destroy} = props;
     const array = Object.keys(places);
     return(
         <div className="p-10 h-auto overflow-auto">
@@ -9,7 +9,7 @@ const Places = props => {
                 const placeData = locationData[id];
                 if (placeData.title) {
                     return (
-                        <PlaceCard id={id} activeMarker={activeMarker} data={placeData} key={id} title={placeData.title} onClick={e => callback({index: id, domEvent: e})} />
+                        <PlaceCard destroy={destroy} id={id} activeMarker={activeMarker} data={placeData} key={id} title={placeData.title} onClick={e => callback({index: id, domEvent: e})} />
                     );
                 }
                 return null;
