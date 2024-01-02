@@ -5,8 +5,8 @@ const Card = props => {
     const{data, callback, activeMarker, id, handleDestroy, expanded} = props;
     const borderColor = CATEGORIES[data.category_tax[0]?.slug].borderCardColor;
     return (
-        <div id={id} className={`w-full border-r-8 ${borderColor} card lg:card-side bg-base-200 shadow-xl overflow-clip rounded-none border-b border-b-neutral-content last:border-b-0`}>
-            {expanded && <Button.StandardButton classes={`rounded-none`} callback={handleDestroy}>X</Button.StandardButton>}
+        <div id={id} className={`relative w-full border-r-8 ${borderColor} card lg:card-side bg-neutral drop-shadow-lg overflow-clip rounded-none mb-1`}>
+            {expanded && <Button.StandardButton classes={`rounded btn-primary m-2`} callback={handleDestroy}>X</Button.StandardButton>}
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
                 return (
                     <li key={key} className={`text-sm text-neutral-content`}> {category.name} </li>
