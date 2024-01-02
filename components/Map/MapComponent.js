@@ -265,29 +265,29 @@ const MapComponent = ({ center, zoom, locations }) => {
     let expand = Object.keys(activeMarker).length;
 
     return (
-    <>
+    <div>
         <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
                 <div className="flex flex-row h-[500px]">
                     <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                 </div>
             {categories.length > 0 && <>
-                <form>
-                <fieldset className={`px-4 flex flex-row items-justified-space-between mt-4`}>
-                    {categories.map((cat, index) => {
-                        return (
-                            <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
-                                      category={cat} index={index}/>
-                        )
-                    })
-                    }
-                </fieldset>
-            </form>
                 <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarker}
                                                     places={sortedActivePlaces}/>
                 </>
         }
             </div>
-    </>
+        <form className={`fixed top-1/3 left-full w-1/4 p-2 rounded bg-neutral drop-shadow-lg`}>
+            <fieldset className={`flex flex-col`}>
+                {categories.map((cat, index) => {
+                    return (
+                        <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
+                                  category={cat} index={index}/>
+                    )
+                })
+                }
+            </fieldset>
+        </form>
+    </div>
     );
 }
 export default MapComponent;

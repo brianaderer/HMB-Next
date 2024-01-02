@@ -56,20 +56,3 @@ const Top = props => {
     )
 }
 export default Top;
-
-// Top.fragments = {
-//     entry: gql`
-//     fragment NavigationMenuItemFragment on MenuItem {
-//       id
-//       path
-//       label
-//       parentId
-//       cssClasses
-//       menu {
-//         node {
-//           name
-//         }
-//       }
-//     }
-//   `,
-// };
