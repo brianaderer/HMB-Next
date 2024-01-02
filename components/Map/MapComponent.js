@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import marker from "./marker";
 import Category from './Category';
-import PlaceInfo from "./PlaceInfo";
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
 import { useRouter } from 'next/router';
+import {Sticky} from '../index';
 
 const MapComponent = ({ center, zoom, locations }) => {
     const ref = useRef();
@@ -265,7 +265,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     let expand = Object.keys(activeMarker).length;
 
     return (
-    <div>
+    <div id={`mapDiv`} className={`relative`}>
         <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
                 <div className="flex flex-row h-[500px]">
                     <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
@@ -276,17 +276,19 @@ const MapComponent = ({ center, zoom, locations }) => {
                 </>
         }
             </div>
-        <form className={`fixed top-1/3 left-full w-1/4 p-2 rounded bg-neutral drop-shadow-lg`}>
-            <fieldset className={`flex flex-col`}>
-                {categories.map((cat, index) => {
-                    return (
-                        <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
-                                  category={cat} index={index}/>
-                    )
-                })
-                }
-            </fieldset>
-        </form>
+        <Sticky target={'mapDiv'} classes={`w-1/4 p-2 ml-8 rounded bg-neutral drop-shadow-lg left-full`}>
+            <form>
+                <fieldset className={`flex flex-col`}>
+                    {categories.map((cat, index) => {
+                        return (
+                            <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
+                                      category={cat} index={index}/>
+                        )
+                    })
+                    }
+                </fieldset>
+            </form>
+        </Sticky>
     </div>
     );
 }

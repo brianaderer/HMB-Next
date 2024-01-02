@@ -32,3 +32,4 @@ export { Tag } from './Tag';
 export { Text } from './Text';
 export { SEO } from './SEO';
 export { StarRating } from './StarRating';
+export { Sticky } from './Sticky';
