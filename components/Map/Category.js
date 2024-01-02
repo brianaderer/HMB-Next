@@ -22,6 +22,7 @@ const Category = props => {
             <label className={`mr-2`}>{category.name}</label>
             <input
                 type={'checkbox'}
+                className={`checkbox bg-neutral`}
                 checked={isChecked}
                 onChange={handleCheckboxChange}
             />

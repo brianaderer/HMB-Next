@@ -276,8 +276,10 @@ const MapComponent = ({ center, zoom, locations }) => {
                 </>
         }
             </div>
-        <Sticky target={'mapDiv'} classes={`w-1/4 p-2 ml-8 rounded bg-neutral drop-shadow-lg left-full`}>
+        {categories.length > 0 &&
+            <Sticky target={'mapDiv'} classes={`w-1/4 p-2 ml-8 rounded bg-neutral drop-shadow-lg left-full`}>
             <form>
+                <p className={`p-2 text-center`}>Click a category to show its contents.</p>
                 <fieldset className={`flex flex-col`}>
                     {categories.map((cat, index) => {
                         return (
@@ -288,7 +290,7 @@ const MapComponent = ({ center, zoom, locations }) => {
                     }
                 </fieldset>
             </form>
-        </Sticky>
+        </Sticky>}
     </div>
     );
 }

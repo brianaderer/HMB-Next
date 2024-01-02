@@ -25,7 +25,7 @@ const Sticky = props => {
             timer.current = setTimeout(function() {
                 const bound = targetElement.getBoundingClientRect();
                 setTop(bound.top);
-            }, 150);
+            }, 30);
         };
 
         // Add the event listener
