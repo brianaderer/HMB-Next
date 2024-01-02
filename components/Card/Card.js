@@ -1,9 +1,11 @@
 import {Button, Tag} from '../index';
+import {CATEGORIES} from "../../constants/categories";
 
 const Card = props => {
     const{data, callback, activeMarker, id, handleDestroy, expanded} = props;
+    const borderColor = CATEGORIES[data.category_tax[0]?.slug].borderCardColor;
     return (
-        <div id={id} className="w-full border-r-8 card lg:card-side bg-base-100 shadow-xl overflow-clip rounded-none mb-0.5">
+        <div id={id} className={`w-full border-r-8 ${borderColor} card lg:card-side bg-base-200 shadow-xl overflow-clip rounded-none border-b border-b-neutral-content last:border-b-0`}>
             {expanded && <Button.StandardButton classes={`rounded-none`} callback={handleDestroy}>X</Button.StandardButton>}
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
                 return (
@@ -23,13 +25,13 @@ const Card = props => {
                 {expanded &&
                     <div className="flex flex-col">
                         <div className="flex flex-col">
-                            {data.telephone && <a className={`text-neutral-content`} href={`tel:${data.telephone}`}>{data.telephone}</a>}
-                            {data.website && <a className={`text-neutral-content`} href={`${data.website}`}>{data.website}</a>}
+                            {data.telephone && <a className={`text-accent`} href={`tel:${data.telephone}`}>{data.telephone}</a>}
+                            {data.website && <a className={`text-accent`} href={`${data.website}`}>{data.website}</a>}
                         </div>
-                        <p className={`text-neutral-content`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
+                        <p className={`text-neutral-content mt-4`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
                     </div>}
                 <div className="card-actions justify-end">
-                    {!expanded && <Button.StandardButton callback={callback} classes={`btn-primary mt-4`} >Read More</Button.StandardButton>}
+                    {!expanded && <Button.StandardButton callback={callback} classes={`btn-primary mt-4`}>Read More</Button.StandardButton>}
                 </div>
             </div>
         </div>

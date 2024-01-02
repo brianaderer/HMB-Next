@@ -14,7 +14,8 @@ const Form = props => {
     //   Form validation state
     const [errors, setErrors] = useState({});
     //   Setting button text on form submission
-    const [buttonText, setButtonText] = useState("Send");
+    const defaultButtonText = 'Send It!';
+    const [buttonText, setButtonText] = useState(defaultButtonText);
 
     // Setting success or failure messages states
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -120,12 +121,12 @@ const Form = props => {
             if (error) {
                 setShowSuccessMessage(false);
                 setShowFailureMessage(true);
-                setButtonText("Send");
+                setButtonText(defaultButtonText);
                 return () => {};
             }
             setShowSuccessMessage(true);
             setShowFailureMessage(false);
-            setButtonText("Send");
+            setButtonText(defaultButtonText);
 
             // Reset the flag
             setUploadComplete(false);
@@ -154,9 +155,9 @@ const Form = props => {
     useEffect(() => {
         mapDbUser();
     }, [dbUser]);
-    const labelClasses = "text-gray-500 font-light mt-8 dark:text-gray-50";
+    const labelClasses = "text-gray-500";
     const spanClasses = "text-red-500";
-    const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500 dark:text-gray-50";
+    const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md";
     const classes = {labelClasses, spanClasses, inputClasses};
     const {formHeadline, fields, anchor} = fieldsData;
     return (
