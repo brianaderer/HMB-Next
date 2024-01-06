@@ -28,13 +28,13 @@ const render = (status)=> {
 };
 
 const Map = props => {
-    const {locations} = props;
+    const {locations, classes=''} = props;
     const center = { lat: 41.1973179, lng: -73.8885881 };
     const zoom = 8;
 
     return (
         <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY} render={render} libraries={['marker']}>
-            <MapComponent center={center} zoom={zoom} locations={locations || {}} />
+            <MapComponent classes={classes} center={center} zoom={zoom} locations={locations || {}} />
         </Wrapper>
     );
 }

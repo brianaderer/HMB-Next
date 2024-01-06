@@ -7,7 +7,7 @@ import {parseSvg, categoryLookup} from "../../utilities";
 import { useRouter } from 'next/router';
 import {Sticky} from '../index';
 
-const MapComponent = ({ center, zoom, locations }) => {
+const MapComponent = ({ center, zoom, locations, classes }) => {
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -265,7 +265,7 @@ const MapComponent = ({ center, zoom, locations }) => {
     let expand = Object.keys(activeMarker).length;
 
     return (
-    <div id={`mapDiv`} className={`relative`}>
+    <div id={`mapDiv`} className={`relative + ${classes}`}>
         <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
                 <div className="flex flex-row h-[500px]">
                     <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />

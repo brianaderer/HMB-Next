@@ -55,9 +55,9 @@ export default function Header({
     }, [open]);
 
   return (
-      <div className="drawer">
+      <div className="drawer min-h-screen">
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col">
+        <div className="drawer-content min-h-screen flex flex-col justify-between">
           {/* Navbar */}
           <div className="w-full navbar bg-base-300 z-10">
             <div className="flex-none xl:hidden">

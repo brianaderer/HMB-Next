@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {ContentWrapper} from "../components";
+import {Text} from "../components";
 
 export default function CoreParagraph(props) {
     const {attributes, customAttributes} = props;
     return (
-        <ContentWrapper content={attributes.content} />
+        <Text tag={'p'} className={`px-16 mt-8 indent-8`}>{attributes.content}</Text>
     );
 }
 

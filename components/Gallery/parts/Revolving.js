@@ -7,7 +7,7 @@ const Revolving = props => {
         <>
             {tagline && <h1 className={`text-center text-3xl mb-8`}>{tagline}</h1>}
             {galleryParagraph && <p className={`text-center text-xl`}>{galleryParagraph}</p>}
-            <div className="relative w-full mb-12 border-b-2 border-hmbBlue pb-12">
+            <div className="relative w-full my-8 pb-12">
                 <div className={`flex h-96 flex-row gap-4 w-[125%] mx-auto translate-x-[-50%] ml-[50%] drop-shadow-lg`}>
                     <Carousel>
                     {

@@ -1,4 +1,5 @@
 import CoreParagraph from './CoreParagraph';
+import CoreSeparator from "./CoreSeparator";
 import AcfContactForm from "./AcfContactForm";
 import AcfSignUpForm from "./AcfSignUpForm";
 import AcfUserInfoForm from "./AcfUserInfoForm";
@@ -9,6 +10,7 @@ import CreateBlockReviews from "./CreateBlockReviews";
 import AcfUploadMediaForm from "./AcfUploadMediaForm";
 import AcfGallery from "./AcfGallery";
 import CoreImage from "./CoreImage";
+import CoreHeading from './CoreHeading';
 import AcfHmbMap from "./AcfHmbMap";
 export default {
     CoreParagraph,
@@ -22,5 +24,7 @@ export default {
     AcfUploadMediaForm,
     AcfGallery,
     CoreImage,
-    AcfHmbMap
+    AcfHmbMap,
+    CoreHeading,
+    CoreSeparator
 };
