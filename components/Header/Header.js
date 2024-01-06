@@ -1,7 +1,4 @@
-import classNames from 'classnames/bind';
-import styles from './Header.module.scss';
 import {Brand, Nav} from '../index';
-let cx = classNames.bind(styles);
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 

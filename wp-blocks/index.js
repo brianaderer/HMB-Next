@@ -11,7 +11,9 @@ import AcfUploadMediaForm from "./AcfUploadMediaForm";
 import AcfGallery from "./AcfGallery";
 import CoreImage from "./CoreImage";
 import CoreHeading from './CoreHeading';
+import CoreButtons from './CoreButtons';
 import AcfHmbMap from "./AcfHmbMap";
+import CoreButton from "./CoreButton";
 export default {
     CoreParagraph,
     AcfContactForm,
@@ -26,5 +28,7 @@ export default {
     CoreImage,
     AcfHmbMap,
     CoreHeading,
-    CoreSeparator
+    CoreSeparator,
+    CoreButtons,
+    CoreButton
 };

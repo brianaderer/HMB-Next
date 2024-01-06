@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {Text} from "../components";
 
 export default function CoreSeparator(props) {
     const {attributes, customAttributes} = props;

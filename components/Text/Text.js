@@ -1,10 +1,11 @@
-import React from "react";
+import React from 'react';
 
-const Text = props => {
+const Text = React.forwardRef((props, ref) => {
     const { children, tag = 'p', className = '' } = props;
-    return (React.createElement(tag, { className: className,
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML: { __html: children }}));
-}
+    const Element = tag;
+    return (
+        <Element dangerouslySetInnerHTML={{__html:children}} ref={ref} className={className} />
+    );
+});
 
 export default Text;

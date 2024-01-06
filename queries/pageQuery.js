@@ -9,6 +9,8 @@ export const pageQuery = gql`
   ${FeaturedImage.fragments.entry}
   ${components.CoreParagraph.fragments.entry}
   ${components.CoreHeading.fragments.entry}
+  ${components.CoreButtons.fragments.entry}
+  ${components.CoreButton.fragments.entry}
   ${components.CoreSeparator.fragments.entry}
   ${components.CoreImage.fragments.entry}
   ${components.AcfGallery.fragments.entry}
@@ -37,6 +39,8 @@ export const pageQuery = gql`
         parentClientId
         ...${components.CoreParagraph.fragments.key}
         ...${components.CoreHeading.fragments.key}
+        ...${components.CoreButtons.fragments.key}
+        ...${components.CoreButton.fragments.key}
         ...${components.CoreSeparator.fragments.key}
         ...${components.CoreImage.fragments.key}
         ...${components.AcfGallery.fragments.key}

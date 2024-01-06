@@ -1,11 +1,18 @@
 import { gql } from '@apollo/client';
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text} from "../components";
 
 export default function CoreParagraph(props) {
-    const {attributes, customAttributes} = props;
+    const [isFirst, setIsFirst] = useState(false);
+    const [isLast, setIsLast] = useState(false);
+    const {attributes, customAttributes, clientId} = props;
+    const paragraphRef = useRef(null);
+    useEffect(() => {
+        setIsFirst(paragraphRef.current.previousSibling?.tagName !== 'P');
+        setIsLast(paragraphRef.current.nextSibling?.tagName !== 'P');
+    }, []);
     return (
-        <Text tag={'p'} className={`px-16 first:mt-8 indent-8 p-4 bg-neutral text-neutral-content`}>{attributes.content}</Text>
+        <Text ref={paragraphRef} tag={'p'} className={`${isFirst ? 'rounded-tl-3xl pt-8' : ''} ${isLast ? 'rounded-br-3xl pb-8 mb-4' : ''} px-16 indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>{attributes.content}</Text>
     );
 }
 
@@ -13,6 +20,7 @@ CoreParagraph.fragments = {
     entry: gql`
     fragment CoreParagraphFragment on CoreParagraph {
     customAttributes
+    clientId
       attributes {
         backgroundColor
         style
