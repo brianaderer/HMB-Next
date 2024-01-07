@@ -11,6 +11,7 @@ export const pageQuery = gql`
   ${components.CoreHeading.fragments.entry}
   ${components.CoreButtons.fragments.entry}
   ${components.CoreButton.fragments.entry}
+  ${components.CoreMediaText.fragments.entry}
   ${components.CoreSeparator.fragments.entry}
   ${components.CoreImage.fragments.entry}
   ${components.AcfGallery.fragments.entry}
@@ -42,6 +43,7 @@ export const pageQuery = gql`
         ...${components.CoreButtons.fragments.key}
         ...${components.CoreButton.fragments.key}
         ...${components.CoreSeparator.fragments.key}
+        ...${components.CoreMediaText.fragments.key}
         ...${components.CoreImage.fragments.key}
         ...${components.AcfGallery.fragments.key}
         ...${components.AcfContactForm.fragments.key}

@@ -28,7 +28,7 @@ export default function Component(props) {
 
   const { editorBlocks } = props.data.page;
   const returnedBlocks = flatListToHierarchical(editorBlocks);
-
+  console.log(returnedBlocks);
   return (
     <>
       <SEO
@@ -43,11 +43,9 @@ export default function Component(props) {
         menuItems={primaryMenu}
       >
       <Main className={`pb-12`}>
-        <>
           <Container>
             <WordPressBlocksViewer blocks={returnedBlocks}/>
           </Container>
-        </>
       </Main>
       <Footer title={siteTitle} menuItems={footerMenu} />
       </Header>

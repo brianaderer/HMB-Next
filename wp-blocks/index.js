@@ -14,6 +14,7 @@ import CoreHeading from './CoreHeading';
 import CoreButtons from './CoreButtons';
 import AcfHmbMap from "./AcfHmbMap";
 import CoreButton from "./CoreButton";
+import CoreMediaText from "./CoreMediaText";
 export default {
     CoreParagraph,
     AcfContactForm,
@@ -30,5 +31,6 @@ export default {
     CoreHeading,
     CoreSeparator,
     CoreButtons,
-    CoreButton
+    CoreButton,
+    CoreMediaText
 };
