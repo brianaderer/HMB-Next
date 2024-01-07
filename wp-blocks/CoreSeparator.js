@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 import React from 'react';
+import {Separator} from '../components';
 
 export default function CoreSeparator(props) {
     const {attributes, customAttributes} = props;
 
 
     return (
-        <div className={`h-px rounded-lg w-full bg-primary mb-8 drop-shadow-lg`}></div>
+        <Separator/>
     );
 }
 

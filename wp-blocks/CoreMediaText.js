@@ -1,16 +1,29 @@
 import { gql } from '@apollo/client';
 import React from 'react';
 import {WordPressBlocksViewer} from "@faustwp/blocks";
+import * as queries from '../queries/queryBlocks';
+import { Separator, Media } from '../components';
 
 export default function CoreMediaText(props) {
     const {attributes, customAttributes, innerBlocks} = props;
-    console.log(innerBlocks);
+    const {mediaPosition, mediaUrl, mediaType, mediaAlt, mediaSizeSlug, mediaWidth, anchor} = attributes;
     console.log(attributes);
+    const positionLookup = {
+        right: 'flex-row',
+        left: 'flex-row-reverse',
+    }
 
 
     return (
-        <div className={`h-px rounded-lg w-full bg-primary mb-8 drop-shadow-lg`}></div>
-    );
+        <div id={anchor} className={`flex ${positionLookup[mediaPosition]} items-center gap-8 pb-8`}>
+            <div className="w-1/2 flex flex-row items-center justify-center">
+                <Media.Image ratio={'square'} src={mediaUrl} size={'medium'} alt={mediaAlt} classes={`rounded drop-shadow-lg`}/>
+            </div>
+            <div className="w-1/2">
+                <WordPressBlocksViewer blocks={innerBlocks}/>
+            </div>
+        </div>
+        );
 }
 
 CoreMediaText.fragments = {
@@ -22,6 +35,15 @@ CoreMediaText.fragments = {
           clientId
           cssClassNames
           name
+          ...on CoreParagraph {
+            ${queries.paragraph}
+          }
+          ...on CoreHeading{
+            ${queries.heading}
+          }
+          ...on CoreButtons {
+            ${queries.buttons}
+          }
         }
         attributes {
           align

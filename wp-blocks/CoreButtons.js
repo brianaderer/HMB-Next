@@ -6,7 +6,7 @@ import * as queries from '../queries/queryBlocks/index';
 export default function CoreButtons(props) {
     const {attributes, anchor, innerBlocks, name} = props;
     return (
-        <div className={`flex flex-row gap-4 sticky top-0 w-full p-4 -mt-4 bg-base-100 mb-4 z-10 border-b-primary border-b-2`}>
+        <div className={`flex flex-row gap-4 w-full p-4 -mt-4 bg-base-100 mb-4`}>
             <WordPressBlocksViewer blocks={(innerBlocks)} />
         </div>
     );
