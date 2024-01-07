@@ -9,8 +9,7 @@ export default function CoreMediaText(props) {
 
 
     return (
-        <></>
-        // <WordPressBlocksViewer blocks={innerBlocks} />
+        <div className={`h-px rounded-lg w-full bg-primary mb-8 drop-shadow-lg`}></div>
     );
 }
 

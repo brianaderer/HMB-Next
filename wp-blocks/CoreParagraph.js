@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import React, {useEffect, useRef, useState} from 'react';
 import {Text} from "../components";
+import * as queries from '../queries/queryBlocks'
 
 export default function CoreParagraph(props) {
     const [isFirst, setIsFirst] = useState(false);
