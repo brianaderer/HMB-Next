@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../../contexts";
-import {Button, Form, Modal, Loading} from '../index';
+import {Button, Form, Modal, Loading, Text} from '../index';
 import {signUpFormQuery} from "../../queries/signUpFormQuery";
 import {useQuery} from "@apollo/client";
 
@@ -40,9 +40,10 @@ const Login = props => {
             {children}
             </>
             ) : (
-            <>
+            <div className={`rounded-lg p-8 flex flex-col items-center justify-center bg-base-100`}>
+                <Text className={`mb-8`}>{message}</Text>
                 <Button.SignInButton/>
-            </>
+            </div>
             )
         }
     </>

@@ -4,6 +4,7 @@ import AcfContactForm from "./AcfContactForm";
 import AcfSignUpForm from "./AcfSignUpForm";
 import AcfUserInfoForm from "./AcfUserInfoForm";
 import CreateBlockAttractions from "./CreateBlockAttractions";
+import CreateBlockGuestbook from "./CreateBlockGuestbook";
 import CreateBlockInstagramGallery from "./CreateBlockInstagramGallery";
 import AcfGuestBookEntry from "./AcfGuestBookEntry";
 import CreateBlockReviews from "./CreateBlockReviews";
@@ -32,5 +33,6 @@ export default {
     CoreSeparator,
     CoreButtons,
     CoreButton,
-    CoreMediaText
+    CoreMediaText,
+    CreateBlockGuestbook
 };

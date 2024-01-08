@@ -7,7 +7,6 @@ import { Separator, Media } from '../components';
 export default function CoreMediaText(props) {
     const {attributes, customAttributes, innerBlocks} = props;
     const {mediaPosition, mediaUrl, mediaType, mediaAlt, mediaSizeSlug, mediaWidth, anchor} = attributes;
-    console.log(attributes);
     const positionLookup = {
         right: 'flex-row',
         left: 'flex-row-reverse',
