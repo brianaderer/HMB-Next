@@ -7,7 +7,6 @@ export default function CoreHeading(props) {
     const {attributes, customAttributes} = props;
     const {level, textAlign = 'left', style = {}} = attributes;
     const safeStyle = JSON.parse(style) ?? {};
-    console.log(attributes);
     const {typography = {}} = safeStyle;
     const heading = useRef(null);
     const [paragraphHeading, setParagraphHeading] = useState(false);

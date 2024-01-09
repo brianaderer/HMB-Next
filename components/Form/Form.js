@@ -11,6 +11,7 @@ const Form = props => {
     // States for contact form fields
     const [values, setValues] = useState({});
     const [images, setImages] = useState([]);
+    console.log(values);
     //   Form validation state
     const [errors, setErrors] = useState({});
     //   Setting button text on form submission
@@ -46,12 +47,13 @@ const Form = props => {
         return isValid;
     };
     useEffect(() => {
+        const {'image-gallery': imageGallery, ...restOfDbUser} = dbUser;
         setValues({
-            ...dbUser,
+            ...restOfDbUser,
             uid: user?.uid,
             title: user?.displayName + ' at ' + time
         });
-    }, [user]);
+    }, [user, dbUser]);
     function slugify(str) {
         return String(str)
             .normalize('NFKD') // split accented characters into their base characters and diacritical marks
@@ -148,7 +150,9 @@ const Form = props => {
     const mapDbUser = props => {
         if(dbUser){
             Object.keys(dbUser).map( key => {
-                handleValues({value: dbUser[key], slug: key});
+                if( key !== 'image-gallery' ) {
+                    handleValues({value: dbUser[key], slug: key});
+                }
             })
         }
     };

@@ -1,0 +1,1 @@
+export {default as GuestBookEntry} from './GuestBookEntry';

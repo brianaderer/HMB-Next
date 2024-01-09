@@ -1,11 +1,14 @@
 import { gql } from '@apollo/client';
 import React from 'react';
+import {GuestBookEntry} from "../components";
 
 export default function CreateBlockGuestbook(props) {
     const {content} = props;
-    console.log(content);
     return (
         <>
+            {content.map((entry, index) => {
+                return <GuestBookEntry key={index} entry={entry} />
+            })}
         </>
     );
 }
@@ -33,6 +36,7 @@ CreateBlockGuestbook.fragments = {
           phone_number
           year_make_model
           return_image_gallery
+          reply
         }
       }
   `,

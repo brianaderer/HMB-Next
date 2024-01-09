@@ -1,20 +1,21 @@
 import React from "react";
 
 const Static = props => {
-    const {tagline, galleryParagraph, imageGallery} = props;
+    const {className = '', background = false, oversize = true, tagline= '', galleryParagraph= '', imageGallery} = props;
     return (
         <>
             {tagline && <h1 className={`text-center text-3xl mb-8`}>{tagline}</h1>}
             {galleryParagraph && <p className={`text-center text-xl`}>{galleryParagraph}</p>}
-            <div className="relative w-full my-8 pb-12">
-                <div className={`flex flex-row gap-4 w-[110%] items-stretch mx-auto translate-x-[-50%] ml-[50%] bg-neutral rounded-lg drop-shadow-lg p-4`}>
+            <div className={`relative w-full my-8 pb-8 mx-auto ${className}`}>
+                <div className={`flex flex-row gap-4 ${oversize ? `w-[110%] translate-x-[-50%] ml-[50%] ` : ''} items-stretch mx-auto ${background ? `bg-neutral` : ''} rounded-lg drop-shadow-lg p-4`}>
 
                     {
                         Object.keys(imageGallery).map( index => {
                             const image = imageGallery[index];
+                            const {alt, url, caption = ''} = image;
                             return(
                                 <div key={index} className={`shrink grow w-auto basis-0 drop-shadow-lg`}>
-                                    <img className={`w-full h-full object-cover`} src={image.url} alt={image.alt}/>
+                                    <img className={`w-full h-full object-cover`} src={url} alt={alt}/>
                                 </div>
                             )
                         } )
