@@ -2,13 +2,14 @@ import { gql } from '@apollo/client';
 import React from 'react';
 import {Separator} from '../components';
 import {WordPressBlocksViewer} from "@faustwp/blocks";
-import components from './index';
+import CoreParagraph from '../wp-blocks/CoreParagraph';
+import {blocks, fragments} from "../zblocks";
 
 export default function CoreColumn(props) {
     const {attributes, innerBlocks, customAttributes} = props;
     console.log(props);
     return (
-        <Separator/>
+        <WordPressBlocksViewer blocks={(innerBlocks)} />
     );
 }
 
@@ -18,6 +19,9 @@ CoreColumn.fragments = {
         anchor
         apiVersion
         name
+        innerBlocks {
+          name
+        }
         attributes {
           allowedBlocks
           anchor
@@ -34,10 +38,6 @@ CoreColumn.fragments = {
           lock
           layout
           gradient
-        }
-        innerBlocks {
-          name
-          
         }
       }
   `,

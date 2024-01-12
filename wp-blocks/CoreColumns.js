@@ -36,10 +36,21 @@ CoreColumns.fragments = {
           gradient
         }
         innerBlocks {
+          apiVersion
           name
+          clientId
           ...on CoreColumn{
             innerBlocks{
+                apiVersion
+                clientId
                 name
+                ... on CoreParagraph{
+                    apiVersion
+                    clientId
+                    attributes{
+                        content
+                    }
+                }
             }
           }
         }
