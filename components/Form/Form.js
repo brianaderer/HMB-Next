@@ -11,7 +11,6 @@ const Form = props => {
     // States for contact form fields
     const [values, setValues] = useState({});
     const [images, setImages] = useState([]);
-    console.log(values);
     //   Form validation state
     const [errors, setErrors] = useState({});
     //   Setting button text on form submission
