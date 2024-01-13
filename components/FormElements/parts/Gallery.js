@@ -1,7 +1,8 @@
-import {Text, Button} from '../../../components'
+import {Text, Button, ImageCard} from '../../../components'
 import React, {useEffect, useState} from 'react';
 import {Textarea} from './index';
 import {useDropzone} from "react-dropzone";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 const Gallery = props => {
     const {slug, classes, title, setState, state, required, message} = props
     const {labelClasses, inputClasses, spanClasses} = classes;
@@ -31,27 +32,25 @@ const Gallery = props => {
         return () => state.forEach(file => URL.revokeObjectURL(file.preview));
     }, []);
 
+    const loadHandler = ({file}) => {
+        URL.revokeObjectURL(file.preview)
+    }
+
     const thumbs = state.map((file, index) => {
         Object.assign(file, {
             preview: (URL.createObjectURL(file)),
         })
+        const alt = file.name;
+        const src = file.preview;
         return (
-            <div className={`flex flex-row items-center`} key={index}>
-                <div className={`border-2 border-hmbBlue-100 bg-hmbSlate-100 p-4 rounded-lg drop-shadow-lg flex-shrink-0`} >
-                    <Button.StandardButton callback={() => removeImage({index})}>X</Button.StandardButton>
-                    {/*<button type={'button'} onClick={() => removeImage({index})} >x</button>*/}
-                    <img className={`h-32 border border-hmbBlue-100 w-auto m-auto rounded drop-shadow-lg`}
-                        alt={file.name}
-                        src={file.preview}
-                        // Revoke data uri after image is loaded
-                        onLoad={() => {
-                            URL.revokeObjectURL(file.preview)
-                        }}
-                    />
-                    <Textarea index={index} value={state[index].caption || ''} classes={classes} handler={handleTyping} placeholder={'Give your image a caption!'} />
-                    {/*<textarea placeholder={'Give your image a caption!'} className={`text-center rounded mt-4 h-32 w-full bg-hmbBlue-100 p-4`} onChange={content => handleTyping({content, index}) } />*/}
-                </div>
-            </div>
+            <ImageCard key={index}
+                       className={`w-1/4 p-4`}
+                       onLoad = {() => loadHandler({file})}
+                       alt={alt}
+                       src={src}
+                       Button={<Button.StandardButton className={`w-fit mb-2 p-2 h-fit min-h-0`} callback={() => removeImage({index})}>X</Button.StandardButton>}
+                       TextArea={<Textarea index={index} value={state[index].caption || ''} classes={classes} handler={handleTyping} placeholder={'Give your image a caption!'} />}
+            />
         )
     });
 
