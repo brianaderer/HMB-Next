@@ -1,6 +1,8 @@
 import { gql } from '@apollo/client';
 import React, {useEffect, useState} from 'react';
-import {Media} from "../components";
+import {Media, Text} from "../components";
+import {Masonry} from '@mui/lab';
+
 
 
 export default function CreateBlockInstagramGallery(props) {
@@ -11,22 +13,24 @@ export default function CreateBlockInstagramGallery(props) {
         const data = JSON.parse(renderedHtml);
         setPosts( data.posts );
     }, [renderedHtml]);
-    const limit = 8;
+    const limit = 12;
 
     return(
-        <>
+        <Masonry columns={4} spacing={2}>
+            <>
             {Object.keys(posts).map((post,index) => {
                 if( index < limit ){
                     return(
                         <div key={index}>
                             {posts[post]?.media_type}
                             <Media.Image src={posts[post]?.media_url}/>
-                            {posts[post]?.caption}
+                            <Text className={`text-sm`} tag={'p'}>{posts[post]?.caption}</Text>
                         </div>
                     )
                 }
             })}
-        </>
+            </>
+        </Masonry>
     )
 }
 
