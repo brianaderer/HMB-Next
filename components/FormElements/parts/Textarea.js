@@ -14,7 +14,9 @@ const Textarea = props => {
     return(
         <>
         <div className="label">
-            <label htmlFor={slug} className={`${labelClasses}`}>{title}<span className={`${spanClasses}`}>*</span></label>
+            <label htmlFor={slug} className={`${labelClasses}`}>{title}
+                {required ? <span className={`${spanClasses}`}>*</span> : ''}
+            </label>
         </div>
             <textarea
             rows={8}

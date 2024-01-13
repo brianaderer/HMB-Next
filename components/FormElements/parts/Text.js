@@ -6,7 +6,9 @@ const Text = props => {
     return(
         <>
         <div className="label">
-            <label htmlFor={slug} className={`${labelClasses}`}>{title}<span className={`${spanClasses}`}>*</span></label>
+            <label htmlFor={slug} className={`${labelClasses}`}>{title}
+                {required ? <span className={`${spanClasses}`}>*</span> : ''}
+            </label>
         </div>
             <input
                 type="text"
