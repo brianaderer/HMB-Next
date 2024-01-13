@@ -18,6 +18,7 @@ import CoreButton from "./CoreButton";
 import CoreMediaText from "./CoreMediaText";
 import CoreColumns from "./CoreColumns";
 import CoreColumn from "./CoreColumn";
+import CoreList from "./CoreList";
 export default {
     CoreParagraph,
     AcfContactForm,
@@ -38,5 +39,6 @@ export default {
     CoreMediaText,
     CreateBlockGuestbook,
     CoreColumns,
-    CoreColumn
+    CoreColumn,
+    CoreList
 };

@@ -7,9 +7,14 @@ import {blocks, fragments} from "../zblocks";
 
 export default function CoreColumn(props) {
     const {attributes, innerBlocks, customAttributes} = props;
-    console.log(props);
+    const {width} = attributes;
+    const style = {
+        width: width,
+    }
     return (
-        <WordPressBlocksViewer blocks={(innerBlocks)} />
+        <div style={style}>
+            <WordPressBlocksViewer blocks={(innerBlocks)} />
+        </div>
     );
 }
 
@@ -21,23 +26,6 @@ CoreColumn.fragments = {
         name
         innerBlocks {
           name
-        }
-        attributes {
-          allowedBlocks
-          anchor
-          backgroundColor
-          borderColor
-          className
-          cssClassName
-          fontFamily
-          fontSize
-          width
-          verticalAlignment
-          textColor
-          style
-          lock
-          layout
-          gradient
         }
       }
   `,

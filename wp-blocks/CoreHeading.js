@@ -12,7 +12,8 @@ export default function CoreHeading(props) {
     const [paragraphHeading, setParagraphHeading] = useState(false);
 
     useEffect(() => {
-        setParagraphHeading(heading.current.nextSibling.tagName === 'P');
+        const headingTag = heading.current.nextSibling.tagName;
+        setParagraphHeading( ['P', 'UL'].includes(headingTag));
     }, []);
 
     const alignLookup = {

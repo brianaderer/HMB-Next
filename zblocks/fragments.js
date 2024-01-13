@@ -9,6 +9,7 @@ const fragments = `
         ...${components.CoreSeparator.fragments.key}
         ...${components.CoreMediaText.fragments.key}
         ...${components.CoreImage.fragments.key}
+        ...${components.CoreList.fragments.key}
         ...${components.AcfGallery.fragments.key}
         ...${components.AcfContactForm.fragments.key}
         ...${components.AcfSignUpForm.fragments.key}

@@ -8,6 +8,7 @@ const blocks = gql`
   ${components.CoreButton.fragments.entry}
   ${components.CoreColumns.fragments.entry}
   ${components.CoreColumn.fragments.entry}
+  ${components.CoreList.fragments.entry}
   ${components.CoreMediaText.fragments.entry}
   ${components.CoreSeparator.fragments.entry}
   ${components.CoreImage.fragments.entry}

@@ -10,12 +10,7 @@ export default function AcfHmbMap(props) {
 
     return (
         <div className={`p-8 mb-8 bg-base-100 rounded-lg flex flex-row gap-4`}>
-            <Map classes={'w-1/2 drop-shadow-lg mb-8'} locations={locations || {}}/>
-            <div className="w-1/2 flex flex-col justify-center p-8">
-                {map_headline && <Text className={`text-2xl text-center mb-4`} tag={'h3'}>{map_headline}</Text>}
-                {map_description && <div dangerouslySetInnerHTML={{__html:map_description}} className={`text-lg mt-12`}/>}
-
-            </div>
+            <Map classes={'w-full drop-shadow-lg mb-8'} locations={locations || {}}/>
         </div>
     );
 }

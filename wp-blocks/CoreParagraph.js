@@ -8,7 +8,6 @@ export default function CoreParagraph(props) {
     const [isLast, setIsLast] = useState(false);
     const {attributes, customAttributes, clientId} = props;
     const paragraphRef = useRef(null);
-    console.log(attributes);
     useEffect(() => {
         setIsFirst(paragraphRef.current.previousSibling?.tagName !== 'P');
         setIsLast(paragraphRef.current.nextSibling?.tagName !== 'P');
