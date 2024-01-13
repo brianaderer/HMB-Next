@@ -6,7 +6,7 @@ const Submit = props => {
     const {buttonText} = props;
     return (
         <div className="flex flex-row items-center justify-start mt-4">
-            <Button.StandardButton classes={`mt-4`} type="submit">
+            <Button.StandardButton className={`mt-4`} type="submit">
                 {buttonText}
                 <GiSailboat className={`text-accent`} size={30} />
             </Button.StandardButton>

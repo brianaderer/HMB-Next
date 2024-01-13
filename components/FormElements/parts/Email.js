@@ -5,7 +5,8 @@ const Email = props => {
     const {labelClasses, inputClasses, spanClasses} = classes;
     return(
         <>
-            <label htmlFor={slug} className={`${labelClasses}`}>{title}<span className={`${spanClasses}`}>*</span></label>
+            <div className={`label`}><label htmlFor={slug} className={`${labelClasses}`}>{title}<span
+                className={`${spanClasses}`}>*</span></label></div>
             <input
                 type="email"
                 name={slug}

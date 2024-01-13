@@ -6,7 +6,7 @@ const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
     const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser, updateUserDb} = authContext || {};
-    const {fieldsData, submitter, headline} = props;
+    const {fieldsData, submitter, headline, referrer} = props;
     const time = new Date();
     // States for contact form fields
     const [values, setValues] = useState({});
@@ -158,13 +158,15 @@ const Form = props => {
     useEffect(() => {
         mapDbUser();
     }, [dbUser]);
-    const labelClasses = "text-gray-500";
+    const labelClasses = "label-text";
     const spanClasses = "text-red-500";
-    const inputClasses = "bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md";
-    const classes = {labelClasses, spanClasses, inputClasses};
+    const inputClasses = "input input-bordered input-primary";
+    const textAreaClasses = "textarea textarea-primary";
+    const selectClasses = "select select-primary";
+    const classes = {selectClasses, labelClasses, spanClasses, inputClasses, textAreaClasses};
     const {formHeadline, fields, anchor} = fieldsData;
     return (
-            <FormWrapper className={`mb-12`} anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
+            <FormWrapper className={`my-12`} anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
                 {
                     Object.keys(fields).map((field, index) => {
                         const {type, label, ...otherProps} = (fields[field]);
@@ -186,7 +188,7 @@ const Form = props => {
                                 )
                             } else {
                                 return (
-                                    <Elem key={index} slug={slug} classes={classes} options={options} title={label}
+                                    <Elem  message={referrer === 'GuestBook' ? `Would you like to share some images with your post?`: ''} key={index} slug={slug} classes={classes} options={options} title={label}
                                           required={true} setState={setImages} state={images}/>
                                 )
                             }

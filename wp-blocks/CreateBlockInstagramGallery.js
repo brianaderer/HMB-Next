@@ -6,7 +6,7 @@ import {Masonry} from '@mui/lab';
 
 
 export default function CreateBlockInstagramGallery(props) {
-    const increment = 8;
+    const increment = 9;
     const {renderedHtml} = props;
     const [posts, setPosts] = useState([]);
     const [limit, setLimit] = useState(increment);
@@ -18,12 +18,12 @@ export default function CreateBlockInstagramGallery(props) {
 
     return(
         <>
-        <Masonry columns={4} spacing={2}>
+        <Masonry columns={3} spacing={4}>
             <>
             {Object.keys(posts).map((post,index) => {
                 if( index < limit ){
                     return(
-                        <div className={`card bg-base-100 shadow-xl p-4 rounded-md border border-primary`} key={index}>
+                        <div className={`card bg-base-100 shadow-xl px-8 pt-8 rounded-md border border-primary`} key={index}>
                             <figure className={`rounded-none`}>
                                 <Media.Image src={posts[post]?.media_url}/>
                             </figure>

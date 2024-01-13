@@ -21,7 +21,7 @@ export default function AcfGuestBookEntryEntry(props) {
     return (
         <>
                 <Login message={message}>
-                    <Form fieldsData={fieldsData} submitter={submitter}/>
+                    <Form referrer={'GuestBook'} fieldsData={fieldsData} submitter={submitter}/>
                 </ Login>
         </>
     );

@@ -5,8 +5,10 @@ const Number = props => {
     const {labelClasses, inputClasses, spanClasses} = classes;
     return(
         <>
-            <label htmlFor={slug} className={`${labelClasses}`}>{title}<span className={`${spanClasses}`}>*</span></label>
-            <input
+            <div className="label">
+                <label htmlFor={slug} className={`${labelClasses}`}>{title}<span className={`${spanClasses}`}>*</span></label>
+            </div>
+                <input
                 type="text"
                 name={slug}
                 value={value}
