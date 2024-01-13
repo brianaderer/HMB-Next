@@ -10,7 +10,6 @@ const Revolving = props => {
             <div className="relative w-full my-8 pb-12">
                 <div className={`flex h-96 flex-row gap-4 w-[125%] mx-auto translate-x-[-50%] ml-[50%] drop-shadow-lg`}>
                     <Carousel>
-                    <>
                         {
                             Object.keys(imageGallery).map( index => {
                                 const image = imageGallery[index];
@@ -19,7 +18,6 @@ const Revolving = props => {
                                 )
                             } )
                         }
-                    </>
                     </Carousel>
                 </div>
             </div>

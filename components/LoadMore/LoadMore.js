@@ -12,9 +12,9 @@ const LoadMore = props => {
     }, [limit, max]);
 
     return (
-        <>
-            {show && <Button.StandardButton callback={handleClick}>Load More</Button.StandardButton>}
-        </>
+        <div className={`w-full flex flex-row justify-center`}>
+            {show && <Button.StandardButton className={`w-2/3`} callback={handleClick}>Load More</Button.StandardButton>}
+        </div>
     );
 }
 export default LoadMore;

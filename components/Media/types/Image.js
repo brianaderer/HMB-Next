@@ -11,10 +11,10 @@ const aspect = {
 }
 
 const Image = props => {
-    const {src, alt, size, ratio='default', classes=''} = props;
+    const {src, alt, size, ratio='default', className=''} = props;
     const imageSize = size || 'default';
     return (
-        <img className={`flex h-auto w-auto ${classes} ${aspect[ratio]} ${sizes[imageSize]}`} alt={alt} src={src}/>
+        <img className={`flex h-auto w-auto ${className} ${aspect[ratio]} ${sizes[imageSize]}`} alt={alt} src={src}/>
     )
 }
 export default Image;

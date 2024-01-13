@@ -7,7 +7,7 @@ const LinkButton = props => {
     }
     const {classes = '', children, type='button', url} = props;
     return(
-        <button type={type} className={`${classes} btn btn-outline`} onClick={callback}>
+        <button type={type} className={`${classes} btn btn-outline btn-secondary`} onClick={callback}>
             {children}
         </button>
     )

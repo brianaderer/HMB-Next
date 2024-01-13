@@ -164,7 +164,7 @@ const Form = props => {
     const classes = {labelClasses, spanClasses, inputClasses};
     const {formHeadline, fields, anchor} = fieldsData;
     return (
-            <FormWrapper anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
+            <FormWrapper className={`mb-12`} anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
                 {
                     Object.keys(fields).map((field, index) => {
                         const {type, label, ...otherProps} = (fields[field]);

@@ -23,8 +23,8 @@ export default function CreateBlockInstagramGallery(props) {
             {Object.keys(posts).map((post,index) => {
                 if( index < limit ){
                     return(
-                        <div className={`card bg-base-100 shadow-xl rounded-none p-2 border border-primary`} key={index}>
-                            <figure>
+                        <div className={`card bg-base-100 shadow-xl p-4 rounded-md border border-primary`} key={index}>
+                            <figure className={`rounded-none`}>
                                 <Media.Image src={posts[post]?.media_url}/>
                             </figure>
                             <div className="card-body">

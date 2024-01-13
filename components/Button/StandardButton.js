@@ -2,9 +2,9 @@ import React from "react";
 
 
 const StandardButton = props => {
-    const {classes = '', callback, children, type='button'} = props;
+    const {className = '', callback, children, type='button'} = props;
     return(
-        <button type={type} className={`${classes} btn btn-outline`} onClick={callback}>
+        <button type={type} className={`${className} btn btn-outline btn-secondary`} onClick={callback}>
             {children}
         </button>
     )

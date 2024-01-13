@@ -56,9 +56,10 @@ const Gallery = props => {
         <section className="container">
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
-                <div className={`mt-4 p-4 w-full h-48 bg-hmbSlate-100 rounded-lg border-2 border-hmbBlue-100 drop-shadow-lg`}>Drag 'n' drop some files here, or click to select files</div>
+                <div className={`cursor-pointer transition-all flex flex-row justify-center items-center mt-4 p-4 w-full h-48 bg-primary hover:bg-secondary hover:text-secondary-content text-primary-content rounded-lg border-2 border-accent drop-shadow-lg`}>
+                    <p className={`w-full text-xl text-center`}>Drag 'n' drop some files here, or click to browse</p></div>
             </div>
-            <aside className={`flex flex-row justify-evenly flex-wrap mt-8`}>
+            <aside className={`flex flex-row justify-evenly flex-wrap ${thumbs.length > 0 ? `mt-8` : ``}`}>
                 {thumbs}
             </aside>
         </section>

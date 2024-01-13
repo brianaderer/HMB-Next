@@ -15,7 +15,7 @@ const SignInButton = props => {
         }
     }
     return(
-        <button className={`${classes} btn btn-outline`} onClick={callback}>
+        <button className={`${classes} btn btn-outline btn-secondary`} onClick={callback}>
             {user ? 'Sign Out' : 'Sign In'}
         </button>
     )
