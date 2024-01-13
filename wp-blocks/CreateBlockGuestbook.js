@@ -1,14 +1,20 @@
 import { gql } from '@apollo/client';
-import React from 'react';
-import {GuestBookEntry} from "../components";
+import React, {useState} from 'react';
+import {GuestBookEntry, LoadMore} from "../components";
 
 export default function CreateBlockGuestbook(props) {
+    const increment = 3;
+    const [limit, setLimit] = useState(increment);
     const {content} = props;
     return (
         <>
-            {content.map((entry, index) => {
-                return <GuestBookEntry key={index} entry={entry} />
-            })}
+            { content.map((entry, index) => {
+                    if( index < limit ){
+                        return <GuestBookEntry key={index} entry={entry}/>
+                    }
+                })
+            }
+            <LoadMore limit={limit} setLimit={setLimit} increment={increment} max={max} />
         </>
     );
 }

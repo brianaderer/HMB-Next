@@ -35,3 +35,4 @@ export { SEO } from './SEO';
 export { Separator } from './Separator';
 export { StarRating } from './StarRating';
 export { Sticky } from './Sticky';
+export { LoadMore } from './LoadMore';
