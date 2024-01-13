@@ -1,9 +1,6 @@
 import { gql } from '@apollo/client';
 import React, {useEffect, useState} from 'react';
-import {LoadMore, ImageCard, Galleries} from "../components";
-import {Masonry} from '@mui/lab';
-
-
+import {Galleries} from "../components";
 
 export default function CreateBlockInstagramGallery(props) {
     const {renderedHtml} = props;

@@ -1,11 +1,12 @@
-import {Text} from '../../../components'
-import React, {useEffect, useState} from 'react'
+import {Text, Button} from '../../../components'
+import React, {useEffect, useState} from 'react';
+import {Textarea} from './index';
 import {useDropzone} from "react-dropzone";
 const Gallery = props => {
     const {slug, classes, title, setState, state, required, message} = props
     const {labelClasses, inputClasses, spanClasses} = classes;
-    const handleTyping = ({content, index}) => {
-        const caption = content.target.value;
+    const handleTyping = ({value, index}) => {
+        const caption = value;
         const newFiles = [...state];
         Object.assign(newFiles[index], {
             caption: caption,
@@ -37,7 +38,8 @@ const Gallery = props => {
         return (
             <div className={`flex flex-row items-center`} key={index}>
                 <div className={`border-2 border-hmbBlue-100 bg-hmbSlate-100 p-4 rounded-lg drop-shadow-lg flex-shrink-0`} >
-                    <button type={'button'} onClick={() => removeImage({index})} >x</button>
+                    <Button.StandardButton callback={() => removeImage({index})}>X</Button.StandardButton>
+                    {/*<button type={'button'} onClick={() => removeImage({index})} >x</button>*/}
                     <img className={`h-32 border border-hmbBlue-100 w-auto m-auto rounded drop-shadow-lg`}
                         alt={file.name}
                         src={file.preview}
@@ -46,7 +48,8 @@ const Gallery = props => {
                             URL.revokeObjectURL(file.preview)
                         }}
                     />
-                    <textarea placeholder={'Give your image a caption!'} className={`text-center rounded mt-4 h-32 w-full bg-hmbBlue-100 p-4`} onChange={content => handleTyping({content, index}) } />
+                    <Textarea index={index} value={state[index].caption || ''} classes={classes} handler={handleTyping} placeholder={'Give your image a caption!'} />
+                    {/*<textarea placeholder={'Give your image a caption!'} className={`text-center rounded mt-4 h-32 w-full bg-hmbBlue-100 p-4`} onChange={content => handleTyping({content, index}) } />*/}
                 </div>
             </div>
         )
@@ -55,15 +58,15 @@ const Gallery = props => {
     return(
         <section className="container">
             {message.length > 0 && <Text tag={`h3`} className={`text-xl mt-12 mb-6`}>{message}</Text>}
+            <aside className={`flex flex-row justify-evenly flex-wrap ${thumbs.length > 0 ? `mt-8` : ``}`}>
+                {thumbs}
+            </aside>
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
                 <div className={`cursor-pointer transition-all flex flex-row justify-center items-center mt-4 p-4 w-full h-48 bg-primary hover:bg-secondary hover:text-secondary-content text-primary-content rounded-lg border-2 border-accent drop-shadow-lg`}>
                     <p className={`w-full text-xl text-center`}>Drag 'n' drop some files here, or click to browse</p>
                 </div>
             </div>
-            <aside className={`flex flex-row justify-evenly flex-wrap ${thumbs.length > 0 ? `mt-8` : ``}`}>
-                {thumbs}
-            </aside>
         </section>
     )
 }
