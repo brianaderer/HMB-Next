@@ -1,11 +1,17 @@
-import { gql } from '@apollo/client';
-import React, {useState} from 'react';
+import { gql, useQuery } from '@apollo/client';
+import React, {useEffect, useState,  useContext} from 'react';
+import {AuthContext} from "../contexts";
 import {
     Form,
     Login,
+    Galleries,
 } from "../components";
 
 export default function AcfUploadMediaForm(props) {
+    const authData = useContext( AuthContext );
+    const {dbUser} = authData;
+    const [ids, setIds] = useState([]);
+    const [images, setImages] = useState([]);
     const submitter = async props => {
         return await fetch("/api/updateUserInfo", {
             method: "POST",
@@ -15,6 +21,24 @@ export default function AcfUploadMediaForm(props) {
             },
         });
     };
+    useEffect(() => {
+        if( dbUser['image-gallery'] ){
+            setIds( dbUser['image-gallery'] );
+        }
+    }, [dbUser]);
+
+    const {loading, error, data: queryData} = useQuery(AcfUploadMediaForm.MediaQuery, {
+        variables: {ids: ids},
+    });
+
+
+    useEffect(() => {
+        if( queryData ){
+            setImages( queryData.mediaQuery );
+        }
+    }, [queryData]);
+
+    console.log(images);
     const data = props.mediaData;
     const fieldsData = JSON.parse(data);
     const headline = 'Manage Your Media';
@@ -23,10 +47,28 @@ export default function AcfUploadMediaForm(props) {
 
     return (
         <Login id={id} message={message}>
+            <Galleries.Masonry posts={images} increment={10} srcName={'permalink'} captionName={'caption'} cols={5} spacing={3}  />
             <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
         </Login>
     );
 }
+
+// Define the GraphQL query
+AcfUploadMediaForm.MediaQuery = gql`
+  query MediaQuery($ids: [Int]) {
+    mediaQuery(ids: $ids) {
+      caption
+      alt
+      id
+      permalink
+      size
+      timestamp
+      title
+      type
+    }
+  }
+`;
+
 
 AcfUploadMediaForm.fragments = {
     entry: gql`
