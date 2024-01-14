@@ -15,7 +15,7 @@ const Masonry = props => {
                             const src = posts[post][srcName];
                             const caption = posts[post][captionName];
                             return(
-                                <ImageCard key={index} src={src} caption={caption} />
+                                <ImageCard className={`p-8`} imageClassName={`mb-4`} key={index} src={src} caption={caption} />
                             )
                         }
                     })}

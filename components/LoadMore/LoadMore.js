@@ -13,7 +13,7 @@ const LoadMore = props => {
 
     return (
         <div className={`w-full flex flex-row justify-center`}>
-            {show && <Button.StandardButton className={`w-2/3`} callback={handleClick}>Load More</Button.StandardButton>}
+            <Button.StandardButton className={`w-2/3 ${show ? '' : 'hidden'}`} callback={handleClick}>Load More</Button.StandardButton>
         </div>
     );
 }

@@ -58,9 +58,9 @@ const Gallery = props => {
     return(
         <section className="container">
             {message.length > 0 && <Text tag={`h3`} className={`text-xl mt-12 mb-6`}>{message}</Text>}
-            <Masonry columns={4} spacing={4} >
+            {thumbs.length > 0 ? <Masonry columns={4} spacing={4}>
                 {thumbs}
-            </Masonry>
+            </Masonry> : ''}
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
                 <div className={`cursor-pointer transition-all flex flex-row justify-center items-center mt-4 p-4 w-full h-48 bg-primary hover:bg-secondary hover:text-secondary-content text-primary-content rounded-lg border-2 border-accent drop-shadow-lg`}>

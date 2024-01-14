@@ -1,4 +1,4 @@
-import {StarRating} from "../StarRating";
+import {StarRating, Text} from "../../components";
 
 const Review = props => {
     const {reviewersName, rating, review, date, sourceLabel, index} = props.data;
@@ -15,12 +15,12 @@ const Review = props => {
     };
     return(
     <div className={`m-auto h-full flex flex-row justify-center items-center w-5/6`}>
-        <div className={`bg-hmbBlue-100 h-full py-10 px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center border-8 border-hmbBlue-200 drop-shadow-lg mx-10`}>
-            <p className={`text-center`}>{review}</p>
-            <p>- {reviewersName}</p>
-            <h3>{getFormattedDate( date )}</h3>
+        <div className={`h-full py-10 px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center drop-shadow-lg mx-10 gap-4`}>
+            <Text tag={'p'} className={`text-center`}>{review}</Text>
+            <Text className={`text-xl text-bold my-4`} tag={'p'}>{`- ${reviewersName}`}</Text>
+            <Text tag={'h3'}>{getFormattedDate( date )}</Text>
             <StarRating value={rating}/>
-            <p>{sourceLabel}</p>
+            <Text tag={'p'}>{sourceLabel}</Text>
         </div>
     </div>
     )

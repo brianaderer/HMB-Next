@@ -6,7 +6,7 @@ const Card = props => {
     const borderColor = CATEGORIES[data.category_tax[0]?.slug].borderCardColor;
     return (
         <div id={id} className={`relative w-full border-r-8 ${borderColor} card lg:card-side bg-neutral drop-shadow-lg overflow-clip rounded-none mb-1`}>
-            {expanded && <Button.StandardButton classes={`rounded btn-primary m-2`} callback={handleDestroy}>X</Button.StandardButton>}
+            {expanded && <Button.StandardButton className={`rounded btn-primary top-2 left-2 relative`} callback={handleDestroy}>X</Button.StandardButton>}
             <ul className=" absolute top-2 right-2">{data.category_tax.map( (category, key) => {
                 return (
                     <li key={key} className={`text-sm text-neutral-content`}> {category.name} </li>
