@@ -1,9 +1,6 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {Separator} from '../components';
 import {WordPressBlocksViewer} from "@faustwp/blocks";
-import CoreParagraph from '../wp-blocks/CoreParagraph';
-import {blocks, fragments} from "../zblocks";
 
 export default function CoreColumn(props) {
     const {attributes, innerBlocks, customAttributes} = props;

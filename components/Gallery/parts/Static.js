@@ -6,8 +6,8 @@ const Static = props => {
         <>
             {tagline && <h1 className={`text-center text-3xl mb-8`}>{tagline}</h1>}
             {galleryParagraph && <p className={`text-center text-xl`}>{galleryParagraph}</p>}
-            <div className={`relative w-full my-8 pb-8 mx-auto ${className}`}>
-                <div className={`flex flex-row gap-4 ${oversize ? `w-[110%] translate-x-[-50%] ml-[50%] ` : ''} items-stretch mx-auto ${background ? `bg-neutral` : ''} rounded-lg drop-shadow-lg p-4`}>
+            <div className={`relative w-full my-8 mx-auto ${className}`}>
+                <div className={`flex flex-row gap-4 ${oversize ? `w-[110%] translate-x-[-50%] ml-[50%] ` : ''} items-stretch mx-auto ${background ? `bg-neutral border-2 border-primary` : ''} rounded-lg drop-shadow-lg p-8`}>
 
                     {
                         Object.keys(imageGallery).map( index => {

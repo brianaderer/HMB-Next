@@ -9,7 +9,7 @@ export default function AcfGallery(props) {
     const type = galleryType.charAt(0).toUpperCase() +  galleryType.slice(1);
     const Gallery = Galleries[type];
     return (
-        <Gallery imageGallery={imageGallery} tagline={tagline} galleryParagraph={galleryParagraph} />
+        <Gallery background={true} imageGallery={imageGallery} tagline={tagline} galleryParagraph={galleryParagraph} />
     );
 }
 

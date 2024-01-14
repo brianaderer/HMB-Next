@@ -9,8 +9,8 @@ export default function AcfHmbMap(props) {
     const locations = [location];
 
     return (
-        <div className={`p-8 mb-8 bg-base-100 rounded-lg flex flex-row gap-4`}>
-            <Map classes={'w-full drop-shadow-lg mb-8'} locations={locations || {}}/>
+        <div className={`bg-base-100 rounded-lg flex flex-row`}>
+            <Map classes={'w-full drop-shadow-lg'} locations={locations || {}}/>
         </div>
     );
 }
