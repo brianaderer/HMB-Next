@@ -6,7 +6,7 @@ const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
     const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser, updateUserDb} = authContext || {};
-    const {fieldsData, submitter, headline, referrer} = props;
+    const {fieldsData, submitter, headline, referrer, sendAllImage} = props;
     const time = new Date();
     const [uploadValues, setUploadValues] = useState(null);
     // States for contact form fields
@@ -109,11 +109,18 @@ const Form = props => {
         setUploadValues({
             ...values,
             'image-gallery' : uploadImagesRef.current,
+            'new-images' : values['image-gallery'],
         })
     }, [uploadComplete, values['image-gallery']]); // Depend on uploadComplete and values
 
     useEffect(() => {
-        handleUpload().then(()=>{});
+        handleUpload().then(()=>{
+            setValues({
+                uid: user?.uid,
+                title: user?.displayName + ' at ' + time
+            });
+            mapDbUser();
+        });
     }, [uploadValues]);
     const addImageIds = props => {
         const { ids } = props;
@@ -140,10 +147,6 @@ const Form = props => {
 
             // Reset the flag
             setUploadComplete(false);
-            setValues({
-                uid: user?.uid,
-                title: user?.displayName + ' at ' + time
-            });
             checkUser();
             mapDbUser();
         }

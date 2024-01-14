@@ -60,7 +60,7 @@ export default async function handler(req, res) {
             full_name: body["full-name"],
             message: body.message,
             phone_number: body["phone-number"],
-            image_gallery: body["image-gallery"],
+            image_gallery: body["new-images"],
             title: body["title"],
         };
         // Execute GraphQL Mutation

@@ -38,7 +38,6 @@ export default function AcfUploadMediaForm(props) {
         }
     }, [queryData]);
 
-    console.log(images);
     const data = props.mediaData;
     const fieldsData = JSON.parse(data);
     const headline = 'Manage Your Media';

@@ -6,7 +6,14 @@ export default function AcfGuestBookEntryEntry(props) {
 
     const submitter = async props => {
         const values = [];
-        return await fetch("/api/comment", {
+        await fetch("/api/comment", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        return await fetch("/api/updateUserInfo", {
             method: "POST",
             body: JSON.stringify(props),
             headers: {
@@ -21,7 +28,7 @@ export default function AcfGuestBookEntryEntry(props) {
     return (
         <>
                 <Login message={message}>
-                    <Form referrer={'GuestBook'} fieldsData={fieldsData} submitter={submitter}/>
+                    <Form referrer={'GuestBook'} sendAllImage={false} fieldsData={fieldsData} submitter={submitter}/>
                 </ Login>
         </>
     );
