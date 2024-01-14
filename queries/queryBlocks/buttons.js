@@ -4,6 +4,7 @@ export default `
         anchor
         apiVersion
         name
+        cssClassNames
         innerBlocks {
           isDynamic
           name

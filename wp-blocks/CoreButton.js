@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import * as queries from '../queries/queryBlocks/index';
+import {Link} from 'next';
 import {Button} from '../components';
 
 export default function CoreButton(props) {

@@ -7,7 +7,7 @@ import CoreHeading from "./CoreHeading";
 import CoreList from "./CoreList";
 
 export default function CoreColumns(props) {
-    const {attributes, innerBlocks} = props;
+    const {attributes, innerBlocks, cssClassNames} = props;
     return (
         <div className={`flex flex-row items-center gap-8 px-8`}>
             <WordPressBlocksViewer blocks={innerBlocks} />

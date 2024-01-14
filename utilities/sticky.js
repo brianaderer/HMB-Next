@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 
-const Sticky = props => {
-    const { children, target, classes = '' } = props;
-    const timer = useRef(null);
+const stickyFX = props => {
+    const {stickyRef, target} = props;
     const [scroll, setScroll] = useState(false);
     const [top, setTop] = useState(0);
-    const stickyRef = useRef(null);
-
+    const timer = useRef(null);
     useEffect(() => {
         if(stickyRef.current) {
-            stickyRef.current.style.top = top < 0 ? `${-top + 50}px` : '0px';
+            stickyRef.current.style.top = top < 0 ? `${-top + 90}px` : '0px';
         }
     }, [top]);
 
@@ -36,13 +34,6 @@ const Sticky = props => {
             window.removeEventListener('scroll', handleScroll, false);
         };
     }, []); // Empty dependency array ensures this runs only once when the component mounts
-
-    return(
-        <>
-            <div id={`Sticky`} ref={stickyRef} className={`${classes} absolute transition-all`}>
-                {children}
-            </div>
-        </>
-    )
 }
-export default Sticky;
+
+export {stickyFX};

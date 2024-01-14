@@ -34,6 +34,7 @@ export { Text } from './Text';
 export { SEO } from './SEO';
 export { Separator } from './Separator';
 export { StarRating } from './StarRating';
-export { Sticky } from './Sticky';
+export { Sticky } from './MapSticky';
+export { Stickies } from './Stickies';
 export { LoadMore } from './LoadMore';
 export { ImageCard } from './ImageCard';

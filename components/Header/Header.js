@@ -1,5 +1,5 @@
-import {Brand, Nav} from '../index';
-import { useState, useCallback, useEffect } from 'react';
+import {Brand, Nav, Stickies} from '../../components';
+import { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Header({
@@ -13,7 +13,6 @@ export default function Header({
   const {logo} = siteLogo;
   const [open, setOpen] = useState('');
   const router = useRouter();
-
 
 
     useEffect(() => {
@@ -55,8 +54,10 @@ export default function Header({
       <div className="drawer min-h-screen">
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen flex flex-col justify-between">
-          {/* Navbar */}
-          <div className="w-full navbar bg-base-300 z-10">
+          <div className="w-full navbar sticky top-0 bg-base-300 z-10">
+              <div id='stickies' className={`absolute top-[100%] left-[18%]`}>
+                  <Stickies router={router} setOpen={setOpen}/>
+              </div>
             <div className="flex-none xl:hidden">
               <label htmlFor="main-nav" aria-label="open sidebar" className="btn btn-square btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>

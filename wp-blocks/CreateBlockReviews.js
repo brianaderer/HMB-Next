@@ -26,7 +26,7 @@ export default function CreateBlockReviews(props) {
             }
         },
         "control": {
-            "base": "border-4 bg-neutral rounded-full w-auto h-auto p-0 btn btn-secondary btn-outline inline-flex items-center justify-center rounded-full",
+            "base": "border-4 border-secondary/20 bg-neutral rounded-full w-auto h-auto p-0 btn btn-secondary btn-outline inline-flex items-center justify-center rounded-full",
             "icon": "text-lg w-12 h-12 p-2 text-primary"
         },
         "scrollContainer": {
