@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import { FormElements } from '../FormElements';
 import {AuthContext} from "../../contexts";
 
@@ -8,6 +8,7 @@ const Form = props => {
     const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser, updateUserDb} = authContext || {};
     const {fieldsData, submitter, headline, referrer} = props;
     const time = new Date();
+    const [uploadValues, setUploadValues] = useState(null);
     // States for contact form fields
     const [values, setValues] = useState({});
     const [images, setImages] = useState([]);
@@ -16,7 +17,7 @@ const Form = props => {
     //   Setting button text on form submission
     const defaultButtonText = 'Send It!';
     const [buttonText, setButtonText] = useState(defaultButtonText);
-
+    const uploadImagesRef = useRef(null);
     // Setting success or failure messages states
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showFailureMessage, setShowFailureMessage] = useState(false);
@@ -104,8 +105,16 @@ const Form = props => {
         }
     };
     useEffect( () => {
+        uploadImagesRef.current = mergeImageGalleries();
+        setUploadValues({
+            ...values,
+            'image-gallery' : uploadImagesRef.current,
+        })
+    }, [uploadComplete, values['image-gallery']]); // Depend on uploadComplete and values
+
+    useEffect(() => {
         handleUpload().then(()=>{});
-    }, [uploadComplete, values]); // Depend on uploadComplete and values
+    }, [uploadValues]);
     const addImageIds = props => {
         const { ids } = props;
         const newImageGallery = [...(values['image-gallery'] || [])];
@@ -117,7 +126,7 @@ const Form = props => {
 
     const handleUpload = async () => {
         if (uploadComplete) {
-            const res = await submitter(values);
+            const res = await submitter(uploadValues);
             const { error } = await res.json();
             if (error) {
                 setShowSuccessMessage(false);
@@ -138,6 +147,14 @@ const Form = props => {
             checkUser();
             mapDbUser();
         }
+    }
+
+    function mergeImageGalleries() {
+            // Extract image-gallery arrays, defaulting to empty arrays if not present
+            const valuesGallery = values['image-gallery'] || [];
+            const dbUserGallery = dbUser['image-gallery'] || [];
+            // Merge arrays and filter out duplicates
+            return [...new Set([...valuesGallery, ...dbUserGallery])];
     }
 
     function handleValues({ value, slug }) {

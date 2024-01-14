@@ -4,10 +4,10 @@ import { WordPressBlocksViewer } from '@faustwp/blocks';
 import * as queries from '../queries/queryBlocks/index';
 
 export default function CoreButtons(props) {
-    const {attributes, anchor, innerBlocks, name, cssClassNames} = props;
+    const {attributes, anchor, innerBlocks, name, cssClassNames, clientId} = props;
     const classes = cssClassNames?.join(' ');
     return (
-        <div className={`flex flex-row gap-4 w-full p-4 -mt-4 bg-base-100 mb-4 ${classes}`}>
+        <div id={clientId} className={`flex flex-row gap-4 w-full p-4 bg-base-100 rounded-b-lg ${classes}`}>
             <WordPressBlocksViewer blocks={(innerBlocks)} />
         </div>
     );
