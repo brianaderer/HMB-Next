@@ -49,4 +49,4 @@ jobs:
           remote-user: "staging"
           ssh-private-key: ${{ secrets.SFTP_KEY }}
           remote-path: "./files/"
-          sync: delta
+          sync: full
