@@ -46,7 +46,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: burnett01/rsync-deployments@6.0.0
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude='.env.local'
           path: ./
           remote_path: ./files/
           remote_host: 3.133.135.142
