@@ -25,4 +25,3 @@ const useMediaQuery = (width) => {
 
     return targetReached;
 };
-console.log(useMediaQuery('768'));

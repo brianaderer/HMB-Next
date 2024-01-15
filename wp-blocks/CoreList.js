@@ -18,7 +18,6 @@ export default function CoreList(props) {
     };
 
     const listItemsArray = extractListItems(values);
-    console.log(listItemsArray);
 
 
     return (
