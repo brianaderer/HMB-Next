@@ -39,13 +39,12 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: "Deploy"
+        uses: milanmk/actions-file-deployer@master
         with:
-          username: 'staging'
-          server: 3.133.135.142
-          ssh_private_key: ${{ secrets.SFTP_KEY }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          local_path: './*'  # Set to the directory of your built project
-          remote_path: './files/'
-          sftpArgs: '-o ConnectTimeout=5'
+          remote-protocol: "sftp"
+          remote-host: 3.133.135.142
+          remote-user: "staging"
+          ssh-private-key: ${{ secrets.SFTP_KEY }}
+          remote-path: "./files/"
+          sync: delta
