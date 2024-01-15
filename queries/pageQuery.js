@@ -3,13 +3,12 @@ import {BlogInfoFragment} from "../fragments/GeneralSettings";
 import {FeaturedImage, NavigationMenu} from "../components";
 import components from '../wp-blocks';
 
-import {fragments, blocks} from '../zblocks';
 
 export const pageQuery = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-    ${components.CoreParagraph.fragments.entry}
+  ${components.CoreParagraph.fragments.entry}
   ${components.CoreHeading.fragments.entry}
   ${components.CoreButtons.fragments.entry}
   ${components.CoreButton.fragments.entry}
