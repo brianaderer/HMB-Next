@@ -47,7 +47,7 @@ const Form = props => {
         return isValid;
     };
     useEffect(() => {
-        const {'image-gallery': imageGallery, ...restOfDbUser} = dbUser;
+        const {'image-gallery': imageGallery, ...restOfDbUser} = dbUser | {};
         setValues({
             ...restOfDbUser,
             uid: user?.uid,
@@ -153,11 +153,19 @@ const Form = props => {
     }
 
     function mergeImageGalleries() {
+        if( dbUser && Array.isArray(dbUser['image-gallery']) && Array.isArray(values['image-gallery']) ){
             // Extract image-gallery arrays, defaulting to empty arrays if not present
             const valuesGallery = values['image-gallery'] || [];
             const dbUserGallery = dbUser['image-gallery'] || [];
             // Merge arrays and filter out duplicates
             return [...new Set([...valuesGallery, ...dbUserGallery])];
+        } else if( dbUser && Array.isArray(dbUser['image-gallery']) ){
+            return dbUser['image-gallery'];
+        } else if( Array.isArray(values['image-gallery']) ){
+            return values['image-gallery'];
+        } else {
+            return [];
+        }
     }
 
     function handleValues({ value, slug }) {
