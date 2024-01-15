@@ -46,7 +46,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@3.1.2
         with:
-          ftp-server: 3.133.135.142
-          ftp-username: staging
+          ftp-server: '3.133.135.142'
+          ftp-username: 'staging'
           ftp-password: ${{ secrets.SFTP_PASSWORD }}
           git-ftp-args: --remote-root './files/'
