@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {GuestBookEntry, LoadMore} from "../components";
 
 export default function CreateBlockGuestbook(props) {
-    const increment = 3;
+    const increment = 5;
     const [limit, setLimit] = useState(increment);
     const {content} = props;
     const max = Object.keys(content).length;
