@@ -46,6 +46,6 @@ jobs:
           port: 22
           user: 'staging'
           pass: ${{ secrets.SFTP_PASSWORD }}
-          remoteDir: '/files'
+          remoteDir: '/files/'
           options: 'delete'
 
