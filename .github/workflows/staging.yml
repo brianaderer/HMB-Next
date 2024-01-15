@@ -50,5 +50,5 @@ jobs:
           path: ./
           remote_path: ./files/
           remote_host: 3.133.135.142
-          remote_user: badererSudo
+          remote_user: staging
           remote_key: ${{ secrets.SFTP_KEY }}
