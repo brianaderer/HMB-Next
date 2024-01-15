@@ -47,11 +47,7 @@
     "npm": ">=10"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^0.10.1",
-    "@aws-amplify/backend-cli": "^0.9.6",
     "autoprefixer": "^10.4.16",
-    "aws-cdk": "^2.121.1",
-    "aws-cdk-lib": "^2.121.1",
     "constructs": "^10.3.0",
     "daisyui": "^4.4.20",
     "postcss": "^8.4.31",
