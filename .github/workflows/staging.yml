@@ -1,0 +1,36 @@
+name: Deploy to SpinUpWP
+
+on:
+  push:
+    branches:
+      - staging  # Set this to your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Set the Node.js version you need
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: 'staging'
+          server: 3.133.135.142
+          ssh_private_key: ${{ secrets.SFTP_KEY }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          local_path: './*'  # Set to the directory of your built project
+          remote_path: './files/'
+          sftpArgs: '-o ConnectTimeout=5'
