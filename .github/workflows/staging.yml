@@ -34,14 +34,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'  # Set the Node.js version you need
-          
+
       - name: List output files
         run: ls
 
       - name: FTP-Deploy-Action
         uses: burnett01/rsync-deployments@6.0.0
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --rsync-path=/bin/rsync
           path: ./
           remote_path: ./files/
           remote_host: 3.133.135.142
