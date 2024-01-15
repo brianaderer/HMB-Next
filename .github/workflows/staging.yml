@@ -46,6 +46,6 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@3.1.2
         with:
-          ftp-server: sftp://staging@3.133.135.142/sites/staging.hmbmarina.com/files
+          ftp-server: sftp://staging@3.133.135.142/sites/staging.hmbmarina.com/files/
           ftp-username: staging
           ftp-password: ${{ secrets.SFTP_PASSWORD }}
