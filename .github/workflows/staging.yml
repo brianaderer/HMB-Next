@@ -34,12 +34,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'  # Set the Node.js version you need
-
-      - name: Build Project
-        run: |
-          npm install
-          npm run build --if-present
-
+          
       - name: List output files
         run: ls
 
