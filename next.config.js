@@ -15,4 +15,6 @@ module.exports = withFaust({
     locales: ['en'],
     defaultLocale: 'en',
   },
+  distDir: '/build',
+  basePath: '/build',
 });
