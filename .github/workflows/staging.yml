@@ -52,4 +52,3 @@ jobs:
           remote_host: 3.133.135.142
           remote_user: staging
           remote_key: ${{ secrets.SFTP_KEY }}
-          remote_key_pass: ${{ secrets.SFTP_PASSWORD }}
