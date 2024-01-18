@@ -49,6 +49,6 @@ jobs:
           switches: -avzr --delete --exclude='.env.local'
           path: ./
           remote_path: ./files/
-          remote_host: 3.133.135.142
+          remote_host: 18.226.214.105
           remote_user: staging
           remote_key: ${{ secrets.SFTP_KEY }}
