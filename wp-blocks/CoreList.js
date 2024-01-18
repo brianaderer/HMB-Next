@@ -21,7 +21,7 @@ export default function CoreList(props) {
 
 
     return (
-        <ul className={`list-disc list-inside rounded-tl-3xl pt-8 border-t-4 border-t-base-100 z-10 rounded-br-3xl pb-8 mb-4 px-16 indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>
+        <ul className={`list-disc list-inside rounded-tl-3xl pt-8 border-t-4 border-t-base-100 z-10 rounded-br-3xl pb-8 mb-4 px-4 xl:px-16 indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>
             {listItemsArray.map((item, index) => {
                 return (<Text key={index} tag={'li'}>{item}</Text>)
             })}

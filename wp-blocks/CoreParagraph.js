@@ -13,7 +13,7 @@ export default function CoreParagraph(props) {
         setIsLast(paragraphRef.current.nextSibling?.tagName !== 'P');
     }, []);
     return (
-        <Text ref={paragraphRef} tag={'p'} className={`${isFirst ? 'rounded-tl-3xl pt-8 border-t-4 border-t-base-100 z-10' : ''} ${isLast ? 'rounded-br-3xl pb-8 mb-4' : ''} px-16 indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>{attributes?.content}</Text>
+        <Text ref={paragraphRef} tag={'p'} className={`${isFirst ? 'rounded-tl-3xl pt-8 border-t-4 border-t-base-100 z-10' : ''} ${isLast ? 'rounded-br-3xl pb-8 mb-4' : ''} px-16 xl:indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>{attributes?.content}</Text>
     );
 }
 

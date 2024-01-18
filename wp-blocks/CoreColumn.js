@@ -9,7 +9,7 @@ export default function CoreColumn(props) {
         width: width,
     }
     return (
-        <div style={style}>
+        <div style={style} className={`!w-[95%] !lg-w-[inherit]`}>
             <WordPressBlocksViewer blocks={(innerBlocks)} />
         </div>
     );
