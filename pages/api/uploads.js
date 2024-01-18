@@ -32,7 +32,7 @@ const UPDATE_IMAGE_META = gql`
     success
   }
 }`;
-
+console.log(process.env.NEXT_PUBLIC_WORDPRESS_URL);
 const client = new ApolloClient({
     link: new HttpLink({ uri: process.env.NEXT_PUBLIC_WORDPRESS_URL + '/' + process.env.GRAPHQL_ENDPOINT , fetch }),
     cache: new InMemoryCache(),
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
             }
 
             try {
-                const wpApiUrl = 'http://localhost:10005/wp-json/wp/v2/media';
+                const wpApiUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL + '/wp-json/wp/v2/media';
 
                 // Read the file into a buffer
                 const fileBuffer = fs.readFileSync(file.filepath);

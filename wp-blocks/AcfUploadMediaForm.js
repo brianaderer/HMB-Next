@@ -22,7 +22,7 @@ export default function AcfUploadMediaForm(props) {
         });
     };
     useEffect(() => {
-        if( dbUser['image-gallery'] ){
+        if( dbUser && dbUser['image-gallery'] ){
             setIds( dbUser['image-gallery'] );
         }
     }, [dbUser]);
