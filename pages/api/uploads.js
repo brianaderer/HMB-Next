@@ -32,7 +32,7 @@ const UPDATE_IMAGE_META = gql`
     success
   }
 }`;
-console.log(process.env.NEXT_PUBLIC_WORDPRESS_URL);
+
 const client = new ApolloClient({
     link: new HttpLink({ uri: process.env.NEXT_PUBLIC_WORDPRESS_URL + '/' + process.env.GRAPHQL_ENDPOINT , fetch }),
     cache: new InMemoryCache(),
