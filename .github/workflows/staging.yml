@@ -43,6 +43,7 @@ jobs:
       - name: List output files
         run: ls
 
+      #clean push, maybe need to run a manual delete first
       - name: FTP-Deploy-Action
         uses: burnett01/rsync-deployments@6.0.0
         with:
