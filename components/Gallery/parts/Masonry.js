@@ -12,10 +12,11 @@ const Masonry = props => {
     const computedIncrement = isMobile ? 8 : increment;
     const {posts, srcName, captionName, increment, cols, spacing} = props;
     const [limit, setLimit] = useState(computedIncrement);
+    const computedSpacing = isMobile ? 2 : spacing;
 
     return (
         <>
-            <MUIMasonry columns={computedCols} spacing={spacing}>
+            <MUIMasonry columns={computedCols} spacing={computedSpacing}>
                 <>
                     {Object.keys(posts).map((post,index) => {
                         if( index < limit ){
