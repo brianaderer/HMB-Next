@@ -8,7 +8,7 @@ export default function CoreButton(props) {
     const {anchor, url, type, text} = attributes;
 
     return (
-        <Button.LinkButton type={'link'} url={url} >
+        <Button.LinkButton type={'link'} url={url} className={`btn-sm md:btn-md`} >
             {text}
         </Button.LinkButton>
     );

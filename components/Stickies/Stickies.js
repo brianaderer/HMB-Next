@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import { StickyContext } from "../../contexts";
 import {scroller} from "../../utilities/scroller";
+import {ScreenContext} from "../../contexts";
 
 const Stickies = props => {
     const {setOffscreen, setNavHeight} = props;
     const [top, setTop] = useState(0);
     const stickies = useContext(StickyContext);
+    const screenInfo = useContext(ScreenContext);
     const containerRef = useRef(null);
     const hasAppended = useRef(false);
     const id = stickies?.id;
@@ -22,12 +24,11 @@ const Stickies = props => {
     }, [stickies]);
 
     useEffect(() => {
-        const nav = document.getElementById(`nav`);
-        const navHeight = nav.offsetHeight;
+        const navHeight = screenInfo.navHeight;
         const offscreen = -(top) > navHeight;
         setOffscreen( offscreen );
         if( offscreen ){
-            setNavHeight(navHeight  * .875);
+            setNavHeight(navHeight);
         } else {
             setNavHeight( (-200) );
 

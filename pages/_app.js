@@ -6,12 +6,15 @@ import '@faustwp/core/dist/css/toolbar.css';
 import '../styles/global.scss';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
-import {AuthContext, StickyContext} from "../contexts";
+import {AuthContext, StickyContext, ScreenContext} from "../contexts";
 import {Button, Modal} from '../components';
 import {useAuth} from "../utilities/auth";
+import {useMediaQuery} from "../utilities/mediaQuery";
 
 export default function MyApp({ Component, pageProps }) {
     const [stickies, setStickies] = useState({});
+    const [screen, setScreen] = useState({});
+    useMediaQuery({setScreen});
     useEffect(() => {
         const bodyChildDiv = document.body.querySelector('body > div#__next');
         // Add class to body
@@ -55,18 +58,20 @@ export default function MyApp({ Component, pageProps }) {
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut, dbUser, setDbUser, checkUser, updateUserDb}}>
               <StickyContext.Provider value={stickies}>
-                  <WordPressBlocksProvider
-                      config={{
-                          blocks,
-                      }}>
-                      <Component {...pageProps} key={router.asPath} />
-                      <Modal id={'signIn'}>
-                          <div>
-                              <Button.AuthButton message={'Google'} providerName={'Google'} callback={() => handleSignIn({id: 'signUp', providerName: 'Google'})} />
-                              <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
-                          </div>
-                      </Modal>
-                  </WordPressBlocksProvider>
+                  <ScreenContext.Provider value={screen}>
+                      <WordPressBlocksProvider
+                          config={{
+                              blocks,
+                          }}>
+                          <Component {...pageProps} key={router.asPath} />
+                          <Modal id={'signIn'}>
+                              <div>
+                                  <Button.AuthButton message={'Google'} providerName={'Google'} callback={() => handleSignIn({id: 'signUp', providerName: 'Google'})} />
+                                  <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
+                              </div>
+                          </Modal>
+                      </WordPressBlocksProvider>
+                  </ScreenContext.Provider>
               </StickyContext.Provider>
           </AuthContext.Provider>
       </FaustProvider>

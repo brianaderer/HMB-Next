@@ -7,7 +7,7 @@ export default function CoreButtons(props) {
     const {attributes, anchor, innerBlocks, name, cssClassNames, clientId} = props;
     const classes = cssClassNames?.join(' ');
     return (
-        <div id={clientId} className={`flex flex-row gap-4 w-full p-4 bg-base-100 rounded-b-lg ${classes}`}>
+        <div id={clientId} className={`flex flex-row items-center gap-4 w-full pb-2 lg:p-4 bg-base-100 rounded-b-lg ${classes}`}>
             <WordPressBlocksViewer blocks={(innerBlocks)} />
         </div>
     );
