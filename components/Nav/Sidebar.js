@@ -8,7 +8,7 @@ const Sidebar = props => {
     // Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
     const hierarchicalMenuItems = flatListToHierarchical(menuItems);
     return (
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 h-[100vh]">
+        <ul className="menu p-4 w-80 min-h-full bg-base-200 h-[100vh] border-r-2 border-accent/20">
             {
                 hierarchicalMenuItems.map(item => {
                     const { id, path, label, children, cssClasses } = item;
