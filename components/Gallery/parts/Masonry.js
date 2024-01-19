@@ -8,9 +8,9 @@ import {ScreenContext} from "../../../contexts";
 const Masonry = props => {
     const screen = useContext(ScreenContext);
     const isMobile = !screen.breakpoints.includes('md');
+    const {posts, srcName, captionName, increment, cols, spacing} = props;
     const computedCols = isMobile ? 1 : cols;
     const computedIncrement = isMobile ? 4 : increment;
-    const {posts, srcName, captionName, increment, cols, spacing} = props;
     const [limit, setLimit] = useState(computedIncrement);
     const computedSpacing = isMobile ? 2 : spacing;
 
