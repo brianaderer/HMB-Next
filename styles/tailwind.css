@@ -14,5 +14,8 @@
     h1 {
         @apply text-2xl xl:text-3xl;
     }
+    a {
+        @apply text-accent hover:text-secondary hover:decoration-2 transition-all;
+    }
 
 }

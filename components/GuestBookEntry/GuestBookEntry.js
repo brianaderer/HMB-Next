@@ -10,8 +10,8 @@ const GuestBookEntry = props => {
             <div className="card-body max-md:p-4">
                 {images.length > 0 && <Galleries.Static className={`max-w-full max-h-80 my-0 p-0`} background={false} oversize={false}
                                              imageGallery={images}/>}
-                <div className="flex flex-col lg:flex-row gap-8 items-start justify-end h-auto mb-4">
-                    <div className="flex flex-row items-start justify-end h-full">
+                <div className="flex flex-col lg:flex-row gap-8 items-start justify-start h-auto mb-4">
+                    <div className="flex flex-row items-start justify-start h-full">
                         <Text className={`text-6xl text-left tracking-tighter h-full`} tagName={`h4`}>{boat_name}</Text>
                     </div>
                     <div className="flex-col items-start flex">

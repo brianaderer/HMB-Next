@@ -26,21 +26,21 @@ const Top = props => {
                     }
                     if( !children.length ){
                         return (
-                            <li className={""} key={id}><a href={path}>{label}</a></li>
+                            <li key={id}><a className={`text-neutral-content`} href={path}>{label}</a></li>
                         );
                     } else {
                         return (
                             <li key={id}>
                                 <details id={id} open={open === id}>
                                     <summary>{label}</summary>
-                                    <ul className="p-2 bg-neutral rounded-t-none">
+                                    <ul className="p-2 bg-neutral border-b-2 border-x-2 border-accent/20 rounded-t-none">
                                         {children.map(child => {
                                             if (!child.hasOwnProperty('__typename')) {
                                                 return null;
                                             }
                                             const { id, path, label } = child;
                                             return (
-                                                <li key={id}><a href={path}>{label}</a></li>
+                                                <li key={id}><a className={`text-neutral-content`} href={path}>{label}</a></li>
                                             )
                                         })}
                                     </ul>

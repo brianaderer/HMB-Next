@@ -7,8 +7,8 @@ export default function CreateBlockReviews(props) {
     const customTheme = {
         "root": {
             "base": "relative h-full w-full",
-            "leftControl": "absolute top-0 left-0 flex h-full items-center justify-center px-4 focus:outline-none",
-            "rightControl": "absolute top-0 right-0 flex h-full items-center justify-center px-4 focus:outline-none"
+            "leftControl": "absolute top-0 -left-4 flex h-full items-center justify-center px-4 focus:outline-none",
+            "rightControl": "absolute top-0 -right-4 flex h-full items-center justify-center px-4 focus:outline-none"
         },
         "indicators": {
             "active": {
@@ -26,8 +26,8 @@ export default function CreateBlockReviews(props) {
             }
         },
         "control": {
-            "base": "border-4 border-secondary/20 bg-neutral rounded-full w-auto h-auto p-0 btn btn-secondary btn-outline inline-flex items-center justify-center rounded-full",
-            "icon": "text-lg w-12 h-12 p-2 text-primary"
+            "base": "border-2 lg:border-4 border-secondary/20 bg-neutral rounded-full w-auto h-auto p-0 btn btn-secondary btn-outline inline-flex items-center justify-center rounded-full",
+            "icon": "text-lg w-8 lg:w-12 h-8 lg:h-12 p-2 text-primary"
         },
         "scrollContainer": {
             "base": "flex h-full snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-lg",
@@ -48,8 +48,7 @@ export default function CreateBlockReviews(props) {
     reviews.sort((a, b) => b.date - a.date);
     return (
         <>
-            <Text tag={'h1'} className="text-3xl text-center mb-8">{meta.headline}</Text>
-            <div className="w-full rounded-box p-10 drop-shadow-lg">
+            <div className="w-full rounded-box p-2 lg:p-6 drop-shadow-lg">
             <Carousel theme={customTheme} pauseOnHover>
             {
                 reviews.map((review) => {
