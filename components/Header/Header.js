@@ -58,8 +58,8 @@ export default function Header({
       <div className="drawer min-h-screen">
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen flex flex-col justify-between">
-          <div id={`nav`} className="w-full flex flex-row items-center navbar sticky top-0 bg-base-300 z-10">
-              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100' : 'opacity-0'} border-b-2 border-x-2 border-primary/40 m-0 shadow-xl rounded-b-lg transition-all absolute right-2 -z-10`}>
+          <div id={`nav`} className="z-20 w-full flex flex-row items-center navbar sticky top-0 bg-base-300">
+              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} overflow-hidden border-b-2 border-x-2 border-primary/40 m-0 shadow-xl rounded-b-lg transition-all absolute right-2 -z-10`}>
                   <Stickies setOffscreen={setOffscreen} router={router} setNavHeight={setNavHeight} setOpen={setOpen}/>
               </div>
             <div className="flex-none xl:hidden">
@@ -74,7 +74,7 @@ export default function Header({
           </div>
           {children}
         </div>
-        <div className="xl:hidden drawer-side h-screen overflow-y-hidden">
+        <div className="xl:hidden drawer-side h-screen overflow-y-hidden z-10">
           <label htmlFor="main-nav" aria-label="close sidebar" className="drawer-overlay"></label>
           <Nav.Sidebar menuItems={menuItems} />
         </div>

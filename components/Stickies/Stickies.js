@@ -27,12 +27,7 @@ const Stickies = props => {
         const navHeight = screenInfo.navHeight;
         const offscreen = -(top) > navHeight;
         setOffscreen( offscreen );
-        if( offscreen ){
-            setNavHeight(navHeight);
-        } else {
-            setNavHeight( (-200) );
-
-        }
+        setNavHeight( navHeight );
     }, [top]);
 
     scroller({target: id, setTop});
