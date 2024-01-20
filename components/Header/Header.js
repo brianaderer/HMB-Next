@@ -10,7 +10,7 @@ export default function Header({
   children,
 }) {
   const [isNavShown, setIsNavShown] = useState(false);
-  const {logo} = siteLogo | null;
+  const {logo} = siteLogo || null;
   const [open, setOpen] = useState('');
   const [offScreen, setOffscreen] = useState(false);
   const [navHeight, setNavHeight] = useState(0);

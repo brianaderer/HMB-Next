@@ -21,13 +21,15 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const clickedOnMapRef = useRef(clickedOnMap);
     const router = useRouter();
     let locationData = {};
-    locations.map((location, index) => {
-        if( location.location?.place_id ){
-            locationData[location.location.place_id] = location;
-        } else {
-            locationData[index] = location;
-        }
-    });
+    if( locations.length > 0 ) {
+        locations?.map((location, index) => {
+            if (location.location?.place_id) {
+                locationData[location.location.place_id] = location;
+            } else {
+                locationData[index] = location;
+            }
+        });
+    }
 
 
     const mapOptions = {
