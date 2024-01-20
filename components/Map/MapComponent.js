@@ -43,7 +43,9 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [activePlaces]);
 
     useEffect(() => {
-        setMap( new window.google.maps.Map( ref.current, mapOptions ) );
+        if( locations[0].location ){
+            setMap( new window.google.maps.Map( ref.current, mapOptions ) );
+        }
     }, [locations]);
 
     useEffect(() => {

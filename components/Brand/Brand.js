@@ -3,7 +3,6 @@ import {ScreenContext} from "../../contexts";
 
 const Brand = props => {
     const screen = useContext(ScreenContext);
-    console.log(screen);
     const {description, title, logo} = props;
     return(
         <div className={`flex-1 flex flex-row items-center px-2 mx-2 relative lg:top-4 justify-end lg:justify-start`}>
