@@ -7,8 +7,8 @@ export default function CreateBlockReviews(props) {
     const customTheme = {
         "root": {
             "base": "relative h-full w-full",
-            "leftControl": "absolute top-0 -left-4 flex h-full items-center justify-center px-4 focus:outline-none",
-            "rightControl": "absolute top-0 -right-4 flex h-full items-center justify-center px-4 focus:outline-none"
+            "leftControl": "max-md:hidden absolute top-0 -left-4 flex h-full items-center justify-center px-4 focus:outline-none",
+            "rightControl": "max-md:hidden absolute top-0 -right-4 flex h-full items-center justify-center px-4 focus:outline-none"
         },
         "indicators": {
             "active": {
