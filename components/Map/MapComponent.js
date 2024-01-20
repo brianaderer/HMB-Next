@@ -43,9 +43,8 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [activePlaces]);
 
     useEffect(() => {
-        if( locations[0].location ){
-            setMap( new window.google.maps.Map( ref.current, mapOptions ) );
-        }
+        setMap( new window.google.maps.Map( ref.current, mapOptions ) );
+
     }, [locations]);
 
     useEffect(() => {
@@ -276,7 +275,6 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             setLastActiveMarker({});
         }
     }, [activeCategories, locations, map]); // Ensure to include all dependencies
-    let expand = Object.keys(activeMarker).length;
 
     return (
     <div id={`mapDiv`} className={`relative + ${classes}`}>
