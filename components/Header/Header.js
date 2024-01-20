@@ -58,7 +58,7 @@ export default function Header({
       <div className="drawer min-h-screen">
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen flex flex-col justify-between">
-          <div id={`nav`} className="w-full navbar sticky top-0 bg-base-300 z-10">
+          <div id={`nav`} className="w-full flex flex-row items-center navbar sticky top-0 bg-base-300 z-10">
               <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100' : 'opacity-0'} border-b-2 border-x-2 border-primary/40 m-0 shadow-xl rounded-b-lg transition-all absolute right-2 -z-10`}>
                   <Stickies setOffscreen={setOffscreen} router={router} setNavHeight={setNavHeight} setOpen={setOpen}/>
               </div>

@@ -71,17 +71,27 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 createElement({index: 'home', AdvancedMarkerElement, PinElement ,title: 'Half Moon Bay Marina', position: center, category: 'home'});
                 let categoriesTaxList = [];
                 Object.keys(locationData).map((locationKey) => {
-                    const location = locationData[locationKey];
-                    const place =  location.location;
-                    const position = {'lat': place?.lat, 'lng': place?.lng};
-                    const title = location.title;
-                    location.category_tax?.map(category => {
-                        if( !categoriesTaxList.hasOwnProperty(category.term_id)){
-                            categoriesTaxList[category.term_id] = {'slug': category.slug, 'name': category.name };
+                    if( locationKey && locationData[locationKey] ){
+                        const location = locationData[locationKey];
+                        const place = location.location;
+                        const position = {'lat': place?.lat, 'lng': place?.lng};
+                        const title = location.title;
+                        location.category_tax?.map(category => {
+                            if (!categoriesTaxList.hasOwnProperty(category.term_id)) {
+                                categoriesTaxList[category.term_id] = {'slug': category.slug, 'name': category.name};
+                            }
+                        });
+                        if (position.lat) {
+                            createElement({
+                                index: locationKey,
+                                markerInstance,
+                                PinElement,
+                                AdvancedMarkerElement,
+                                title: title,
+                                position: position,
+                                category: location.category_tax[0]
+                            });
                         }
-                    });
-                    if(position.lat){
-                        createElement({index: locationKey, markerInstance, PinElement ,AdvancedMarkerElement, title: title, position: position, category: location.category_tax[0]});
                     }
                 } );
                 setCategories(categoriesTaxList);
