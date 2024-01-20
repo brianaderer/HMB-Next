@@ -8,7 +8,7 @@ const MapSticky = props => {
 
     return(
         <>
-            <div id={`Sticky`} ref={stickyRef} className={`${classes} absolute transition-all`}>
+            <div id={`Sticky`} ref={stickyRef} className={`${classes} transition-all`}>
                 {children}
             </div>
         </>

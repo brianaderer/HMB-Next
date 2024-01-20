@@ -32,8 +32,19 @@ export default function MyApp({ Component, pageProps }) {
     }, []);
 
     useEffect(() => {
-        setStickies( document.querySelector('.stickyElement') );
+        const interval = setInterval(() => {
+            const stickyElement = document.querySelector('.stickyElement');
+            if (stickyElement) {
+                setStickies(stickyElement);
+                clearInterval(interval);
+            }
+        }, 100); // checks every 100 milliseconds
+
+        return () => clearInterval(interval);
     }, []);
+
+
+
 
 
   const { user, loading, signIn, signOut, setUser, dbUser, setDbUser, checkUser, updateUserDb } = useAuth();
