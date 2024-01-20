@@ -12,7 +12,7 @@ const Masonry = props => {
     const computedCols = isMobile ? 1 : cols;
     const computedIncrement = isMobile ? 7 : increment;
     const [limit, setLimit] = useState(computedIncrement);
-    const computedSpacing = isMobile ? 0 : spacing;
+    const computedSpacing = isMobile ? 2 : spacing;
 
     return (
         <>
