@@ -74,7 +74,7 @@ export default function Header({
           </div>
           {children}
         </div>
-        <div className="xl:hidden drawer-side h-full">
+        <div className="xl:hidden drawer-side h-screen overflow-y-hidden">
           <label htmlFor="main-nav" aria-label="close sidebar" className="drawer-overlay"></label>
           <Nav.Sidebar menuItems={menuItems} />
         </div>
