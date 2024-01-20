@@ -6,11 +6,11 @@ const GuestBookEntry = props => {
        return {url: url, caption: caption, alt: alt};
     })
     return(
-        <div className="card mb-8 pb-8 w-full border-2 border-neutral drop-shadow-lg bg-neutral rounded-xl text-neutral-content">
-            <div className="card-body">
-                {images && <Galleries.Static className={`max-w-full max-h-80 my-0 p-0`} background={false} oversize={false}
+        <div className="card mb-2 lg:mb-8 pb-4 lb:pb-8 w-full border-2 border-neutral drop-shadow-lg bg-neutral rounded-xl text-neutral-content">
+            <div className="card-body max-md:p-4">
+                {images.length > 0 && <Galleries.Static className={`max-w-full max-h-80 my-0 p-0`} background={false} oversize={false}
                                              imageGallery={images}/>}
-                <div className="flex flex-row gap-8 items-start justify-end h-auto mb-4">
+                <div className="flex flex-col lg:flex-row gap-8 items-start justify-end h-auto mb-4">
                     <div className="flex flex-row items-start justify-end h-full">
                         <Text className={`text-6xl text-left tracking-tighter h-full`} tagName={`h4`}>{boat_name}</Text>
                     </div>
