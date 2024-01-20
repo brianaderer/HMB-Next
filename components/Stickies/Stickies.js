@@ -33,7 +33,7 @@ const Stickies = props => {
     scroller({target: id, setTop});
 
 
-    return <div className={`transition-all`} ref={containerRef}></div>;
+    return <div className={`transition-all group sticky w-full`} ref={containerRef}></div>;
 }
 
 export default Stickies;
