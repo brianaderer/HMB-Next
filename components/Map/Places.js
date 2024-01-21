@@ -12,7 +12,6 @@ const Places = props => {
                 const placeData = locationData[id];
                 const catSlug = placeData.category_tax[0].slug;
                 const firstPlace = !iteratedPlaces.includes(catSlug);
-                console.log(iteratedPlaces);
                 if(!iteratedPlaces.includes(catSlug)){
                     iteratedPlaces.push(catSlug);
                 }
