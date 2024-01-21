@@ -1,1 +1,1 @@
-export {default as Stickies} from './Stickies';
+export {default as StickyPortal} from './StickyPortal';

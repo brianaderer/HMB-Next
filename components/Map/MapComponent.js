@@ -6,6 +6,7 @@ import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
 import { useRouter } from 'next/router';
 import {Sticky} from '../index';
+import {StickyPortal} from "../../components";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
     const ref = useRef();
@@ -277,33 +278,40 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [activeCategories, locations, map]); // Ensure to include all dependencies
 
     return (
-    <div id={`mapDiv`} className={`relative + ${classes}`}>
-        <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
-                <div className="flex flex-row h-64 lg:h-[500px]">
-                    <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
-                </div>
-            {categories.length > 0 && <>
-                <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarker}
-                                                    places={sortedActivePlaces}/>
+        <>
+            {categories.length > 0 &&
+                <>
+                    <div id={`mapSticky`} ></div>
+                    <StickyPortal targetId={`mapSticky`}>
+                        <form className={`stickyElement`}>
+                            <p className={`p-2 text-center text-neutral-content`}>Click a category to show its contents.</p>
+                            <fieldset className={`flex flex-col`}>
+                                {categories.map((cat, index) => {
+                                    return (
+                                        <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
+                                                  category={cat} index={index}/>
+                                    )
+                                })
+                                }
+                            </fieldset>
+                        </form>
+                    </StickyPortal>
                 </>
         }
-            </div>
-        {categories.length > 0 &&
-            <Sticky target={'mapDiv'} classes={`w-1/4 p-2 ml-8 absolute rounded bg-neutral drop-shadow-lg left-full`}>
-            <form>
-                <p className={`p-2 text-center text-neutral-content`}>Click a category to show its contents.</p>
-                <fieldset className={`flex flex-col`}>
-                    {categories.map((cat, index) => {
-                        return (
-                            <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
-                                      category={cat} index={index}/>
-                        )
-                    })
-                    }
-                </fieldset>
-            </form>
-        </Sticky>}
-    </div>
+        <div id={`mapDiv`} className={`relative + ${classes}`}>
+            <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
+                    <div className="flex flex-row h-64 lg:h-[500px]">
+                        <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
+                    </div>
+                {categories.length > 0 && <>
+                    <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarker}
+                                                        places={sortedActivePlaces}/>
+                    </>
+            }
+                </div>
+
+        </div>
+    </>
     );
 }
 export default MapComponent;

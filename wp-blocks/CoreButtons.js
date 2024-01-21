@@ -2,14 +2,20 @@ import { gql } from '@apollo/client';
 import React from 'react';
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import * as queries from '../queries/queryBlocks/index';
+import {StickyPortal} from "../components";
 
 export default function CoreButtons(props) {
     const {attributes, anchor, innerBlocks, name, cssClassNames, clientId} = props;
     const classes = cssClassNames?.join(' ');
     return (
-        <div id={clientId} className={`flex flex-row items-center gap-4 w-full pb-2 group-[.sticky]:p-4 group-[.sticky]:justify-center group-[.sticky]:py-2 lg:group-[.sticky]:py-4 lg:p-4 bg-base-100 rounded-b-lg ${classes}`}>
-            <WordPressBlocksViewer blocks={(innerBlocks)} />
-        </div>
+        <>
+            <div id={clientId}></div>
+            <StickyPortal targetId={clientId}>
+                <div className={`flex flex-row items-center gap-4 w-full pb-2 group-[.stickyContainer]:p-4 group-[.stickyContainer]:justify-center group-[.stickyContainer]:py-2 lg:group-[.stickyContainer]:py-4 lg:p-4 bg-base-100 rounded-b-lg ${classes}`}>
+                    <WordPressBlocksViewer blocks={(innerBlocks)} />
+                </div>
+            </StickyPortal>
+        </>
     );
 }
 

@@ -12,8 +12,8 @@ import {useAuth} from "../utilities/auth";
 import {useMediaQuery} from "../utilities/mediaQuery";
 
 export default function MyApp({ Component, pageProps }) {
-    const [stickies, setStickies] = useState({});
     const [screen, setScreen] = useState({});
+    const [offScreen, setOffScreen] = useState(false);
     useMediaQuery({setScreen});
     useEffect(() => {
         const bodyChildDiv = document.body.querySelector('body > div#__next');
@@ -30,21 +30,6 @@ export default function MyApp({ Component, pageProps }) {
             bodyChildDiv.classList.remove(...classList);
         };
     }, []);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const stickyElement = document.querySelector('.stickyElement');
-            if (stickyElement) {
-                setStickies(stickyElement);
-                clearInterval(interval);
-            }
-        }, 100); // checks every 100 milliseconds
-
-        return () => clearInterval(interval);
-    }, []);
-
-
-
 
 
   const { user, loading, signIn, signOut, setUser, dbUser, setDbUser, checkUser, updateUserDb } = useAuth();
@@ -68,8 +53,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut, dbUser, setDbUser, checkUser, updateUserDb}}>
-              <StickyContext.Provider value={stickies}>
-                  <ScreenContext.Provider value={screen}>
+                  <ScreenContext.Provider value={{screen, offScreen, setOffScreen}}>
                       <WordPressBlocksProvider
                           config={{
                               blocks,
@@ -83,7 +67,6 @@ export default function MyApp({ Component, pageProps }) {
                           </Modal>
                       </WordPressBlocksProvider>
                   </ScreenContext.Provider>
-              </StickyContext.Provider>
           </AuthContext.Provider>
       </FaustProvider>
   );
