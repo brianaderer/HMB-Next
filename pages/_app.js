@@ -13,7 +13,7 @@ import {useMediaQuery} from "../utilities/mediaQuery";
 
 export default function MyApp({ Component, pageProps }) {
     const [screen, setScreen] = useState({});
-    const [offScreen, setOffScreen] = useState(false);
+    const [offScreen, setOffScreen] = useState();
     useMediaQuery({setScreen});
     useEffect(() => {
         const bodyChildDiv = document.body.querySelector('body > div#__next');

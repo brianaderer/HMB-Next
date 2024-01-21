@@ -5,16 +5,21 @@ import { scroller } from "../../utilities/scroller";
 
 const StickyElementPortal = ({ children, targetId }) => {
     const [container, setContainer] = useState(null);
-    const [top, setTop] = useState(0);
+    const [top, setTop] = useState(null);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
     const { screen, offScreen, setOffScreen } = useContext(ScreenContext);
     const [originalHeight, setOriginalHeight] = useState(0);
     const childrenRef = useRef();  // Reference to the children
     const originalRef = useRef(0);
+    const isSticky = children.props.className?.includes("stickyElement");
+
+    if(!isSticky){
+        return children;
+    }
 
     useEffect(() => {
         // Construct the selector
-        const selector = `${targetId}Container`; // e.g., 'myIdContainer'
+        const selector = `sticky-${targetId}-Container`; // e.g., 'myIdContainer'
 
         // Check and remove existing portal-container if it exists
         const existingContainer = document.querySelector(`.${selector}`);
@@ -37,13 +42,14 @@ const StickyElementPortal = ({ children, targetId }) => {
     }, []);
 
     useEffect(() => {
-        const navHeight = screen.navHeight;
-        const offscreen = -(top) > (navHeight - ( originalHeight ) );
-        setOffScreen(offscreen);
-        setPlaceholderHeight( offscreen ? originalHeight : 0 );
+        if( top !== null ) {
+            const navHeight = screen.navHeight;
+            const offscreen = -(top) > (navHeight - (originalHeight));
+            setOffScreen(offscreen);
+            setPlaceholderHeight(offscreen ? originalHeight : 0);
+        }
     }, [top, screen.navHeight]);
 
-    const isSticky = children.props.className?.includes("stickyElement");
     scroller({ target: targetId, setTop: setTop });
     useEffect(() => {
         const elem = document.getElementById(targetId);
