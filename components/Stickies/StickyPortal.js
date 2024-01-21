@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { ScreenContext } from "../../contexts";
 import { scroller } from "../../utilities/scroller";
 
-const StickyElementPortal = ({ children, targetId }) => {
+const StickyElementPortal = ({ children, targetId, stuckOnInit }) => {
     const [container, setContainer] = useState(null);
     const [top, setTop] = useState(null);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
@@ -42,22 +42,33 @@ const StickyElementPortal = ({ children, targetId }) => {
     }, []);
 
     useEffect(() => {
-        if( top !== null ) {
+        if( top !== null && !stuckOnInit ) {
             const navHeight = screen.navHeight;
             const offscreen = -(top) > (navHeight - (originalHeight));
             setOffScreen(offscreen);
             setPlaceholderHeight(offscreen ? originalHeight : 0);
+        }
+        if ( stuckOnInit ){
+            setOffScreen( true );
         }
     }, [top, screen.navHeight]);
 
     scroller({ target: targetId, setTop: setTop });
     useEffect(() => {
         const elem = document.getElementById(targetId);
-        if (elem) {
-            const injectHeight = placeholderHeight > 80 ? 80 : placeholderHeight;
-            elem.style.height = `${injectHeight}px`;
+        if (elem  && !stuckOnInit) {
+            elem.style.height = `${placeholderHeight}px`;
         }
     }, [placeholderHeight, targetId]);
+
+    useEffect(() => {
+        if( stuckOnInit ){
+            const main = document.getElementById('main-container');
+            //const padding = parseInt(main.style.paddingTop, 10) || 0;
+            const height = document.getElementById('stickies').getBoundingClientRect().height;
+            main.style.paddingTop = `${height}px`;
+        }
+    }, [offScreen]);
 
     return (
         <>
