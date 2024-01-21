@@ -16,13 +16,17 @@ export default function Header({
   const [open, setOpen] = useState('');
   const router = useRouter();
   const screenInfo = useContext(ScreenContext);
-  const {offScreen, screen} = screenInfo || {};
+  const {offScreen, screen, setStuck} = screenInfo || {};
   const {navHeight} = screen || {};
   const [expanded, setExpanded] = useState(true);
 
   const toggleExpanded = props => {
       setExpanded( !expanded );
   }
+    useEffect(() => {
+        setStuck(expanded);
+    }, [expanded]);
+
 
     const topStyle = {
         'top' : navHeight,

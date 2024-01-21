@@ -4,11 +4,7 @@ import Category from './Category';
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
-import { useRouter } from 'next/router';
-import {Sticky} from '../index';
 import {StickyPortal, Button} from "../../components";
-import Buttons from "../../queries/queryBlocks/buttons";
-import {sort} from "next/dist/build/webpack/loaders/css-loader/src/utils";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
     const ref = useRef();
@@ -22,7 +18,6 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const activePlacesRef = useRef(activePlaces);
     const [clickedOnMap, setClickedOnMap] = useState(false);
     const clickedOnMapRef = useRef(clickedOnMap);
-    const router = useRouter();
     let locationData = [];
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
