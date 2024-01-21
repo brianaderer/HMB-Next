@@ -9,9 +9,17 @@ const Category = props => {
     const router = useRouter();
     const slug = category.slug;
     const checked = useRef(null);
-    const handleDivClick = () => {
-        // Call the handler with the new state
-        handler({ bool: !isChecked, category: index });
+    const handleDivClick = (event) => {
+        event.stopPropagation();
+        // Check if the click was on the input checkbox
+        if (event.target.type === 'checkbox') {
+            handler({ bool: !isChecked, category: index });
+        } else {
+            if( !checked.current ){
+                handler({ bool: !isChecked, category: index });
+            }
+           scrollIntoView();
+        }
     };
 
     // Update the handler for checkbox change to synchronize with state
@@ -24,8 +32,11 @@ const Category = props => {
     }, [isChecked]);
 
     useEffect(() => {
-        checked.current = isChecked;
+        scrollIntoView();
+    }, [checked.current]);
 
+    const scrollIntoView = props => {
+        checked.current = isChecked;
         if (isChecked) {
             setTimeout(() => {
                 const elem = document.getElementById(category.slug);
@@ -34,10 +45,10 @@ const Category = props => {
                 }
             }, 0); // Adjust delay as needed, 0 might be sufficient in most cases
         }
-    }, [checked.current]);
+    }
 
     return (
-        <div onClick={handleDivClick} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between ${backgroundColor} ${textColor}`}>
+        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between ${backgroundColor} ${textColor}`}>
             <label className={`mr-2`}>{category.name}</label>
             <input
                 type={'checkbox'}
