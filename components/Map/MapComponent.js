@@ -6,7 +6,8 @@ import Places from "./Places";
 import {parseSvg, categoryLookup} from "../../utilities";
 import { useRouter } from 'next/router';
 import {Sticky} from '../index';
-import {StickyPortal} from "../../components";
+import {StickyPortal, Button} from "../../components";
+import Buttons from "../../queries/queryBlocks/buttons";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
     const ref = useRef();
@@ -283,9 +284,9 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 <>
                     <div id={`mapSticky`}></div>
                     <StickyPortal targetId={`mapSticky`}>
-                        <form className={`stickyElement`}>
-                            <p className={`p-2 text-center text-neutral-content`}>Click a category to show its contents.</p>
-                            <fieldset className={`flex flex-col group-[.stickyContainer]:flex-row group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap`}>
+                        <form className={`stickyElement w-full p-2 flex flex-col items-center basis-full`}>
+                            <p className={`p-2 text-center text-neutral-content`}>Click a category to Jump. Check the Box to show its contents.</p>
+                            <fieldset className={`w-full flex flex-col group-[.stickyContainer]:flex-row group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap`}>
                                 {categories.map((cat, index) => {
                                     return (
                                         <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
@@ -294,6 +295,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                                 })
                                 }
                             </fieldset>
+                            <Button.LinkButton url={`#map`} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Jump to Map</Button.LinkButton>
                         </form>
                     </StickyPortal>
                 </>
