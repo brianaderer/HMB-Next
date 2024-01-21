@@ -1,10 +1,11 @@
-import {Brand, Nav, Stickies} from '../../components';
+import {Brand, Nav, Button} from '../../components';
 import { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import {ScreenContext} from "../../contexts";
+import { FaCaretUp, FaCaretDown } from "react-icons/fa6";
 
 export default function Header({
-  title = 'Headless by WP Engine',
+  title = 'HMB Marina',
   description,
   menuItems,
   siteLogo,
@@ -17,6 +18,11 @@ export default function Header({
   const screenInfo = useContext(ScreenContext);
   const {offScreen, screen} = screenInfo || {};
   const {navHeight} = screen || {};
+  const [expanded, setExpanded] = useState(true);
+
+  const toggleExpanded = props => {
+      setExpanded( !expanded );
+  }
 
     const topStyle = {
         'top' : navHeight,
@@ -61,7 +67,10 @@ export default function Header({
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen flex flex-col justify-between">
           <div id={`nav`} className="z-20 w-full flex flex-row items-center navbar sticky top-0 bg-base-300">
-              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} group stickyContainer overflow-hidden border-b-2 border-accent/40 m-0 shadow-xl transition-all fixed lg:rounded-bl-xl lg:border-l-2 rounded-none border-l-none w-full lg:w-fit top-[100%] max-lg:left-0 right-0 bg-base-100 flex flex-row justify-center`}>
+              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} ${ !expanded ? `collapsed` : ''} flex-col-reverse group stickyContainer overflow-hidden border-b-2 border-accent/40 m-0 shadow-xl transition-all fixed lg:rounded-bl-xl lg:border-l-2 rounded-none border-l-none w-full lg:w-fit top-[100%] max-lg:left-0 right-0 bg-base-100 flex justify-center`}>
+                  <div className={`p-2 bg-accent/10 w-full flex flex-row justify-center`}>
+                    <Button.StandardButton className={`${expanded ? `btn-wide` : ''} !btn-sm`} callback={toggleExpanded}>{expanded ? <FaCaretUp/> : <FaCaretDown/>}</Button.StandardButton>
+                  </div>
               </div>
             <div className="flex-none xl:hidden">
               <label htmlFor="main-nav" aria-label="open sidebar" className="btn btn-square btn-ghost">

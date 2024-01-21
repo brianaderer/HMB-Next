@@ -284,7 +284,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 <>
                     <div id={`mapSticky`}></div>
                     <StickyPortal targetId={`mapSticky`}>
-                        <form className={`stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-lg mb-4 group-[.stickyContainer]:mb-0`}>
+                        <form className={`group-[.collapsed]:hidden stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-lg mb-4 group-[.stickyContainer]:mb-0`}>
                             <p className={`p-2 text-center text-neutral-content`}>Click a category to Jump. Check the Box to show its contents.</p>
                             <fieldset className={`w-full flex flex-col group-[.stickyContainer]:flex-row group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap`}>
                                 {categories.map((cat, index) => {
