@@ -7,7 +7,7 @@ import {ScreenContext} from "../../../contexts";
 
 const Masonry = props => {
     const screen = useContext(ScreenContext);
-    const isMobile = !screen.breakpoints.includes('md');
+    const isMobile = !screen?.breakpoints?.includes('md');
     const {posts, srcName, captionName, increment, cols, spacing} = props;
     const computedCols = isMobile ? 1 : cols;
     const computedIncrement = isMobile ? 7 : increment;
