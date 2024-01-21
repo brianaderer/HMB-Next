@@ -8,13 +8,13 @@ export default function CoreMediaText(props) {
     const {attributes, customAttributes, innerBlocks} = props;
     const {mediaPosition, mediaUrl, mediaType, mediaAlt, mediaSizeSlug, mediaWidth, anchor} = attributes;
     const positionLookup = {
-        right: 'flex-row',
-        left: 'flex-row-reverse',
+        right: 'lg:flex-row',
+        left: 'lg:flex-row-reverse',
     }
 
 
     return (
-        <div id={anchor} className={`flex flex-col lg:flex-row ${positionLookup[mediaPosition]} items-center gap-8 pb-8`}>
+        <div id={anchor} className={`flex flex-col ${positionLookup[mediaPosition]} items-center gap-8 pb-8`}>
             <div className="w-full lg:w-1/2 flex flex-row items-center justify-center">
                 <Media.Image ratio={'square'} src={mediaUrl} size={'medium'} alt={mediaAlt} classes={`rounded drop-shadow-lg`}/>
             </div>
