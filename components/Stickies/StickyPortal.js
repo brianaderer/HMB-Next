@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { ScreenContext } from "../../contexts";
 import { scroller } from "../../utilities/scroller";
 
-const StickyElementPortal = ({ children, targetId, stuckOnInit }) => {
+const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     const [container, setContainer] = useState(null);
     const [top, setTop] = useState(null);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
