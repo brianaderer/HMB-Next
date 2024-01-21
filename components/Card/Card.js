@@ -30,7 +30,7 @@ const Card = props => {
                         </div>
                         <p className={`text-neutral-content lg:mt-4`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
                     </div>}
-                <div className="card-actions justify-center lg:justify-end lg:absolute lg:bottom-4 lg:right-4">
+                <div className="card-actions justify-center lg:justify-end">
                     {!expanded && <Button.StandardButton callback={callback} className={`max-lg:btn-wide mt-4`}>Read More</Button.StandardButton>}
                 </div>
             </div>

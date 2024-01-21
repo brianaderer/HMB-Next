@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import {Sticky} from '../index';
 import {StickyPortal, Button} from "../../components";
 import Buttons from "../../queries/queryBlocks/buttons";
+import {sort} from "next/dist/build/webpack/loaders/css-loader/src/utils";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
     const ref = useRef();
@@ -22,12 +23,23 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [clickedOnMap, setClickedOnMap] = useState(false);
     const clickedOnMapRef = useRef(clickedOnMap);
     const router = useRouter();
-    let locationData = {};
+    let locationData = [];
     if( locations.length > 0 ) {
-        locations?.map((location, index) => {
+        locations.sort((a, b) => {
+            // Safely accessing the slug, default to empty string if not available
+            const slugA = a.category_tax?.[0]?.slug || '';
+            const slugB = b.category_tax?.[0]?.slug || '';
+
+            return slugA.localeCompare(slugB);
+        });
+        //Map sorted locations to locationData
+        locations.forEach((location, index) => {
+            location.sortOrder=index;
             if (location.location?.place_id) {
+                location.index = location.location.place_id;
                 locationData[location.location.place_id] = location;
             } else {
+                location.index = index;
                 locationData[index] = location;
             }
         });
@@ -105,14 +117,21 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [map]);
 
     useEffect(() => {
+        const completeActivePlaces = activePlaces.map( id => locationData[id]);
+        completeActivePlaces.sort((a,b) => {
+            const orderA = a?.sortOrder || 0;
+            const orderB = b?.sortOrder || 0;
+            return orderA - orderB;
+        });
+        const newActivePlaces = completeActivePlaces.map( place => place.index );
         if( Object.keys(activeMarker).length === 0 ) {
-            setSortedActivePlaces(activePlaces);
+            setSortedActivePlaces(newActivePlaces);
         } else {
-            const activePlace = activePlaces.find(place => {
+            const activePlace = newActivePlaces.find(place => {
                 return place === activeMarker.id;
             });
             // Filter out the activeMarker from activePlaces
-            const filteredPlaces = activePlaces.filter(place => place !== activeMarker.id);
+            const filteredPlaces = newActivePlaces.filter(place => place !== activeMarker.id);
 
             // Place activeMarker as the first element, followed by the rest of the places
             const newSortedActivePlaces = activePlace ? [activePlace, ...filteredPlaces] : [...filteredPlaces];
