@@ -3,7 +3,7 @@ const Places = props => {
     const {callback, places, activeMarker, locationData, destroy} = props;
     const array = Object.keys(places);
     return(
-        <div className="p-10 h-auto overflow-auto">
+        <div className="p-2 lg:p-10 h-auto overflow-auto">
             {array?.map((place, index) => {
                 const id = places[index];
                 const placeData = locationData[id];
