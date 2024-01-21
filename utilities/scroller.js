@@ -15,6 +15,7 @@ const scroller = props => {
                     timer.current = setTimeout(function () {
                         if( targetElement ){
                             const bound = targetElement.getBoundingClientRect();
+                            console.log(bound);
                             setTop(bound.top);
                         }
                     }, 30);

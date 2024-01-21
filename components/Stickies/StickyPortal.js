@@ -1,69 +1,64 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import { ScreenContext } from "../../contexts";
 import { scroller } from "../../utilities/scroller";
 
-const StickyElementPortal = ({ children, targetId: id }) => {
+const StickyElementPortal = ({ children, targetId }) => {
     const [container, setContainer] = useState(null);
     const [top, setTop] = useState(0);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
     const { screen, offScreen, setOffScreen } = useContext(ScreenContext);
-
-    // Callback ref to track when children are rendered
-    const setChildrenRef = useCallback(node => {
-        if (node !== null) {
-            const childrenHeight = node.getBoundingClientRect().height;
-            // Only set offScreen when children are rendered
-            const offscreen = -(top) > screen.navHeight;
-            setOffScreen(offscreen);
-            if( offscreen ){
-                setPlaceholderHeight(childrenHeight);
-            } else {
-                setPlaceholderHeight( 0 );
-            }
-        }
-    }, [top, screen.navHeight, setOffScreen]);
+    const [originalHeight, setOriginalHeight] = useState(0);
+    const childrenRef = useRef();  // Reference to the children
+    const originalRef = useRef(0);
 
     useEffect(() => {
-        const selector = `sticky-${id}-container`;
-        let portalContainer = document.querySelector('.' + selector);
+        // Construct the selector
+        const selector = `${targetId}Container`; // e.g., 'myIdContainer'
 
-        if (!portalContainer) {
-            portalContainer = document.createElement('div');
-            portalContainer.classList.add(selector);
-            portalContainer.classList.add('w-full')
-            portalContainer.classList.add('empty:hidden')
-            const stickyContainer = document.getElementById('stickies');
-            if (stickyContainer) {
-                stickyContainer.appendChild(portalContainer);
-            }
-            setContainer(portalContainer);
+        // Check and remove existing portal-container if it exists
+        const existingContainer = document.querySelector(`.${selector}`);
+        if (existingContainer) {
+            existingContainer.parentNode.removeChild(existingContainer);
         }
-        // Cleanup function to remove the container when the component unmounts
-        return () => {
-            portalContainer.parentNode.removeChild(portalContainer);
-        };
-    }, [id]);
+
+        // Create a new div that will be the portal container
+        const portalContainer = document.createElement('div');
+        portalContainer.classList.add(selector);
+        const stickyContainer = document.getElementById('stickies');
+        stickyContainer.appendChild(portalContainer);
+        setContainer(portalContainer);
+    }, [targetId]);  // Added targetId as a dependency
+
+    useEffect(() => {
+        if(originalHeight === 0){
+            setOriginalHeight( originalRef.current.getBoundingClientRect().height )
+        }
+    }, []);
+
+    useEffect(() => {
+        const navHeight = screen.navHeight;
+        const offscreen = -(top) > (navHeight - ( originalHeight ) );
+        setOffScreen(offscreen);
+        setPlaceholderHeight( offscreen ? originalHeight : 0 );
+    }, [top, screen.navHeight]);
 
     const isSticky = children.props.className?.includes("stickyElement");
-    scroller({ target: id, setTop: setTop });
+    scroller({ target: targetId, setTop: setTop });
+    useEffect(() => {
+        const elem = document.getElementById(targetId);
+        if (elem) {
+            elem.style.height = `${placeholderHeight}px`;
+        }
+    }, [placeholderHeight, targetId]);
 
-    const placeholder = placeholderHeight > 0 ? (
-        <div style={{ height: `${placeholderHeight}px` }}></div>
-    ) : null;
-
-    if (isSticky) {
-        return (
-            <>
-                {offScreen && container ? ReactDOM.createPortal(
-                    <div ref={setChildrenRef}>{children}</div>, container
-                ) : <div ref={setChildrenRef}>{children}</div>}
-                {placeholder}
-            </>
-        );
-    } else {
-        return <>{children}</>;
-    }
+    return (
+        <>
+            {isSticky && (offScreen && container) ? ReactDOM.createPortal(
+                <div ref={childrenRef}>{children}</div>, container
+            ) : <div ref={originalRef}>{children}</div>}
+        </>
+    );
 };
 
 export default StickyElementPortal;

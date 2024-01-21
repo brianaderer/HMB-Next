@@ -281,11 +281,11 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         <>
             {categories.length > 0 &&
                 <>
-                    <div id={`mapSticky`} ></div>
+                    <div id={`mapSticky`}></div>
                     <StickyPortal targetId={`mapSticky`}>
                         <form className={`stickyElement`}>
                             <p className={`p-2 text-center text-neutral-content`}>Click a category to show its contents.</p>
-                            <fieldset className={`flex flex-col`}>
+                            <fieldset className={`flex flex-col group-[.stickyContainer]:flex-row group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap`}>
                                 {categories.map((cat, index) => {
                                     return (
                                         <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
