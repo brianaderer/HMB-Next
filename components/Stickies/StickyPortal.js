@@ -54,7 +54,8 @@ const StickyElementPortal = ({ children, targetId }) => {
     useEffect(() => {
         const elem = document.getElementById(targetId);
         if (elem) {
-            elem.style.height = `${placeholderHeight}px`;
+            const injectHeight = placeholderHeight > 80 ? 80 : placeholderHeight;
+            elem.style.height = `${injectHeight}px`;
         }
     }, [placeholderHeight, targetId]);
 
