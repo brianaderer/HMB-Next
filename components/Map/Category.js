@@ -1,12 +1,13 @@
 import {CATEGORIES} from "../../constants/categories";
 import React, {useState} from "react";
+import {useRouter} from "next/router";
 
 const Category = props => {
     const { handler, category, index, isChecked } = props;
     const backgroundColor = CATEGORIES[category.slug].backgroundColor;
     const textColor = CATEGORIES[category.slug].textColor;
-
-
+    const router = useRouter();
+    const slug = category.slug;
     const handleDivClick = () => {
         // Call the handler with the new state
         handler({ bool: !isChecked, category: index });
