@@ -26,16 +26,23 @@ const StickyElementPortal = ({ children, targetId: id }) => {
 
     useEffect(() => {
         const selector = `sticky-${id}-container`;
-        const existingContainer = document.querySelector(`.${selector}`);
-        if (existingContainer) {
-            existingContainer.parentNode.removeChild(existingContainer);
-        }
+        let portalContainer = document.querySelector('.' + selector);
 
-        const portalContainer = document.createElement('div');
-        portalContainer.classList.add(selector);
-        const stickyContainer = document.getElementById('stickies');
-        stickyContainer.appendChild(portalContainer);
-        setContainer(portalContainer);
+        if (!portalContainer) {
+            portalContainer = document.createElement('div');
+            portalContainer.classList.add(selector);
+            portalContainer.classList.add('w-full')
+            portalContainer.classList.add('empty:hidden')
+            const stickyContainer = document.getElementById('stickies');
+            if (stickyContainer) {
+                stickyContainer.appendChild(portalContainer);
+            }
+            setContainer(portalContainer);
+        }
+        // Cleanup function to remove the container when the component unmounts
+        return () => {
+            portalContainer.parentNode.removeChild(portalContainer);
+        };
     }, [id]);
 
     const isSticky = children.props.className?.includes("stickyElement");

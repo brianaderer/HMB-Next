@@ -11,7 +11,7 @@ export default function CoreButtons(props) {
         <>
             <div id={clientId}></div>
             <StickyPortal targetId={clientId}>
-                <div className={`flex flex-row items-center gap-4 w-full pb-2 group-[.stickyContainer]:p-4 group-[.stickyContainer]:justify-center group-[.stickyContainer]:py-2 lg:group-[.stickyContainer]:py-4 lg:p-4 bg-base-100 rounded-b-lg ${classes}`}>
+                <div className={`flex flex-row items-center gap-4 w-full pb-2 group-[.stickyContainer]:p-4 group-[.stickyContainer]:justify-center group-[.stickyContainer]:py-2 lg:group-[.stickyContainer]:py-4 group-[.stickyContainer]:w-full lg:p-4 bg-base-100 rounded-b-lg ${classes}`}>
                     <WordPressBlocksViewer blocks={(innerBlocks)} />
                 </div>
             </StickyPortal>
