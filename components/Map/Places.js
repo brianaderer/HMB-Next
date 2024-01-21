@@ -1,6 +1,5 @@
 import {PlaceCard} from '../PlaceCard';
-import {useRef} from 'react';
-import {first} from "lodash/array";
+
 const Places = props => {
     const {callback, places, activeMarker, locationData, destroy} = props;
     const iteratedPlaces = [];

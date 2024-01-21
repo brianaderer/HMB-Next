@@ -1,15 +1,15 @@
 import {CATEGORIES} from "../../constants/categories";
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 
 const Category = props => {
     const { handler, category, index, isChecked } = props;
     const backgroundColor = CATEGORIES[category.slug].backgroundColor;
     const textColor = CATEGORIES[category.slug].textColor;
-    const router = useRouter();
-    const slug = category.slug;
+    const activeClick = useRef(false);
     const checked = useRef(null);
     const handleDivClick = (event) => {
+        activeClick.current = true;
         event.stopPropagation();
         // Check if the click was on the input checkbox
         if (event.target.type === 'checkbox') {
@@ -36,15 +36,18 @@ const Category = props => {
     }, [checked.current]);
 
     const scrollIntoView = props => {
-        checked.current = isChecked;
-        if (isChecked) {
-            setTimeout(() => {
-                const elem = document.getElementById(category.slug);
-                if (elem) {
-                    elem.scrollIntoView({ behavior: "smooth" });
-                }
-            }, 0); // Adjust delay as needed, 0 might be sufficient in most cases
+        if( activeClick.current ){
+            checked.current = isChecked;
+            if (isChecked) {
+                setTimeout(() => {
+                    const elem = document.getElementById(category.slug);
+                    if (elem) {
+                        elem.scrollIntoView({ behavior: "smooth" });
+                    }
+                }, 0); // Adjust delay as needed, 0 might be sufficient in most cases
+            }
         }
+
     }
 
     return (
