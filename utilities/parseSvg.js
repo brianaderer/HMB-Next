@@ -2,10 +2,6 @@ import * as svg from "../svg";
 
 const parseSvg = ({parser, slug}) => {
     // A marker with a custom inline SVG.
-    const pinSvgString = svg[slug] ? svg[slug] : svg['defaultIcon'];
-    return parser.parseFromString(
-        pinSvgString,
-        "image/svg+xml",
-    ).documentElement;
+    return svg[slug] ? svg[slug] : svg['defaultIcon'];
 }
 export default parseSvg;

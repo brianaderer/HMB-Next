@@ -6,6 +6,8 @@ import Places from "./Places";
 import {parseSvg, categoryLookup, scrollIntoViewWithOffset} from "../../utilities";
 import {StickyPortal, Button} from "../../components";
 import {ScreenContext} from "../../contexts";
+import {CATEGORIES} from "../../constants/categories";
+import {createRoot} from "react-dom/client";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
     const {setStickyExpanded, stickyExpanded, stuck} = useContext(ScreenContext);
@@ -19,7 +21,10 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [sortedActivePlaces, setSortedActivePlaces] = useState([]);
     const activePlacesRef = useRef(activePlaces);
     const [clickedOnMap, setClickedOnMap] = useState(false);
+    const [lastMarker, setLastMarker] = useState(null);
     const clickedOnMapRef = useRef(clickedOnMap);
+    const [lastPin, setLastPin] = useState(null);
+    const [legacyMarker, setLegacyMarker] = useState({});
     let locationData = [];
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
@@ -136,22 +141,56 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
          }
     }, [activePlaces, activeMarker]);
 
-    function createElement({markerInstance, index ,AdvancedMarkerElement, PinElement, title, position, category}) {
+    const MapPin = props => {
+        const {bgColor, text, border, SVGString = null, textColor, id} = props;
+        return (
+            <div className={`${bgColor} ${border} p-2 border rounded-lg rounded-bl-none absolute bottom-0 left-[50%] transition-all`}>
+                <div className={`pinContent marker-contents w-full flex flex-row gap-2 items-center justify-center`} >
+                    <div id={`svg${id}`} dangerouslySetInnerHTML={{__html:SVGString}} className={`${textColor} transition-all w-4 h-4 flex items-center justify-center`}>
+                    </div>
+                    <div id={`text${id}`} className={`hidden ${textColor}`}>
+                        {text}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const returnPin = props => {
+        const {category, title, id} = props;
         const parser = new DOMParser();
         const {pinData, slug} = categoryLookup({parser, category});
-        const pinSvg = parseSvg({parser, slug});
-        const glyphSvgPinElement = new PinElement({
-            glyph: pinSvg,
-            glyphColor: pinData?.glyphColor,
-            background: pinData?.background,
-            borderColor: pinData?.borderColor,
-            scale: 1.2,
-        });
+        const svg = parseSvg({parser, slug});
+        // const glyphSvgPinElement = new PinElement({
+        //     glyph: pinSvg,
+        //     glyphColor: pinData?.glyphColor,
+        //     background: pinData?.background,
+        //     borderColor: pinData?.borderColor,
+        //     scale: 1.2,
+        // });
+        const namedTag = document.createElement("div");
+        const expanded = activeMarker.index === id;
+        const mapPinProps = {
+            bgColor: pinData.backgroundColor, // replace with actual values
+            SVGString: svg, // replace with actual SVG component or element
+            text: title, // replace with actual text
+            border: pinData.borderCardColor,
+            textColor: pinData.textColor,
+            id: id,
+        };
+
+        const root = createRoot(namedTag);
+        root.render(<MapPin {...mapPinProps} />);
+
+        return namedTag;
+    }
+    function createElement({markerInstance, index, AdvancedMarkerElement, PinElement, title, position, category}) {
+        const pin = returnPin({category, title, id: index});
         const marker = new AdvancedMarkerElement({
                         position: position,
                         map,
                         title: title,
-                        content: glyphSvgPinElement.element,
+                        content: pin,
                         collisionBehavior: 'REQUIRED_AND_HIDES_OPTIONAL',
                         //content: markerInstance,
                     });
@@ -224,17 +263,38 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }
 
     useEffect(() => {
-        activePlacesRef.current.map( (id) => {
+        if( !activeMarker.index ){
+            setLegacyMarker( lastActiveMarker );
+        } else {
+            setLegacyMarker({});
+        }
+    }, [activeMarker]);
+
+    useEffect(() => {
+            activePlacesRef.current.map( (id) => {
             const location = locationData[id];
-            if( id !== activeMarker.index ){
-                location?.marker?.content?.classList.remove('scale-150', 'drop-shadow-xl');
+            if ( id === legacyMarker.index ){
+                location.marker.zIndex = 1;
+                setLegacyMarker({});
+            }
+            else if( id !== activeMarker.index ){
+                location?.marker?.content?.classList.remove('drop-shadow-md');
+                document.getElementById('svg' + id)?.classList.remove('!w-6', '!h-6');
+                document.getElementById('text' + id)?.classList.add('hidden');
+                document.getElementById('text' + id)?.classList.remove('mr-2');
                 if( location.marker ){
-                    //location.marker.borderColor =
                     location.marker.zIndex = 1;
                 }
-            } else {
-                location?.marker?.content?.classList.add('scale-150', 'drop-shadow-xl');
+            }
+            else {
+                location?.marker?.content?.classList.add('drop-shadow-md');
+                document.getElementById('svg' + id)?.classList.add('!w-6', '!h-6');
+                document.getElementById('text' + id)?.classList.remove('hidden');
+                document.getElementById('text' + id)?.classList.add('mr-2');
                 if( location.marker ){
+                    setLastPin(location.marker.content);
+                    const catSlug = location.category_tax[0].slug;
+                    const category = CATEGORIES[catSlug];
                     const placeData = location.location;
                     location.marker.zIndex = 100;
                     if( map.getZoom() < placeData.zoom ){
@@ -244,7 +304,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 }
             }
         } )
-    }, [activeMarker]);
+    }, [activeMarker, legacyMarker]);
     async function newMarker(center){
         const { AdvancedMarkerElement, PinElement } = await window.google.maps.importLibrary("marker");
         return {AdvancedMarkerElement, PinElement};
