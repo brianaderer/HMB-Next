@@ -16,16 +16,15 @@ export default function Header({
   const [open, setOpen] = useState('');
   const router = useRouter();
   const screenInfo = useContext(ScreenContext);
-  const {offScreen, screen, setStuck} = screenInfo || {};
+  const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded} = screenInfo;
   const {navHeight} = screen || {};
-  const [expanded, setExpanded] = useState(true);
 
   const toggleExpanded = props => {
-      setExpanded( !expanded );
+      setStickyExpanded( !stickyExpanded );
   }
     useEffect(() => {
-        setStuck(expanded);
-    }, [expanded]);
+        setStuck(stickyExpanded);
+    }, [stickyExpanded]);
 
 
     const topStyle = {
@@ -71,9 +70,9 @@ export default function Header({
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen flex flex-col justify-between">
           <div id={`nav`} className="z-20 w-full flex flex-row items-center navbar sticky top-0 bg-base-300">
-              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} ${ !expanded ? `collapsed` : ''} flex-col-reverse group stickyContainer overflow-hidden border-b-2 border-accent/40 m-0 shadow-xl transition-all fixed lg:rounded-bl-xl lg:border-l-2 rounded-none border-l-none w-full lg:w-fit top-[100%] max-lg:left-0 right-0 bg-base-100 flex justify-center`}>
+              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} ${ !stickyExpanded ? `collapsed` : ''} flex-col-reverse group stickyContainer overflow-hidden border-b-2 border-accent/40 m-0 shadow-xl transition-all fixed lg:rounded-bl-xl lg:border-l-2 rounded-none border-l-none w-full lg:w-fit top-[100%] max-lg:left-0 right-0 bg-base-100 flex justify-center`}>
                   <div className={`p-2 bg-accent/10 w-full flex flex-row justify-center`}>
-                    <Button.StandardButton className={`${expanded ? `btn-wide` : ''} !btn-sm`} callback={toggleExpanded}>{expanded ? <FaCaretUp/> : <FaCaretDown/>}</Button.StandardButton>
+                    <Button.StandardButton className={`${stickyExpanded ? `btn-wide` : ''} !btn-sm`} callback={toggleExpanded}>{stickyExpanded ? <FaCaretUp/> : <FaCaretDown/>}</Button.StandardButton>
                   </div>
               </div>
             <div className="flex-none xl:hidden">

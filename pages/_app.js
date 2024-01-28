@@ -13,6 +13,7 @@ import {useMediaQuery} from "../utilities/mediaQuery";
 
 export default function MyApp({ Component, pageProps }) {
     const [screen, setScreen] = useState({});
+    const [stickyExpanded, setStickyExpanded] = useState(true);
     const [offScreen, setOffScreen] = useState();
     const [stuck, setStuck] = useState(false);
     useMediaQuery({setScreen});
@@ -54,7 +55,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut, dbUser, setDbUser, checkUser, updateUserDb}}>
-                  <ScreenContext.Provider value={{stuck, setStuck, screen, offScreen, setOffScreen}}>
+                  <ScreenContext.Provider value={{stuck, setStuck, screen, offScreen, setOffScreen, stickyExpanded, setStickyExpanded}}>
                       <WordPressBlocksProvider
                           config={{
                               blocks,

@@ -1,8 +1,10 @@
 import {CATEGORIES} from "../../constants/categories";
-import React, {useEffect, useRef, useState} from "react";
-import {useRouter} from "next/router";
+import React, {useEffect, useRef, useContext} from "react";
+import {ScreenContext} from "../../contexts";
+import {scrollIntoViewWithOffset} from "../../utilities";
 
 const Category = props => {
+    const {setStickyExpanded} = useContext( ScreenContext );
     const { handler, category, index, isChecked } = props;
     const backgroundColor = CATEGORIES[category.slug].backgroundColor;
     const textColor = CATEGORIES[category.slug].textColor;
@@ -20,6 +22,7 @@ const Category = props => {
             }
            scrollIntoView();
         }
+        setStickyExpanded(false);
     };
 
     // Update the handler for checkbox change to synchronize with state
@@ -39,11 +42,10 @@ const Category = props => {
         if( activeClick.current ){
             checked.current = isChecked;
             if (isChecked) {
+                const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
                 setTimeout(() => {
                     const elem = document.getElementById(category.slug);
-                    if (elem) {
-                        elem.scrollIntoView({ behavior: "smooth" });
-                    }
+                    scrollIntoViewWithOffset({offset: (headerHeight + 80), id: category.slug })
                 }, 0); // Adjust delay as needed, 0 might be sufficient in most cases
             }
         }

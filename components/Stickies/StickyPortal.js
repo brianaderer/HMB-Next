@@ -7,7 +7,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     const [container, setContainer] = useState(null);
     const [top, setTop] = useState(null);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
-    const { screen, offScreen, setOffScreen, stuck } = useContext(ScreenContext);
+    const { screen, offScreen, setOffScreen, stuck, stickyExpanded, setStickyExpanded } = useContext(ScreenContext);
     const [originalHeight, setOriginalHeight] = useState(0);
     const childrenRef = useRef();  // Reference to the children
     const originalRef = useRef(0);
@@ -57,7 +57,9 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     useEffect(() => {
         const elem = document.getElementById(targetId);
         if (elem  && !stuckOnInit) {
-            elem.style.height = `${placeholderHeight}px`;
+            elem.style.height = 0;
+            elem.style.paddingTop = `${placeholderHeight}px`;
+            elem.style.marginBottom= `${-placeholderHeight}px`;
         }
     }, [placeholderHeight, targetId]);
 

@@ -1,12 +1,14 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, useContext} from "react";
 import marker from "./marker";
 import Category from './Category';
 import {isArray} from "@apollo/client/utilities";
 import Places from "./Places";
-import {parseSvg, categoryLookup} from "../../utilities";
+import {parseSvg, categoryLookup, scrollIntoViewWithOffset} from "../../utilities";
 import {StickyPortal, Button} from "../../components";
+import {ScreenContext} from "../../contexts";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
+    const {setStickyExpanded, stickyExpanded} = useContext(ScreenContext);
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -195,21 +197,19 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }
 
     useEffect(() => {
+        const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
         if (activeMarker.index) {
-            // Delay the scroll to allow for the DOM to update
-            setTimeout(() => {
-                scrollToElement(`${activeMarker.index}`, 'end');
-                // After scrolling, then set the focus
-                setFocusToElement(`${activeMarker.index}`);
-            }, 0);
+            scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + 80 } );
+            // After scrolling, then set the focus
+            setFocusToElement(`${activeMarker.index}`);
+
         } else if(lastActiveMarker.id && !clickedOnMapRef.current) {
-            // Delay the scroll to allow for the DOM to update
             setTimeout(() => {
-                scrollToElement(`${lastActiveMarker.index}`, 'start');
+                scrollIntoViewWithOffset({id:`${lastActiveMarker.index}`, offset: headerHeight + 80})
                 // After scrolling, then set the focus
                 setFocusToElement(`${lastActiveMarker.index}`);
                 setLastActiveMarker({});
-            }, 0);
+            }, 10)
         }
         else {
             setLastActiveMarker({});
@@ -225,6 +225,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
 
     function scrollToElement(elementId, target) {
         const element = document.getElementById(elementId);
+        const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: target, inline: 'nearest' });
         }
@@ -292,12 +293,17 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         }
     }, [activeCategories, locations, map]); // Ensure to include all dependencies
 
+    const jumpToMap = props => {
+        const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
+        scrollIntoViewWithOffset({id: 'map', offset: headerHeight + 80});
+        setStickyExpanded(false);
+    }
+
     return (
         <>
             {categories.length > 0 &&
                 <>
-                    <div id={`mapSticky`}></div>
-                    <StickyPortal targetId={`mapSticky`} stuckOnInit={true}>
+                    <StickyPortal targetId={`mapSticky`}>
                         <form className={`group-[.collapsed]:hidden stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-lg mb-4 group-[.stickyContainer]:mb-0`}>
                             <p className={`p-2 text-center text-neutral-content`}>Click a category to Jump. Check the Box to show its contents.</p>
                             <fieldset className={`w-full flex flex-col group-[.stickyContainer]:flex-row group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap`}>
@@ -309,9 +315,10 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                                 })
                                 }
                             </fieldset>
-                            <Button.LinkButton url={`#map`} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Jump to Map</Button.LinkButton>
+                            <Button.StandardButton callback={jumpToMap} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Jump to Map</Button.StandardButton>
                         </form>
                     </StickyPortal>
+                    <div id={`mapSticky`}></div>
                 </>
         }
         <div id={`mapDiv`} className={`relative + ${classes}`}>

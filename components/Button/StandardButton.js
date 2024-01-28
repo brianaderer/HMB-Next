@@ -1,6 +1,4 @@
 import React from "react";
-
-
 const StandardButton = props => {
     const {className = '', callback, children, type='button'} = props;
     return(
