@@ -7,8 +7,9 @@ export const CATEGORIES = {
         background: colors.hmbEnv['cyan'],
         borderColor: colors.hmbSlate[500],
         backgroundColor: 'bg-hmbEnv-cyan',
-        borderCardColor: 'border-hmbBlue-100',
+        borderCardColor: 'border-hmbEnv-cyan',
         textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
     },
     'home': {
         glyph: 'home',
@@ -16,8 +17,9 @@ export const CATEGORIES = {
         background: colors.hmbBlue[300],
         borderColor: colors.hmbSlate[500],
         backgroundColor: 'bg-hmbBlue-300',
-        borderCardColor: 'border-hmbBlue-100',
+        borderCardColor: 'border-hmbBlue-300',
         textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
     },
     'food-and-drink': {
         glyph: 'food',
@@ -25,8 +27,9 @@ export const CATEGORIES = {
         background: colors.hmbEnv['fucshia'],
         borderColor: colors.hmbSlate[500],
         backgroundColor: "bg-hmbEnv-fucshia",
-        borderCardColor: 'border-hmbBlue-100',
+        borderCardColor: 'border-hmbEnv-fucshia',
         textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
     },
     'day-trip-destinations': {
         glyph: 'dayTrip',
@@ -34,8 +37,9 @@ export const CATEGORIES = {
         background: colors.hmbEnv['stone'],
         borderColor: colors.hmbSlate[500],
         backgroundColor: "bg-hmbEnv-stone",
-        borderCardColor: 'border-hmbBlue-100',
+        borderCardColor: 'border-hmbEnv-stone',
         textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
     },
     'natural-features-and-hikes': {
         glyph: 'nature',
@@ -43,7 +47,8 @@ export const CATEGORIES = {
         background: colors.hmbEnv['forest'],
         borderColor: colors.hmbSlate[500],
         backgroundColor: "bg-hmbEnv-forest",
-        borderCardColor: 'border-hmbBlue-100',
+        borderCardColor: 'border-hmbEnv-forest',
         textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
     },
 };

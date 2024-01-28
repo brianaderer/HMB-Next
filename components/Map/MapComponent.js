@@ -174,7 +174,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             bgColor: pinData.backgroundColor, // replace with actual values
             SVGString: svg, // replace with actual SVG component or element
             text: title, // replace with actual text
-            border: pinData.borderCardColor,
+            border: pinData.borderGlyphColor,
             textColor: pinData.textColor,
             id: id,
         };
