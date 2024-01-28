@@ -29,7 +29,7 @@ export const useMediaQuery = ({setScreen}) => {
 
     useEffect(() => {
         const breakpoints = getBreakpoints(width, screens);
-        const navHeight = document.getElementById('nav').offsetHeight;
+        const navHeight = document.getElementById('nav')?.offsetHeight;
         setScreen(
             {
                 breakpoints : breakpoints,
