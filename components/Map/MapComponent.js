@@ -8,7 +8,7 @@ import {StickyPortal, Button} from "../../components";
 import {ScreenContext} from "../../contexts";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
-    const {setStickyExpanded, stickyExpanded} = useContext(ScreenContext);
+    const {setStickyExpanded, stickyExpanded, stuck} = useContext(ScreenContext);
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -223,14 +223,6 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         }
     }
 
-    function scrollToElement(elementId, target) {
-        const element = document.getElementById(elementId);
-        const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: target, inline: 'nearest' });
-        }
-    }
-
     useEffect(() => {
         activePlacesRef.current.map( (id) => {
             const location = locationData[id];
@@ -296,7 +288,9 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const jumpToMap = props => {
         const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
         scrollIntoViewWithOffset({id: 'map', offset: headerHeight + 80});
-        setStickyExpanded(false);
+        if( stuck ){
+            setStickyExpanded(false);
+        }
     }
 
     return (
@@ -323,7 +317,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         }
         <div id={`mapDiv`} className={`relative + ${classes}`}>
             <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
-                    <div className="flex flex-row h-64 lg:h-[500px]">
+                    <div className="flex flex-row h-96 lg:h-[500px]">
                         <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                     </div>
                 {categories.length > 0 && <>
