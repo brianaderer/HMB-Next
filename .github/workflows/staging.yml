@@ -25,31 +25,36 @@ jobs:
 
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: SSH Deploy
+        # Use the 'appleboy/ssh-action' action for SSH deployment
+        uses: appleboy/ssh-action@master
         with:
-          fetch-depth: 2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.17.0'  # Set the Node.js version you need
-
-      - name: Build Project
-        run: |
-          npm install
-          npm run build --if-present
-
-      - name: List output files
-        run: ls
+          host: 18.226.214.105 # Your server's IP address
+          username: staging # Your server's username
+          key: ${{ secrets.SFTP_KEY }} # Your server's SSH private key
+          script: |
+            cd ./files # Specify the path to your app directory on the server
+            git pull
+            npm install
+            npm run build
+            pm2 restart all # Replace with your PM2 service name
 
       #clean push, maybe need to run a manual delete first
-      - name: SSH-Deploy-Action
-        uses: burnett01/rsync-deployments@6.0.0
-        with:
-          switches: -avzr --delete --exclude='.env.local'
-          path: ./
-          remote_path: ./files/
-          remote_host: 18.226.214.105
-          remote_user: staging
-          remote_key: ${{ secrets.SFTP_KEY }}
+#      - name: SSH-Deploy-Action
+#        uses: burnett01/rsync-deployments@6.0.0
+#        with:
+#          switches: -avzr --delete --exclude='.env.local'
+#          path: ./
+#          remote_path: ./files/
+#          remote_host: 18.226.214.105
+#          remote_user: staging
+#          remote_key: ${{ secrets.SFTP_KEY }}
