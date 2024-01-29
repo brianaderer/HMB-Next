@@ -15,8 +15,7 @@ export default function Header({
   const {logo} = siteLogo || null;
   const [open, setOpen] = useState('');
   const router = useRouter();
-  const screenInfo = useContext(ScreenContext);
-  const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded} = screenInfo;
+  const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded} = useContext(ScreenContext) || {};
   const {navHeight} = screen || {};
 
   const toggleExpanded = props => {
