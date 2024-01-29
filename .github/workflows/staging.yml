@@ -46,15 +46,4 @@ jobs:
             git pull origin staging
             npm install
             npm run build
-            pm2 restart all # Replace with your PM2 service name
-
-      #clean push, maybe need to run a manual delete first
-#      - name: SSH-Deploy-Action
-#        uses: burnett01/rsync-deployments@6.0.0
-#        with:
-#          switches: -avzr --delete --exclude='.env.local'
-#          path: ./
-#          remote_path: ./files/
-#          remote_host: 18.226.214.105
-#          remote_user: staging
-#          remote_key: ${{ secrets.SFTP_KEY }}
+            pm2 restart all
