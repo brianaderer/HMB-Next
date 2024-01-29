@@ -51,4 +51,14 @@ export const CATEGORIES = {
         textColor: 'text-hmbBlue-100',
         borderGlyphColor: 'border-hmbBlue-100',
     },
+    'personal-care': {
+        glyph: 'personal-care',
+        glyphColor: colors.hmbBlue[100],
+        background: colors.hmbEnv['forest'],
+        borderColor: colors.hmbSlate[500],
+        backgroundColor: "bg-hmbEnv-forest",
+        borderCardColor: 'border-hmbEnv-forest',
+        textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
+    },
 };
