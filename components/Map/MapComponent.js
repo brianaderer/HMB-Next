@@ -244,7 +244,8 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
 
     useEffect(() => {
         const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
-        if (activeMarker.index) {
+        const location = locationData[activeMarker.index]?.location;
+        if (activeMarker.index && location) {
             scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + 80 } );
             // After scrolling, then set the focus
             setFocusToElement(`${activeMarker.index}`);

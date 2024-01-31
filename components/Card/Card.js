@@ -1,5 +1,6 @@
 import {Button, Tag} from '../index';
 import {CATEGORIES} from "../../constants/categories";
+import {isArray} from "@apollo/client/utilities";
 
 const Card = props => {
     const{data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;;
@@ -18,7 +19,8 @@ const Card = props => {
                 <div className="card-body text-center lg:text-right flex-col justify-start min-h-full">
                     <h2 className="card-title mb-1 text-neutral-content lg:mt-4 justify-center lg:justify-end">{data.title}</h2>
                     <div className={``}>
-                        {data.tags.map((tag, key) => {
+                        {
+                            data.tags && data?.tags?.map((tag, key) => {
                             return(
                                 <Tag key={key}> {tag.name} </Tag>
                             )
