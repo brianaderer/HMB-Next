@@ -156,7 +156,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             text: textRef.current
         }));
         return (
-            <div className={`showContent ${bgColor} ${border} p-2 border rounded-lg rounded-bl-none absolute bottom-0 left-[50%] transition-all`}>
+            <div className={`overflow-hidden showContent ${bgColor} ${border} p-2 border rounded-lg rounded-bl-none absolute bottom-0 left-[50%] transition-all`}>
                 <div className={`pinContent marker-contents w-full flex flex-row gap-2 items-center justify-center`} >
                     <div ref={svgRef} id={`svg${id}`} dangerouslySetInnerHTML={{__html:SVGString}} className={`${textColor} transition-all w-4 h-4 flex items-center justify-center`}>
                     </div>

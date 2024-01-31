@@ -3,7 +3,8 @@ import {CATEGORIES} from "../../constants/categories";
 
 const Card = props => {
     const{data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;;
-    const borderColor = CATEGORIES[data.category_tax[0]?.slug].borderCardColor;
+    const slug = CATEGORIES[data.category_tax[0]?.slug] ? data.category_tax[0]?.slug : 'default';
+    const borderColor = CATEGORIES[slug].borderCardColor;
     return (
         <div id={`${firstPlace ? catSlug : ''}`} className="metaWrapper">
             <div id={id} className={`relative w-full border-r-8 ${borderColor} card lg:card-side bg-neutral drop-shadow-lg overflow-clip rounded-none mb-1`}>

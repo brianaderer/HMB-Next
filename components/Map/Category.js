@@ -6,7 +6,7 @@ import {scrollIntoViewWithOffset} from "../../utilities";
 const Category = props => {
     const {setStickyExpanded} = useContext( ScreenContext );
     const { handler, category, index, isChecked } = props;
-    const slug = category.slug ? category.slug : 'default';
+    const slug = CATEGORIES[category.slug] ? category.slug : 'default';
     const backgroundColor = CATEGORIES[slug].backgroundColor;
     const textColor = CATEGORIES[slug].textColor;
     const activeClick = useRef(false);
