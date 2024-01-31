@@ -12,7 +12,7 @@ export const CATEGORIES = {
         borderGlyphColor: 'border-hmbBlue-100',
     },
     'home': {
-        glyph: 'home',
+        glyph: 'defaultIcon',
         glyphColor: colors.hmbBlue[100],
         background: colors.hmbBlue[300],
         borderColor: colors.hmbSlate[500],
@@ -62,7 +62,7 @@ export const CATEGORIES = {
         borderGlyphColor: 'border-hmbBlue-100',
     },
     'personal-care': {
-        glyph: 'personal-care',
+        glyph: 'defaultIcon',
         glyphColor: colors.hmbBlue[100],
         background: colors.hmbEnv['forest'],
         borderColor: colors.hmbSlate[500],
