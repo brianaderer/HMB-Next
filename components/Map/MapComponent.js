@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, useContext} from "react";
+import React, {useEffect, useRef, forwardRef, useImperativeHandle, useState, useContext} from "react";
 import marker from "./marker";
 import Category from './Category';
 import {isArray} from "@apollo/client/utilities";
@@ -20,11 +20,14 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [activePlaces, setActivePlaces] = useState([]);
     const [sortedActivePlaces, setSortedActivePlaces] = useState([]);
     const activePlacesRef = useRef(activePlaces);
+    const markerRefs = useRef({});
     const [clickedOnMap, setClickedOnMap] = useState(false);
     const [lastMarker, setLastMarker] = useState(null);
     const clickedOnMapRef = useRef(clickedOnMap);
     const [lastPin, setLastPin] = useState(null);
     const [legacyMarker, setLegacyMarker] = useState({});
+    const activeMarkerRef = useRef(null);
+    const pinRefs = useRef({});
     let locationData = [];
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
@@ -43,6 +46,9 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             } else {
                 location.index = index;
                 locationData[index] = location;
+            }
+            if (!pinRefs.current[location.index]) {
+                pinRefs.current[location.index] = React.createRef();
             }
         });
     }
@@ -141,33 +147,32 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
          }
     }, [activePlaces, activeMarker]);
 
-    const MapPin = props => {
+    const MapPin = forwardRef((props, ref) => {
         const {bgColor, text, border, SVGString = null, textColor, id} = props;
+        const svgRef = useRef(null);
+        const textRef = useRef(null);
+        useImperativeHandle(ref, () => ({
+            svg: svgRef.current,
+            text: textRef.current
+        }));
         return (
-            <div className={`${bgColor} ${border} p-2 border rounded-lg rounded-bl-none absolute bottom-0 left-[50%] transition-all`}>
+            <div className={`showContent ${bgColor} ${border} p-2 border rounded-lg rounded-bl-none absolute bottom-0 left-[50%] transition-all`}>
                 <div className={`pinContent marker-contents w-full flex flex-row gap-2 items-center justify-center`} >
-                    <div id={`svg${id}`} dangerouslySetInnerHTML={{__html:SVGString}} className={`${textColor} transition-all w-4 h-4 flex items-center justify-center`}>
+                    <div ref={svgRef} id={`svg${id}`} dangerouslySetInnerHTML={{__html:SVGString}} className={`${textColor} transition-all w-4 h-4 flex items-center justify-center`}>
                     </div>
-                    <div id={`text${id}`} className={`hidden ${textColor}`}>
+                    <div ref={textRef} id={`text${id}`} className={`hidden group-[.showContent]:visible ${textColor}`}>
                         {text}
                     </div>
                 </div>
             </div>
         )
-    }
+    })
 
     const returnPin = props => {
         const {category, title, id} = props;
         const parser = new DOMParser();
         const {pinData, slug} = categoryLookup({parser, category});
         const svg = parseSvg({parser, slug});
-        // const glyphSvgPinElement = new PinElement({
-        //     glyph: pinSvg,
-        //     glyphColor: pinData?.glyphColor,
-        //     background: pinData?.background,
-        //     borderColor: pinData?.borderColor,
-        //     scale: 1.2,
-        // });
         const namedTag = document.createElement("div");
         const expanded = activeMarker.index === id;
         const mapPinProps = {
@@ -178,9 +183,9 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             textColor: pinData.textColor,
             id: id,
         };
-
+        const pinRef = pinRefs.current[id];
         const root = createRoot(namedTag);
-        root.render(<MapPin {...mapPinProps} />);
+        root.render(<MapPin ref={pinRef} {...mapPinProps} />);
 
         return namedTag;
     }
@@ -200,6 +205,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                         showInfo({index, domEvent})
                     });
         marker.content.classList.add('transition-all','origin-bottom');
+        markerRefs.current[index] = pin;
         if(locationData[index]){
             locationData[index].marker=marker;
         }
@@ -209,6 +215,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         if(activeMarker.index){
             setLastActiveMarker(activeMarker);
         }
+        activeMarkerRef.current = activeMarker;
     }, [activeMarker]);
     function showInfo({index, domEvent}){
         const {target} = domEvent;
@@ -273,24 +280,13 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     useEffect(() => {
             activePlacesRef.current.map( (id) => {
             const location = locationData[id];
-            if ( id === legacyMarker.index ){
-                location.marker.zIndex = 1;
-                setLegacyMarker({});
-            }
-            else if( id !== activeMarker.index ){
-                location?.marker?.content?.classList.remove('drop-shadow-md');
-                document.getElementById('svg' + id)?.classList.remove('!w-6', '!h-6');
-                document.getElementById('text' + id)?.classList.add('hidden');
-                document.getElementById('text' + id)?.classList.remove('mr-2');
-                if( location.marker ){
-                    location.marker.zIndex = 1;
-                }
-            }
-            else {
+            const text = pinRefs.current[id]?.current?.text;
+            const svg = pinRefs.current[id]?.current?.svg;
+            if (id === activeMarkerRef.current.id){
                 location?.marker?.content?.classList.add('drop-shadow-md');
-                document.getElementById('svg' + id)?.classList.add('!w-6', '!h-6');
-                document.getElementById('text' + id)?.classList.remove('hidden');
-                document.getElementById('text' + id)?.classList.add('mr-2');
+                svg?.classList.add('!w-6', '!h-6');
+                text?.classList.remove('hidden');
+                svg?.classList.add('mr-2');
                 if( location.marker ){
                     setLastPin(location.marker.content);
                     const catSlug = location.category_tax[0].slug;
@@ -303,8 +299,17 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                     map.panTo({lat: placeData.lat, lng: placeData.lng});
                 }
             }
+            else if( id !== activeMarkerRef.current.id){
+                location?.marker?.content?.classList.remove('drop-shadow-md');
+                svg?.classList.remove('!w-6', '!h-6');
+                text?.classList.add('hidden');
+                svg?.classList.remove('mr-2');
+                if( location.marker ){
+                    location.marker.zIndex = 1;
+                }
+            }
         } )
-    }, [activeMarker, legacyMarker]);
+    }, [activeMarkerRef.current, activePlacesRef.current, pinRefs.current]);
     async function newMarker(center){
         const { AdvancedMarkerElement, PinElement } = await window.google.maps.importLibrary("marker");
         return {AdvancedMarkerElement, PinElement};
@@ -381,7 +386,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                         <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                     </div>
                 {categories.length > 0 && <>
-                    <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarker}
+                    <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarkerRef.current}
                                                         places={sortedActivePlaces}/>
                     </>
             }

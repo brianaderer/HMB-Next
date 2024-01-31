@@ -21,6 +21,16 @@ export const CATEGORIES = {
         textColor: 'text-hmbBlue-100',
         borderGlyphColor: 'border-hmbBlue-100',
     },
+    'default': {
+        glyph: 'defaultIcon',
+        glyphColor: colors.hmbBlue[100],
+        background: colors.hmbBlue[300],
+        borderColor: colors.hmbSlate[500],
+        backgroundColor: 'bg-hmbBlue-300',
+        borderCardColor: 'border-hmbBlue-300',
+        textColor: 'text-hmbBlue-100',
+        borderGlyphColor: 'border-hmbBlue-100',
+    },
     'food-and-drink': {
         glyph: 'food',
         glyphColor: colors.hmbBlue[100],

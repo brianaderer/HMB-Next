@@ -6,8 +6,9 @@ import {scrollIntoViewWithOffset} from "../../utilities";
 const Category = props => {
     const {setStickyExpanded} = useContext( ScreenContext );
     const { handler, category, index, isChecked } = props;
-    const backgroundColor = CATEGORIES[category.slug].backgroundColor;
-    const textColor = CATEGORIES[category.slug].textColor;
+    const slug = category.slug ? category.slug : 'default';
+    const backgroundColor = CATEGORIES[slug].backgroundColor;
+    const textColor = CATEGORIES[slug].textColor;
     const activeClick = useRef(false);
     const checked = useRef(null);
     const handleDivClick = (event) => {
@@ -44,7 +45,6 @@ const Category = props => {
             if (isChecked) {
                 const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
                 setTimeout(() => {
-                    const elem = document.getElementById(category.slug);
                     scrollIntoViewWithOffset({offset: (headerHeight + 80), id: category.slug })
                 }, 0); // Adjust delay as needed, 0 might be sufficient in most cases
             }
