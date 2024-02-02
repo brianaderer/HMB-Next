@@ -333,11 +333,14 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
 
     useEffect(() => {
         const newPlaces = Object.keys(locationData).filter((key) => {
+            let  hasActiveCategory = false;
             const location = locationData[key];
-            const hasActiveCategory = location.category_tax?.some(category => {
-                    return activeCategories.includes(category.term_id);
-                }
-            );
+            if( location.category_tax?.length > 0 ){
+                hasActiveCategory = location.category_tax?.some(category => {
+                        return activeCategories.includes(category.term_id);
+                    }
+                );
+            }
             // Set marker map based on category match
             if (location.marker) {
                 location.marker.map = hasActiveCategory ? map : null;
