@@ -99,11 +99,16 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                         const place = location.location;
                         const position = {'lat': place?.lat, 'lng': place?.lng};
                         const title = location.title;
-                        location.category_tax?.map(category => {
-                            if (!categoriesTaxList.hasOwnProperty(category.term_id)) {
-                                categoriesTaxList[category.term_id] = {'slug': category.slug, 'name': category.name};
-                            }
-                        });
+                        if( location.category_tax.length > 0 ) {
+                            location.category_tax?.map(category => {
+                                if (!categoriesTaxList.hasOwnProperty(category.term_id)) {
+                                    categoriesTaxList[category.term_id] = {
+                                        'slug': category.slug,
+                                        'name': category.name
+                                    };
+                                }
+                            });
+                        }
                         if (position.lat) {
                             createElement({
                                 index: locationKey,
