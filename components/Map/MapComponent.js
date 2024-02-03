@@ -28,7 +28,17 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [legacyMarker, setLegacyMarker] = useState({});
     const activeMarkerRef = useRef(null);
     const pinRefs = useRef({});
+    const [distances] = useState([]);
     let locationData = [];
+    const getDistance = async props => {
+        return await fetch("/api/distance", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
             // Safely accessing the slug, default to empty string if not available
@@ -40,6 +50,20 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         //Map sorted locations to locationData
         locations.forEach((location, index) => {
             location.sortOrder=index;
+            if (location.marker){
+                const position = location.marker.position;
+                getDistance({start: center, finish: position}).then((r) => {r.json().then(data => {
+                        location.driving = (data.data[0]);
+                    }
+                )}).then(() => {
+                    if(location.driving?.distance.value < 3300 ){
+                        getDistance({start: center, finish: position, mode: 'walking'}).then((r) => {r.json().then(data => {
+                                location.walking = (data.data[0]);
+                            }
+                        )})
+                    }
+                });
+            }
             if (location.location?.place_id) {
                 location.index = location.location.place_id;
                 locationData[location.location.place_id] = location;
@@ -156,6 +180,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         const {bgColor, text, border, SVGString = null, textColor, id} = props;
         const svgRef = useRef(null);
         const textRef = useRef(null);
+        const location = locationData[id];
         useImperativeHandle(ref, () => ({
             svg: svgRef.current,
             text: textRef.current
@@ -166,7 +191,8 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                     <div ref={svgRef} id={`svg${id}`} dangerouslySetInnerHTML={{__html:SVGString}} className={`${textColor} transition-all w-4 h-4 flex items-center justify-center`}>
                     </div>
                     <div ref={textRef} id={`text${id}`} className={`hidden group-[.showContent]:visible ${textColor}`}>
-                        {text}
+                        {text}<br />
+                        {location?.driving && location.driving.distance.text}
                     </div>
                 </div>
             </div>
