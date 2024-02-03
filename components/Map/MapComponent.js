@@ -31,13 +31,13 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [distances] = useState([]);
     let locationData = [];
     const getDistance = async props => {
-        return await fetch("/api/distance", {
-            method: "POST",
-            body: JSON.stringify(props),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        // return await fetch("/api/distance", {
+        //     method: "POST",
+        //     body: JSON.stringify(props),
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        // });
     }
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
@@ -52,17 +52,17 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             location.sortOrder=index;
             if (location.marker){
                 const position = location.marker.position;
-                getDistance({start: center, finish: position}).then((r) => {r.json().then(data => {
-                        location.driving = (data.data[0]);
-                    }
-                )}).then(() => {
-                    if(location.driving?.distance.value < 3300 ){
-                        getDistance({start: center, finish: position, mode: 'walking'}).then((r) => {r.json().then(data => {
-                                location.walking = (data.data[0]);
-                            }
-                        )})
-                    }
-                });
+                // getDistance({start: center, finish: position}).then((r) => {r.json().then(data => {
+                //         location.driving = (data.data[0]);
+                //     }
+                // )}).then(() => {
+                //     if(location.driving?.distance.value < 3300 ){
+                //         getDistance({start: center, finish: position, mode: 'walking'}).then((r) => {r.json().then(data => {
+                //                 location.walking = (data.data[0]);
+                //             }
+                //         )})
+                //     }
+                // });
             }
             if (location.location?.place_id) {
                 location.index = location.location.place_id;
