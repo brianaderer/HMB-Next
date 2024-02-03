@@ -14,7 +14,7 @@ const Static = props => {
                             const image = imageGallery[index];
                             const {alt, url, caption = ''} = image;
                             return(
-                                <div key={index} className={`shrink grow w-auto basis-0 drop-shadow-lg`}>
+                                <div key={index} className={`shrink grow w-auto basis-0 drop-shadow-lg flex items-center justify-center`}>
                                     <img className={`max-w-full w-auto h-full max-h-64 object-cover`} src={url} alt={alt}/>
                                 </div>
                             )

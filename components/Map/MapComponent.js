@@ -294,15 +294,18 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 text?.classList.remove('hidden');
                 svg?.classList.add('mr-2');
                 if( location.marker ){
+                    const bounds = new window.google.maps.LatLngBounds();
+                    const markerPos = location.marker.position;
+                    bounds.extend(center);
+                    bounds.extend(markerPos);
                     setLastPin(location.marker.content);
                     const catSlug = location.category_tax[0].slug;
                     const category = CATEGORIES[catSlug];
                     const placeData = location.location;
                     location.marker.zIndex = 100;
-                    if( map.getZoom() < placeData.zoom ){
-                        map.setZoom(placeData.zoom);
-                    }
-                    map.panTo({lat: placeData.lat, lng: placeData.lng});
+                    map.fitBounds(bounds);
+                    const zoom = map.zoom;
+                    map.setZoom(zoom -1);
                 }
             }
             else if( id !== activeMarkerRef.current.id){
