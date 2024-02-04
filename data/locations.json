@@ -1,0 +1,17 @@
+{
+  "ChIJ1-kIX87SwokRzr_EFr3Htkc": {
+    "driving": [
+      {
+        "distance": {
+          "text": "25.9 mi",
+          "value": 41724
+        },
+        "duration": {
+          "text": "39 mins",
+          "value": 2367
+        },
+        "status": "OK"
+      }
+    ]
+  }
+}

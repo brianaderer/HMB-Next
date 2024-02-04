@@ -28,16 +28,17 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [legacyMarker, setLegacyMarker] = useState({});
     const activeMarkerRef = useRef(null);
     const pinRefs = useRef({});
-    const [distances] = useState([]);
+    const [distances, setDistances] = useState({});
     let locationData = [];
+    let runOnce = true;
     const getDistance = async props => {
-        // return await fetch("/api/distance", {
-        //     method: "POST",
-        //     body: JSON.stringify(props),
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        // });
+        return await fetch("/api/distance", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     }
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
@@ -50,26 +51,27 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         //Map sorted locations to locationData
         locations.forEach((location, index) => {
             location.sortOrder=index;
-            if (location.marker){
-                const position = location.marker.position;
-                // getDistance({start: center, finish: position}).then((r) => {r.json().then(data => {
-                //         location.driving = (data.data[0]);
-                //     }
-                // )}).then(() => {
-                //     if(location.driving?.distance.value < 3300 ){
-                //         getDistance({start: center, finish: position, mode: 'walking'}).then((r) => {r.json().then(data => {
-                //                 location.walking = (data.data[0]);
-                //             }
-                //         )})
-                //     }
-                // });
-            }
             if (location.location?.place_id) {
                 location.index = location.location.place_id;
                 locationData[location.location.place_id] = location;
             } else {
                 location.index = index;
                 locationData[index] = location;
+            }
+            if (location.marker && runOnce){
+                runOnce = false;
+                const position = location.marker.position;
+                getDistance({id: location.index, start: center, finish: position, distances, setDistances}).then((r) => {r.json().then(data => {
+                        //location.driving = (data.data[0]);
+                    }
+                )}).then(() => {
+                    if(location.driving?.distance.value < 3300 ){
+                        getDistance({id: location.index, start: center, finish: position, mode: 'walking', distances, setDistances}).then((r) => {r.json().then(data => {
+                                //location.walking = (data.data[0]);
+                            }
+                        )})
+                    }
+                });
             }
             if (!pinRefs.current[location.index]) {
                 pinRefs.current[location.index] = React.createRef();
