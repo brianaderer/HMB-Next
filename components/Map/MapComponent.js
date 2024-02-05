@@ -29,10 +29,11 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const activeMarkerRef = useRef(null);
     const pinRefs = useRef({});
     const [distances, setDistances] = useState({});
+    const [allDistancesLoaded, setAllDistancesLoaded] = useState(false);
+    const [intersections, setIntersections] = useState(false);
     let locationData = [];
-    let runOnce = true;
     const getDistance = async props => {
-        return await fetch("/api/distance", {
+        return await fetch("/api/distanceAPICall", {
             method: "POST",
             body: JSON.stringify(props),
             headers: {
@@ -40,6 +41,97 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             },
         });
     }
+    const getLocalDistance = async props => {
+        return await fetch("/api/localDistance", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+
+    const setLocalDistance = async props => {
+        return await fetch("/api/writeDistance", {
+            method: "POST",
+            body: JSON.stringify(props),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+
+    useEffect(() => {
+        // Define an async function inside the effect
+        const fetchLocalDistance = async () => {
+            try {
+                const localDistances = await getLocalDistance(); // Adjust this call if it needs parameters
+                return await localDistances.json(); // Assuming the response needs to be parsed as JSON
+            } catch (error) {
+                console.error("Failed to fetch local distances:", error);
+            }
+        };
+
+        // Call the async function
+        fetchLocalDistance().then((data) => {
+            const locationKeys = Object.keys(locationData);
+            const fsDistances = data?.data;
+            const fsKeys = Object.keys(fsDistances);
+            const intersection = locationKeys.filter(x => !fsKeys.includes(x));
+            setDistances( fsDistances );
+            setIntersections( intersection );
+        });
+
+        // Cleanup function
+        return () => {
+            // If there's anything to clean up, do it here
+            // For example, canceling a fetch operation, removing listeners, etc.
+        };
+    }, [locations]); // Ensure dependencies are correctly listed
+
+    useEffect(() => {
+        console.log(distances);
+    }, [distances]);
+
+    useEffect(() => {
+        if (intersections.length > 0) {
+            // Use a temporary variable to accumulate distance data
+            let tempDistances = {...distances};
+
+            // Convert each intersection operation into a Promise
+            const distancePromises = intersections.map(intersection => {
+                const location = locationData[intersection];
+                if (!location?.location) return Promise.resolve();
+
+                const position = location.marker?.position;
+                return getDistance({id: location.index, start: center, finish: position})
+                    .then(response => response.json())
+                    .then(data => {
+                        // Directly update the temporary variable
+                        tempDistances[intersection] = tempDistances[intersection] || {};
+                        tempDistances[intersection]['driving'] = data.data;
+                        // Conditionally trigger the second API call
+                        if (data.data.distance?.value < 3300) {
+                            return getDistance({id: location.index, start: center, finish: position, mode: 'walking'})
+                                .then(response => response.json())
+                                .then(walkingData => {
+                                    tempDistances[intersection]['walking'] = walkingData.data;
+                                });
+                        }
+                    });
+            });
+
+            // Wait for all distance calculations to complete
+            Promise.all(distancePromises).then(() => {
+                // Once all promises resolve, update the state once with the accumulated data
+                setDistances(tempDistances);
+                setLocalDistance({distances: tempDistances}).then(data => {
+                })
+            }).catch(error => console.error("Error fetching distances", error));
+        }
+        // Removed 'distances' from the dependency array to avoid re-triggering the effect due to state updates
+    }, [intersections, center]);
+
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
             // Safely accessing the slug, default to empty string if not available
@@ -58,27 +150,11 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 location.index = index;
                 locationData[index] = location;
             }
-            if (location.marker && runOnce){
-                runOnce = false;
-                const position = location.marker.position;
-                getDistance({id: location.index, start: center, finish: position, distances, setDistances}).then((r) => {r.json().then(data => {
-                        //location.driving = (data.data[0]);
-                    }
-                )}).then(() => {
-                    if(location.driving?.distance.value < 3300 ){
-                        getDistance({id: location.index, start: center, finish: position, mode: 'walking', distances, setDistances}).then((r) => {r.json().then(data => {
-                                //location.walking = (data.data[0]);
-                            }
-                        )})
-                    }
-                });
-            }
             if (!pinRefs.current[location.index]) {
                 pinRefs.current[location.index] = React.createRef();
             }
         });
     }
-
 
     const mapOptions = {
         center: center,
