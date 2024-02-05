@@ -31,6 +31,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [distances, setDistances] = useState({});
     const [allDistancesLoaded, setAllDistancesLoaded] = useState(false);
     const [intersections, setIntersections] = useState(false);
+    const distancesRef = useRef({});
     let locationData = [];
     const getDistance = async props => {
         return await fetch("/api/distanceAPICall", {
@@ -90,10 +91,6 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [locations]); // Ensure dependencies are correctly listed
 
     useEffect(() => {
-        console.log(distances);
-    }, [distances]);
-
-    useEffect(() => {
         if (intersections.length > 0) {
             // Use a temporary variable to accumulate distance data
             let tempDistances = {...distances};
@@ -126,7 +123,8 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 // Once all promises resolve, update the state once with the accumulated data
                 setDistances(tempDistances);
                 setLocalDistance({distances: tempDistances}).then(data => {
-                })
+                });
+                setAllDistancesLoaded(true);
             }).catch(error => console.error("Error fetching distances", error));
         }
         // Removed 'distances' from the dependency array to avoid re-triggering the effect due to state updates
@@ -161,6 +159,10 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         zoom: zoom,
         mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID,
     }
+
+    useEffect(() => {
+        distancesRef.current = distances;
+    }, [distances]);
 
     useEffect(() => {
         activePlacesRef.current = activePlaces;
@@ -229,7 +231,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 setActiveCategories(newCategories);
             });
         }
-    }, [map]);
+    }, [map, allDistancesLoaded]);
 
     useEffect(() => {
         const completeActivePlaces = activePlaces.map( id => locationData[id]);
@@ -255,11 +257,11 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [activePlaces, activeMarker]);
 
     const MapPin = forwardRef((props, ref) => {
-        const {bgColor, text, border, SVGString = null, textColor, id} = props;
+        const {pinRef} = ref;
+        const {bgColor, text, border, SVGString = null, textColor, id, distances} = props;
         const svgRef = useRef(null);
         const textRef = useRef(null);
-        const location = locationData[id];
-        useImperativeHandle(ref, () => ({
+        useImperativeHandle(pinRef, () => ({
             svg: svgRef.current,
             text: textRef.current
         }));
@@ -270,7 +272,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                     </div>
                     <div ref={textRef} id={`text${id}`} className={`hidden group-[.showContent]:visible ${textColor}`}>
                         {text}<br />
-                        {location?.driving && location.driving.distance.text}
+                        {distances[id] && distances[id].driving.distance.text}
                     </div>
                 </div>
             </div>
@@ -291,10 +293,12 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             border: pinData.borderGlyphColor,
             textColor: pinData.textColor,
             id: id,
+            distances: distances,
         };
         const pinRef = pinRefs.current[id];
+        const forwardRef = {pinRef, distances: distancesRef.current};
         const root = createRoot(namedTag);
-        root.render(<MapPin ref={pinRef} {...mapPinProps} />);
+        root.render(<MapPin ref={forwardRef} {...mapPinProps} />);
 
         return namedTag;
     }
@@ -503,7 +507,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                     </div>
                 {categories.length > 0 && <>
                     <Places destroy={destroyMarker} locationData={locationData} callback={showInfo} activeMarker={activeMarkerRef.current}
-                                                        places={sortedActivePlaces}/>
+                                                        places={sortedActivePlaces} distances={distances}/>
                     </>
             }
                 </div>

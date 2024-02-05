@@ -3,7 +3,7 @@ import {CATEGORIES} from "../../constants/categories";
 import {isArray} from "@apollo/client/utilities";
 
 const Card = props => {
-    const{data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
+    const{distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
     const slug = CATEGORIES[data.category_tax[0]?.slug] ? data.category_tax[0]?.slug : 'default';
     const borderColor = CATEGORIES[slug].borderCardColor;
     return (
@@ -21,8 +21,8 @@ const Card = props => {
                 <div className="card-body pt-12 text-left lg:text-right flex-col justify-start min-h-full">
                     <h2 className="card-title mb-1 text-neutral-content lg:mt-4 justify-center lg:justify-end">{data.title}</h2>
                     <div>
-                        {data.walking && <p className="text-sm text-neutral-content">Walking: {data.walking.duration.text} / {data.walking.distance.text}</p>}
-                        {data.driving && <p className="text-sm text-neutral-content">Driving: {data.driving.duration.text} / {data.driving.distance.text}</p>}
+                        {distance?.walking && <p className="text-sm text-neutral-content">Walking: {distance.walking.duration.text} / {distance.walking.distance.text}</p>}
+                        {distance?.driving && <p className="text-sm text-neutral-content">Driving: {distance.driving.duration.text} / {distance.driving.distance.text}</p>}
                     </div>
                     <div className={`flex flex-wrap gap-2 justify-center lg:justify-end`}>
                         {

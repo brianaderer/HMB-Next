@@ -1,7 +1,7 @@
 import {PlaceCard} from '../PlaceCard';
 
 const Places = props => {
-    const {callback, places, activeMarker, locationData, destroy} = props;
+    const {callback, places, activeMarker, locationData, destroy, distances} = props;
     const iteratedPlaces = [];
     const array = Object.keys(places);
     return(
@@ -16,7 +16,7 @@ const Places = props => {
                 }
                 if (placeData.title) {
                     return (
-                        <PlaceCard catSlug={catSlug} firstPlace={firstPlace} destroy={destroy} id={id} activeMarker={activeMarker} data={placeData} key={id} title={placeData.title} onClick={e => callback({index: id, domEvent: e})} />
+                        <PlaceCard distance={distances[id]} catSlug={catSlug} firstPlace={firstPlace} destroy={destroy} id={id} activeMarker={activeMarker} data={placeData} key={id} title={placeData.title} onClick={e => callback({index: id, domEvent: e})} />
                     );
                 }
                 return null;
