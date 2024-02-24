@@ -2,7 +2,7 @@ import {Text, Button, ImageCard} from '../../../components'
 import React, {useEffect, useState} from 'react';
 import {Textarea} from './index';
 import {useDropzone} from "react-dropzone";
-import {Masonry} from '@mui/lab';
+import Masonry, {ResponsiveMasonry} from 'react-responsive-masonry';
 const Gallery = props => {
     const {slug, classes, title, setState, state, required, message} = props
     const {labelClasses, inputClasses, spanClasses} = classes;
@@ -44,7 +44,7 @@ const Gallery = props => {
         const src = file.preview;
         return (
             <ImageCard key={index}
-                       className={`w-1/4 p-4`}
+                       className={`p-4`}
                        onLoad = {() => loadHandler({file})}
                        alt={alt}
                        src={src}
@@ -58,9 +58,17 @@ const Gallery = props => {
     return(
         <section className="container">
             {message.length > 0 && <Text tag={`h3`} className={`text-xl mt-12 mb-6`}>{message}</Text>}
-            {thumbs.length > 0 ? <Masonry columns={4} spacing={4}>
-                {thumbs}
-            </Masonry> : ''}
+            {thumbs.length > 0 ?
+                <ResponsiveMasonry
+                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
+                >
+                <Masonry
+                    gutter={10}
+                >
+                    {thumbs}
+                </Masonry>
+                </ResponsiveMasonry>
+             : ''}
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
                 <div className={`cursor-pointer transition-all flex flex-row justify-center items-center mt-4 p-4 w-full h-48 bg-primary hover:bg-secondary hover:text-secondary-content text-primary-content rounded-lg border-2 border-accent drop-shadow-lg`}>
