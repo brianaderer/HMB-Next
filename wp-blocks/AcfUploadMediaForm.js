@@ -46,7 +46,7 @@ export default function AcfUploadMediaForm(props) {
 
     return (
         <Login id={id} message={message}>
-            <Galleries.Masonry posts={images} increment={10} srcName={'permalink'} captionName={'caption'} cols={5} spacing={3}  />
+            <Galleries.MasonryComponent posts={images} increment={10} srcName={'permalink'} captionName={'caption'} cols={5} spacing={3}  />
             <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
         </Login>
     );

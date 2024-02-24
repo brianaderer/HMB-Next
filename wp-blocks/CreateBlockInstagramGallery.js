@@ -15,7 +15,7 @@ export default function CreateBlockInstagramGallery(props) {
     return(
         <>
             {
-               Object.keys(posts).length > 0 ? <Galleries.Masonry spacing={4} cols={3} increment={9} posts={posts} srcName={'media_url'} captionName={'caption'}/> : ''
+               Object.keys(posts).length > 0 ? <Galleries.MasonryComponent spacing={4} cols={3} increment={9} posts={posts} srcName={'media_url'} captionName={'caption'}/> : ''
             }
         </>
     )

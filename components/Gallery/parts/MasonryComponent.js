@@ -19,6 +19,7 @@ const MasonryComponent = props => {
             setLoaded( prevLoaded => [...prevLoaded, id] )
         }, 200 )
     }
+    console.log(posts);
     return (
         <div className={`mb-2`}>
             <ResponsiveMasonry
@@ -27,7 +28,7 @@ const MasonryComponent = props => {
                 <Masonry
                     gutter={computedSpacing}
                 >
-                    {Object.keys(posts).map((post,index) => {
+                    {posts?.length > 0 && Object.keys(posts).map((post,index) => {
                         if( index < limit ){
                             const src = posts[post][srcName];
                             const caption = posts[post][captionName];
@@ -38,7 +39,7 @@ const MasonryComponent = props => {
                     })}
                 </Masonry>
             </ResponsiveMasonry>
-            <LoadMore max={Object.keys(posts).length} setLimit={setLimit} limit={limit} increment={computedIncrement} className={`mt-6`} />
+            <LoadMore max={ posts.length > 0 ? Object.keys(posts).length : 0} setLimit={setLimit} limit={limit} increment={computedIncrement} className={`mt-6`} />
         </div>
     )
 }

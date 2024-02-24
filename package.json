@@ -19,7 +19,6 @@
     "@firebase/auth": "^1.5.0",
     "@googlemaps/google-maps-services-js": "^3.3.42",
     "@googlemaps/react-wrapper": "^1.1.35",
-    "@mui/lab": "^5.0.0-alpha.160",
     "@mui/material": "^5.15.4",
     "@sendgrid/mail": "^7.7.0",
     "@wordpress/base-styles": "^4.26.0",
@@ -42,7 +41,8 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.12.0",
-    "react-responsive-masonry": "^2.2.0"
+    "react-responsive-masonry": "^2.2.0",
+    "sass": "^1.71.1"
   },
   "engines": {
     "node": ">=18.17.0",

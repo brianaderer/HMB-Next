@@ -8,8 +8,8 @@ const GuestBookEntry = props => {
     return(
         <div className="card mb-2 lg:mb-8 pb-4 lb:pb-8 w-full border-2 border-neutral drop-shadow-lg bg-neutral rounded-xl text-neutral-content">
             <div className="card-body max-md:p-4">
-                {images.length > 0 && <Galleries.Static className={`max-w-full max-h-80 my-0 p-0`} background={false} oversize={false}
-                                             imageGallery={images}/>}
+                {images.length > 0 && <Galleries.MasonryComponent className={`max-w-full max-h-80 my-0 p-0`} background={false} oversize={false}
+                                             posts={images}/>}
                 <div className="flex flex-col lg:flex-row gap-8 items-start justify-start h-auto mb-4">
                     <div className="flex flex-row items-start justify-start h-full">
                         <Text className={`text-6xl text-left tracking-tighter h-full`} tagName={`h4`}>{boat_name}</Text>
