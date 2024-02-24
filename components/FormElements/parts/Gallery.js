@@ -63,7 +63,7 @@ const Gallery = props => {
                     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
                 >
                 <Masonry
-                    gutter={10}
+                    gutter={'10'}
                 >
                     {thumbs}
                 </Masonry>

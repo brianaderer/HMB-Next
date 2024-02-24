@@ -1,8 +1,20 @@
 import {Text, Media} from "../../components";
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 const ImageCard = props => {
-    const {loaded = true, alt = '', src, caption, className='', onLoad = null, Button = null, TextArea = null, imageClassName = ''} = props;
+    const {loaded = true, alt = '', src: initialSrc, caption, className='', onLoad = null, Button = null, TextArea = null, imageClassName = ''} = props;
+    // Effect to set the image source after the component mounts
+    const [src, setSrc] = useState(null); // Start with no source
+    useEffect(() => {
+        // This setTimeout is optional but it simulates a delay in loading the image.
+        // It can help in ensuring onLoad works as expected during development.
+        // Remove it in production or if you don't need to simulate a delay.
+        const timer = setTimeout(() => {
+            setSrc(initialSrc); // Set the actual image source
+        }, 10); // Adjust or remove delay as needed
+
+        return () => clearTimeout(timer); // Cleanup the timeout if the component unmounts before setting the src
+    }, [initialSrc]);
     return (
         <div className={`transition-all ${loaded ? `opacity-100` : `opacity-0 !h-0`} card bg-neutral text-neutral-content shadow-xl rounded-md border border-primary ${className}`} >
             {Button ? Button : ''}
