@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import * as Buttons from '.././../components/Button';
 import { TbSpeedboat } from "react-icons/tb";
+import {ScreenContext} from "../../contexts";
 
 const Carousel = ({ children, className, fullWidth = false, scrollInterval = 4000 }) => {
     const [isDragging, setIsDragging] = useState(false);
@@ -12,6 +13,10 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     const [scrolling, setScrolling] = useState(true)
     const [buttonDims, setButtonDims] = useState(0);
     const ref = useRef();
+
+    const {screen} = useContext(ScreenContext);
+
+    console.log(screen);
 
     useEffect(() => {
             const interval = setInterval(() => {
@@ -159,7 +164,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                     onMouseLeave={handleExit}
                     onMouseUp={stopDragging}
                     onMouseMove={onDrag}
-                    className={`cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
+                    className={`rounded-lg cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
                 >
                     {children}
                 </div>
