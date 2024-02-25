@@ -11,7 +11,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     const [scrollPosition, setScrollPosition] = useState(0);
     const [needsUpdate, setNeedsUpdate] = useState(false);
     const [scrolling, setScrolling] = useState(true)
-    const [buttonDims, setButtonDims] = useState(0);
+    const [buttonDims, setButtonDims] = useState({});
     const ref = useRef();
 
     const {screen} = useContext(ScreenContext) || {};
@@ -40,8 +40,10 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     };
 
     useEffect(() => {
-        const buttons = window.document.getElementsByClassName('mover');
-        setButtonDims({height: buttons[0].getBoundingClientRect().height, width: buttons[0].getBoundingClientRect().width});
+        setTimeout(() => {
+            const buttons = window.document.getElementsByClassName('mover');
+            setButtonDims({height: buttons[0]?.getBoundingClientRect().height, width: buttons[0]?.getBoundingClientRect().width});
+        })
     }, []);
 
     useEffect(() => {
@@ -62,7 +64,9 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
         if( isDragging ){
             const {scrollLeft: afterScroll} = ref.current;
             handleDrag( {afterScroll} )
-            setIsDragging(false);
+            setTimeout(() => {
+                setIsDragging(false);
+            }, 5000);
         }
     };
 
@@ -152,18 +156,28 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     const handleEnter = props => {
         setScrolling(false);
     }
+    const handleTouchStart = props => {
+        setScrolling(false);
+    }
+    const handleTouchEnd = props => {
+        setTimeout(() => {
+            setScrolling(true);
+        }, 5000);
+    }
 
     return (
         <>
             <div className={`overflow-hidden flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
                 <div
                     ref={ref}
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
                     onMouseEnter={handleEnter}
                     onMouseDown={startDragging}
                     onMouseLeave={handleExit}
                     onMouseUp={stopDragging}
                     onMouseMove={onDrag}
-                    className={`rounded-lg cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
+                    className={`*:snap-always *:snap-center snap-x snap-mandatory rounded-lg cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
                 >
                     {children}
                 </div>
@@ -172,12 +186,12 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
             !isMobile &&
             <>
             <div className="absolute left-full bottom-1/2">
-                <Buttons.StandardButton style={{top: (buttonDims.height / 2), marginLeft: -(buttonDims.width/2)}} className={`mover bg-accent relative`} callback={advance}>
+                <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginLeft: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={advance}>
                     <TbSpeedboat className={`text-accent-content`} size={30} />
                 </Buttons.StandardButton>
             </div>
             <div className="absolute right-full bottom-1/2">
-                <Buttons.StandardButton style={{top: (buttonDims.height / 2), marginRight: -(buttonDims.width/2)}} className={`mover bg-accent relative`} callback={rewind}>
+                <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginRight: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={rewind}>
                     <TbSpeedboat className={`text-accent-content transform -scale-x-100`} size={30} />
                 </Buttons.StandardButton>
             </div>
