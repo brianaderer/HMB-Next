@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as Buttons from '.././../components/Button';
+import { TbSpeedboat } from "react-icons/tb";
 
 const Carousel = ({ children, className, fullWidth = false, scrollInterval = 4000 }) => {
     const [isDragging, setIsDragging] = useState(false);
@@ -7,16 +8,15 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     const [scrollLeft, setScrollLeft] = useState(0);
     const [childrenWidths, setChildrenWidths] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
-    const [atRightEdge, setAtRightEdge] = useState(false);
-    const [atLeftEdge, setAtLeftEdge] = useState(false);
     const [needsUpdate, setNeedsUpdate] = useState(false);
     const [scrolling, setScrolling] = useState(true)
+    const [buttonDims, setButtonDims] = useState(0);
     const ref = useRef();
 
     useEffect(() => {
             const interval = setInterval(() => {
                 // Check if dragging is in progress. If not, advance the carousel
-                if (!isDragging && scrolling && !needsUpdate) {
+                if (!isDragging && scrolling) {
                     advance();
                 }
             }, scrollInterval); // milliseconds
@@ -25,28 +25,20 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
             return () => {
                 clearInterval(interval);
             };
-    }, [scrollInterval, needsUpdate, childrenWidths.length, atRightEdge, scrolling]);
+    }, [scrollInterval, needsUpdate, childrenWidths, scrolling, scrollPosition]);
+    const checkEdges = () => {
+        const { scrollLeft, scrollWidth, clientWidth} = ref.current;
+        // Check if the user has scrolled to (or very near) the right edge of the carousel
+        const rightEdge = scrollWidth - clientWidth;
+        const atRightEdge = (scrollLeft >= rightEdge - 1); // A small threshold to account for rounding errors
+        const atLeftEdge = ( scrollLeft <= 1 );
+        return {atRightEdge, atLeftEdge};
+    };
 
     useEffect(() => {
-        const checkIfAtRightEdge = () => {
-            const { scrollLeft, scrollWidth, clientWidth } = ref.current;
-            // Check if the user has scrolled to (or very near) the right edge of the carousel
-            const rightEdge = scrollWidth - clientWidth;
-            setAtRightEdge(scrollLeft >= rightEdge - 1); // A small threshold to account for rounding errors
-            setAtLeftEdge( scrollLeft <= 1 );
-        };
-
-        const carousel = ref.current;
-        if (carousel) {
-            carousel.addEventListener('scroll', checkIfAtRightEdge);
-        }
-
-        return () => {
-            if (carousel) {
-                carousel.removeEventListener('scroll', checkIfAtRightEdge);
-            }
-        };
-    }, [scrollPosition]); // Empty dependency array ensures this effect runs only once on mount
+        const buttons = window.document.getElementsByClassName('mover');
+        setButtonDims({height: buttons[0].getBoundingClientRect().height, width: buttons[0].getBoundingClientRect().width});
+    }, []);
 
     useEffect(() => {
         if (ref.current) {
@@ -74,12 +66,9 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
         const {afterScroll} = props;
         const scrollDirection = afterScroll < scrollLeft ? 'rewind' : 'advance';
         const {newScrollPosition, newTargetScroll} = checkPositionAndIncrement({scrollDirection, afterScroll});
+        scroll({target: newTargetScroll});
         setScrollPosition (newScrollPosition);
     }
-
-    useEffect(() => {
-        scroll({target: childrenWidths[scrollPosition]})
-    }, [scrollPosition]);
     const checkPositionAndIncrement = props => {
         const {scrollDirection, afterScroll} = props;
         let newScrollPosition = scrollPosition;
@@ -108,6 +97,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                 conditionMet = true; // Stop the loop if out of bounds
             }
         }
+        newTargetScroll = childrenWidths[newScrollPosition];
         return {newScrollPosition, newTargetScroll};
     }
 
@@ -124,27 +114,29 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
         ref.current.scrollTo({ left: target, behavior: 'smooth' });
     }
     const advance = (event) => {
-            event?.stopPropagation();
+        event?.stopPropagation();
+            const {atRightEdge} = checkEdges();
             setIsDragging(false);
-            const newPosition = (scrollPosition + 1 < childrenWidths.length) && !atRightEdge ? scrollPosition + 1 : 0;
+            const newPosition = (scrollPosition + 1 < childrenWidths.length) && !atRightEdge ? (scrollPosition + 1) : 0;
             const targetScrollLeft = childrenWidths[newPosition] - ref.current.offsetLeft; // Adjust if needed
             setScrollPosition(newPosition);
+            scroll({target: targetScrollLeft});
     }
     const rewind = (event) => {
             event?.stopPropagation();
+            const {atLeftEdge} = checkEdges();
             const { scrollLeft: beforeScroll } = ref.current;
-            const newPosition = (scrollPosition - 1 >= 0) ? scrollPosition - 1 : childrenWidths.length - 1;
-
+            const newPosition = (scrollPosition - 1 >= 0) && !atLeftEdge ? scrollPosition - 1 : childrenWidths.length - 1;
             const targetScrollLeft = childrenWidths[newPosition] - ref.current.offsetLeft; // Adjust if needed
-            setScrollPosition(newPosition);
+            scroll({target: targetScrollLeft});
             setTimeout(() => {
                 const { scrollLeft: afterScroll } = ref.current;
                 setNeedsUpdate( beforeScroll === afterScroll );
-            }, 75);
+                setScrollPosition(newPosition);
+            }, 50);
     }
 
     useEffect(() => {
-        console.log(needsUpdate)
         if( needsUpdate ){
             rewind();
         }
@@ -173,10 +165,14 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                 </div>
             </div>
             <div className="absolute left-full bottom-1/2">
-                <Buttons.StandardButton className={``} callback={advance}>Advance</Buttons.StandardButton>
+                <Buttons.StandardButton style={{top: (buttonDims.height / 2), marginLeft: -(buttonDims.width/2)}} className={`mover bg-accent relative`} callback={advance}>
+                    <TbSpeedboat className={`text-accent-content`} size={30} />
+                </Buttons.StandardButton>
             </div>
             <div className="absolute right-full bottom-1/2">
-                <Buttons.StandardButton className={``} callback={rewind}>Rewind</Buttons.StandardButton>
+                <Buttons.StandardButton style={{top: (buttonDims.height / 2), marginRight: -(buttonDims.width/2)}} className={`mover bg-accent relative`} callback={rewind}>
+                    <TbSpeedboat className={`text-accent-content transform -scale-x-100`} size={30} />
+                </Buttons.StandardButton>
             </div>
         </>
     );

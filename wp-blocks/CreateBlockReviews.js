@@ -19,7 +19,7 @@ export default function CreateBlockReviews(props) {
     return (
         <>
             <div className="w-full rounded-box p-2 lg:p-6 drop-shadow-lg">
-            <Carousel fullWidth={'noCrop'} scrollInterval={14000} className={``}>
+            <Carousel fullWidth={'noCrop'} scrollInterval={7000} className={``}>
             {
                 reviews.map((review) => {
                     return (
