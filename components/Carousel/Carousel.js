@@ -16,8 +16,6 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
 
     const {screen} = useContext(ScreenContext);
 
-    console.log(screen);
-
     useEffect(() => {
             const interval = setInterval(() => {
                 // Check if dragging is in progress. If not, advance the carousel
