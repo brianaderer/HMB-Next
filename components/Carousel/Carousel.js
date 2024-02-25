@@ -14,7 +14,8 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     const [buttonDims, setButtonDims] = useState(0);
     const ref = useRef();
 
-    const {screen} = useContext(ScreenContext);
+    const {screen} = useContext(ScreenContext) || {};
+    const isMobile = !screen.breakpoints?.includes('lg');
 
     useEffect(() => {
             const interval = setInterval(() => {
@@ -167,6 +168,9 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                     {children}
                 </div>
             </div>
+            {
+            !isMobile &&
+            <>
             <div className="absolute left-full bottom-1/2">
                 <Buttons.StandardButton style={{top: (buttonDims.height / 2), marginLeft: -(buttonDims.width/2)}} className={`mover bg-accent relative`} callback={advance}>
                     <TbSpeedboat className={`text-accent-content`} size={30} />
@@ -177,6 +181,8 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                     <TbSpeedboat className={`text-accent-content transform -scale-x-100`} size={30} />
                 </Buttons.StandardButton>
             </div>
+            </>
+            }
         </>
     );
 };
