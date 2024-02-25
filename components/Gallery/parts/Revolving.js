@@ -1,6 +1,5 @@
 import React from "react";
-import {Text} from '../../../components';
-import {Carousel} from "flowbite-react";
+import {Text, Carousel} from '../../../components';
 
 const Revolving = props => {
     const {tagline, galleryParagraph, imageGallery} = props;
@@ -9,13 +8,13 @@ const Revolving = props => {
             {tagline && <Text tag={'h1'} className={`text-center text-3xl mb-8`}>{tagline}</Text>}
             {galleryParagraph && <Text tag={'p'} className={`text-center text-xl`}>{galleryParagraph}</Text>}
             <div className="relative w-full my-8 ">
-                <div className={`flex h-48 md:h-64 lg:h-96 flex-row gap-4 xl:w-[125%] mx-auto xl:translate-x-[-50%] xl:ml-[50%] drop-shadow-lg border-2 border-secondary/20 rounded-xl`}>
+                <div className={`flex flex-row gap-4 xl:w-[125%] mx-auto xl:translate-x-[-50%] xl:ml-[50%] drop-shadow-lg border-2 border-secondary/20 rounded-xl`}>
                     <Carousel>
                         {
                             Object.keys(imageGallery).map( index => {
                                 const image = imageGallery[index];
                                 return(
-                                    <img key={index} className={`w-full h-full object-cover`} src={image.url} alt={image.alt}/>
+                                    <img key={index} className={``} src={image.url} alt={image.alt}/>
                                 )
                             } )
                         }

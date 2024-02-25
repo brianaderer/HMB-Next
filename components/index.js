@@ -2,6 +2,7 @@ export * as Avatar from './Avatar';
 export * as Button from './Button';
 export { Brand } from './Brand';
 export { Card } from './Card';
+export { Carousel } from './Carousel';
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
 export { EntryHeader } from './EntryHeader';

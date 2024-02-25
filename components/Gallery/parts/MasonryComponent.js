@@ -15,7 +15,6 @@ const MasonryComponent = props => {
     const [loaded, setLoaded] = useState([]);
     const onLoad = props => {
         const {id} = props;
-        console.log(id)
         setTimeout(() => {
             setLoaded( prevLoaded => [...prevLoaded, id] )
         }, 100 )
@@ -24,8 +23,6 @@ const MasonryComponent = props => {
         small: {350: 2, 750: 3, 900: 4},
         default: {350: 1, 750: 2, 900: 3},
     }
-    console.log(loaded)
-    console.log(posts)
     return (
         <div className={`mb-2`}>
             <ResponsiveMasonry

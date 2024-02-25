@@ -6,13 +6,9 @@ const ImageCard = props => {
     // Effect to set the image source after the component mounts
     const [src, setSrc] = useState(null); // Start with no source
     useEffect(() => {
-        // This setTimeout is optional but it simulates a delay in loading the image.
-        // It can help in ensuring onLoad works as expected during development.
-        // Remove it in production or if you don't need to simulate a delay.
         const timer = setTimeout(() => {
             setSrc(initialSrc); // Set the actual image source
         }, 10); // Adjust or remove delay as needed
-
         return () => clearTimeout(timer); // Cleanup the timeout if the component unmounts before setting the src
     }, [initialSrc]);
     return (
