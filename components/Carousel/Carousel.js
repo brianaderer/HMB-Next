@@ -43,7 +43,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
         setTimeout(() => {
             const buttons = window.document.getElementsByClassName('mover');
             setButtonDims({height: buttons[0]?.getBoundingClientRect().height, width: buttons[0]?.getBoundingClientRect().width});
-        })
+        }, 1000)
     }, []);
 
     useEffect(() => {
