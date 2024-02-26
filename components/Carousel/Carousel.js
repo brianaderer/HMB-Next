@@ -108,6 +108,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     }
 
     const onDrag = (e) => {
+        e.preventDefault();
         if (!isDragging) return;
         const x = e.pageX - ref.current.offsetLeft;
         const walk = (x - startX) * 2; // The number 2 will determine the sensitivity of the dragging
