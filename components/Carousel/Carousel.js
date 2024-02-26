@@ -64,9 +64,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
         if( isDragging ){
             const {scrollLeft: afterScroll} = ref.current;
             handleDrag( {afterScroll} )
-            setTimeout(() => {
-                setIsDragging(false);
-            }, 5000);
+            setIsDragging(false);
         }
     };
 
@@ -111,7 +109,6 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
 
     const onDrag = (e) => {
         if (!isDragging) return;
-        e.preventDefault();
         const x = e.pageX - ref.current.offsetLeft;
         const walk = (x - startX) * 2; // The number 2 will determine the sensitivity of the dragging
         ref.current.scrollLeft = scrollLeft - walk;
@@ -162,7 +159,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
     const handleTouchEnd = props => {
         setTimeout(() => {
             setScrolling(true);
-        }, 5000);
+        }, 3000);
     }
 
     return (
