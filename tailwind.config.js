@@ -58,8 +58,24 @@ module.exports = {
       require("daisyui")
   ],
   daisyui: {
-    themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
-    darkTheme: "dark", // name of one of the included themes for dark mode
+    themes: [{
+      hmbDark : {
+        'base-100': '#121b2d',
+        'base-300': '#080c10',
+        'base-200': '#0a101e',
+        'base-content': '#D1F1FF',
+        'primary': '#19257D',
+        'primary-content': '#FFFAE4',
+        'accent': '#79FFDB',
+        'accent-content': '#4E4C44',
+        'neutral': '#353746',
+        'neutral-content': '#EDF4FF',
+        'secondary': '#EDED2F',
+        'secondary-content': '#404246',
+      }
+    }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    darkTheme: "hmbDark", // name of one of the included themes for dark mode
+    lightTheme: "light",
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes
