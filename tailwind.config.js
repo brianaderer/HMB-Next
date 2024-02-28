@@ -60,15 +60,15 @@ module.exports = {
   daisyui: {
     themes: [{
       hmbLight : {
-        'base-100': '#f7faff',
-        'base-300': '#015ea9',
-        'base-200': '#e1f1ff',
+        'base-100': '#f7fdff',
+        'base-300': '#0060a6',
+        'base-200': '#f3fffb',
         'base-content': '#0a101e',
         'primary': '#19257D',
         'primary-content': '#FFFAE4',
-        'accent': '#24c2a3',
+        'accent': '#8ceed0',
         'accent-content': '#4E4C44',
-        'neutral': '#d4e3fa',
+        'neutral': '#f2f8ff',
         'neutral-content': '#182025',
         'secondary': '#c548f8',
         'secondary-content': '#FFC745',
