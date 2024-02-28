@@ -67,10 +67,10 @@ module.exports = {
         'primary': '#19257D',
         'primary-content': '#FFFAE4',
         'accent': '#8ceed0',
-        'accent-content': '#4E4C44',
+        'accent-content': '#6d01a2',
         'neutral': '#f2f8ff',
         'neutral-content': '#182025',
-        'secondary': '#c548f8',
+        'secondary': '#6d01a2',
         'secondary-content': '#FFC745',
       },
       hmbDark : {
