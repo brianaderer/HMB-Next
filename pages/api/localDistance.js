@@ -4,10 +4,9 @@ import path from "path";
 
 export default async function handler(req, res) {
     const { id } = req.body || {};
-
-    try {
-        const client = new Client({});
-        return {};
+    return{};
+    // try {
+    //     const client = new Client({});
     //     const filePath = path.join(process.cwd(), 'data', 'locations.json');
     //
     //     // Read and parse the locations file
