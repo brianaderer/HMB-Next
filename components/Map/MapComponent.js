@@ -74,14 +74,14 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         };
 
         // Call the async function
-        fetchLocalDistance().then((data) => {
-            const locationKeys = Object.keys(locationData);
-            const fsDistances = data?.data;
-            const fsKeys = Object.keys(fsDistances);
-            const intersection = locationKeys.filter(x => !fsKeys.includes(x));
-            setDistances( fsDistances );
-            setIntersections( intersection );
-        });
+        // fetchLocalDistance().then((data) => {
+        //     const locationKeys = Object.keys(locationData);
+        //     const fsDistances = data?.data;
+        //     const fsKeys = Object.keys(fsDistances);
+        //     const intersection = locationKeys.filter(x => !fsKeys.includes(x));
+        //     setDistances( fsDistances );
+        //     setIntersections( intersection );
+        // });
 
         // Cleanup function
         return () => {

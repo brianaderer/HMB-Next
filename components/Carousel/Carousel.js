@@ -175,7 +175,7 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                     onMouseLeave={handleExit}
                     onMouseUp={stopDragging}
                     onMouseMove={onDrag}
-                    className={`max-lg:*:snap-always max-lg:*:snap-center max-lg:snap-x max-lg:snap-mandatory rounded-lg cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
+                    className={`max-xl:*:snap-always max-xl:*:snap-center max-xl:snap-x max-xl:snap-mandatory rounded-lg cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
                 >
                     {children}
                 </div>

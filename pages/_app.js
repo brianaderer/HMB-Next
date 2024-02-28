@@ -16,12 +16,37 @@ export default function MyApp({ Component, pageProps }) {
     const [stickyExpanded, setStickyExpanded] = useState(true);
     const [offScreen, setOffScreen] = useState();
     const [stuck, setStuck] = useState(false);
+
+    useEffect(() => {
+        const originalMatchMedia = window.matchMedia;
+        window.matchMedia = (query) => {
+            if (query === '(prefers-color-scheme: light)') {
+                return {
+                    matches: true,
+                    media: query,
+                    onchange: null,
+                    addListener: () => {}, // Deprecated
+                    removeListener: () => {}, // Deprecated
+                    addEventListener: () => {},
+                    removeEventListener: () => {},
+                    dispatchEvent: () => {},
+                };
+            }
+            return originalMatchMedia(query);
+        };
+
+        return () => {
+            window.matchMedia = originalMatchMedia;
+        };
+    }, []);
+
     useMediaQuery({setScreen});
+
     useEffect(() => {
         const bodyChildDiv = document.body.querySelector('body > div#__next');
         // Add class to body
         document.documentElement.classList.add('scroll-smooth');
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.setAttribute('data-theme', 'hmbLight');
         document.body.classList.add('min-h-screen','bg-base-200');
         const divClasses = 'min-h-screen relative';
         const classList = divClasses.split(' '); // Splitting the string into an array of classes
