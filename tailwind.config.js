@@ -66,16 +66,30 @@ module.exports = {
         'base-content': '#D1F1FF',
         'primary': '#19257D',
         'primary-content': '#FFFAE4',
-        'accent': '#79FFDB',
+        'accent': '#8cead5',
         'accent-content': '#4E4C44',
         'neutral': '#353746',
         'neutral-content': '#EDF4FF',
-        'secondary': '#EDED2F',
-        'secondary-content': '#404246',
+        'secondary': '#c548f8',
+        'secondary-content': '#FFC745',
+      },
+      hmbLight : {
+        'base-100': '#f7faff',
+        'base-300': '#015ea9',
+        'base-200': '#e1f1ff',
+        'base-content': '#0a101e',
+        'primary': '#19257D',
+        'primary-content': '#FFFAE4',
+        'accent': '#24c2a3',
+        'accent-content': '#4E4C44',
+        'neutral': '#d4e3fa',
+        'neutral-content': '#182025',
+        'secondary': '#c548f8',
+        'secondary-content': '#FFC745',
       }
     }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "hmbDark", // name of one of the included themes for dark mode
-    lightTheme: "light",
+    lightTheme: "hmbLight",
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes
