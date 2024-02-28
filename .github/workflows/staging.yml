@@ -43,7 +43,6 @@ jobs:
           key: ${{ secrets.SFTP_KEY }} # Your server's SSH private key
           script: |
             cd ./files # Specify the path to your app directory on the server
-            git clean -fdx
             git reset --hard origin/staging
             git pull origin staging
             rm -rf node_modules package-lock.json
