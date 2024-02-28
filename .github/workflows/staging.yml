@@ -49,4 +49,4 @@ jobs:
             npm install
             npm run build
             pm2 restart all
-            sudo nginx -S reload
+            rm -rf /var/cache/nginx/*
