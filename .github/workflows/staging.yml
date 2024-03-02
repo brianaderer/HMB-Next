@@ -38,7 +38,7 @@ jobs:
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
         with:
-          host: 18.226.214.105 # Your server's IP address
+          host: 3.135.187.102 # Your server's IP address
           username: staging # Your server's username
           key: ${{ secrets.SFTP_KEY }} # Your server's SSH private key
           script: |
