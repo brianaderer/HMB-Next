@@ -43,11 +43,9 @@ jobs:
           key: ${{ secrets.SFTP_KEY }} # Your server's SSH private key
           script: |
             cd ./files # Specify the path to your app directory on the server
-            git reset --hard origin/staging
-            git pull origin staging
-            rm -rf node_modules package-lock.json
-            npm install
-            npm run build
+            rsync -avz --delete ./.next staging@18.188.94.119:/files/.next/
+            rsync -avz --delete ./node_modules staging@18.188.94.119:/files/node_modules/
+            rsync -avz --delete ./public staging@18.188.94.119:/files/public/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
