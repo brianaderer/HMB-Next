@@ -50,9 +50,8 @@ jobs:
           key: ${{ secrets.STAGING_SSH }} # Your server's SSH private key
           script: |
             ls -lah
-            rsync -avz --delete ./.next staging@18.188.94.119:/sites/staging.hmbmarina.com/.next/
-            rsync -avz --delete ./node_modules staging@18.188.94.119:/sites/staging.hmbmarina.com/node_modules/
-            rsync -avz --delete ./public staging@18.188.94.119:/sites/staging.hmbmarina.com/public/
+            rsync -avz --delete ./.next staging@18.188.94.119:/sites/staging.hmbmarina.com/files/.next/
+            rsync -avz --delete ./node_modules staging@18.188.94.119:/sites/staging.hmbmarina.com/files/node_modules/
+            rsync -avz --delete ./public staging@18.188.94.119:/sites/staging.hmbmarina.com/files/public/
             pm2 restart all
             rm -rf /var/cache/nginx/*
-            rm -rf ~/cache/staging.hmbmarina.com
