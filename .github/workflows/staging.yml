@@ -36,6 +36,7 @@ jobs:
 
       - name: Add SSH Key to Known Hosts
         run: |
+          mkdir -p $HOME/.ssh
           echo "$SERVER_HOST_KEY" >> $HOME/.ssh/known_hosts
         env:
           SERVER_HOST_KEY: ${{ secrets.SERVER_HOST_KEY }}
