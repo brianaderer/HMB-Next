@@ -34,6 +34,12 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
+      - name: Add SSH Key to Known Hosts
+        run: |
+          echo "$SERVER_HOST_KEY" >> $HOME/.ssh/known_hosts
+        env:
+          SERVER_HOST_KEY: ${{ secrets.SERVER_HOST_KEY }}
+
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
@@ -43,7 +49,6 @@ jobs:
           key: ${{ secrets.SFTP_KEY }} # Your server's SSH private key
           script: |
             cd ./files # Specify the path to your app directory on the server
-            export RSYNC_RSH="ssh -o StrictHostKeyChecking=no"
             rsync -avz --delete ./.next staging@18.188.94.119:/files/.next/
             rsync -avz --delete ./node_modules staging@18.188.94.119:/files/node_modules/
             rsync -avz --delete ./public staging@18.188.94.119:/files/public/
