@@ -11,7 +11,7 @@ const Top = props => {
     let profile = {};
 
     return (
-        <div className={`flex flex-row`}>
+        <div className={`flex flex-row items-center`}>
         <ul className="menu menu-horizontal px-1">
             {
                 hierarchicalMenuItems.map(item => {
@@ -26,7 +26,7 @@ const Top = props => {
                     }
                     if( !children.length ){
                         return (
-                            <li key={id}><a className={`text-neutral-content`} href={path}>{label}</a></li>
+                            <li key={id}><a className={``} href={path}>{label}</a></li>
                         );
                     } else {
                         return (
@@ -40,7 +40,7 @@ const Top = props => {
                                             }
                                             const { id, path, label } = child;
                                             return (
-                                                <li key={id}><a className={`text-neutral-content`} href={path}>{label}</a></li>
+                                                <li key={id}><a className={``} href={path}>{label}</a></li>
                                             )
                                         })}
                                     </ul>
