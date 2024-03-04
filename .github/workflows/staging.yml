@@ -41,7 +41,7 @@ jobs:
           ls -lah ./public
 
       - name: Adjust permissions for build directory
-        run: chown staging:staging /home/runner/work/HMB-Next/HMB-Next/build/
+        run: chmod -R u+rx /home/runner/work/HMB-Next/HMB-Next/
 
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
