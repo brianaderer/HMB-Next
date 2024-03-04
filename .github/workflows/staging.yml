@@ -39,6 +39,9 @@ jobs:
           pwd
           ls -lah ./build
           ls -lah ./public
+          
+      - name: Adjust permissions for build directory
+        run: chmod -R u+rx /home/runner/work/HMB-Next/HMB-Next/build/
 
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
