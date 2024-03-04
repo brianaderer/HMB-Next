@@ -42,9 +42,9 @@ jobs:
         run: |
           mkdir -p /tmp/deploy-temp/build
           mkdir -p /tmp/deploy-temp/public
-          chmod -R 777 /tmp/deploy-temp
           cp -a /home/runner/work/HMB-Next/HMB-Next/build/ /tmp/deploy-temp/
           cp -a /home/runner/work/HMB-Next/HMB-Next/public/ /tmp/deploy-temp/
+          chmod -R 777 /tmp/deploy-temp
 
       - name: Verify temporary directory contents and permissions
         run: |
