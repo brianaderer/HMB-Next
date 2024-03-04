@@ -50,7 +50,7 @@ jobs:
           script: |
             pwd
             ls -lah
-            rsync -avz --delete $(pwd)/files/build/ staging@18.188.94.119:~/files/build/
+            rsync -avz --delete ./build/ staging@18.188.94.119:~/files/build/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
