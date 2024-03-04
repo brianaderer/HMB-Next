@@ -42,8 +42,15 @@ jobs:
         run: |
           mkdir -p /tmp/deploy-temp
           mkdir -p /tmp/deploy-temp/build
-          cp -r ./build/* /tmp/deploy-temp/build/
-          cp -r ./public/* /tmp/deploy-temp/public/
+          mkdir -p /tmp/deploy-temp/public
+          cp -r /home/runner/work/HMB-Next/HMB-Next/build/* /tmp/deploy-temp/build/
+          cp -r /home/runner/work/HMB-Next/HMB-Next/public/* /tmp/deploy-temp/public/
+
+      - name: Verify temporary directory contents
+        run: |
+          ls -lah /tmp/deploy-temp/
+          ls -lah /tmp/deploy-temp/build/
+          ls -lah /tmp/deploy-temp/public/
 
       - name: SSH Deploy
         uses: appleboy/ssh-action@master
