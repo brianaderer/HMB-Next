@@ -38,19 +38,29 @@ jobs:
           ls -lah ./build
           ls -lah ./public
 
-      - name: Copy build to temporary directory
+      - name: Prepare deployment directory
         run: |
-          mkdir -p /tmp/deploy-temp
           mkdir -p /tmp/deploy-temp/build
           mkdir -p /tmp/deploy-temp/public
-          chmod -R 777 /tmp/deploy-temp 
-          cp -r /home/runner/work/HMB-Next/HMB-Next/build/* /tmp/deploy-temp/build/
-          cp -r /home/runner/work/HMB-Next/HMB-Next/public/* /tmp/deploy-temp/public/
+          chmod -R 777 /tmp/deploy-temp
+          cp -a /home/runner/work/HMB-Next/HMB-Next/build/ /tmp/deploy-temp/
+          cp -a /home/runner/work/HMB-Next/HMB-Next/public/ /tmp/deploy-temp/
 
-      - name: Verify temporary directory contents
+      - name: Verify temporary directory contents and permissions
         run: |
+          echo "Checking permissions for /tmp/deploy-temp/"
+          ls -ld /tmp/deploy-temp/
+          echo "Listing contents of /tmp/deploy-temp/"
           ls -lah /tmp/deploy-temp/
+          
+          echo "Checking permissions for /tmp/deploy-temp/build/"
+          ls -ld /tmp/deploy-temp/build/
+          echo "Listing contents of /tmp/deploy-temp/build/"
           ls -lah /tmp/deploy-temp/build/
+          
+          echo "Checking permissions for /tmp/deploy-temp/public/"
+          ls -ld /tmp/deploy-temp/public/
+          echo "Listing contents of /tmp/deploy-temp/public/"
           ls -lah /tmp/deploy-temp/public/
 
       - name: SSH Deploy
