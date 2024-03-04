@@ -36,7 +36,9 @@ jobs:
 
       - name: List build directory contents
         run: |
-          ls -lah ./
+          ls -lah ./build
+          ls -lah ./public
+          ls -lah ./.next
 
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
