@@ -23,55 +23,42 @@ jobs:
       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Next.js app
-        run: npm run build
-
-      - name: List build directory contents
+      - name: Install dependencies and Build Next.js app
         run: |
-          pwd
-          ls -lah ./build
-          ls -lah ./public
+          npm install
+          npm run build
 
-      - name: Prepare deployment directory
-        run: |
-          mkdir -p /tmp/deploy-temp/build
-          mkdir -p /tmp/deploy-temp/public
-          cp -a /home/runner/work/HMB-Next/HMB-Next/build/ /tmp/deploy-temp/
-          cp -a /home/runner/work/HMB-Next/HMB-Next/public/ /tmp/deploy-temp/
-          chmod -R 777 /tmp/deploy-temp
+      - name: Rsync Build Directory
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: build/
+          remote_path: ~/files/build/
+          remote_host: 18.188.94.119
+          remote_port: 22
+          remote_user: staging
+          remote_key: ${{ secrets.SFTP_KEY }}
 
-      - name: Verify temporary directory contents and permissions
-        run: |
-          echo "Checking permissions for /tmp/deploy-temp/"
-          ls -ld /tmp/deploy-temp/
-          echo "Listing contents of /tmp/deploy-temp/"
-          ls -lah /tmp/deploy-temp/
-          
-          echo "Checking permissions for /tmp/deploy-temp/build/"
-          ls -ld /tmp/deploy-temp/build/
-          echo "Listing contents of /tmp/deploy-temp/build/"
-          ls -lah /tmp/deploy-temp/build/
-          
-          echo "Checking permissions for /tmp/deploy-temp/public/"
-          ls -ld /tmp/deploy-temp/public/
-          echo "Listing contents of /tmp/deploy-temp/public/"
-          ls -lah /tmp/deploy-temp/public/
+      - name: Rsync Public Directory
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: public/
+          remote_path: ~/files/public/
+          remote_host: 18.188.94.119
+          remote_port: 22
+          remote_user: staging
+          remote_key: ${{ secrets.SFTP_KEY }}
 
-      - name: SSH Deploy
+      - name: Restart Application and Clear Cache
         uses: appleboy/ssh-action@master
         with:
-          host: 18.188.94.119 # Your server's IP address
-          username: staging # Your server's username
-          key: ${{ secrets.STAGING_SSH }} # Your server's SSH private key
+          host: 18.188.94.119
+          username: staging
+          key: ${{ secrets.SFTP_KEY }}
           script: |
-            rsync -avz --delete /tmp/deploy-temp/build/ staging@18.188.94.119:~/files/build/
-            rsync -avz --delete /tmp/deploy-temp/public/ staging@18.188.94.119:~/files/public/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
