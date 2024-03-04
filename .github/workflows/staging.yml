@@ -34,6 +34,13 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
+      - name: List build directory contents
+        run: |
+          ls -lah .next/
+          ls -lah build/
+          ls -lah node_modules/
+          ls -lah public/
+
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
@@ -43,10 +50,10 @@ jobs:
           key: ${{ secrets.STAGING_SSH }} # Your server's SSH private key
           script: |
             ls -lah
-            rsync -avz --delete .next/ staging@18.188.94.119:~/files/.next/
-            rsync -avz --delete build/ staging@18.188.94.119:~/files/build/
-            rsync -avz --delete node_modules/ staging@18.188.94.119:~/files/node_modules/
-            rsync -avz --delete public/ staging@18.188.94.119:~/files/public/
+            rsync -avz --delete ./.next/ staging@18.188.94.119:~/files/.next/
+            rsync -avz --delete ./build/ staging@18.188.94.119:~/files/build/
+            rsync -avz --delete ./node_modules/ staging@18.188.94.119:~/files/node_modules/
+            rsync -avz --delete ./public/ staging@18.188.94.119:~/files/public/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
