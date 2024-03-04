@@ -40,17 +40,17 @@ jobs:
 
       - name: Copy build to temporary directory
         run: |
-          mkdir -p /tmp/deploy-temp
-          mkdir -p /tmp/deploy-temp/build
-          mkdir -p /tmp/deploy-temp/public
-          cp -r /home/runner/work/HMB-Next/HMB-Next/build/* /tmp/deploy-temp/build/
-          cp -r /home/runner/work/HMB-Next/HMB-Next/public/* /tmp/deploy-temp/public/
+          mkdir -p ~/tmp/deploy-temp
+          mkdir -p ~/tmp/deploy-temp/build
+          mkdir -p ~/tmp/deploy-temp/public
+          cp -r /home/runner/work/HMB-Next/HMB-Next/build/* ~/tmp/deploy-temp/build/
+          cp -r /home/runner/work/HMB-Next/HMB-Next/public/* ~/tmp/deploy-temp/public/
 
       - name: Verify temporary directory contents
         run: |
-          ls -lah /tmp/deploy-temp/
-          ls -lah /tmp/deploy-temp/build/
-          ls -lah /tmp/deploy-temp/public/
+          ls -lah ~/tmp/deploy-temp/
+          ls -lah ~/tmp/deploy-temp/build/
+          ls -lah ~/tmp/deploy-temp/public/
 
       - name: SSH Deploy
         uses: appleboy/ssh-action@master
@@ -59,8 +59,8 @@ jobs:
           username: staging # Your server's username
           key: ${{ secrets.STAGING_SSH }} # Your server's SSH private key
           script: |
-            rsync -avz --delete /tmp/deploy-temp/build/ staging@18.188.94.119:~/files/build/
-            rsync -avz --delete /tmp/deploy-temp/public/ staging@18.188.94.119:~/files/public/
+            rsync -avz --delete ~/tmp/deploy-temp/build/ staging@18.188.94.119:~/files/build/
+            rsync -avz --delete ~/tmp/deploy-temp/public/ staging@18.188.94.119:~/files/public/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
