@@ -44,10 +44,10 @@ jobs:
           script: |
             cd ./files # Specify the path to your app directory on the server
             ls -lah
-            rsync -avz --delete ./.next/ staging@18.188.94.119:~/files/.next/
-            rsync -avz --delete ./build/ staging@18.188.94.119:~/files/build/
-            rsync -avz --delete ./node_modules/ staging@18.188.94.119:~/files/node_modules/
-            rsync -avz --delete ./public/ staging@18.188.94.119:~/files/public/
+            rsync -avz --delete ./.next staging@18.188.94.119:~/files/
+            rsync -avz --delete ./build staging@18.188.94.119:~/files/
+            rsync -avz --delete ./node_modules staging@18.188.94.119:~/files/
+            rsync -avz --delete ./public staging@18.188.94.119:~/files/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
