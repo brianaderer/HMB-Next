@@ -41,6 +41,7 @@ jobs:
       - name: Copy build to temporary directory
         run: |
           mkdir -p /tmp/deploy-temp
+          mkdir -p /tmp/deploy-temp/build
           cp -r ./build/* /tmp/deploy-temp/build/
           cp -r ./public/* /tmp/deploy-temp/public/
 
