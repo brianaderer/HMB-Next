@@ -30,6 +30,17 @@ jobs:
           npm install
           npm run build
 
+      - name: Rsync Node Directory
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: node_modules/
+          remote_path: ~/files/node_modules/
+          remote_host: 18.188.94.119
+          remote_port: 22
+          remote_user: staging
+          remote_key: ${{ secrets.STAGING_SSH }}
+
       - name: Rsync Build Directory
         uses: burnett01/rsync-deployments@6.0.0
         with:
