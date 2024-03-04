@@ -36,10 +36,7 @@ jobs:
 
       - name: List build directory contents
         run: |
-          ls -lah .next/
-          ls -lah build/
-          ls -lah node_modules/
-          ls -lah public/
+          ls -lah ./
 
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
