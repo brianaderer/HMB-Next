@@ -61,7 +61,7 @@ module.exports = {
     themes: [{
       hmbLight : {
         'base-100': '#f7fdff',
-        'base-300': '#78c1ff',
+        'base-300': '#4fb2ff',
         'base-200': '#f3fffb',
         'base-content': '#310046',
         'primary': '#19257D',
@@ -81,7 +81,7 @@ module.exports = {
         'primary': '#19257D',
         'primary-content': '#FFFAE4',
         'accent': '#8cead5',
-        'accent-content': '#7900b6',
+        'accent-content': '#6d01a2',
         'neutral': '#353746',
         'neutral-content': '#EDF4FF',
         'secondary': '#c548f8',
