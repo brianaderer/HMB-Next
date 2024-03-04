@@ -36,6 +36,7 @@ jobs:
 
       - name: List build directory contents
         run: |
+          pwd
           ls -lah ./build
           ls -lah ./public
 
