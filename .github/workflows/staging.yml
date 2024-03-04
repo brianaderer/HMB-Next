@@ -22,8 +22,6 @@ jobs:
       NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
 
-
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -40,20 +38,21 @@ jobs:
           ls -lah ./build
           ls -lah ./public
 
-      - name: Adjust permissions for build directory
-        run: chmod -R u+rx /home/runner/work/HMB-Next/HMB-Next/
+      - name: Copy build to temporary directory
+        run: |
+          mkdir -p /tmp/deploy-temp
+          cp -r ./build/* /tmp/deploy-temp/build/
+          cp -r ./public/* /tmp/deploy-temp/public/
 
       - name: SSH Deploy
-        # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
         with:
           host: 18.188.94.119 # Your server's IP address
           username: staging # Your server's username
           key: ${{ secrets.STAGING_SSH }} # Your server's SSH private key
           script: |
-            pwd
-            ls -lah
-            rsync -avz --delete /home/runner/work/HMB-Next/HMB-Next/build/ staging@18.188.94.119:~/files/build/
+            rsync -avz --delete /tmp/deploy-temp/build/ staging@18.188.94.119:~/files/build/
+            rsync -avz --delete /tmp/deploy-temp/public/ staging@18.188.94.119:~/files/public/
             pm2 restart all
             rm -rf /var/cache/nginx/*
             rm -rf /cache/staging.hmbmarina.com
