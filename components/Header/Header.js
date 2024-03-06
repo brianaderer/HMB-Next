@@ -69,9 +69,9 @@ export default function Header({
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen flex flex-col justify-between">
           <div id={`nav`} className="z-20 w-full flex flex-row items-center navbar sticky top-0 bg-base-300 border-b-4 border-b-accent">
-              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} ${ !stickyExpanded ? `collapsed` : ''} flex-col-reverse group stickyContainer overflow-hidden border-b-2 border-accent/40 m-0 shadow-xl transition-all fixed lg:rounded-bl-xl lg:border-l-2 rounded-none border-l-none w-full lg:w-fit top-[100%] max-lg:left-0 right-0 bg-base-100 flex justify-center`}>
-                  <div className={`p-2 bg-accent/10 w-full flex flex-row justify-center`}>
-                    <Button.StandardButton className={`${stickyExpanded ? `btn-wide` : ''} !btn-sm`} callback={toggleExpanded}>{stickyExpanded ? <FaCaretUp/> : <FaCaretDown/>}</Button.StandardButton>
+              <div id='stickies' style={topStyle} className={`${offScreen ? 'opacity-100 h-auto' : 'opacity-0 h-0'} ${ !stickyExpanded ? `collapsed left-full` : 'right-0 max-lg:left-0'} flex-col-reverse group stickyContainer border-b-2 border-accent/40 m-0 shadow-xl transition-all duration-1000 fixed lg:rounded-bl-xl lg:border-l-2 rounded-none border-l-none w-full lg:w-fit top-[100%]  bg-base-100 flex justify-center`}>
+                  <div className={`p-2 bg-accent/10 w-full flex flex-row justify-center relative`}>
+                    <Button.VTab className={`${stickyExpanded ? `` : ''} absolute right-full z-50 bottom-1/2`} callback={toggleExpanded} expanded={stickyExpanded}></Button.VTab>
                   </div>
               </div>
             <div className="flex-none xl:hidden">
