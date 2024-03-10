@@ -359,13 +359,17 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
         const location = locationData[activeMarker.index]?.location;
         if (activeMarker.index && location) {
-            scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + 80 } );
+            scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + 80 } ).then(() => {
+                setStickyExpanded(false);
+            });
             // After scrolling, then set the focus
             setFocusToElement(`${activeMarker.index}`);
 
         } else if(lastActiveMarker.id && !clickedOnMapRef.current) {
             setTimeout(() => {
-                scrollIntoViewWithOffset({id:`${lastActiveMarker.index}`, offset: headerHeight + 80})
+                scrollIntoViewWithOffset({id:`${lastActiveMarker.index}`, offset: headerHeight + 80}).then(() => {
+                    setStickyExpanded(false);
+                });
                 // After scrolling, then set the focus
                 setFocusToElement(`${lastActiveMarker.index}`);
                 setLastActiveMarker({});
@@ -470,9 +474,11 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         }
     }, [activeCategories, locations, map]); // Ensure to include all dependencies
 
-    const jumpToMap = props => {
+    const jumpToMap = async props => {
         const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
-        scrollIntoViewWithOffset({id: 'map', offset: headerHeight + 80});
+        scrollIntoViewWithOffset({id: 'map', offset: headerHeight + 80}).then(() => {
+            setStickyExpanded(false);
+        });
         if( stuck ){
             setStickyExpanded(false);
         }
