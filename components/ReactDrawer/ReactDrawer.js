@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button } from '../../components';
 
 // import component 👇
@@ -9,7 +9,8 @@ import 'react-modern-drawer/dist/index.css'
 
 const ReactDrawer = props => {
     const { expanded, buttonStyle ,children, top = false, offScreen = false, setStickyExpanded } = props;
-    const [isOpen, setIsOpen] = React.useState(false)
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [firstOpen, setFirstOpen] = useState(true);
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState)
     }
@@ -21,6 +22,10 @@ const ReactDrawer = props => {
     useEffect(() => {
         if( !offScreen ){
             setIsOpen( false );
+        }
+        if( offScreen && firstOpen ){
+            setIsOpen(true);
+            setFirstOpen(false);
         }
     }, [offScreen]);
 

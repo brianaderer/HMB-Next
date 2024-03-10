@@ -15,7 +15,7 @@
         @apply text-2xl xl:text-3xl;
     }
     a {
-        @apply text-base-content hover:text-accent-content hover:decoration-2 transition-all;
+        @apply text-accent-content hover:text-secondary hover:decoration-2 transition-all;
     }
 
 }

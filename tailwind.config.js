@@ -85,7 +85,7 @@ module.exports = {
         'neutral': '#353746',
         'neutral-content': '#EDF4FF',
         'secondary': '#c548f8',
-        'secondary-content': '#FFC745',
+        'secondary-content': '#270036',
       },
     }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "hmbDark", // name of one of the included themes for dark mode

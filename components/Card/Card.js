@@ -35,8 +35,8 @@ const Card = props => {
                     {expanded &&
                         <div className="flex flex-col">
                             <div className="flex flex-col">
-                                {data.telephone && <a className={`text-accent`} href={`tel:${data.telephone}`}>{data.telephone}</a>}
-                                {data.website && <a className={`text-accent`} href={`${data.website}`}>{data.website}</a>}
+                                {data.telephone && <a className={``} href={`tel:${data.telephone}`}>{data.telephone}</a>}
+                                {data.website && <a className={``} href={`${data.website}`}>{data.website}</a>}
                             </div>
                             <p className={`text-neutral-content lg:mt-4`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
                         </div>}
