@@ -45,7 +45,7 @@ const ReactDrawer = props => {
                 className='!bg-transparent'
             >
                 {children}
-                <Button.VTab expanded={isOpen} style={ buttonStyle } className={`py-0 border-r-0 absolute right-full top-0 ${offScreen ? `!visible` : `!hidden` }`} callback={toggleDrawer}></Button.VTab>
+                <Button.VTab expanded={isOpen} style={ buttonStyle } className={`py-0 absolute right-full top-0 ${offScreen ? `!visible` : `!hidden` }`} callback={toggleDrawer}></Button.VTab>
             </Drawer>
         </div>
     )

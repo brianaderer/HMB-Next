@@ -84,7 +84,7 @@ module.exports = {
         'accent': '#270036',
         'neutral': '#353746',
         'neutral-content': '#EDF4FF',
-        'secondary': '#c548f8',
+        'secondary': '#cc66ff',
         'secondary-content': '#270036',
       },
     }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
