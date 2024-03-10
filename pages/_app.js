@@ -16,6 +16,7 @@ export default function MyApp({ Component, pageProps }) {
     const [stickyExpanded, setStickyExpanded] = useState(true);
     const [offScreen, setOffScreen] = useState();
     const [stuck, setStuck] = useState(false);
+    const [stickyHeight, setStickyHeight] = useState(0);
 
     useEffect(() => {
         const originalMatchMedia = window.matchMedia;
@@ -75,12 +76,11 @@ export default function MyApp({ Component, pageProps }) {
     const promptSignIn = () => {
         document.getElementById('signIn').showModal();
     }
-
   const router = useRouter();
   return (
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut, dbUser, setDbUser, checkUser, updateUserDb}}>
-                  <ScreenContext.Provider value={{stuck, setStuck, screen, offScreen, setOffScreen, stickyExpanded, setStickyExpanded}}>
+                  <ScreenContext.Provider value={{stuck, setStuck, screen, offScreen, setOffScreen, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight}}>
                       <WordPressBlocksProvider
                           config={{
                               blocks,

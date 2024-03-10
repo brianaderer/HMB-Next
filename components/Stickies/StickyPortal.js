@@ -7,7 +7,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     const [container, setContainer] = useState(null);
     const [top, setTop] = useState(null);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
-    const { screen, offScreen, setOffScreen, stuck, stickyExpanded, setStickyExpanded } = useContext(ScreenContext);
+    const { screen, offScreen, setOffScreen, stuck, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight } = useContext(ScreenContext);
     const [originalHeight, setOriginalHeight] = useState(0);
     const childrenRef = useRef();  // Reference to the children
     const originalRef = useRef(0);
@@ -44,7 +44,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     useEffect(() => {
         if( top !== null && !stuckOnInit ) {
             const navHeight = screen.navHeight;
-            const offscreen = -(top) > ((navHeight - (originalHeight)) + ( originalHeight * 1.5 ));
+            const offscreen = -(top) > ((navHeight - (originalHeight)) + ( originalHeight ));
             setOffScreen(offscreen);
             setPlaceholderHeight(offscreen ? originalHeight : 0);
         }
@@ -62,6 +62,12 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
             // elem.style.marginBottom= `${-placeholderHeight}px`;
         }
     }, [placeholderHeight, targetId]);
+    useEffect(() => {
+       if(offScreen && stickyExpanded){
+           const height = document.getElementById('stickies').getBoundingClientRect().height;
+           setStickyHeight(height);
+       }
+    }, [offScreen, stickyExpanded]);
 
     useEffect(() => {
         if( stuckOnInit ){

@@ -483,9 +483,9 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             {categories.length > 0 &&
                 <>
                     <StickyPortal targetId={`mapSticky`}>
-                        <form className={`stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-lg mb-4 group-[.stickyContainer]:mb-0`}>
-                            <p className={`p-2 text-center text-neutral-content`}>Click a category to Jump. Check the Box to show its contents.</p>
-                            <fieldset className={`w-full flex flex-col group-[.stickyContainer]:flex-col group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap`}>
+                        <form className={`stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-lg mb-4 group-[.stickyContainer]:mb-0 group-[.stickyContainer]:rounded-none`}>
+                            <p className={`p-2 text-center text-neutral-content group-[.stickyContainer]:text-sm group-[.stickyContainer]:mr-6`}>Click a category to Jump. Check the Box to show its contents.</p>
+                            <fieldset className={`w-full flex flex-col group-[.stickyContainer]:flex-col group-[.stickyContainer]:mb-2 group-[.stickyContainer]:gap-2 mb-2 group-[.stickyContainer]:justify-center flex-wrap group-[.stickyContainer]:pr-6`}>
                                 {categories.map((cat, index) => {
                                     return (
                                         <Category isChecked={activeCategories.includes(index)} key={index} handler={handler}
