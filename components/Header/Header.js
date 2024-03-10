@@ -74,7 +74,7 @@ export default function Header({
         <div className="drawer-content min-h-screen flex flex-col justify-between">
           <div id={`nav`} className="z-20 w-full flex flex-row items-center navbar sticky top-0 bg-base-300 border-b-4 border-b-accent">
               <ReactDrawer buttonStyle={buttonStyle} top={topStyle} offScreen={offScreen} setStickyExpanded={setStickyExpanded} expanded={stickyExpanded}>
-                  <div id='stickies' style={topStyle} className={`border-b border-b-secondary absolute group stickyContainer w-full`}>
+                  <div id='stickies' style={topStyle} className={`border-b border-b-secondary absolute group stickyContainer w-full border-t-2 border-t-transparent`}>
                       <div className={`relative`}>
                       </div>
                   </div>

@@ -32,7 +32,11 @@ const Top = props => {
                         return (
                             <li key={id}>
                                 <details id={id} open={open === id}>
-                                    <summary>{label}</summary>
+                                    <summary>
+                                        <a>
+                                        {label}
+                                        </a>
+                                    </summary>
                                     <ul className="p-2 bg-neutral border-b-2 border-x-2 border-accent/20 rounded-t-none">
                                         {children.map(child => {
                                             if (!child.hasOwnProperty('__typename')) {
