@@ -61,7 +61,7 @@ module.exports = {
     themes: [{
       hmbLight : {
         'base-100': '#f7fdff',
-        'base-300': '#4fb2ff',
+        'base-300': '#9ed0ff',
         'base-200': '#f3fffb',
         'base-content': '#310046',
         'primary': '#19257D',
@@ -71,7 +71,7 @@ module.exports = {
         'neutral': '#f2f8ff',
         'neutral-content': '#434c56',
         'secondary': '#6d01a2',
-        'secondary-content': '#33fff8',
+        'secondary-content': '#5cfff8',
       },
       hmbDark : {
         'base-100': '#121b2d',
@@ -84,7 +84,7 @@ module.exports = {
         'accent': '#270036',
         'neutral': '#353746',
         'neutral-content': '#EDF4FF',
-        'secondary': '#cc66ff',
+        'secondary': '#c548f8',
         'secondary-content': '#270036',
       },
     }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]

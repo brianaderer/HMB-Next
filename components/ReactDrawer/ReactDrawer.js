@@ -42,7 +42,7 @@ const ReactDrawer = props => {
                 open={isOpen}
                 onClose={toggleDrawer}
                 direction='right'
-                className='!bg-transparent'
+                className='!bg-transparent !border-l-0 !shadow-transparent !shadow-none'
             >
                 {children}
                 <Button.VTab expanded={isOpen} style={ buttonStyle } className={`py-0 absolute right-full top-0 ${offScreen ? `!visible` : `!hidden` }`} callback={toggleDrawer}></Button.VTab>
