@@ -44,7 +44,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     useEffect(() => {
         if( top !== null && !stuckOnInit ) {
             const navHeight = screen.navHeight;
-            const offscreen = -(top) > (navHeight - (originalHeight));
+            const offscreen = -(top) > ((navHeight - (originalHeight)) + ( originalHeight * 1.5 ));
             setOffScreen(offscreen);
             setPlaceholderHeight(offscreen ? originalHeight : 0);
         }
@@ -57,9 +57,9 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     useEffect(() => {
         const elem = document.getElementById(targetId);
         if (elem  && !stuckOnInit) {
-            elem.style.height = 0;
-            elem.style.paddingTop = `${placeholderHeight}px`;
-            elem.style.marginBottom= `${-placeholderHeight}px`;
+            elem.style.height = `${placeholderHeight}px`;
+            // elem.style.paddingTop = `${placeholderHeight}px`;
+            // elem.style.marginBottom= `${-placeholderHeight}px`;
         }
     }, [placeholderHeight, targetId]);
 
