@@ -27,10 +27,10 @@ export default function Header({
 
 
     const topStyle = {
-        'top' : navHeight,
+        'top' : navHeight + 4,
     }
     const buttonStyle = {
-        'top' : navHeight,
+        'top' : navHeight + 4,
         'height' : stickyHeight,
     }
 
