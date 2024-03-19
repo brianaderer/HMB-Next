@@ -37,7 +37,6 @@ const ReactDrawer = props => {
 
     return (
         <div className={``}>
-            {/*<Button.VTab className={`${stickyExpanded ? `` : ''} absolute right-full z-50 bottom-1/2`} callback={toggleExpanded} expanded={stickyExpanded}></Button.VTab>*/}
             <Drawer
                 open={isOpen}
                 onClose={toggleDrawer}
