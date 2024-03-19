@@ -12,7 +12,6 @@ export default function CoreMediaText(props) {
         left: 'lg:flex-row-reverse',
     }
 
-
     return (
         <div id={anchor} className={`flex flex-col ${positionLookup[mediaPosition]} items-center gap-8 pb-8`}>
             <div className="w-full lg:w-1/2 flex flex-row items-center justify-center">

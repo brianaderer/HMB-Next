@@ -1,30 +1,15 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {Separator, Text} from '../components';
+import {WordPressBlocksViewer} from "@faustwp/blocks";
+import components from '../wp-blocks';
 
 export default function CoreList(props) {
-    const {attributes, customAttributes} = props;
-    const {values} = attributes;
-    const extractListItems = (html) => {
-        const regex = /<li>(.*?)<\/li>/g;
-        const listItems = [];
-        let match;
-
-        while ((match = regex.exec(html)) !== null) {
-            listItems.push(match[1]);
-        }
-
-        return listItems;
-    };
-
-    const listItemsArray = extractListItems(values);
+    const {attributes, customAttributes, innerBlocks} = props;
 
 
     return (
-        <ul className={`list-disc list-inside rounded-tl-3xl pt-8 border-t-4 border-t-base-100 z-10 rounded-br-3xl pb-8 mb-4 px-4 xl:px-16 indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>
-            {listItemsArray.map((item, index) => {
-                return (<Text key={index} tag={'li'}>{item}</Text>)
-            })}
+        <ul className={`list-disc list-inside rounded-tl-3xl pt-8 border-t-4 border-t-base-100 z-10 rounded-br-3xl pb-8 mb-4 xl:px-16 xl:pl-8 indent-8 p-4 bg-neutral text-neutral-content drop-shadow-lg`}>
+            <WordPressBlocksViewer blocks={innerBlocks} />
         </ul>
     );
 }
@@ -34,6 +19,16 @@ CoreList.fragments = {
     fragment CoreListFragment on CoreList {
             anchor
             apiVersion
+            innerBlocks {
+              ... on CoreListItem {
+                apiVersion
+                blockEditorCategoryName
+                attributes {
+                  content
+                }
+              }
+              name
+            }
             attributes {
               values
               type
