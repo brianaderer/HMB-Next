@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import React from 'react';
 
 export default function CoreListItem(props) {
@@ -10,18 +9,3 @@ export default function CoreListItem(props) {
         </li>
     )
 }
-
-CoreListItem.fragments = {
-    entry: gql`
-    fragment CoreListItemFragment on CoreListItem {
-                apiVersion
-                blockEditorCategoryName
-                attributes {
-                  content
-                }
-            }
-            `,
-    key: `CoreListFragment`,
-};
-
-CoreListItem.displayName= 'CoreList';
