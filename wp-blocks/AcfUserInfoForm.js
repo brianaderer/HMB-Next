@@ -24,9 +24,7 @@ export default function AcfUserInfoForm(props) {
     const id = 'signUp';
 
     return (
-        <Login id={id} message={message}>
-            <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
-        </Login>
+        <Form login={true} loginMessage={message} fieldsData={fieldsData} submitter={submitter} headline={headline}/>
     );
 }
 

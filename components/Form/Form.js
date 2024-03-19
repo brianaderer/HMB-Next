@@ -6,7 +6,7 @@ const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
     const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser, updateUserDb} = authContext || {};
-    const {fieldsData, submitter, headline, referrer, sendAllImage} = props;
+    const {fieldsData, submitter, headline, referrer, sendAllImage, login = false, loginMessage} = props;
     const time = new Date();
     const [uploadValues, setUploadValues] = useState(null);
     // States for contact form fields
@@ -194,7 +194,7 @@ const Form = props => {
     const classes = {selectClasses, labelClasses, spanClasses, inputClasses, textAreaClasses};
     const {formHeadline, fields, anchor} = fieldsData;
     return (
-            <FormWrapper className={`my-12`} anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
+            <FormWrapper login={login} loginMessage={loginMessage} className={`my-12`} anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
                 {
                     Object.keys(fields).map((field, index) => {
                         const {type, label, ...otherProps} = (fields[field]);

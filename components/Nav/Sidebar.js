@@ -16,15 +16,10 @@ const Sidebar = props => {
                     if (!item.hasOwnProperty('__typename')) {
                         return null;
                     }
-                    if( !children.length ){
-                        return (
-                            <li key={id}><a href={path}>{label}</a></li>
-                        );
-                    } else {
-                        return(
-                            <li key={id}><a href={path}>{label}</a></li>
-                        );
-                    }
+                    return (
+                        <li key={id}><a href={path}>{label}</a></li>
+                    );
+
                 })
             }
         </ul>

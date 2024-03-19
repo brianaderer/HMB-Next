@@ -27,9 +27,7 @@ export default function AcfGuestBookEntryEntry(props) {
     const message = 'Please Log In to Write In Our Guest Book';
     return (
         <>
-                <Login message={message}>
-                    <Form referrer={'GuestBook'} sendAllImage={false} fieldsData={fieldsData} submitter={submitter}/>
-                </ Login>
+            <Form login={true} loginMessage={message} referrer={'GuestBook'} sendAllImage={false} fieldsData={fieldsData} submitter={submitter}/>
         </>
     );
 }
