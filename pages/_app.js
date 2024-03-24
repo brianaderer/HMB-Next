@@ -7,7 +7,7 @@ import '../styles/global.scss';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
 import {AuthContext, StickyContext, ScreenContext} from "../contexts";
-import {Button, Modal} from '../components';
+import {Button, Modal, Text} from '../components';
 import {useAuth} from "../utilities/auth";
 import {useMediaQuery} from "../utilities/mediaQuery";
 
@@ -87,10 +87,13 @@ export default function MyApp({ Component, pageProps }) {
                           }}>
                           <Component {...pageProps} key={router.asPath} />
                           <Modal id={'signIn'}>
-                              <div>
-                                  <Button.AuthButton message={'Google'} providerName={'Google'} callback={() => handleSignIn({id: 'signUp', providerName: 'Google'})} />
-                                  <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
-                              </div>
+                              <div className="flex flex-col gap-10">
+                                  <Text className={`text-center`} tag={`h2`}>Please Log In</Text>
+                                  <div className={`w-full flex flex-row justify-evenly`}>
+                                      <Button.AuthButton message={'Google'} providerName={'Google'} callback={() => handleSignIn({id: 'signUp', providerName: 'Google'})} />
+                                      <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
+                                  </div>
+                            </div>
                           </Modal>
                       </WordPressBlocksProvider>
                   </ScreenContext.Provider>
