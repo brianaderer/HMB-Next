@@ -47,7 +47,7 @@ export default function MyApp({ Component, pageProps }) {
         const bodyChildDiv = document.body.querySelector('body > div#__next');
         // Add class to body
         document.documentElement.classList.add('scroll-smooth');
-        document.documentElement.setAttribute('data-theme', 'hmbLight');
+        // document.documentElement.setAttribute('data-theme', 'hmbLight');
         document.body.classList.add('min-h-screen','bg-base-200');
         const divClasses = 'min-h-screen relative';
         const classList = divClasses.split(' '); // Splitting the string into an array of classes
