@@ -15,8 +15,8 @@ const Review = props => {
     };
     return(
     <div className={`m-auto h-full flex flex-row justify-center items-center flex-shrink-0 w-full`}>
-        <div className={`h-full py-2 lg:py-10 lg:px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center drop-shadow-lg mb-12 lg:mx-10 gap-2 lg:gap-4`}>
-            <Text tag={'p'} className={`text-center`}>{review}</Text>
+        <div className={`h-full py-2 lg:py-10 px-4 lg:px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center drop-shadow-lg mb-12 lg:mx-10 gap-2 lg:gap-4`}>
+            <Text tag={'p'} className={`lg:text-center`}>{review}</Text>
             <Text className={`text-xl text-bold my-4`} tag={'p'}>{`- ${reviewersName}`}</Text>
             <Text tag={'h3'}>{getFormattedDate( date )}</Text>
             <StarRating value={rating}/>

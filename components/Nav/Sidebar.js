@@ -10,7 +10,7 @@ const Sidebar = props => {
     const hierarchicalMenuItems = flatListToHierarchical(menuItems);
     let profile = {};
     return (
-        <ul className="menu p-4 w-80 h-screen flex flex-col overflow-y-hidden justify-center bg-base-200 border-r-2 border-accent/20">
+        <ul className="menu p-4 w-80 h-screen flex flex-col overflow-y-hidden justify-center bg-base-200 border-r-2 border-secondary/10">
             {
                 hierarchicalMenuItems.map(item => {
                     const { id, path, label, children, cssClasses } = item;
