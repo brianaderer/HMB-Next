@@ -40,7 +40,6 @@ CoreImage.fragments = {
           height
           cssClassName
           className
-          caption
           borderColor
     }
     }

@@ -23,9 +23,6 @@ CoreList.fragments = {
               ... on CoreListItem {
                 apiVersion
                 blockEditorCategoryName
-                attributes {
-                  content
-                }
               }
               name
             }
