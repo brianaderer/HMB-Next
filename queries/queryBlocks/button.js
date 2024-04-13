@@ -19,7 +19,6 @@ export default `
               rel
               style
               tagName
-              text
               textAlign
               textColor
               title

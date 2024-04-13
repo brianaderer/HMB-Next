@@ -3,7 +3,6 @@ export default `
         align
         anchor
         backgroundColor
-        content
         fontFamily
         fontSize
         gradient
