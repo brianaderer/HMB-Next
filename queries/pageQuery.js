@@ -21,6 +21,7 @@ export const pageQuery = gql`
   ${components.AcfGallery.fragments.entry}
   ${components.AcfContactForm.fragments.entry}
   ${components.AcfSignUpForm.fragments.entry}
+  ${components.AcfUserInfoForm.fragments.entry}
   ${components.AcfHmbMap.fragments.entry}
   ${components.AcfUploadMediaForm.fragments.entry}
   ${components.CreateBlockAttractions.fragments.entry}
@@ -55,6 +56,7 @@ export const pageQuery = gql`
         ...${components.AcfGallery.fragments.key}
         ...${components.AcfContactForm.fragments.key}
         ...${components.AcfSignUpForm.fragments.key}
+        ...${components.AcfUserInfoForm.fragments.key}
         ...${components.AcfHmbMap.fragments.key}
         ...${components.AcfUploadMediaForm.fragments.key}
         ...${components.CreateBlockAttractions.fragments.key}
