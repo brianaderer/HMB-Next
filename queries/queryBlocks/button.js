@@ -3,6 +3,8 @@ export default `
             apiVersion
             name
             clientId
+            renderedHtml
+            href
             attributes {
               anchor
               backgroundColor

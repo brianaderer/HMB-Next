@@ -1,5 +1,3 @@
-import {default as button} from './button';
-
 export default `      
         anchor
         apiVersion
@@ -9,9 +7,6 @@ export default `
           isDynamic
           name
           renderedHtml
-          ... on CoreButton {
-            ${button}
-          }
         }
         clientId
         attributes {

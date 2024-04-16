@@ -1,4 +1,5 @@
-export default `      
+export default ` 
+    renderedHtml     
         attributes {
         align
         anchor

@@ -2,7 +2,7 @@ import {CATEGORIES} from "../constants/categories";
 
 const categoryLookup = ({category}) => {
     let pinData = [];
-    const cat = CATEGORIES[category.slug] ? category.slug : 'default';
+    const cat = CATEGORIES[category?.slug] ? category.slug : 'default';
     let slug;
     if( category?.slug ){
         pinData = CATEGORIES[cat];

@@ -4,12 +4,12 @@ import {Link} from 'next';
 import {Button} from '../components';
 
 export default function CoreButton(props) {
-    const {attributes, customAttributes} = props;
-    const {anchor, url, type, text} = attributes;
+    const {attributes, renderedHtml, href} = props;
+    const {url} = attributes;
 
     return (
-        <Button.LinkButton type={'link'} url={url} className={`btn-sm md:btn-md group-[.stickyContainer]:btn-sm`} >
-            {text}
+        <Button.LinkButton type={'link'} url={href ? href : '#'} className={`btn-sm md:btn-md group-[.stickyContainer]:btn-sm`} >
+            {renderedHtml}
         </Button.LinkButton>
     );
 }

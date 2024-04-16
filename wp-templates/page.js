@@ -27,7 +27,8 @@ export default function Component(props) {
   const parsedSiteLogo = siteLogo?.length > 0 ? JSON.parse(siteLogo) : {};
 
   const { editorBlocks } = props.data.page;
-  const returnedBlocks = flatListToHierarchical(editorBlocks);
+  const returnedBlocks = flatListToHierarchical(editorBlocks, {parentKey: 'parentClientId', childrenKey: 'innerBlocks'});
+  console.log(returnedBlocks);
   return (
     <>
       <SEO

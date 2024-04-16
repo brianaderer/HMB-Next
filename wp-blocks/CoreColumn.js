@@ -21,6 +21,9 @@ CoreColumn.fragments = {
         anchor
         apiVersion
         name
+        attributes{
+            width
+        }
         innerBlocks {
           name
         }

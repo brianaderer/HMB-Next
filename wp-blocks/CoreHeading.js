@@ -4,7 +4,7 @@ import {Text} from "../components";
 import * as queries from '../queries/queryBlocks';
 
 export default function CoreHeading(props) {
-    const {attributes, customAttributes} = props;
+    const {attributes, renderedHtml} = props;
     const {level, textAlign = 'left', style = {}} = attributes;
     const safeStyle = JSON.parse(style) ?? {};
     const {typography = {}} = safeStyle;
@@ -23,7 +23,7 @@ export default function CoreHeading(props) {
     }
 
     return (
-        <Text ref={heading} tag={`h${level}`} className={`pl-12 n drop-shadow-lg mt-2 lg:mt-4 ${paragraphHeading ? `rounded-tl-3xl bg-neutral text-neutral-content p-4 pb-10 relative top-6 -mt-6` : ''} ${alignLookup[textAlign]}`}>{attributes.content}</Text>
+        <Text ref={heading} tag={`h${level}`} className={`pl-12 n drop-shadow-lg mt-2 lg:mt-4 ${paragraphHeading ? `rounded-tl-3xl bg-neutral text-neutral-content p-4 pb-10 relative top-6 -mt-6` : ''} ${alignLookup[textAlign]}`}>{renderedHtml}</Text>
     );
 }
 

@@ -44,33 +44,6 @@ CoreColumns.fragments = {
           apiVersion
           name
           clientId
-          ...on CoreColumn{
-            attributes {
-                  allowedBlocks
-                  anchor
-                  backgroundColor
-                  borderColor
-                  className
-                  cssClassName
-                  fontFamily
-                  fontSize
-                  width
-                  verticalAlignment
-                  textColor
-                  style
-                  lock
-                  layout
-                  gradient
-                }
-            innerBlocks{
-                apiVersion
-                clientId
-                name
-                ...${CoreParagraph.fragments.key}
-                ...${CoreHeading.fragments.key}
-                ...${CoreList.fragments.key}
-            }
-          }
         }
       }
   `,
