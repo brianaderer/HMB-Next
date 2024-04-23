@@ -1,6 +1,5 @@
 import {Button, Tag} from '../index';
 import {CATEGORIES} from "../../constants/categories";
-import {isArray} from "@apollo/client/utilities";
 
 const Card = props => {
     const{distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
