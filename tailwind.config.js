@@ -39,7 +39,7 @@ module.exports = {
           'fucshia' : '#dd3cba',
           'yellow' : '#fcfe09',
           'cyan' : '#0892ff',
-          'flame' : '#fd4333',
+          'flame' : '#fd6933',
           'orange' : '#fe9a0e',
           'ember' : '#dd2d0b',
           'grass' : '#8bbf00',

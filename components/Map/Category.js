@@ -7,7 +7,7 @@ const Category = props => {
     const {setStickyExpanded} = useContext( ScreenContext );
     const { handler, category, index, isChecked } = props;
     const slug = CATEGORIES[category.slug] ? category.slug : 'default';
-    const backgroundColor = CATEGORIES[slug].backgroundColor;
+    const backgroundColor = CATEGORIES[slug].borderCardColor;
     const textColor = CATEGORIES[slug].textColor;
     const activeClick = useRef(false);
     const checked = useRef(null);
@@ -53,7 +53,7 @@ const Category = props => {
     }
 
     return (
-        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between ${backgroundColor} ${textColor}`}>
+        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between border-2 bg-base-100 rounded-md ${backgroundColor} ${textColor}`}>
             <label className={`mr-2`}>{category.name}</label>
             <input
                 type={'checkbox'}

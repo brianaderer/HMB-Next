@@ -17,7 +17,7 @@ const Card = props => {
                     )
                 } )}</ul>
                 </div>
-                {data.photo.length > 0  && <figure className={``}><img className={` ${expanded ? `mb-6 mx-6` : `mt-12`} lg:mt-0 max-h-64 lg:max-h-80 overflow-hidden rounded-lg drop-shadow-lg`} src={data.photo} alt={`${data.title} Headline Image`}/></figure>}
+                {data.photo.length > 0  && <figure className={``}><img className={` ${expanded ? `mb-6 mx-6 mt-14 rounded-l-lg` : `lg:mt-0`} max-h-64 lg:max-h-80 overflow-hidden rounded-r-lg drop-shadow-lg`} src={data.photo} alt={`${data.title} Headline Image`}/></figure>}
                 <div className="card-body pt-12 text-left lg:text-right flex-col justify-start min-h-full">
                     <h2 className="card-title mb-1 text-neutral-content lg:mt-4 justify-center lg:justify-end">{data.title}</h2>
                     <div>
