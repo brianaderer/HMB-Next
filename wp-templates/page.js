@@ -28,7 +28,6 @@ export default function Component(props) {
 
   const { editorBlocks } = props.data.page;
   const returnedBlocks = flatListToHierarchical(editorBlocks, {parentKey: 'parentClientId', childrenKey: 'innerBlocks'});
-  console.log(returnedBlocks);
   return (
     <>
       <SEO
