@@ -1,5 +1,4 @@
 import {Button, Tag} from '../index';
-import Link from 'next/link';
 import {CATEGORIES} from "../../constants/categories";
 
 const Card = props => {
@@ -11,13 +10,13 @@ const Card = props => {
             <div id={id} className={`relative w-full border-r-8 ${borderColor} card ${expanded ? `flex-col-reverse`: ''} lg:card-side bg-neutral drop-shadow-lg overflow-clip rounded-none mb-1`}>
                 {expanded && <Button.StandardButton className={`rounded !btn-sm top-2 left-2 absolute`} callback={handleDestroy}>X</Button.StandardButton>}
                 <div className=" absolute top-2 right-2">
-                <ul >{data.category_tax.map( (category, key) => {
+                <ul>{data.category_tax.map( (category, key) => {
                     return (
                         <li key={key} className={`text-sm text-neutral-content`}> {category.name} </li>
                     )
                 } )}</ul>
                 </div>
-                {data.photo.length > 0  && <figure className={``}><img className={` ${expanded ? `mb-6 mx-6 mt-14 rounded-l-lg` : `lg:mt-0`} max-h-64 lg:max-h-80 overflow-hidden rounded-r-lg drop-shadow-lg`} src={data.photo} alt={`${data.title} Headline Image`}/></figure>}
+                {data.photo.length > 0  && <figure className={``}><img className={` ${expanded ? `mb-6 mx-6 lg:mt-14 rounded-l-lg` : `lg:mt-0`} max-h-64 lg:max-h-80 overflow-hidden rounded-r-lg drop-shadow-lg`} src={data.photo} alt={`${data.title} Headline Image`}/></figure>}
                 <div className="card-body pt-12 text-left lg:text-right flex-col justify-start min-h-full">
                     <h2 className="card-title mb-1 text-neutral-content lg:mt-4 justify-center lg:justify-end">{data.title}</h2>
                     <div>
@@ -36,7 +35,7 @@ const Card = props => {
                         <div className="flex flex-col">
                             <div className="flex flex-col">
                                 {data.telephone && <a className={``} href={`tel:${data.telephone}`}>{data.telephone}</a>}
-                                {data.website && <a href={`${data.website}`} rel='noopener noreferrer' target="_blank">{data.website}</a>}
+                                {data.website && <a href={`${data.website}`} rel='noopener noreferrer' target="_blank" dangerouslySetInnerHTML={{ __html: data.website}}></a>}
                             </div>
                             <p className={`text-neutral-content lg:mt-4`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
                         </div>}
