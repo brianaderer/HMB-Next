@@ -1,4 +1,5 @@
 import {Button, Tag} from '../index';
+import Link from 'next/link';
 import {CATEGORIES} from "../../constants/categories";
 
 const Card = props => {
@@ -35,7 +36,7 @@ const Card = props => {
                         <div className="flex flex-col">
                             <div className="flex flex-col">
                                 {data.telephone && <a className={``} href={`tel:${data.telephone}`}>{data.telephone}</a>}
-                                {data.website && <a className={``} href={`${data.website}`}>{data.website}</a>}
+                                {data.website && <a href={`${data.website}`} rel='noopener noreferrer' target="_blank">{data.website}</a>}
                             </div>
                             <p className={`text-neutral-content lg:mt-4`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
                         </div>}
