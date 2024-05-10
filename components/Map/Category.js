@@ -53,7 +53,7 @@ const Category = props => {
     }
 
     return (
-        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between border-2 bg-base-100 rounded-md ${backgroundColor} ${textColor}`}>
+        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between border-2 bg-base-100 rounded-md ${backgroundColor} text-base-content`}>
             <label className={`mr-2`}>{category.name}</label>
             <input
                 type={'checkbox'}
