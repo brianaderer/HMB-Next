@@ -9,6 +9,7 @@ export { EntryHeader } from './EntryHeader';
 export { Error } from './Error';
 export { FeaturedImage } from './FeaturedImage';
 export { Footer } from './Footer';
+export { FooterMenuItem } from './FooterMenuItem';
 export { Form } from './Form';
 export { FormatDate } from './FormatDate';
 export { FormElements } from './FormElements';
