@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
 
         await sendgrid.send({
-            to: process.env.TARGET_EMAIL, // Your email where you'll receive emails
+            to: 'info@hmbmarina.com', // Your email where you'll receive emails
             from: "website@hmbmarina.com", // your website email address here
             subject: `[Lead from website] : ${req.body['boat-name']}`,
             replyTo: req.body.email,
