@@ -72,5 +72,4 @@ jobs:
           script: |
             rm -rf /var/cache/nginx/*
             rm -rf ~/files/.next/*
-#            rm -rf /cache/hmbmarina.com
             pm2 restart all
