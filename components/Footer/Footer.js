@@ -15,6 +15,7 @@ export default function Footer({ title, menuItems }) {
         }
         </ul>
           <p className={`text-base-content/20`}>Copyright {year} Half Moon Bay Marina, Inc.</p>
+          <p className={`text-base-content/20`}>Web Design by <a className={`text-accent-content/30`} href={'mailto:brian@brianaderer.com'}>Brian Aderer</a> brian@brianaderer.com</p>
       </div>
   );
 }

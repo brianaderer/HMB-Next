@@ -223,7 +223,7 @@ const Form = props => {
                         }
                     })
                 }
-                <Submit buttonText={buttonText} />
+                <Submit callback={handleSubmit} buttonText={buttonText} />
         </FormWrapper>
     );
 }
