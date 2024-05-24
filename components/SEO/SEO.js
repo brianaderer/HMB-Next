@@ -21,15 +21,6 @@ export default function SEO({ title, description, imageUrl, url }) {
       <Head>
         <meta property="og:type" content="website" />
         <meta property="twitter:card" content="summary_large_image" />
-          <!-- Google tag (gtag.js) -->
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-BGVLN882LC"></script>
-          <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-BGVLN882LC');
-          </script>
 
         {title && (
           <>
@@ -62,6 +53,18 @@ export default function SEO({ title, description, imageUrl, url }) {
           </>
         )}
       </Head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BGVLN882LC"></script>
+        <script
+            dangerouslySetInnerHTML={{
+                __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.GA4_TAG}');
+            `,
+            }}
+        />
     </>
   );
 }
