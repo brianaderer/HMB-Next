@@ -28,12 +28,13 @@ export default function Component(props) {
 
   const { editorBlocks } = props.data.page;
   const returnedBlocks = flatListToHierarchical(editorBlocks, {parentKey: 'parentClientId', childrenKey: 'innerBlocks'});
+  console.log(featuredImage);
   return (
     <>
       <SEO
         title={siteTitle}
         description={siteDescription}
-        imageUrl={featuredImage?.node?.sourceUrl}
+        imageUrl={parsedSiteLogo}
       />
       <Header
         siteLogo={parsedSiteLogo}
