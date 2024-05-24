@@ -1,0 +1,75 @@
+name: Deploy to SpinUpWP
+
+on:
+  push:
+    branches:
+      - main  # Set this to your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_WORDPRESS_URL: ${{ secrets.NEXT_PUBLIC_WORDPRESS_URL }}
+      GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
+      FAUST_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY}}
+      FAUSTWP_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY}}
+      NEXT_PUBLIC_GOOGLE_MAPS_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_KEY }}
+      NEXT_PUBLIC_GOOGLE_MAP_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_ID }}
+      SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID : ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET : ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      REST_API_APPLICATION_PASSWORD: ${{ secrets.REST_API_APPLICATION_PASSWORD }}
+      NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+      NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies and Build Next.js app
+        run: |
+          npm install
+          npm run build
+
+      - name: Rsync Node Directory
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: node_modules/
+          remote_path: ~/files/node_modules/
+          remote_host: 18.118.19.128
+          remote_port: 22
+          remote_user: main
+          remote_key: ${{ secrets.STAGING_SSH }}
+
+      - name: Rsync Build Directory
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: build/
+          remote_path: ~/files/build/
+          remote_host: 18.118.19.128
+          remote_port: 22
+          remote_user: main
+          remote_key: ${{ secrets.STAGING_SSH }}
+
+      - name: Rsync Public Directory
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: public/
+          remote_path: ~/files/public/
+          remote_host: 18.118.19.128
+          remote_port: 22
+          remote_user: main
+          remote_key: ${{ secrets.STAGING_SSH }}
+
+      - name: Restart Application and Clear Cache
+        uses: appleboy/ssh-action@master
+        with:
+          host: 18.118.19.128
+          username: main
+          key: ${{ secrets.STAGING_SSH }}
+          script: |
+            pm2 restart all
+            rm -rf /var/cache/nginx/*
+#            rm -rf /cache/staging.hmbmarina.com
