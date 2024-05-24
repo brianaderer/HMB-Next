@@ -70,6 +70,7 @@ jobs:
           username: staging
           key: ${{ secrets.STAGING_SSH }}
           script: |
-            pm2 restart all
             rm -rf /var/cache/nginx/*
+            rm -rf ~/files/.next/*
+            pm2 restart all
 #            rm -rf /cache/staging.hmbmarina.com
