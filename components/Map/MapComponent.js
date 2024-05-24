@@ -508,7 +508,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         }
         <div id={`mapDiv`} className={`relative + ${classes}`}>
             <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
-                    <div className="flex flex-row h-96 lg:h-[500px]">
+                    <div className="flex flex-row h-64 lg:h-[300px]">
                         <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                     </div>
                 {categories.length > 0 && <>
