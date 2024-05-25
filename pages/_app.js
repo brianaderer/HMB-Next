@@ -18,26 +18,6 @@ export default function MyApp({ Component, pageProps }) {
     const [stuck, setStuck] = useState(false);
     const [stickyHeight, setStickyHeight] = useState(0);
 
-    async function fetchFiles() {
-        try {
-            // Call the API route
-            const response = await fetch('/api/readFiles');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            console.log('Files:', data.files);
-            return data.files;
-        } catch (error) {
-            console.error('Failed to fetch files:', error);
-            return [];
-        }
-    }
-
-// You can call this function in your component or useEffect hook
-    useEffect(() => {
-        fetchFiles();
-    }, [fetchFiles]);
 
     useEffect(() => {
         const originalMatchMedia = window.matchMedia;
