@@ -5,6 +5,13 @@ const Card = props => {
     const{distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
     const slug = CATEGORIES[data.category_tax[0]?.slug] ? data.category_tax[0]?.slug : 'default';
     const borderColor = CATEGORIES[slug].borderCardColor;
+
+    // Event handler to open link in a new tab
+    const handleLinkClick = (event, url) => {
+        event.preventDefault();
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
     return (
         <div id={`${firstPlace ? catSlug : ''}`} className="metaWrapper">
             <div id={id} className={`relative w-full border-r-8 ${borderColor} card ${expanded ? `flex-col-reverse`: ''} lg:card-side bg-neutral drop-shadow-lg overflow-clip rounded-none mb-1`}>
@@ -35,7 +42,13 @@ const Card = props => {
                         <div className="flex flex-col">
                             <div className="flex flex-col">
                                 {data.telephone && <a className={``} href={`tel:${data.telephone}`}>{data.telephone}</a>}
-                                {data.website && <a href={`${data.website}`} rel='noopener noreferrer' target="_blank" dangerouslySetInnerHTML={{ __html: data.website}}></a>}
+                                {data.website && (
+                                    <a
+                                        className={'cursor-pointer'}
+                                        dangerouslySetInnerHTML={{ __html: data.website }}
+                                        onClick={(event) => handleLinkClick(event, data.website)}
+                                    ></a>
+                                )}
                             </div>
                             <p className={`text-neutral-content lg:mt-4`} dangerouslySetInnerHTML={{ __html: data.description }}></p>
                         </div>}

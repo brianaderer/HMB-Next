@@ -12,6 +12,7 @@ import {
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import {flatListToHierarchical} from "@faustwp/core";
 import {pageQuery} from "../queries/pageQuery";
+import {useState} from "react";
 
 export default function Component(props) {
   // Loading state for previews
@@ -27,6 +28,7 @@ export default function Component(props) {
   const parsedSiteLogo = siteLogo?.length > 0 ? JSON.parse(siteLogo) : {};
   const { editorBlocks } = props.data.page;
   const returnedBlocks = flatListToHierarchical(editorBlocks, {parentKey: 'parentClientId', childrenKey: 'innerBlocks'});
+  const [rendered, setRendered] = useState(false);
   return (
     <>
       <SEO
