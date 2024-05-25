@@ -3,7 +3,7 @@ const FooterMenuItem = props => {
     const {children, path} = props;
     return (
         <li>
-            <Link className={'text-base-content/30'} href={path}>
+            <Link className={'text-base-content/50'} href={path}>
                 {children}
             </Link>
         </li>
