@@ -5,9 +5,9 @@ export default function Footer({ title, menuItems }) {
 
   return (
       <div className={`px-4 py-10 h-auto w-full bg-base-300 z-10 border-t-4 border-t-accent flex flex-col items-center justify-center gap-2`}>
-          <div className={`flex flex-col md:flex-row gap-4`}>
-              <a className={`text-accent-content/70 text-xl`} href={'mailto:info@hmbmarina.com'}>info@hmbmarina.com</a>
+          <div className={`flex flex-col md:flex-row gap-4 justify-center items-center`}>
               <a className={`text-accent-content/70 text-xl`} href={'tel:(914)271-5400'}>(914)271-5400</a>
+              <a className={`text-accent-content/70 text-xl`} href={'mailto:info@hmbmarina.com'}>info@hmbmarina.com</a>
           </div>
           <br/>
           <div className={`flex flex-col text-sm text-base-content/50 `}>
