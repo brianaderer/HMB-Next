@@ -12,47 +12,77 @@ import Head from 'next/head';
  * @returns {React.ReactElement} The SEO component
  */
 export default function SEO({ title, description, imageUrl, url }) {
-  if (!title && !description && !imageUrl && !url) {
-    return null;
-  }
+    if (!title && !description && !imageUrl && !url) {
+        return null;
+    }
+    const logoUrl = imageUrl?.logo;
+    return (
+        <>
+            <Head>
+                <meta charSet="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta property="og:type" content="website" />
+                <meta property="twitter:card" content="summary_large_image" />
+                <link rel="icon" href={logoUrl} type="image/png" />
 
-  return (
-    <>
-      <Head>
-        <meta property="og:type" content="website" />
-        <meta property="twitter:card" content="summary_large_image" />
+                {title && (
+                    <>
+                        <title>{title}</title>
+                        <meta name="title" content={title} />
+                        <meta property="og:title" content={title} />
+                        <meta property="twitter:title" content={title} />
+                    </>
+                )}
 
-        {title && (
-          <>
-            <title>{title}</title>
-            <meta name="title" content={title} />
-            <meta property="og:title" content={title} />
-            <meta property="twitter:title" content={title} />
-          </>
-        )}
+                {description && (
+                    <>
+                        <meta name="description" content={description} />
+                        <meta property="og:description" content={description} />
+                        <meta property="twitter:description" content={description} />
+                    </>
+                )}
 
-        {description && (
-          <>
-            <meta name="description" content={description} />
-            <meta property="og:description" content={description} />
-            <meta property="twitter:description" content={description} />
-          </>
-        )}
+                {imageUrl && (
+                    <>
+                        <meta property="og:image" content={logoUrl} />
+                        <meta property="twitter:image" content={logoUrl} />
+                    </>
+                )}
 
-        {imageUrl && (
-          <>
-            <meta property="og:image" content={imageUrl} />
-            <meta property="twitter:image" content={imageUrl} />
-          </>
-        )}
+                {url && (
+                    <>
+                        <meta property="og:url" content={url} />
+                        <meta property="twitter:url" content={url} />
+                    </>
+                )}
 
-        {url && (
-          <>
-            <meta property="og:url" content={url} />
-            <meta property="twitter:url" content={url} />
-          </>
-        )}
-      </Head>
-    </>
-  );
+                {/* Structured Data Example */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "http://schema.org",
+                            "@type": "WebPage",
+                            "name": title,
+                            "description": description,
+                            "url": url,
+                            "image": logoUrl,
+                        }),
+                    }}
+                />
+            </Head>
+            {/* Google tag (gtag.js) */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-BGVLN882LC"></script>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.GA4_TAG}');
+          `,
+                }}
+            />
+        </>
+    );
 }
