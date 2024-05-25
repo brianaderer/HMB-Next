@@ -74,4 +74,3 @@ jobs:
             rm -rf ~/files/.next/*
             pm2 restart all
 #            rm -rf /cache/hmbmarina.com
-#           repush to main
