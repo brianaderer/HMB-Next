@@ -11,8 +11,8 @@ import Head from 'next/head';
  *
  * @returns {React.ReactElement} The SEO component
  */
-export default function SEO({ title, description, imageUrl, url }) {
-    if (!title && !description && !imageUrl && !url) {
+export default function SEO({ siteTitle, pageTitle, description, imageUrl, url }) {
+    if (!siteTitle && !description && !imageUrl && !url) {
         return null;
     }
     const logoUrl = imageUrl?.logo;
@@ -25,12 +25,12 @@ export default function SEO({ title, description, imageUrl, url }) {
                 <meta property="twitter:card" content="summary_large_image" />
                 <link rel="icon" href={logoUrl} type="image/png" />
 
-                {title && (
+                {siteTitle && pageTitle && (
                     <>
-                        <title>{title}</title>
-                        <meta name="title" content={title} />
-                        <meta property="og:title" content={title} />
-                        <meta property="twitter:title" content={title} />
+                        <title>{`${siteTitle} - ${pageTitle}`}</title>
+                        <meta name="title" content={`${siteTitle} - ${pageTitle}`} />
+                        <meta property="og:title" content={`${siteTitle} - ${pageTitle}`} />
+                        <meta property="twitter:title" content={`${siteTitle} - ${pageTitle}`} />
                     </>
                 )}
 
@@ -42,7 +42,7 @@ export default function SEO({ title, description, imageUrl, url }) {
                     </>
                 )}
 
-                {imageUrl && (
+                {logoUrl && (
                     <>
                         <meta property="og:image" content={logoUrl} />
                         <meta property="twitter:image" content={logoUrl} />
@@ -63,7 +63,7 @@ export default function SEO({ title, description, imageUrl, url }) {
                         __html: JSON.stringify({
                             "@context": "http://schema.org",
                             "@type": "WebPage",
-                            "name": title,
+                            "name": `${siteTitle} - ${pageTitle}`,
                             "description": description,
                             "url": url,
                             "image": logoUrl,
