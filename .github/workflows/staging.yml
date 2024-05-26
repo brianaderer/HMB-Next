@@ -1,4 +1,4 @@
-name: Deploy to SpinUpWP
+name: Deploy to SpinUpWP STAGING
 
 on:
   push:
