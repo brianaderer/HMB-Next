@@ -15,8 +15,8 @@ jobs:
       NEXT_PUBLIC_GOOGLE_MAPS_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_KEY }}
       NEXT_PUBLIC_GOOGLE_MAP_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_ID }}
       SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
-      NEXT_PUBLIC_GOOGLE_CLIENT_ID : ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET : ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
       REST_API_APPLICATION_PASSWORD: ${{ secrets.REST_API_APPLICATION_PASSWORD }}
       NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
@@ -29,34 +29,12 @@ jobs:
           npm install
           npm run build
 
-      - name: Rsync Node Directory
+      - name: Rsync All Files Except .env.local
         uses: burnett01/rsync-deployments@6.0.0
         with:
-          switches: -avzr --delete
-          path: node_modules/
-          remote_path: ~/files/node_modules/
-          remote_host: 3.15.144.253
-          remote_port: 22
-          remote_user: staging
-          remote_key: ${{ secrets.STAGING_SSH }}
-
-      - name: Rsync Build Directory
-        uses: burnett01/rsync-deployments@6.0.0
-        with:
-          switches: -avzr --delete
-          path: build/
-          remote_path: ~/files/build/
-          remote_host: 3.15.144.253
-          remote_port: 22
-          remote_user: staging
-          remote_key: ${{ secrets.STAGING_SSH }}
-
-      - name: Rsync Public Directory
-        uses: burnett01/rsync-deployments@6.0.0
-        with:
-          switches: -avzr --delete
-          path: public/
-          remote_path: ~/files/public/
+          switches: -avzr --delete --exclude='.env.local'
+          path: ./
+          remote_path: ~/files/
           remote_host: 3.15.144.253
           remote_port: 22
           remote_user: staging
@@ -70,4 +48,4 @@ jobs:
           key: ${{ secrets.STAGING_SSH }}
           script: |
             rm -rf /var/cache/nginx/*
-            pm2 restart all
+#            pm2 restart all
