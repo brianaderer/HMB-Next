@@ -9,10 +9,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_WORDPRESS_URL: ${{ secrets.NEXT_PUBLIC_WORDPRESS_URL_MAIN }}
+      NEXT_PUBLIC_WORDPRESS_URL: ${{ secrets.NEXT_PUBLIC_WORDPRESS_URL }}
       GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
-      FAUST_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY_MAIN }}
-      FAUSTWP_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY_MAIN }}
+      FAUST_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY }}
+      FAUSTWP_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY }}
       NEXT_PUBLIC_GOOGLE_MAPS_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_KEY }}
       NEXT_PUBLIC_GOOGLE_MAP_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_ID }}
       SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
