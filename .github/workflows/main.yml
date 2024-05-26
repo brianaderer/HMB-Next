@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_WORDPRESS_URL: ${{ secrets.NEXT_PUBLIC_WORDPRESS_URL }}
+      NEXT_PUBLIC_WORDPRESS_URL: ${{ secrets.NEXT_PUBLIC_WORDPRESS_URL_MAIN }}
       GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
       FAUST_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY}}
       FAUSTWP_SECRET_KEY: ${{ secrets.FAUST_WP_SECRET_KEY}}
