@@ -72,4 +72,3 @@ jobs:
           script: |
             rm -rf /var/cache/nginx/*
             pm2 restart all
-#            rm -rf /cache/staging.hmbmarina.com
