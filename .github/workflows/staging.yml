@@ -48,4 +48,4 @@ jobs:
           key: ${{ secrets.STAGING_SSH }}
           script: |
             rm -rf /var/cache/nginx/*
-            pm2 startOrReload ecosystem.config.js
+            pm2 restart all
