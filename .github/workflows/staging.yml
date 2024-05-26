@@ -71,5 +71,5 @@ jobs:
           key: ${{ secrets.STAGING_SSH }}
           script: |
             rm -rf /var/cache/nginx/*
-            pm2 restart all --update-env
+            pm2 restart all
 #            rm -rf /cache/staging.hmbmarina.com
