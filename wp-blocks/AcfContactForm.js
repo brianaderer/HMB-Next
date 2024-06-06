@@ -17,7 +17,9 @@ export default function AcfContactForm(props) {
     const fieldsData = JSON.parse(data);
 
     return (
+        <>
             <Form fieldsData={fieldsData} submitter={submitter}/>
+        </>
     );
 }
 

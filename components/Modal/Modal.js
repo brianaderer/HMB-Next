@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 const Modal = props => {
-    const {children, id, onModalClose} = props;
+    const {children, id, className = ''} = props;
     const handleCloseModal = props => {
         document?.getElementById(id).close();
     }
@@ -23,8 +23,8 @@ const Modal = props => {
         }
     };
     return(
-        <dialog id={id} className="modal" onClick={handleBackdropClick}>
-            <div className="modal-box w-11/12 max-w-5xl max-h-[95vh]" onClick={(e) => e.stopPropagation()}>
+        <dialog id={id} className={`modal`} onClick={handleBackdropClick}>
+            <div className={`modal-box w-11/12 max-w-5xl max-h-[95vh] ${className}`} onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
         </dialog>

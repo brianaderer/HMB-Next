@@ -1,12 +1,16 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import { FormElements } from '../FormElements';
+import { Modal } from '../../components';
 import {AuthContext} from "../../contexts";
 
 const { Submit, FormWrapper } = FormElements;
 const Form = props => {
     const authContext = useContext( AuthContext );
     const {user, setUser, signIn, signOut, dbUser, setDbUser, checkUser, updateUserDb} = authContext || {};
-    const {fieldsData, submitter, headline, referrer, sendAllImage, login = false, loginMessage} = props;
+    const openModal = props => {
+        document.getElementById('formModal').showModal();
+    }
+    const {fieldsData, submitter, headline, referrer, sendAllImage, login = false, loginMessage, onSuccess = openModal } = props;
     const time = new Date();
     const [uploadValues, setUploadValues] = useState(null);
     // States for contact form fields
@@ -141,6 +145,9 @@ const Form = props => {
                 setButtonText(defaultButtonText);
                 return () => {};
             }
+            //form success here
+            onSuccess();
+            //
             setShowSuccessMessage(true);
             setShowFailureMessage(false);
             setButtonText(defaultButtonText);
@@ -194,6 +201,7 @@ const Form = props => {
     const classes = {selectClasses, labelClasses, spanClasses, inputClasses, textAreaClasses};
     const {formHeadline, fields, anchor} = fieldsData;
     return (
+        <>
             <FormWrapper login={login} loginMessage={loginMessage} className={`my-12`} anchor={anchor} handleSubmit={handleSubmit} prompt={formHeadline ? formHeadline : 'Send us a message'}>
                 {
                     Object.keys(fields).map((field, index) => {
@@ -225,6 +233,7 @@ const Form = props => {
                 }
                 <Submit callback={handleSubmit} buttonText={buttonText} />
         </FormWrapper>
+        </>
     );
 }
 export default Form;

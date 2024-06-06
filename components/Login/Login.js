@@ -27,13 +27,17 @@ const Login = props => {
     const headline = 'Care to tell us about yourself? All fields are optional';
 
     const {children, message, id} = props;
+
+    const onSuccess = props => {
+        document?.getElementById('signUp').close();
+    }
     return (
         <>
         {user? (
             <>
                 <Modal id={'signUp'}>
                     { loading ? ( <Loading/> ) : (
-                        <Form fieldsData={fieldsData} submitter={submitter} headline={headline}/>
+                        <Form onSuccess={onSuccess} fieldsData={fieldsData} submitter={submitter} headline={headline}/>
                         )
                     }
                 </Modal>
