@@ -78,6 +78,9 @@ export default function MyApp({ Component, pageProps }) {
         document.getElementById('signIn').showModal();
     }
   const router = useRouter();
+    const closeFormModal = props => {
+        document.getElementById('formModal').close();
+    }
   return (
       <FaustProvider pageProps={pageProps}>
           <AuthContext.Provider value={{user, setUser, signIn, signOut, promptSignIn, handleSignIn, handleSignOut, dbUser, setDbUser, checkUser, updateUserDb}}>
@@ -95,6 +98,12 @@ export default function MyApp({ Component, pageProps }) {
                                       <Button.AuthButton message={'Facebook'} providerName={'Facebook'} callback={() => handleSignIn({id: 'signUp', providerName: 'Facebook'})} />
                                   </div>
                             </div>
+                          </Modal>
+                          <Modal id={'formModal'} className={'flex flex-col items-center justify-center py-12'}>
+                              <Text className={'mb-8'}>Your form has been successfully submitted</Text>
+                            <Button.StandardButton callback={closeFormModal}>
+                                Close
+                            </Button.StandardButton>
                           </Modal>
                       </WordPressBlocksProvider>
                   </ScreenContext.Provider>
