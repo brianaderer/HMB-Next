@@ -111,3 +111,30 @@ export default function MyApp({ Component, pageProps }) {
       </FaustProvider>
   );
 }
+
+export async function getStaticProps(context) {
+    const { params } = context;
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_SITE}/${process.env.GRAPHQL_ENDPOINT}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            query: pageQuery,
+            variables: {
+                databaseId: params.slug, // Adjust this based on how you identify the page
+            },
+        }),
+    });
+
+    const json = await res.json();
+    const pageData = json.data;
+
+    return {
+        props: {
+            page: pageData,
+        },
+        revalidate: 10, // In seconds
+    };
+}
