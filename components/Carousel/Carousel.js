@@ -3,7 +3,7 @@ import * as Buttons from '.././../components/Button';
 import { TbSpeedboat } from "react-icons/tb";
 import {ScreenContext} from "../../contexts";
 
-const Carousel = ({ children, className, fullWidth = false, scrollInterval = 4000 }) => {
+const Carousel = ({ children, className = '', fullWidth = false, scrollInterval = 4000, active=true}) => {
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
@@ -175,13 +175,13 @@ const Carousel = ({ children, className, fullWidth = false, scrollInterval = 400
                     onMouseLeave={handleExit}
                     onMouseUp={stopDragging}
                     onMouseMove={onDrag}
-                    className={`max-xl:*:snap-always max-xl:*:snap-center max-xl:snap-x max-xl:snap-mandatory rounded-lg cursor-grab object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
+                    className={`${active ? 'max-xl:*:snap-always max-xl:*:snap-center max-xl:snap-x max-xl:snap-mandatory cursor-grab' : ''}  rounded-lg  object-cover flex flex-row overflow-x-scroll no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
                 >
                     {children}
                 </div>
             </div>
             {
-            !isMobile &&
+            !isMobile && active &&
             <>
             <div className="absolute left-full bottom-1/2">
                 <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginLeft: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={advance}>
