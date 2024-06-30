@@ -21,6 +21,8 @@ const Revolving = props => {
         };
 
         if (carouselRef.current) {
+            console.log(carouselWidth);
+            console.log(totalWidth);
             setCarouselWidth(carouselRef.current.getBoundingClientRect().width);
         }
 
