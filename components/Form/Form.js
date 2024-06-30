@@ -206,7 +206,7 @@ const Form = props => {
                 {
                     Object.keys(fields).map((field, index) => {
                         const {type, label, ...otherProps} = (fields[field]);
-                        const E = type.charAt(0).toUpperCase() +  type.slice(1);
+                        const E = type?.charAt(0).toUpperCase() +  type.slice(1);
                         const {value, options, placeholder, message, required} = otherProps;
                         const slug = slugify(label);
                         let Elem;
