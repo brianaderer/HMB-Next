@@ -3,8 +3,8 @@ import { Text, Carousel } from '../../../components';
 
 const Revolving = props => {
     const { tagline, galleryParagraph, imageGallery } = props;
-    const [totalWidth, setTotalWidth] = useState(0);
-    const [carouselWidth, setCarouselWidth] = useState(0);
+    const totalWidth = useRef(0);
+    const carouselWidth = useRef(0);
     const carouselRef = useRef(null);
     const imagesRef = useRef([]);
     const [galleryActive, setGalleryActive] = useState(false);
@@ -17,15 +17,15 @@ const Revolving = props => {
                     total += img.getBoundingClientRect().width;
                 }
             });
-            setTotalWidth(total);
+            totalWidth.current = total;
         };
 
         if (carouselRef.current) {
             console.log(carouselWidth);
             console.log(totalWidth);
-            setCarouselWidth(carouselRef.current.getBoundingClientRect().width);
+            carouselWidth.current = carouselRef.current.getBoundingClientRect().width;
             calculateTotalWidth();
-            setGalleryActive(totalWidth > carouselWidth);
+            setGalleryActive(totalWidth.current > carouselWidth.current);
         }
     }, [imageGallery, carouselRef, totalWidth, carouselWidth]);
 
