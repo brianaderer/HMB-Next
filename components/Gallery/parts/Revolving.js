@@ -7,7 +7,7 @@ const Revolving = props => {
     const carouselWidth = useRef(0);
     const carouselRef = useRef(null);
     const imagesRef = useRef([]);
-    const [galleryActive, setGalleryActive] = useState(false);
+    const [galleryActive, setGalleryActive] = useState(true);
 
     useEffect(() => {
         const calculateTotalWidth = () => {
@@ -20,13 +20,13 @@ const Revolving = props => {
             totalWidth.current = total;
         };
 
-        if (carouselRef.current) {
-            console.log(carouselWidth);
-            console.log(totalWidth);
-            carouselWidth.current = carouselRef.current.getBoundingClientRect().width;
-            calculateTotalWidth();
-            setGalleryActive(totalWidth.current > carouselWidth.current);
-        }
+        // if (carouselRef.current) {
+        //     console.log(carouselWidth);
+        //     console.log(totalWidth);
+        //     carouselWidth.current = carouselRef.current.getBoundingClientRect().width;
+        //     calculateTotalWidth();
+        //     setGalleryActive(totalWidth.current > carouselWidth.current);
+        // }
     }, [imageGallery, carouselRef, totalWidth, carouselWidth]);
 
     return (
@@ -34,8 +34,8 @@ const Revolving = props => {
             {tagline && <Text tag={'h1'} className={`text-center text-3xl mb-8`}>{tagline}</Text>}
             {galleryParagraph && <Text tag={'p'} className={`text-center text-xl`}>{galleryParagraph}</Text>}
             <div className="relative my-8 ">
-                <div className={`flex flex-row gap-4 ${galleryActive ? `xl:w-[125%] xl:translate-x-[-50%] xl:ml-[50%]` : `w-fit`} mx-auto drop-shadow-lg border-2 border-secondary/20 rounded-xl`}>
-                    <Carousel ref={carouselRef} active={galleryActive}>
+                <div ref={carouselRef} className={`flex flex-row gap-4 ${galleryActive ? `xl:w-[125%] xl:translate-x-[-50%] xl:ml-[50%]` : `w-fit`} mx-auto drop-shadow-lg border-2 border-secondary/20 rounded-xl`}>
+                    <Carousel active={galleryActive}>
                         {Object.keys(imageGallery).map((index, idx) => {
                             const image = imageGallery[index];
                             return (
