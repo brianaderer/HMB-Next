@@ -7,7 +7,7 @@ const Revolving = props => {
     const carouselWidth = useRef(0);
     const carouselRef = useRef(null);
     const imagesRef = useRef([]);
-    const [galleryActive, setGalleryActive] = useState(false);
+    const [galleryActive, setGalleryActive] = useState(true);
 
     useEffect(() => {
         const calculateTotalWidth = () => {
@@ -20,13 +20,13 @@ const Revolving = props => {
             totalWidth.current = total;
         };
 
-        if (carouselRef.current) {
-            console.log(carouselWidth);
-            console.log(totalWidth);
-            carouselWidth.current = carouselRef.current.getBoundingClientRect().width;
-            calculateTotalWidth();
-            setGalleryActive(totalWidth.current > carouselWidth.current);
-        }
+        // if (carouselRef.current) {
+        //     console.log(carouselWidth);
+        //     console.log(totalWidth);
+        //     carouselWidth.current = carouselRef.current.getBoundingClientRect().width;
+        //     calculateTotalWidth();
+        //     setGalleryActive(totalWidth.current > carouselWidth.current);
+        // }
     }, [imageGallery, carouselRef, totalWidth, carouselWidth]);
 
     return (
