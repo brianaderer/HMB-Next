@@ -24,10 +24,9 @@ const Revolving = props => {
             console.log(carouselWidth);
             console.log(totalWidth);
             setCarouselWidth(carouselRef.current.getBoundingClientRect().width);
+            calculateTotalWidth();
+            setGalleryActive(totalWidth > carouselWidth);
         }
-
-        calculateTotalWidth();
-        setGalleryActive(totalWidth > carouselWidth);
     }, [imageGallery, carouselRef, totalWidth, carouselWidth]);
 
     return (
