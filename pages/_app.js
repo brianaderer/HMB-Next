@@ -114,7 +114,7 @@ export default function MyApp({ Component, pageProps }) {
 
 export async function getStaticProps(context) {
     const { params } = context;
-
+    console.log('fetching');
     const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_SITE}/${process.env.GRAPHQL_ENDPOINT}`, {
         method: 'POST',
         headers: {
@@ -127,7 +127,7 @@ export async function getStaticProps(context) {
             },
         }),
     });
-
+    console.log('result ', res);
     const json = await res.json();
     const pageData = json.data;
 
