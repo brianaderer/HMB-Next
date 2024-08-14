@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import { ScreenContext } from "../../contexts";
 import { scroller } from "../../utilities/scroller";
+import {useRouter} from "next/router";
 
 const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     const [container, setContainer] = useState(null);
@@ -12,6 +13,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     const childrenRef = useRef();  // Reference to the children
     const originalRef = useRef(0);
     const isSticky = children.props.className?.includes("stickyElement");
+    const router = useRouter();
 
     if(!isSticky){
         return children;
@@ -33,13 +35,13 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
         const stickyContainer = document.getElementById('stickies');
         stickyContainer.appendChild(portalContainer);
         setContainer(portalContainer);
-    }, [targetId]);  // Added targetId as a dependency
+    }, [targetId, router]);  // Added targetId as a dependency
 
     useEffect(() => {
         if(originalHeight === 0){
             setOriginalHeight( originalRef.current.getBoundingClientRect().height )
         }
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         if( top !== null && !stuckOnInit ) {
@@ -51,7 +53,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
         if ( stuckOnInit ){
             setOffScreen( true );
         }
-    }, [top, screen.navHeight]);
+    }, [top, screen.navHeight, router]);
 
     scroller({ target: targetId, setTop: setTop });
     useEffect(() => {
@@ -67,7 +69,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
            const height = document.getElementById('stickies').getBoundingClientRect().height;
            setStickyHeight(height);
        }
-    }, [offScreen, stickyExpanded]);
+    }, [offScreen, stickyExpanded, router]);
 
     useEffect(() => {
         if( stuckOnInit ){
@@ -76,7 +78,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
             const height = document.getElementById('stickies').getBoundingClientRect().height;
             main.style.paddingTop = `${height}px`;
         }
-    }, [offScreen, stuck]);
+    }, [offScreen, stuck, router]);
 
     return (
         <>
