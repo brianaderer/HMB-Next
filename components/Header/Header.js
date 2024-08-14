@@ -69,6 +69,10 @@ export default function Header({
             document.body.removeEventListener("click", handleBodyClick);
         };
     }, [open]);
+
+    useEffect(() => {
+        console.log('menu open: ', open);
+    }, [open]);
   return (
       <div className="drawer min-h-screen">
         <input id="main-nav" type="checkbox" className="drawer-toggle" />
