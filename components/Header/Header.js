@@ -12,7 +12,7 @@ export default function Header({
   children,
 }) {
   const [isNavShown, setIsNavShown] = useState(false);
-  const {logo} = siteLogo || null;
+  const logo = siteLogo?.logo ?? null;
   const [open, setOpen] = useState('');
   const router = useRouter();
   const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight} = useContext(ScreenContext) || {};
