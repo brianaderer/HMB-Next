@@ -13,7 +13,7 @@ export default function Footer({ title, menuItems }) {
           </div>
           <br/>
           <div className={`flex flex-col text-sm text-base-content/50 `}>
-              <p className={`w-full text-center`}>Lat 41° 11.833' Lon 41° 53.393'</p>
+              <p className={`w-full text-center`}>Lat 41° 11.833' Lon 73° 53.393'</p>
               <br/>
               <p className={`w-full text-center`}>80 Half Moon Bay Drive</p>
               <p className={`w-full text-center`}>Croton-On-Hudson NY 10552</p>
