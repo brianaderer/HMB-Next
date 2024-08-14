@@ -28,7 +28,7 @@ export default function Footer({ title, menuItems }) {
         </ul>
           <br/>
           <p className={`text-base-content/50`}>Copyright {year} Half Moon Bay Marina, Inc.</p>
-          <p className={`text-base-content/50`}>Website by <a className={`text-accent-content/50`} href={'https://brianaderer.com'} target={'_blank'}>Brian Aderer</a> <a href={`mailto:brian@brianaderer.com`}>brian@brianaderer.com</a></p>
+          <p className={`text-base-content/50`}>Website by <a className={`text-accent-content/50`} href={'https://brianaderer.com'} onclick={'window.open(this.href,"_blank"); return false;'}>Brian Aderer</a> <a href={`mailto:brian@brianaderer.com`}>brian@brianaderer.com</a></p>
       </div>
   );
 }
