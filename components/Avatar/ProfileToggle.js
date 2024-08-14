@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import {AuthContext} from "../../contexts";
+import Link from 'next/link';
 
 const ProfileToggle = props => {
     const {path} = props;
