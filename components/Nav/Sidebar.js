@@ -1,5 +1,6 @@
 import {flatListToHierarchical} from "@faustwp/core";
 import {default as ProfileToggle} from '../../components/Avatar/ProfileToggle';
+import Link from 'next/link';
 
 const Sidebar = props => {
     const {menuItems} = props;
@@ -27,7 +28,7 @@ const Sidebar = props => {
                         return null;
                     }
                     return (
-                        <li key={id}><a href={path}>{label}</a></li>
+                        <li key={id}><Link href={path}>{label}</Link></li>
                     );
 
                 })

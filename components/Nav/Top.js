@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import {Avatar} from '../index';
+import Link from 'next/link';
 import { flatListToHierarchical } from '@faustwp/core';
 const Top = props => {
     const {menuItems, open} = props;
@@ -26,7 +27,7 @@ const Top = props => {
                     }
                     if( !children.length ){
                         return (
-                            <li key={id}><a className={``} href={path}>{label}</a></li>
+                            <li key={id}><Link className={``} href={path}>{label}</Link></li>
                         );
                     } else {
                         return (
