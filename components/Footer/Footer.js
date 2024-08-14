@@ -30,7 +30,7 @@ export default function Footer({ title, menuItems }) {
         </ul>
           <br/>
           <p className={`text-base-content/50`}>Copyright {year} Half Moon Bay Marina, Inc.</p>
-          <p className={`text-base-content/50`}>Website by <a className={`text-accent-content/50 cursor-pointer`} onClick={(event) => handleLinkClick(event, 'https://brianaderer.com')}>Brian Aderer</a> brian@brianaderer.com</p>
+          <p className={`text-base-content/50`}>Website by <a className={`text-accent-content/50 cursor-pointer`} onClick={(event) => handleLinkClick(event, 'https://brianaderer.com')}>Brian Aderer</a> <a href={'mailto:brian@brianaderer.com'}>brian@brianaderer.com</a></p>
       </div>
   );
 }
