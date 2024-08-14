@@ -12,19 +12,12 @@ export default function Header({
   children,
 }) {
   const [isNavShown, setIsNavShown] = useState(false);
-  const [hasSticky, setHasSticky] = useState(0);
   const logo = siteLogo?.logo ?? null;
   const [open, setOpen] = useState('');
   const router = useRouter();
   const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight} = useContext(ScreenContext) || {};
   const {navHeight} = screen || {};
 
-
-    useEffect(() => {
-        const sticky = document.getElementsByClassName('stickyElement');
-        console.log(sticky.length);
-        setHasSticky(sticky.length);
-    }, [router]);
   const toggleExpanded = props => {
       setStickyExpanded( !stickyExpanded );
   }
@@ -86,7 +79,7 @@ export default function Header({
         <div className="drawer-content min-h-screen flex flex-col justify-between">
           <div id={`nav`} className="z-20 w-full flex flex-row items-center navbar sticky top-0 bg-base-300 border-b-4 border-b-accent">
                   <ReactDrawer buttonStyle={buttonStyle} top={topStyle} offScreen={offScreen}
-                            setStickyExpanded={setStickyExpanded} expanded={stickyExpanded} className={`${hasSticky > 0 ? '' : '-z-10 opacity-0'}`}>
+                            setStickyExpanded={setStickyExpanded} expanded={stickyExpanded}>
                   <div id='stickies' style={topStyle}
                        className={`border-b border-b-secondary absolute group stickyContainer w-full border-t border-t-secondary`}>
                       <div className={`relative`}>
