@@ -39,7 +39,7 @@ export default function NavigationMenu({ menuItems, className }) {
       role="navigation"
       aria-label={`${menuItems[0]?.menu?.node?.name} menu`}>
       {renderMenu(hierarchicalMenuItems)}
-      {/*<Button.SignInButton classes={'ml-4'}/>*/}
+      <Button.SignInButton classes={'ml-4'}/>
     </nav>
   );
 }
