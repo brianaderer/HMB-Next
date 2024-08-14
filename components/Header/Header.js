@@ -34,6 +34,7 @@ export default function Header({
         'height' : stickyHeight,
     }
 
+    // @todo this is the link problem
     useEffect(() => {
         const handleBodyClick = (evt) => {
             if (evt.target.tagName === 'A') {
