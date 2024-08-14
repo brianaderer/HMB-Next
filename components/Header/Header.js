@@ -19,12 +19,25 @@ export default function Header({
   const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight} = useContext(ScreenContext) || {};
   const {navHeight} = screen || {};
 
-
     useEffect(() => {
-        const sticky = document.getElementsByClassName('stickyElement');
-        console.log(sticky.length);
-        setHasSticky(sticky.length);
+        const handleScroll = () => {
+            const sticky = document.getElementsByClassName('stickyElement');
+            console.log(sticky.length);
+            setHasSticky(sticky.length);
+        };
+
+        // Attach the scroll event listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Run once on initial mount to check for sticky elements
+        handleScroll();
+
+        // Cleanup event listener on unmount
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, [router]);
+
   const toggleExpanded = props => {
       setStickyExpanded( !stickyExpanded );
   }
