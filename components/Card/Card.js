@@ -1,5 +1,6 @@
 import {Button, Tag} from '../index';
 import {CATEGORIES} from "../../constants/categories";
+import {handleLinkClick} from "../../utilities/handleLinkClick";
 
 const Card = props => {
     const{distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
@@ -7,10 +8,7 @@ const Card = props => {
     const borderColor = CATEGORIES[slug].borderCardColor;
 
     // Event handler to open link in a new tab
-    const handleLinkClick = (event, url) => {
-        event.preventDefault();
-        window.open(url, '_blank', 'noopener,noreferrer');
-    };
+
 
     return (
         <div id={`${firstPlace ? catSlug : ''}`} className="metaWrapper">

@@ -1,4 +1,6 @@
 import {FooterMenuItem} from "../../components";
+import Link from 'next/link';
+import {handleLinkClick} from "../../utilities/handleLinkClick";
 
 export default function Footer({ title, menuItems }) {
   const year = new Date().getFullYear();
@@ -6,8 +8,8 @@ export default function Footer({ title, menuItems }) {
   return (
       <div className={`px-4 py-10 h-auto w-full bg-base-300 z-10 border-t-4 border-t-accent flex flex-col items-center justify-center gap-2`}>
           <div className={`flex flex-col md:flex-row gap-4 justify-center items-center`}>
-              <a className={`text-accent-content/70 text-xl`} href={'tel:(914)271-5400'}>(914)271-5400</a>
-              <a className={`text-accent-content/70 text-xl`} href={'mailto:info@hmbmarina.com'}>info@hmbmarina.com</a>
+              <Link className={`text-accent-content/70 text-xl`} href={'tel:(914)271-5400'}>(914)271-5400</Link>
+              <Link className={`text-accent-content/70 text-xl`} href={'mailto:info@hmbmarina.com'}>info@hmbmarina.com</Link>
           </div>
           <br/>
           <div className={`flex flex-col text-sm text-base-content/50 `}>
@@ -28,7 +30,7 @@ export default function Footer({ title, menuItems }) {
         </ul>
           <br/>
           <p className={`text-base-content/50`}>Copyright {year} Half Moon Bay Marina, Inc.</p>
-          <p className={`text-base-content/50`}>Website by <a className={`text-accent-content/50`} href={'https://brianaderer.com'} onclick={'window.open(this.href,"_blank"); return false;'}>Brian Aderer</a> <a href={`mailto:brian@brianaderer.com`}>brian@brianaderer.com</a></p>
+          <p className={`text-base-content/50`}>Website by <a className={`text-accent-content/50 cursor-pointer`} onClick={(event) => handleLinkClick(event, 'https://brianaderer.com')}>Brian Aderer</a> brian@brianaderer.com</p>
       </div>
   );
 }
