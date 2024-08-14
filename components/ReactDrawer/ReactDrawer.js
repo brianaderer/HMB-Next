@@ -8,7 +8,7 @@ import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 
 const ReactDrawer = props => {
-    const { expanded, buttonStyle ,children, top = false, offScreen = false, setStickyExpanded } = props;
+    const { expanded, buttonStyle ,children, top = false, offScreen = false, setStickyExpanded, className } = props;
     const [isOpen, setIsOpen] = React.useState(false);
     const [firstOpen, setFirstOpen] = useState(true);
     const toggleDrawer = () => {
@@ -36,7 +36,7 @@ const ReactDrawer = props => {
     }, [expanded]);
 
     return (
-        <div className={``}>
+        <div className={`${className}`}>
             <Drawer
                 open={isOpen}
                 onClose={toggleDrawer}
