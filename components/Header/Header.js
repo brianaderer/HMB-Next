@@ -16,7 +16,7 @@ export default function Header({
   const logo = siteLogo?.logo ?? null;
   const [open, setOpen] = useState('');
   const router = useRouter();
-  const {offScreen, screen, setStuck, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight} = useContext(ScreenContext) || {};
+  const {offScreen, setOffScreen, screen, setStuck, stickyExpanded, setStickyExpanded, stickyHeight, setStickyHeight} = useContext(ScreenContext) || {};
   const {navHeight} = screen || {};
 
     useEffect(() => {
@@ -25,12 +25,14 @@ export default function Header({
             console.log(sticky.length);
             setHasSticky(sticky.length);
         };
-
+        setOffScreen(false);
         // Attach the scroll event listener
         window.addEventListener('scroll', handleScroll);
 
         // Run once on initial mount to check for sticky elements
-        handleScroll();
+        setTimeout(() => {
+            handleScroll();
+        }, 250)
 
         // Cleanup event listener on unmount
         return () => {
