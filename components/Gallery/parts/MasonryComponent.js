@@ -1,7 +1,7 @@
 import {ImageCard} from "../../ImageCard";
 import {LoadMore} from "../../LoadMore";
 import React, {useState, useContext} from "react";
-// import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import {ScreenContext} from "../../../contexts";
 
 
@@ -24,27 +24,26 @@ const MasonryComponent = props => {
         default: {350: 1, 750: 2, 900: 3},
     }
     return (
-        // <div className={`mb-2`}>
-        //     <ResponsiveMasonry
-        //         columnsCountBreakPoints={sizeLookup[imgSize]}
-        //     >
-        //         <Masonry
-        //             gutter={computedSpacing.toString()}
-        //         >
-        //             {Object.keys(posts).map((post,index) => {
-        //                 if( index < limit ){
-        //                     const src = posts[post][srcName];
-        //                     const caption = posts[post][captionName];
-        //                     return(
-        //                         <ImageCard loaded={loaded.includes(index)} onLoad={() => onLoad({id : index})} className={`p-2 md:p-4 transition-all rounded-none`} imageClassName={`mb-2 md:mb-4`} key={index} src={src} caption={caption} />
-        //                     )
-        //                 }
-        //             })}
-        //         </Masonry>
-        //     </ResponsiveMasonry>
-        //     <LoadMore max={Object.keys(posts).length} setLimit={setLimit} limit={limit} increment={computedIncrement} className={`mt-6`} />
-        // </div>
-        <></>
+        <div className={`mb-2`}>
+            <ResponsiveMasonry
+                columnsCountBreakPoints={sizeLookup[imgSize]}
+            >
+                <Masonry
+                    gutter={computedSpacing.toString()}
+                >
+                    {Object.keys(posts).map((post,index) => {
+                        if( index < limit ){
+                            const src = posts[post][srcName];
+                            const caption = posts[post][captionName];
+                            return(
+                                <ImageCard loaded={loaded.includes(index)} onLoad={() => onLoad({id : index})} className={`p-2 md:p-4 transition-all rounded-none`} imageClassName={`mb-2 md:mb-4`} key={index} src={src} caption={caption} />
+                            )
+                        }
+                    })}
+                </Masonry>
+            </ResponsiveMasonry>
+            <LoadMore max={Object.keys(posts).length} setLimit={setLimit} limit={limit} increment={computedIncrement} className={`mt-6`} />
+        </div>
     )
 }
 export default MasonryComponent;
