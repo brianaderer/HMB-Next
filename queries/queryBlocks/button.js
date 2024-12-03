@@ -24,6 +24,5 @@ export default `
               textAlign
               textColor
               title
-              type
               url
             }`;

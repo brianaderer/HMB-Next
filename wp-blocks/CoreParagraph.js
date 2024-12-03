@@ -30,7 +30,6 @@ CoreParagraph.fragments = {
         fontFamily
         dropCap
         gradient
-        align
         content
       }
     }

@@ -24,7 +24,6 @@ CoreColumns.fragments = {
         anchor
         cssClassNames
         attributes {
-          align
           anchor
           backgroundColor
           borderColor

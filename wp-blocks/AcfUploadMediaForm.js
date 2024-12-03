@@ -63,7 +63,6 @@ AcfUploadMediaForm.MediaQuery = gql`
       size
       timestamp
       title
-      type
     }
   }
 `;

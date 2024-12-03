@@ -44,7 +44,6 @@ CoreMediaText.fragments = {
           }
         }
         attributes {
-          align
           allowedBlocks
           anchor
           backgroundColor

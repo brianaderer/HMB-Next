@@ -14,6 +14,7 @@ import {flatListToHierarchical} from "@faustwp/core";
 import {pageQuery} from "../queries/pageQuery";
 import {useState} from "react";
 
+
 export default function Component(props) {
   // Loading state for previews
   if (props.loading) {

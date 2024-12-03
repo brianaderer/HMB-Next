@@ -18,7 +18,6 @@ CoreImage.fragments = {
         apiVersion
         customAttributes
         attributes {
-          align
           alt
           anchor
           aspectRatio
