@@ -6,6 +6,7 @@ export default function CreateBlockGuestbook(props) {
     const increment = 5;
     const [limit, setLimit] = useState(increment);
     const {content} = props;
+    console.log(content);
     const max = Object.keys(content).length;
     return (
         <>
