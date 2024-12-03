@@ -184,12 +184,12 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
             !isMobile && active &&
             <>
             <div className="absolute left-full bottom-1/2">
-                <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginLeft: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={advance}>
+                <Buttons.StandardButton style={{top: ( buttonDims.height || 0 ) ? (buttonDims.height / 2) : '', marginLeft: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={advance}>
                     <TbSpeedboat className={`text-accent-content`} size={30} />
                 </Buttons.StandardButton>
             </div>
             <div className="absolute right-full bottom-1/2">
-                <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginRight: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={rewind}>
+                <Buttons.StandardButton style={{top: ( buttonDims.height || 0 ) ? (buttonDims.height / 2) : '', marginRight: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={rewind}>
                     <TbSpeedboat className={`text-accent-content transform -scale-x-100`} size={30} />
                 </Buttons.StandardButton>
             </div>
