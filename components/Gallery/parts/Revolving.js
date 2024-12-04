@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Text, Carousel } from '../../../components';
 
 const Revolving = props => {
-    const { tagline, galleryParagraph, imageGallery } = props;
+    const { tagline, galleryParagraph, imageGallery, srcName='url', captionName } = props;
     const totalWidth = useRef(0);
     const carouselWidth = useRef(0);
     const carouselRef = useRef(null);
@@ -42,8 +42,8 @@ const Revolving = props => {
                                 <img
                                     key={index}
                                     ref={el => imagesRef.current[idx] = el}
-                                    className={``}
-                                    src={image.url}
+                                    className={`w-auto`}
+                                    src={image[srcName]}
                                     alt={image.alt}
                                 />
                             );

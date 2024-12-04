@@ -6,7 +6,6 @@ export default function CreateBlockGuestbook(props) {
     const increment = 5;
     const [limit, setLimit] = useState(increment);
     const {content} = props;
-    console.log(content);
     const max = Object.keys(content).length;
     return (
         <>
@@ -33,15 +32,29 @@ CreateBlockGuestbook.fragments = {
           className
         }
         content {
-            approved
-            beam
-            boatLengthLoa
-            boatName
-            boatType
-            draft
-            fieldGroupName
-            reply
-            yearMakeModel
+            acfFields {
+                boatLengthLoa
+                beam
+                boatName
+                boatType
+                reply
+                yearMakeModel
+                draft
+            }
+            customFields {
+                message
+                name
+            }
+            imageGallery {
+                alt
+                caption
+                description
+                iD
+                name
+                type
+                title
+                src
+            }
         }
       }
   `,
