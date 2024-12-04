@@ -33,17 +33,15 @@ CreateBlockGuestbook.fragments = {
           className
         }
         content {
-            guestBookEntryField {
-                approved
-                beam
-                boatLengthLoa
-                boatName
-                boatType
-                draft
-                fieldGroupName
-                reply
-                yearMakeModel
-            }
+            approved
+            beam
+            boatLengthLoa
+            boatName
+            boatType
+            draft
+            fieldGroupName
+            reply
+            yearMakeModel
         }
       }
   `,
