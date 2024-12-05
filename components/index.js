@@ -28,7 +28,6 @@ export { NavigationMenu } from './NavigationMenu';
 export { PostInfo } from './PostInfo';
 export { Review } from './Review';
 export { SkipNavigationLink } from './SkipNavigationLink';
-export { Hero } from './Hero';
 export { Post } from './Post';
 export { PlaceCard } from './PlaceCard';
 export { ReactDrawer } from './ReactDrawer';

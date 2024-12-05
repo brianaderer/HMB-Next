@@ -1,8 +1,12 @@
 import { gql } from '@apollo/client';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {GuestBookEntry, LoadMore} from "../components";
 
 export default function CreateBlockGuestbook(props) {
+    useEffect(() => {
+        console.log('CreateBlockGuestBook');
+    });
+
     const increment = 5;
     const [limit, setLimit] = useState(increment);
     const {content} = props;

@@ -1,11 +1,11 @@
 import {Galleries, Text} from '../index';
+import {useEffect} from "react";
+
 const GuestBookEntry = ({entry, key}) => {
     const {acfFields, customFields, imageGallery} = entry;
     const {yearMakeModel, boatType, boatName, reply, beam, boatLengthLoa, draft} = acfFields;
     const {message, name} = customFields;
-    imageGallery.forEach(image => {
-        console.log(image.src);
-    })
+
     return(
         <div className="card mb-2 lg:mb-8 pb-4 lb:pb-8 w-full border-2 border-neutral drop-shadow-lg bg-neutral rounded-xl text-neutral-content">
             <div className="card-body max-md:p-4">
@@ -13,7 +13,7 @@ const GuestBookEntry = ({entry, key}) => {
                                              imageGallery={imageGallery}/>}
                 <div className="flex flex-col lg:flex-row gap-8 items-start justify-start h-auto mb-4">
                     <div className="flex flex-row items-start justify-start h-full">
-                        <Text className={`text-6xl text-left tracking-tighter h-full`} tagName={`h4`}>{boatName}</Text>
+                        <Text className={`text-6xl text-left tracking-tighter h-full`} ntagName={`h4`}>{boatName}</Text>
                     </div>
                     <div className="flex-col items-start flex">
                         {yearMakeModel && <Text tagname={`p`}>{`Make and Model:  <strong>${yearMakeModel}</strong>`}</Text>}
