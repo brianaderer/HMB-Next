@@ -22,7 +22,6 @@ export default function Header({
     useEffect(() => {
         const handleScroll = () => {
             const sticky = document.getElementsByClassName('stickyElement');
-            console.log(sticky.length);
             setHasSticky(sticky.length);
         };
         setOffScreen(false);
@@ -92,9 +91,6 @@ export default function Header({
         };
     }, [open]);
 
-    useEffect(() => {
-        console.log('menu open: ', open);
-    }, [open]);
   return (
       <div className="drawer min-h-screen">
         <input id="main-nav" type="checkbox" className="drawer-toggle" />

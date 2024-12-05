@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {Text, Review} from "../components";
+import {Review} from "../components";
 import {Carousel} from '../components';
 
 export default function CreateBlockReviews(props) {
