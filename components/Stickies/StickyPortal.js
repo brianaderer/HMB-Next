@@ -46,7 +46,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     useEffect(() => {
         if( top !== null && !stuckOnInit ) {
             const navHeight = screen.navHeight;
-            const offscreen = -(top) > ((navHeight - (originalHeight)) + ( originalHeight ));
+            const offscreen = -(top) > (navHeight - (originalHeight) + 50 + originalHeight);
             setOffScreen(offscreen);
             setPlaceholderHeight(offscreen ? originalHeight : 0);
         }
@@ -72,13 +72,26 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     }, [offScreen, stickyExpanded, router]);
 
     useEffect(() => {
-        if( stuckOnInit ){
-            const main = document.getElementById('main-container');
-            //const padding = parseInt(main.style.paddingTop, 10) || 0;
-            const height = document.getElementById('stickies').getBoundingClientRect().height;
-            main.style.paddingTop = `${height}px`;
+        const stickiesElement = document.getElementById('stickies');
+        if (offScreen && stickyExpanded && stickiesElement) {
+            const updateStickyHeight = () => {
+                const height = stickiesElement.getBoundingClientRect().height;
+                setStickyHeight(height);
+            };
+
+            updateStickyHeight(); // Initial calculation
+
+            // Use MutationObserver to listen for changes in the #stickies element
+            const observer = new MutationObserver(() => updateStickyHeight());
+            observer.observe(stickiesElement, { attributes: true, childList: true, subtree: true });
+
+            return () => {
+                observer.disconnect(); // Cleanup observer on unmount
+            };
         }
-    }, [offScreen, stuck, router]);
+    }, [offScreen, stickyExpanded, router]);
+
+
 
     return (
         <>

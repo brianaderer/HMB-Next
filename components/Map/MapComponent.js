@@ -484,6 +484,14 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         }
     }
 
+    useEffect(() => {
+        const currentActive = [];
+        categories.forEach((category, index) => {
+            currentActive.push(index);
+        });
+        setActiveCategories(currentActive);
+    }, [categories]);
+
     return (
         <>
             {categories.length > 0 &&
