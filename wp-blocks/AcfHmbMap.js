@@ -10,7 +10,7 @@ export default function AcfHmbMap(props) {
 
     return (
         <div className={`bg-base-100 rounded-lg flex flex-row justify-center items-center`}>
-            <Map classes={'w-full drop-shadow-md'} locations={locations || {}}/>
+            <Map classes={'w-full drop-shadow-md rounded-lg overflow-hidden'} locations={locations || {}}/>
         </div>
     );
 }
