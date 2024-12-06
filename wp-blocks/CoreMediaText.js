@@ -13,9 +13,9 @@ export default function CoreMediaText(props) {
     }
 
     return (
-        <div id={anchor} className={`flex flex-col ${positionLookup[mediaPosition]} items-center gap-8 pb-8`}>
-            <div className="w-full lg:w-1/2 flex flex-row items-center justify-center">
-                <Media.Image ratio={'square'} src={mediaUrl} size={'medium'} alt={mediaAlt} classes={`rounded drop-shadow-lg`}/>
+        <div id={anchor} className={`flex flex-col ${positionLookup[mediaPosition]} items-start justify-start gap-8 pb-8`}>
+            <div className="w-full lg:w-1/2 flex flex-row items-start justify-center">
+                <Media.Image ratio={'square'} src={mediaUrl} size={'medium'} alt={mediaAlt} classes={`rounded drop-shadow-md`}/>
             </div>
             <div className="w-full lg:w-1/2">
                 <WordPressBlocksViewer blocks={innerBlocks}/>

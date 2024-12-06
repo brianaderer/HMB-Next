@@ -164,8 +164,8 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
     }
 
     return (
-        <>
-            <div className={`overflow-hidden flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
+        <div className={'relative'}>
+            <div className={`border border-secondary/20 bg-base-neutral rounded-lg overflow-hidden flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
                 <div
                     ref={ref}
                     onTouchStart={handleTouchStart}
@@ -195,7 +195,7 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
             </div>
             </>
             }
-        </>
+        </div>
     );
 };
 

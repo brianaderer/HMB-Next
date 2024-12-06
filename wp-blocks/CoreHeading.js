@@ -23,7 +23,7 @@ export default function CoreHeading(props) {
     }
 
     return (
-        <Text ref={heading} tag={`h${level}`} className={`pl-12 n drop-shadow-lg mt-2 lg:mt-4 ${paragraphHeading ? `rounded-tl-3xl bg-neutral text-neutral-content p-4 pb-10 relative top-6 -mt-6` : ''} ${alignLookup[textAlign]}`}>{renderedHtml}</Text>
+        <Text ref={heading} tag={`h${level}`} className={`pl-12 bg-neutral drop-shadow-sm ${paragraphHeading ? `border-t border-r border-l border-accent/40 rounded-tl-3xl p-4 pb-10 relative top-6 -mt-6 bg-base-200/50 rounded-tr-md text-accent-content` : ''} ${alignLookup[textAlign]}`}>{renderedHtml}</Text>
     );
 }
 

@@ -12,7 +12,7 @@ const ImageCard = props => {
         return () => clearTimeout(timer); // Cleanup the timeout if the component unmounts before setting the src
     }, [initialSrc]);
     return (
-        <div className={`transition-all ${loaded ? `opacity-100` : `opacity-0 !h-0`} card bg-neutral text-neutral-content shadow-xl rounded-md border border-primary ${className}`} >
+        <div className={`transition-all ${loaded ? `opacity-100` : `opacity-0 !h-0`} border-separate card bg-neutral text-neutral-content shadow-sm rounded-md border-2 border-accent-100/50 ${className}`} >
             {Button ? Button : ''}
             <figure className={`rounded-none`}>
                 <Media.Image className={imageClassName} alt={alt} onLoad={onLoad} src={src}/>

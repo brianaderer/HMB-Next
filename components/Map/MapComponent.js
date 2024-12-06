@@ -489,7 +489,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
             {categories.length > 0 &&
                 <>
                     <StickyPortal targetId={`mapSticky`}>
-                        <form className={`stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-lg mb-4 group-[.stickyContainer]:mb-0 group-[.stickyContainer]:rounded-none`}>
+                        <form className={`stickyElement w-full p-2 flex flex-col items-center basis-full bg-neutral rounded-lg drop-shadow-md mb-4 group-[.stickyContainer]:mb-0 group-[.stickyContainer]:rounded-none`}>
                             <p className={`p-2 text-center text-neutral-content group-[.stickyContainer]:text-sm`}>Click a category to Jump. Check the Box to show its contents.</p>
                             <fieldset className={`w-full flex flex-row gap-2 group-[.stickyContainer]:flex-col group-[.stickyContainer]:mb-2 group-[.stickyContainer]:gap-1 mb-2 justify-center flex-wrap`}>
                                 {categories.map((cat, index) => {
@@ -507,8 +507,8 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                 </>
         }
         <div id={`mapDiv`} className={`relative + ${classes}`}>
-            <div className={`w-full rounded drop-shadow-lg flex flex-col`}>
-                    <div className="flex flex-row h-96 lg:h-[500px]">
+            <div className={`w-full rounded drop-shadow-md flex flex-col`}>
+                    <div className="flex flex-row h-96 lg:h-[400px]">
                         <div className={`h-full rounded w-auto min-w-1/2 flex-grow ml-1`} ref={ref} id="map" />
                     </div>
                 {categories.length > 0 && <>

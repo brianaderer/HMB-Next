@@ -23,7 +23,7 @@ const CREATE_GUEST_BOOK_ENTRY = gql`
     $image_gallery: [Int],
     $title: String
     ) {
-      createGuestBookEntry(
+      createGuestBookEntryMutation(
         input: {
         guestBookEntry: {
         beam: $beam, 

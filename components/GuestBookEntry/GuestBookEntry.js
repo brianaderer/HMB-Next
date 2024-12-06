@@ -7,7 +7,7 @@ const GuestBookEntry = ({entry, key}) => {
     const {message, name} = customFields;
 
     return(
-        <div className="card mb-2 lg:mb-8 pb-4 lb:pb-8 w-full border-2 border-neutral drop-shadow-lg bg-neutral rounded-xl text-neutral-content">
+        <div className="card mb-2 lg:mb-8 pb-4 lb:pb-8 w-full border-2 border-neutral drop-shadow-md bg-neutral rounded-xl text-neutral-content">
             <div className="card-body max-md:p-4">
                 {imageGallery.length > 0 && <Galleries.Revolving srcName={'src'} captionName={'caption'} className={`max-w-full max-h-80 my-0 p-0`} background={false} oversize={false}
                                              imageGallery={imageGallery}/>}

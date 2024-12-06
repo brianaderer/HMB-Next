@@ -12,7 +12,7 @@ const Card = props => {
 
     return (
         <div id={`${firstPlace ? catSlug : ''}`} className="metaWrapper">
-            <div id={id} className={`relative w-full border-r-8 ${borderColor} card ${expanded ? `flex-col-reverse`: ''} lg:card-side bg-neutral drop-shadow-lg overflow-clip rounded-none mb-1`}>
+            <div id={id} className={`relative w-full border-r-8 ${borderColor} card ${expanded ? `flex-col-reverse`: ''} lg:card-side bg-neutral drop-shadow-md overflow-clip rounded-none mb-1`}>
                 {expanded && <Button.StandardButton className={`rounded !btn-sm top-2 left-2 absolute`} callback={handleDestroy}>X</Button.StandardButton>}
                 <div className=" absolute top-2 right-2">
                 <ul>{data.category_tax.map( (category, key) => {
@@ -21,7 +21,7 @@ const Card = props => {
                     )
                 } )}</ul>
                 </div>
-                {data.photo.length > 0  && <figure className={``}><img className={` ${expanded ? `mb-6 mx-6 lg:mt-14 rounded-l-lg` : `lg:mt-0`} max-h-64 lg:max-h-80 overflow-hidden rounded-r-lg drop-shadow-lg`} src={data.photo} alt={`${data.title} Headline Image`}/></figure>}
+                {data.photo.length > 0  && <figure className={``}><img className={` ${expanded ? `mb-6 mx-6 lg:mt-14 rounded-l-lg` : `lg:mt-0`} max-h-64 lg:max-h-80 overflow-hidden rounded-r-lg drop-shadow-md`} src={data.photo} alt={`${data.title} Headline Image`}/></figure>}
                 <div className="card-body pt-12 text-left lg:text-right flex-col justify-start min-h-full">
                     <h2 className="card-title mb-1 text-neutral-content lg:mt-4 justify-center lg:justify-end">{data.title}</h2>
                     <div>

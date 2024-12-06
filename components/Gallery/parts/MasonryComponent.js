@@ -29,7 +29,7 @@ const MasonryComponent = props => {
                 columnsCountBreakPoints={sizeLookup[imgSize]}
             >
                 <Masonry
-                    gutter={computedSpacing.toString()}
+                    gutter={0}
                 >
                     {Object.keys(posts).map((post,index) => {
                         if( index < limit ){
