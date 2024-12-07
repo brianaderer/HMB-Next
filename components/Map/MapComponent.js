@@ -8,9 +8,10 @@ import {StickyPortal, Button} from "../../components";
 import {ScreenContext} from "../../contexts";
 import {CATEGORIES} from "../../constants/categories";
 import {createRoot} from "react-dom/client";
+import {off} from "next/dist/client/components/react-dev-overlay/pages/bus";
 
 const MapComponent = ({ center, zoom, locations, classes }) => {
-    const {setStickyExpanded, stickyExpanded, stuck} = useContext(ScreenContext);
+    const {setStickyExpanded, stickyExpanded, stuck, offScreen} = useContext(ScreenContext);
     const ref = useRef();
     const [map, setMap] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -32,35 +33,8 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     const [allDistancesLoaded, setAllDistancesLoaded] = useState(false);
     const [intersections, setIntersections] = useState(false);
     const distancesRef = useRef({});
+    const offset = useRef(0);
     let locationData = [];
-    const getDistance = async props => {
-        return await fetch("/api/distanceAPICall", {
-            method: "POST",
-            body: JSON.stringify(props),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-    }
-    const getLocalDistance = async props => {
-        return await fetch("/api/localDistance", {
-            method: "POST",
-            body: JSON.stringify(props),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-    }
-
-    const setLocalDistance = async props => {
-        return await fetch("/api/writeDistance", {
-            method: "POST",
-            body: JSON.stringify(props),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-    }
 
     useEffect(() => {
         // Define an async function inside the effect
@@ -91,44 +65,13 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [locations]); // Ensure dependencies are correctly listed
 
     useEffect(() => {
-        if (intersections.length > 0) {
-            // Use a temporary variable to accumulate distance data
-            let tempDistances = {...distances};
-
-            // Convert each intersection operation into a Promise
-            const distancePromises = intersections.map(intersection => {
-                const location = locationData[intersection];
-                if (!location?.location) return Promise.resolve();
-
-                const position = location.marker?.position;
-                return getDistance({id: location.index, start: center, finish: position})
-                    .then(response => response.json())
-                    .then(data => {
-                        // Directly update the temporary variable
-                        tempDistances[intersection] = tempDistances[intersection] || {};
-                        tempDistances[intersection]['driving'] = data.data;
-                        // Conditionally trigger the second API call
-                        if (data.data.distance?.value < 3300) {
-                            return getDistance({id: location.index, start: center, finish: position, mode: 'walking'})
-                                .then(response => response.json())
-                                .then(walkingData => {
-                                    tempDistances[intersection]['walking'] = walkingData.data;
-                                });
-                        }
-                    });
-            });
-
-            // Wait for all distance calculations to complete
-            Promise.all(distancePromises).then(() => {
-                // Once all promises resolve, update the state once with the accumulated data
-                setDistances(tempDistances);
-                setLocalDistance({distances: tempDistances}).then(data => {
-                });
-                setAllDistancesLoaded(true);
-            }).catch(error => console.error("Error fetching distances", error));
+        if( !offScreen ){
+            const stickyContent = document.getElementsByClassName('stickyElement')[0];
+            offset.current = stickyContent?.getBoundingClientRect().height - 80;
+        } else {
+            offset.current = -80;
         }
-        // Removed 'distances' from the dependency array to avoid re-triggering the effect due to state updates
-    }, [intersections, center]);
+    }, [offScreen]);
 
     if( locations.length > 0 ) {
         locations.sort((a, b) => {
@@ -359,7 +302,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
         const headerHeight = document.getElementById('nav')?.getBoundingClientRect().height;
         const location = locationData[activeMarker.index]?.location;
         if (activeMarker.index && location) {
-            scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + 80 } ).then(() => {
+            scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + offset.current} ).then(() => {
                 setStickyExpanded(false);
             });
             // After scrolling, then set the focus
@@ -367,7 +310,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
 
         } else if(lastActiveMarker.id && !clickedOnMapRef.current) {
             setTimeout(() => {
-                scrollIntoViewWithOffset({id:`${lastActiveMarker.index}`, offset: headerHeight + 80}).then(() => {
+                scrollIntoViewWithOffset({id:`${lastActiveMarker.index}`, offset: headerHeight + offset.current + 120}).then(() => {
                     setStickyExpanded(false);
                 });
                 // After scrolling, then set the focus
@@ -476,12 +419,16 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
 
     const jumpToMap = async props => {
         const headerHeight = document.getElementById('nav')?.getBoundingClientRect().height;
-        scrollIntoViewWithOffset({id: 'map', offset: headerHeight + 80}).then(() => {
+        scrollIntoViewWithOffset({id: 'map', offset: headerHeight + offset.current }).then(() => {
             setStickyExpanded(false);
         });
         if( stuck ){
             setStickyExpanded(false);
         }
+    }
+
+    const handleUncheck = () => {
+        setActiveCategories([]);
     }
 
     useEffect(() => {
@@ -508,7 +455,10 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                                 })
                                 }
                             </fieldset>
+                            <div className={`flex ${offScreen ? 'flex-col' : 'flex-row'} gap-2`}>
                             <Button.StandardButton callback={jumpToMap} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Jump to Map</Button.StandardButton>
+                            <Button.StandardButton callback={handleUncheck} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Uncheck All</Button.StandardButton>
+                            </div>
                         </form>
                     </StickyPortal>
                     <div id={`mapSticky`}></div>

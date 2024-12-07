@@ -15,7 +15,7 @@ const VTab = (props) => {
 
     const buttonStyle = {
         ...style, // Spread existing styles
-        ...(height ? { height } : {}), // Conditionally add height if provided
+        ...(height ? { height: height } : {}), // Conditionally add height if provided
     };
 
     const handleClick = (event) => {
@@ -25,7 +25,7 @@ const VTab = (props) => {
     return (
         <button
             type={type}
-            style={buttonStyle}
+            style={{ ...buttonStyle, height: buttonStyle.height + 2 }}
             className={`px-1 lg:px-3 btn btn-outline rounded-tl-none btn-secondary rounded-r-none border-r-2 border-r-secondary/40 group bg-accent ${
                 expanded ? '' : ''
             } ${className}`}
