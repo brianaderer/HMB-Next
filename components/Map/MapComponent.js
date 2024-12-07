@@ -356,7 +356,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }
 
     useEffect(() => {
-        const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
+        const headerHeight = document.getElementById('nav')?.getBoundingClientRect().height;
         const location = locationData[activeMarker.index]?.location;
         if (activeMarker.index && location) {
             scrollIntoViewWithOffset( {id: 'map', offset: headerHeight + 80 } ).then(() => {
@@ -475,7 +475,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
     }, [activeCategories, locations, map]); // Ensure to include all dependencies
 
     const jumpToMap = async props => {
-        const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
+        const headerHeight = document.getElementById('nav')?.getBoundingClientRect().height;
         scrollIntoViewWithOffset({id: 'map', offset: headerHeight + 80}).then(() => {
             setStickyExpanded(false);
         });

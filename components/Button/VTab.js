@@ -12,9 +12,6 @@ const VTab = (props) => {
         height,
     } = props;
 
-    useEffect(() => {
-        console.log(height);
-    }, [height]);
 
     const buttonStyle = {
         ...style, // Spread existing styles
@@ -29,7 +26,7 @@ const VTab = (props) => {
         <button
             type={type}
             style={buttonStyle}
-            className={`px-1 lg:px-3 btn btn-outline btn-secondary rounded-r-none border-r-2 border-r-secondary/40 group bg-accent ${
+            className={`px-1 lg:px-3 btn btn-outline rounded-tl-none btn-secondary rounded-r-none border-r-2 border-r-secondary/40 group bg-accent ${
                 expanded ? '' : ''
             } ${className}`}
             onClick={handleClick}

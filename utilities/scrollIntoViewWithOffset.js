@@ -5,7 +5,7 @@ const scrollIntoViewWithOffset = ({ id, offset }) => {
       if (!element) {
         reject('Element not found');
       }
-      const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
+      const targetPosition = element?.getBoundingClientRect()?.top + window.pageYOffset - offset;
       const startPosition = window.pageYOffset;
       const distance = targetPosition - startPosition;
       const duration = 300; // duration of the scroll in milliseconds

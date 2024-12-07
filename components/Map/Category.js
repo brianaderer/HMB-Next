@@ -43,7 +43,7 @@ const Category = props => {
         if( activeClick.current ){
             checked.current = isChecked;
             if (isChecked) {
-                const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
+                const headerHeight = document.getElementById('nav')?.getBoundingClientRect().height;
                 setTimeout(() => {
                     scrollIntoViewWithOffset({offset: (headerHeight + 80), id: category.slug })
                 }, 0); // Adjust delay as needed, 0 might be sufficient in most cases

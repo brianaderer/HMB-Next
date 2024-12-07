@@ -5,6 +5,7 @@ export { Card } from './Card';
 export { Carousel } from './Carousel';
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
+export { Distance } from './Distance';
 export { EntryHeader } from './EntryHeader';
 export { Error } from './Error';
 export { FeaturedImage } from './FeaturedImage';
