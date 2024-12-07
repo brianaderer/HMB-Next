@@ -66,7 +66,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     }, [placeholderHeight, targetId]);
     useEffect(() => {
        if(offScreen && stickyExpanded){
-           const height = document.getElementById('stickies').getBoundingClientRect().height;
+           const height = document.getElementsByClassName('stickyElement')[0].getBoundingClientRect().height;
            setStickyHeight(height);
        }
     }, [offScreen, stickyExpanded, router]);

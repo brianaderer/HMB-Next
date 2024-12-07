@@ -1,69 +1,55 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button } from '../../components';
 
 // import component 👇
-import Drawer from 'react-modern-drawer';
+import Drawer from 'react-modern-drawer'
 
 //import styles 👇
-import 'react-modern-drawer/dist/index.css';
+import 'react-modern-drawer/dist/index.css'
 
-const ReactDrawer = (props) => {
-    const { expanded, buttonStyle, children, top = false, offScreen = false, setStickyExpanded, className } = props;
-    const [isOpen, setIsOpen] = useState(false);
+const ReactDrawer = props => {
+    const { expanded, buttonStyle ,children, top = false, offScreen = false, setStickyExpanded, className } = props;
+    const [isOpen, setIsOpen] = React.useState(false);
     const [firstOpen, setFirstOpen] = useState(true);
-    const [childHeight, setChildHeight] = useState(0);
-    const childRef = useRef(null);
-
     const toggleDrawer = () => {
-        setTimeout(() => {
-            setIsOpen((prevState) => !prevState);
-        }, 300);
-    };
-
-    const updateChildHeight = () => {
-        if (childRef.current) {
-            setChildHeight(childRef.current.offsetHeight);
-        }
-    };
+        setIsOpen((prevState) => !prevState)
+    }
 
     useEffect(() => {
-        setStickyExpanded(isOpen);
+        setTimeout(() => {
+            setStickyExpanded(isOpen);
+        }, 150);
     }, [isOpen]);
 
     useEffect(() => {
-        if (!offScreen) {
-            setIsOpen(false);
+        if( !offScreen ){
+            setIsOpen( false );
         }
-        if (offScreen && firstOpen) {
+        if( offScreen && firstOpen ){
+            setIsOpen(true);
             setFirstOpen(false);
-            setTimeout(() => {
-                setIsOpen(true);
-            }, 300);
         }
     }, [offScreen]);
 
+    useEffect(() => {
+        if( !expanded ){
+            setIsOpen(false);
+        }
+    }, [expanded]);
 
     return (
         <div className={`${className}`}>
             <Drawer
                 open={isOpen}
                 onClose={toggleDrawer}
-                direction="right"
-                className="!bg-transparent !border-l-0 !shadow-transparent !shadow-none"
+                direction='right'
+                className='!bg-transparent !border-l-0 !shadow-transparent !shadow-none'
             >
-                <div ref={childRef}>
-                    {children}
-                </div>
-                <Button.VTab
-                    expanded={isOpen}
-                    style={buttonStyle}
-                    className={`py-0 absolute right-full top-0 ${offScreen ? `!visible` : `!hidden`}`}
-                    height={childHeight}
-                    callback={toggleDrawer}
-                ></Button.VTab>
+                {children}
+                <Button.VTab expanded={isOpen} style={ buttonStyle } className={`py-0 absolute h-full right-full top-0 ${offScreen ? `!visible` : `!hidden` }`} callback={toggleDrawer}></Button.VTab>
             </Drawer>
         </div>
-    );
-};
+    )
+}
 
 export default ReactDrawer;
