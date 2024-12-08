@@ -9,11 +9,13 @@ export default function CoreParagraph(props) {
     const {attributes, customAttributes, clientId} = props;
     const paragraphRef = useRef(null);
     useEffect(() => {
-        setIsFirst(paragraphRef.current.previousSibling?.tagName !== 'P');
-        setIsLast(paragraphRef.current.nextSibling?.tagName !== 'P');
+        setTimeout(() => {
+            setIsFirst(paragraphRef.current.previousSibling.tagName !== 'P');
+            setIsLast(paragraphRef.current.nextSibling.tagName !== 'P');
+        }, 150);
     }, []);
     return (
-        <Text ref={paragraphRef} tag={'p'} className={`bg-base-100 ${isFirst ? 'rounded-tl-3xl pt-6 lg:pt-8 border-t-4 border-t-base-100 z-10' : ''} ${isLast ? 'rounded-br-3xl pb-6 lg:pb-8 mb-4' : ''} px-6 xl:px-16 xl:indent-8 p-4 text-neutral-content drop-shadow-md`}>{attributes?.content}</Text>
+        <Text ref={paragraphRef} tag={'p'} className={`bg-base-100 ${isFirst ? 'rounded-tl-3xl pt-6 lg:pt-8 border-t-4 border-t-base-100 z-10' : ''} ${isLast ? 'rounded-br-3xl pb-6 lg:pb-8 mb-4' : ''} px-6 xl:px-16 xl:indent-8 p-4 text-neutral-content drop-shadow-sm`}>{attributes?.content}</Text>
     );
 }
 

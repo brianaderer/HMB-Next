@@ -11,13 +11,16 @@ const Card = props => {
     const borderColor = CATEGORIES[slug].borderCardColor;
     const cardRef = useRef(null);
 
-    function getGoogleMapsDirectionsUrl(location) {
+    function getGoogleMapsDirectionsUrl() {
         const baseUrl = "https://www.google.com/maps/dir/?api=1";
+        const origin = "Half Moon Bay Marina, Half Moon Bay Drive, Croton-on-Hudson, NY";
         const params = new URLSearchParams({
+            origin: origin,
             destination: `${data.location.lat},${data.location.lng}`,
         });
         return `${baseUrl}&${params.toString()}`;
     }
+
     // Event handler to open link in a new tab
 
     const toggleViewState = () => {

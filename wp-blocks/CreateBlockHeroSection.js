@@ -6,8 +6,8 @@ export default function CreateBlockHeroSection(props) {
     const {content} = props;
     return(
         <>
-            <div className="w-full rounded-box drop-shadow-md h-[75vh] lg:w-[125%] lg:translate-x-[-50%] lg:ml-[50%]">
-                <Carousel showButtons={true} fullWidth={'noCrop'} scrollInterval={7000} className={`h-[75vh] w-full`}>
+            <div className="w-full bg-white rounded-box drop-shadow-md h-[75vh] lg:w-[125%] lg:translate-x-[-50%] lg:ml-[50%]">
+                <Carousel showButtons={true} fullWidth={'noCrop'} scrollInterval={5000} className={`h-[75vh] w-full`}>
                     {
                         content.map((slide, index) => {
                             return (

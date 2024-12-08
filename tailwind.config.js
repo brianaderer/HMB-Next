@@ -80,7 +80,7 @@ module.exports = {
         'base-300': '#080c10',
         'base-200': '#0a101e',
         'base-content': '#D1F1FF',
-        'primary': '#19257D',
+        'primary': '#333f97',
         'primary-content': '#FFFAE4',
         'accent-content': '#8cead5',
         'accent': '#270036',
