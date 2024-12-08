@@ -1,21 +1,23 @@
 import { gql } from '@apollo/client';
 import React, {useEffect, useState} from 'react';
-import {Carousel, HeroSlide} from '../components';
+import {Carousel, HeroSlide, Review} from '../components';
 
 export default function CreateBlockHeroSection(props) {
     const {content} = props;
     return(
-        <div>
-            <div className="w-full rounded-box p-2 lg:p-6 drop-shadow-md">
-                    <Carousel fullWidth={'noCrop'} scrollInterval={7000} className={``}>
-                        {content.map(slide => {
+        <>
+            <div className="w-full rounded-box drop-shadow-md h-[75vh] lg:w-[125%] lg:translate-x-[-50%] lg:ml-[50%]">
+                <Carousel showButtons={true} fullWidth={'noCrop'} scrollInterval={7000} className={`h-[75vh] w-full`}>
+                    {
+                        content.map((slide, index) => {
                             return (
-                                <HeroSlide {...slide} />
+                                <HeroSlide key={index} {...slide} />
                             )
-                        })}
-                    </Carousel>
-                </div>
+                        })
+                    }
+                </Carousel>
             </div>
+        </>
             )
             }
 

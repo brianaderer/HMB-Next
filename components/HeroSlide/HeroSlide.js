@@ -1,15 +1,24 @@
-import {Text} from "../../components";
+import {Text, Media} from "../../components";
 
 const HeroSlide = (props) => {
-    const {content} = props;
-    console.log(content);
+    const {backgroundImage, cta, text} = props;
+    const {alt, caption, description, ID, name, src, title, type} = backgroundImage;
+
     return (
         <div className={`m-auto h-full flex flex-row justify-center items-center flex-shrink-0 w-full`}>
             <div
-                className={`h-full w-full px-4 pt-8 lg:px-[10%] flex-grow rounded-lg flex flex-col items-center justify-center mb-12 lg:mx-10 gap-2 lg:gap-4`}>
-                <Text tag={'p'} className={`lg:text-center text-sm`}>Slide</Text>
+                className={`h-full flex-grow rounded-lg flex flex-col items-center justify-center gap-2 lg:gap-4`}>
+                <div
+                    className={'h-full w-full min-w-96'}
+                    style={{
+                        backgroundImage: `url(${src})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                ></div>
             </div>
         </div>
-    )
-}
+    );
+};
+
 export default HeroSlide;
