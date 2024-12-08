@@ -28,6 +28,7 @@ export const pageQuery = gql`
   ${components.AcfGuestBook.fragments.entry}
   ${components.CreateBlockReviews.fragments.entry}
   ${components.CreateBlockGuestbook.fragments.entry}
+  ${components.CreateBlockHeroSection.fragments.entry}
   ${components.CreateBlockInstagramGallery.fragments.entry}
   query GetPageData(
     $databaseId: ID!
@@ -63,6 +64,7 @@ export const pageQuery = gql`
         ...${components.AcfGuestBook.fragments.key}
         ...${components.CreateBlockReviews.fragments.key}
         ...${components.CreateBlockGuestbook.fragments.key}
+        ...${components.CreateBlockHeroSection.fragments.key}
         ...${components.CreateBlockInstagramGallery.fragments.key}
       }
       ...FeaturedImageFragment

@@ -18,6 +18,7 @@ export { Galleries } from './Gallery';
 export { GuestBookEntry } from './GuestBookEntry';
 export { Header } from './Header';
 export { Heading } from './Heading';
+export { HeroSlide } from './HeroSlide';
 export { Loading } from './Loading';
 export { Login } from './Login';
 export { Main } from './Main';

@@ -8,6 +8,7 @@ import CreateBlockGuestbook from "./CreateBlockGuestbook";
 import CreateBlockInstagramGallery from "./CreateBlockInstagramGallery";
 import AcfGuestBookEntry from "./AcfGuestBookEntry";
 import CreateBlockReviews from "./CreateBlockReviews";
+import CreateBlockHeroSection from "./CreateBlockHeroSection";
 import AcfUploadMediaForm from "./AcfUploadMediaForm";
 import AcfGallery from "./AcfGallery";
 import CoreImage from "./CoreImage";
@@ -27,6 +28,7 @@ export default {
     AcfGuestBook: AcfGuestBookEntry,
     CreateBlockInstagramGallery,
     CreateBlockReviews,
+    CreateBlockHeroSection,
     AcfSignUpForm,
     AcfUserInfoForm,
     AcfUploadMediaForm,
