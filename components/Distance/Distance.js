@@ -1,6 +1,5 @@
 const Distance = (distance) => {
     const {foot, bike, car} = distance.distance;
-    console.log(foot);
     return (
         <div className={'mb-4'}>
             {foot.distance.value < 8000 &&
