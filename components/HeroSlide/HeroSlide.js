@@ -10,7 +10,7 @@ const HeroSlide = (props) => {
         <div className="m-auto h-full flex flex-row justify-center items-center flex-shrink-0 w-full">
             <div className="relative h-full flex-grow rounded-lg flex flex-col items-center justify-center gap-2 lg:gap-4">
                 {/* Content */}
-                <div className="z-10 max-w-[80%] lg:max-w-[50%]">
+                <div className="z-10 max-w-[95%] md:max-w-[80%] lg:max-w-[50%]">
                     <div className="p-4 text-neutral-content bg-neutral/90 rounded-lg drop-shadow-sm flex flex-col gap-4">
                         <Text className={'text-md lg:text-lg'} tag="h1">{heading}</Text>
                         <Text className={'text-md lg:text-lg'} tag="h3">{subheading}</Text>

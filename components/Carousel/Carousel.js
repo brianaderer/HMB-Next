@@ -170,8 +170,8 @@ const Carousel = ({ setTransitioning = scrolling => {},children, showButtons = t
     }
 
     return (
-        <div className={'relative'}>
-            <div className={`border border-secondary/20 bg-base-neutral rounded-2xl overflow-hidden flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
+        <div className={'relative h-full'}>
+            <div className={`border border-secondary/20 bg-base-neutral rounded-2xl overflow-clip flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
                 <div
                     ref={ref}
                     onTouchStart={handleTouchStart}
