@@ -38,7 +38,7 @@ const Card = (props) => {
         <div
             ref={cardRef}
             id={`${id}`}
-            className={`metaWrapper border-t-accent-content/20 border-t-2 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded shadow-md overflow-hidden border-r-8 ${borderColor}`}
+            className={`metaWrapper border-t-accent-content/20 border-t-2 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded overflow-hidden border-r-8 ${borderColor}`}
         >
             <div className={`col-span-1 ${expanded ? 'lg:col-span-1' : 'lg:col-span-2 '}flex flex-col gap-2`}>
                 {expanded && (
@@ -53,7 +53,7 @@ const Card = (props) => {
                 )}
                 {data.photo.length > 0 && (
                     <div
-                        className="h-64 lg:h-80 w-full rounded-lg shadow-md bg-cover bg-center"
+                        className="h-64 lg:h-80 w-full rounded-lg bg-cover bg-center shadow-none"
                         style={{ backgroundImage: `url(${data.photo})` }}
                         aria-label={`${data.title} Headline Image`}
                     ></div>
@@ -95,7 +95,7 @@ const Card = (props) => {
                         )}
                         {data.website && (
                             <a
-                                className="break-words"
+                                className="break-words cursor-pointer"
                                 dangerouslySetInnerHTML={{ __html: data.website }}
                                 onClick={(event) => handleLinkClick(event, data.website)}
                             ></a>
