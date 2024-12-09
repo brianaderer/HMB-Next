@@ -12,9 +12,9 @@ const HeroSlide = (props) => {
                 {/* Content */}
                 <div className="z-10 max-w-[80%] lg:max-w-[50%]">
                     <div className="p-4 text-neutral-content bg-neutral/90 rounded-lg drop-shadow-sm flex flex-col gap-4">
-                        <Text tag="h1">{heading}</Text>
-                        <Text tag="h3">{subheading}</Text>
-                        <Text tag="p">{body}</Text>
+                        <Text className={'text-md lg:text-lg'} tag="h1">{heading}</Text>
+                        <Text className={'text-md lg:text-lg'} tag="h3">{subheading}</Text>
+                        <Text className={'text-sm lg:text-md'} tag="p">{body}</Text>
                         {link?.length > 0 && (
                             <Button.LinkButton url={link}>
                                 {value?.length > 0 ? value : "Learn More"}
