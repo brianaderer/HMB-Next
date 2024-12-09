@@ -6,10 +6,6 @@ export default function CreateBlockHeroSection(props) {
     const {content} = props;
     const [transitioning, setTransitioning] = useState(false);
 
-    useEffect(() => {
-        console.log(transitioning);
-    }, [transitioning]);
-
     return(
         <>
             <div className="w-full bg-white rounded-box drop-shadow-md h-[75vh] lg:w-[125%] lg:translate-x-[-50%] lg:ml-[50%]">
