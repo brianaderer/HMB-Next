@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import {getApps, initializeApp } from "firebase/app";
 import {getFirestore} from 'firebase/firestore';
 import { getAnalytics } from "firebase/analytics";
 import {getAuth, GoogleAuthProvider, FacebookAuthProvider} from "firebase/auth";
@@ -8,18 +8,18 @@ import {getAuth, GoogleAuthProvider, FacebookAuthProvider} from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-export const firebaseConfig = {
+const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: "hmb-marina.firebaseapp.com",
     projectId: "hmb-marina",
-    storageBucket: "hmb-marina.appspot.com",
+    storageBucket: "hmb-marina.firebasestorage.app",
     messagingSenderId: "91848530196",
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     measurementId: "G-BGVLN882LC"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 export const db = getFirestore(app);
 //const analytics = getAnalytics(app);
 
