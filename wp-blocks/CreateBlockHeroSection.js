@@ -8,8 +8,8 @@ export default function CreateBlockHeroSection(props) {
 
     return(
         <>
-            <div className="w-full bg-white rounded-box drop-shadow-md h-[75vh] lg:w-[125%] lg:translate-x-[-50%] lg:ml-[50%]">
-                <Carousel setTransitioning={setTransitioning} showButtons={true} fullWidth={'noCrop'} scrollInterval={5000} className={`h-[75vh] w-full`}>
+            <div className="w-full bg-white rounded-box drop-shadow-md h-[40vh] lg:h-[75vh] lg:w-[125%] lg:translate-x-[-50%] lg:ml-[50%]">
+                <Carousel setTransitioning={setTransitioning} showButtons={true} fullWidth={'noCrop'} scrollInterval={5000} className={`h-full`}>
                     {
                         content.map((slide, index) => {
                             return (

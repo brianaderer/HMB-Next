@@ -24,12 +24,13 @@ const HeroSlide = (props) => {
                 </div>
 
                 {/* Background */}
-                <div className="h-full w-full min-w-96 absolute top-0">
+                <div className="h-full w-full absolute top-0">
                     {type.startsWith("image/") ? (
                         <div
                             className="h-full w-full bg-cover bg-center"
                             style={{
                                 backgroundImage: `url(${src})`,
+                                backgroundPosition: 'center',
                             }}
                         ></div>
                     ) : type.startsWith("video/") ? (
