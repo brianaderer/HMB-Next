@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { Distance } from '../../components';
 
 const Card = (props) => {
-    const { setForceExpanded, forceExpanded, distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug } = props;
+    const{setForceExpanded, forceExpanded, distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
     const slug = CATEGORIES[data.category_tax[0]?.slug] ? data.category_tax[0]?.slug : 'default';
     const borderColor = CATEGORIES[slug].borderCardColor;
     const cardRef = useRef(null);
@@ -20,23 +20,25 @@ const Card = (props) => {
         return `${baseUrl}&${params.toString()}`;
     }
 
+    // Event handler to open link in a new tab
+
     const toggleViewState = () => {
-        if (expanded && forceExpanded) {
+        if( expanded && forceExpanded ){
             handleDestroy();
         }
-        setForceExpanded((prevState) => !prevState);
-    };
+        setForceExpanded(prevState => !prevState);
+    }
 
     const handleClose = () => {
         handleDestroy();
         setForceExpanded(false);
-    };
+    }
 
     return (
         <div
             ref={cardRef}
-            id={`${firstPlace ? catSlug : ''}`}
-            className={`metaWrapper border-t-accent/20 border-t-2 py-2 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded shadow-md overflow-hidden border-r-8 ${borderColor}`}
+            id={`${id}`}
+            className={`metaWrapper border-t-accent-content/20 border-t-2 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded shadow-md overflow-hidden border-r-8 ${borderColor}`}
         >
             <div className={`col-span-1 ${expanded ? 'lg:col-span-1' : 'lg:col-span-2 '}flex flex-col gap-2`}>
                 {expanded && (
