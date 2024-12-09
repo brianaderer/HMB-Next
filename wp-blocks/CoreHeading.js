@@ -13,7 +13,7 @@ export default function CoreHeading(props) {
 
     useEffect(() => {
         setTimeout(() => {
-            const headingTag = heading.current.nextSibling.tagName || 'P';
+            const headingTag = heading.current?.nextSibling.tagName || 'P';
             setParagraphHeading( ['P', 'UL'].includes(headingTag));
         }, 150);
     }, []);

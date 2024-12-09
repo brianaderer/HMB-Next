@@ -10,8 +10,8 @@ export default function CoreParagraph(props) {
     const paragraphRef = useRef(null);
     useEffect(() => {
         setTimeout(() => {
-            setIsFirst(paragraphRef.current.previousSibling.tagName !== 'P');
-            setIsLast(paragraphRef.current.nextSibling.tagName !== 'P');
+            setIsFirst(paragraphRef.current?.previousSibling.tagName !== 'P');
+            setIsLast(paragraphRef.current?.nextSibling.tagName !== 'P');
         }, 150);
     }, []);
     return (
