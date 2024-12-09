@@ -3,7 +3,7 @@ import * as Buttons from '.././../components/Button';
 import { TbSpeedboat } from "react-icons/tb";
 import {ScreenContext} from "../../contexts";
 
-const Carousel = ({ children, showButtons = true, className = '', fullWidth = false, scrollInterval = 4000, active=true}) => {
+const Carousel = ({ setTransitioning = scrolling => {},children, showButtons = true, className = '', fullWidth = false, scrollInterval = 4000, active=true}) => {
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
@@ -39,6 +39,10 @@ const Carousel = ({ children, showButtons = true, className = '', fullWidth = fa
         const atLeftEdge = ( scrollLeft <= 1 );
         return {atRightEdge, atLeftEdge};
     };
+
+    useEffect(() => {
+        setTransitioning(scrolling);
+    }, [scrolling]);
 
     useEffect(() => {
         setTimeout(() => {
