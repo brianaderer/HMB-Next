@@ -1,12 +1,11 @@
-import {Button, Tag} from '../index';
-import {CATEGORIES} from "../../constants/categories";
-import {handleLinkClick} from "../../utilities/handleLinkClick";
-import {useRef, useEffect} from "react";
-import {Distance} from '../../components';
-import {StandardButton} from "../Button";
+import { Button, Tag } from '../index';
+import { CATEGORIES } from "../../constants/categories";
+import { handleLinkClick } from "../../utilities/handleLinkClick";
+import { useRef } from "react";
+import { Distance } from '../../components';
 
-const Card = props => {
-    const{setForceExpanded, forceExpanded, distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug} = props;
+const Card = (props) => {
+    const { setForceExpanded, forceExpanded, distance, data, callback, activeMarker, id, handleDestroy, expanded, firstPlace, catSlug } = props;
     const slug = CATEGORIES[data.category_tax[0]?.slug] ? data.category_tax[0]?.slug : 'default';
     const borderColor = CATEGORIES[slug].borderCardColor;
     const cardRef = useRef(null);
@@ -21,89 +20,101 @@ const Card = props => {
         return `${baseUrl}&${params.toString()}`;
     }
 
-    // Event handler to open link in a new tab
-
     const toggleViewState = () => {
-        if( expanded && forceExpanded ){
+        if (expanded && forceExpanded) {
             handleDestroy();
         }
-        setForceExpanded(prevState => !prevState);
-    }
+        setForceExpanded((prevState) => !prevState);
+    };
 
     const handleClose = () => {
         handleDestroy();
         setForceExpanded(false);
-    }
+    };
 
     return (
-        <div ref={cardRef} id={`${firstPlace ? catSlug : ''}`} className="metaWrapper">
-            <div id={id} className={`relative w-full border-r-8 ${borderColor} card ${expanded ? `flex-col-reverse`: ''} lg:card-side bg-neutral drop-shadow-md overflow-clip rounded-none mb-1`}>
-                {expanded && <Button.StandardButton className={`rounded !btn-sm top-2 left-2 absolute`} callback={handleClose}>X</Button.StandardButton>}
-                <div className=" absolute top-2 right-2">
-                <ul>{data.category_tax.map( (category, key) => {
-                    return (
-                        <li key={key} className={`text-sm text-neutral-content`}> {category.name} </li>
-                    )
-                } )}</ul>
-                </div>
+        <div
+            ref={cardRef}
+            id={`${firstPlace ? catSlug : ''}`}
+            className={`metaWrapper border-t-accent/20 border-t-2 py-2 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded shadow-md overflow-hidden border-r-8 ${borderColor}`}
+        >
+            <div className={`col-span-1 ${expanded ? 'lg:col-span-1' : 'lg:col-span-2 '}flex flex-col gap-2`}>
+                {expanded && (
+                    <div className="grid-row w-full flex justify-start p-2 mb-4">
+                        <Button.StandardButton
+                            className="rounded !btn-sm"
+                            callback={handleClose}
+                        >
+                            X
+                        </Button.StandardButton>
+                    </div>
+                )}
                 {data.photo.length > 0 && (
                     <div
-                        className={`flex flex-row w-full !justify-start ${expanded ? 'mb-6 mx-6 lg:mt-14' : 'lg:mt-0'} h-64 lg:h-80 !max-w-[60%] overflow-hidden rounded-lg drop-shadow-md`}
-                        style={{
-                            backgroundImage: `url(${data.photo})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                        }}
+                        className="h-64 lg:h-80 w-full rounded-lg shadow-md bg-cover bg-center"
+                        style={{ backgroundImage: `url(${data.photo})` }}
                         aria-label={`${data.title} Headline Image`}
                     ></div>
                 )}
-                <div className="card-body pt-12 text-left lg:text-right flex-col justify-start min-h-full">
-                    <h2 className="card-title mb-1 text-neutral-content lg:mt-4 justify-center lg:justify-end">{data.title}</h2>
-                    <div className={`flex flex-wrap gap-2 justify-center lg:justify-end`}>
-                        {
-                            data.tags && data?.tags?.map((tag, key) => {
-                                return (
-                                    <Tag key={key}> {tag.name} </Tag>
-                                )
-                            })}
-                    </div>
-                    <div className="card-actions justify-center lg:justify-end flex flex-col items-end">
-                        <Distance distance={data.distance}/>
-                        {data.location && expanded && (
-                            <div className={'flex flex-row gap-2 items-center'}>
-                            <Button.StandardButton
-                                className={`max-lg:btn-wide`}
-                                callback={(event) => handleLinkClick(event, getGoogleMapsDirectionsUrl())}
-                            >Get Directions</Button.StandardButton>
-                            <Button.StandardButton callback={callback} className={`max-lg:btn-wide`}>View On
-                        Map</Button.StandardButton>
-                            </div>
-                        )}
-                    </div>
-                    {expanded &&
-                        <div className="flex flex-col">
-                            <div className="flex flex-col">
-                                {data.telephone &&
-                                    <a className={``} href={`tel:${data.telephone}`}>{data.telephone}</a>}
-                                {data.website && (
-                                    <a
-                                        className={'cursor-pointer'}
-                                        dangerouslySetInnerHTML={{__html: data.website}}
-                                        onClick={(event) => handleLinkClick(event, data.website)}
-                                    ></a>
-                                )}
-                            </div>
-                            <p className={`text-neutral-content lg:mt-4`}
-                               dangerouslySetInnerHTML={{__html: data.description}}></p>
-                        </div>}
-                    <div className="card-actions justify-center lg:justify-end">
-                        {!expanded && <Button.StandardButton callback={toggleViewState}
-                                                             className={`max-lg:btn-wide mt-4`}>{forceExpanded ? 'Collapse' : 'Read More'}</Button.StandardButton>}
-                    </div>
+                <h2 className="text-xl font-bold text-neutral-content">{data.title}</h2>
+                <ul className="text-sm text-neutral-content">
+                    {data.category_tax.map((category, key) => (
+                        <li key={key}>{category.name}</li>
+                    ))}
+                </ul>
+                <div className="flex flex-wrap gap-2">
+                    {data.tags && data.tags.map((tag, key) => (
+                        <Tag key={key}>{tag.name}</Tag>
+                    ))}
                 </div>
             </div>
+            <div className={`${expanded ? 'col-span-2' : 'col-span-1'} flex flex-col gap-4 p-4 ${expanded ? 'pt-12' : ''}`}>
+                <Distance distance={data.distance} />
+                {data.location && expanded && (
+                    <div className="flex flex-col gap-2 items-start">
+                        <Button.StandardButton
+                            className="btn-wide"
+                            callback={(event) => handleLinkClick(event, getGoogleMapsDirectionsUrl())}
+                        >
+                            Get Directions
+                        </Button.StandardButton>
+                        <Button.StandardButton
+                            callback={callback}
+                            className="btn-wide"
+                        >
+                            View On Map
+                        </Button.StandardButton>
+                    </div>
+                )}
+                {expanded && (
+                    <div className="flex flex-col gap-2">
+                        {data.telephone && (
+                            <a href={`tel:${data.telephone}`}>{data.telephone}</a>
+                        )}
+                        {data.website && (
+                            <a
+                                className="break-words"
+                                dangerouslySetInnerHTML={{ __html: data.website }}
+                                onClick={(event) => handleLinkClick(event, data.website)}
+                            ></a>
+                        )}
+                        <p
+                            className="text-neutral-content"
+                            dangerouslySetInnerHTML={{ __html: data.description }}
+                        ></p>
+                    </div>
+                )}
+                {!expanded && (
+                    <Button.StandardButton
+                        callback={toggleViewState}
+                        className="btn-wide"
+                    >
+                        {forceExpanded ? 'Collapse' : 'Read More'}
+                    </Button.StandardButton>
+                )}
+            </div>
         </div>
-    )
+    );
+};
 
-}
 export default Card;

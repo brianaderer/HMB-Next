@@ -455,7 +455,7 @@ const MapComponent = ({ center, zoom, locations, classes }) => {
                                 })
                                 }
                             </fieldset>
-                            <div className={`flex ${offScreen ? 'flex-col' : 'flex-row'} gap-2`}>
+                            <div className={`flex ${offScreen ? 'flex-col' : 'flex-col lg:flex-row'} gap-2`}>
                             <Button.StandardButton callback={jumpToMap} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Jump to Map</Button.StandardButton>
                             <Button.StandardButton callback={handleUncheck} className={`btn-wide group-[.stickyContainer]:btn-sm m-auto`}>Uncheck All</Button.StandardButton>
                             </div>
