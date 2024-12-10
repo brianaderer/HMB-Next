@@ -35,88 +35,91 @@ const Card = (props) => {
     }
 
     return (
-        <div
-            ref={cardRef}
-            id={`${id}`}
-            className={`metaWrapper border-t-accent-content/20 border-t-2 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded overflow-hidden border-r-8 ${borderColor}`}
-        >
-            <div className={`col-span-1 ${expanded ? 'lg:col-span-1' : 'lg:col-span-2 '}flex flex-col gap-2`}>
-                {expanded && (
-                    <div className="grid-row w-full flex justify-start p-2 mb-4">
-                        <Button.StandardButton
-                            className="rounded !btn-sm"
-                            callback={handleClose}
-                        >
-                            X
-                        </Button.StandardButton>
+        <div id={`${firstPlace ? catSlug : ''}`} className="metaWrapper">
+            <div
+                ref={cardRef}
+                id={id}
+                className={`border-t-accent-content/20 border-t-2 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4 rounded overflow-hidden border-r-8 ${borderColor}`}
+            >
+                <div className={`col-span-1 ${expanded ? 'lg:col-span-1' : 'lg:col-span-2 '}flex flex-col gap-2`}>
+                    {expanded && (
+                        <div className="grid-row w-full flex justify-start p-2 mb-4">
+                            <Button.StandardButton
+                                className="rounded !btn-sm"
+                                callback={handleClose}
+                            >
+                                X
+                            </Button.StandardButton>
+                        </div>
+                    )}
+                    {data.photo.length > 0 && (
+                        <div
+                            className="h-64 lg:h-80 w-full rounded-lg bg-cover bg-center shadow-none"
+                            style={{backgroundImage: `url(${data.photo})`}}
+                            aria-label={`${data.title} Headline Image`}
+                        ></div>
+                    )}
+                    <h2 className="text-xl font-bold text-neutral-content">{data.title}</h2>
+                    <ul className="text-sm text-neutral-content">
+                        {data.category_tax.map((category, key) => (
+                            <li key={key}>{category.name}</li>
+                        ))}
+                    </ul>
+                    <div className="flex flex-wrap gap-2">
+                        {data.tags && data.tags.map((tag, key) => (
+                            <Tag key={key}>{tag.name}</Tag>
+                        ))}
                     </div>
-                )}
-                {data.photo.length > 0 && (
-                    <div
-                        className="h-64 lg:h-80 w-full rounded-lg bg-cover bg-center shadow-none"
-                        style={{ backgroundImage: `url(${data.photo})` }}
-                        aria-label={`${data.title} Headline Image`}
-                    ></div>
-                )}
-                <h2 className="text-xl font-bold text-neutral-content">{data.title}</h2>
-                <ul className="text-sm text-neutral-content">
-                    {data.category_tax.map((category, key) => (
-                        <li key={key}>{category.name}</li>
-                    ))}
-                </ul>
-                <div className="flex flex-wrap gap-2">
-                    {data.tags && data.tags.map((tag, key) => (
-                        <Tag key={key}>{tag.name}</Tag>
-                    ))}
+                </div>
+                <div
+                    className={`${expanded ? 'col-span-2' : 'col-span-1'} flex flex-col gap-4 p-4 ${expanded ? 'pt-12' : ''}`}>
+                    <Distance distance={data.distance}/>
+                    {data.location && expanded && (
+                        <div className="flex flex-col gap-2 items-start">
+                            <Button.StandardButton
+                                className="btn-wide"
+                                callback={(event) => handleLinkClick(event, getGoogleMapsDirectionsUrl())}
+                            >
+                                Get Directions
+                            </Button.StandardButton>
+                            <Button.StandardButton
+                                callback={callback}
+                                className="btn-wide"
+                            >
+                                View On Map
+                            </Button.StandardButton>
+                        </div>
+                    )}
+                    {expanded && (
+                        <div className="flex flex-col gap-2">
+                            {data.telephone && (
+                                <a href={`tel:${data.telephone}`}>{data.telephone}</a>
+                            )}
+                            {data.website && (
+                                <a
+                                    className="break-words cursor-pointer"
+                                    dangerouslySetInnerHTML={{__html: data.website}}
+                                    onClick={(event) => handleLinkClick(event, data.website)}
+                                ></a>
+                            )}
+                            <p
+                                className="text-neutral-content"
+                                dangerouslySetInnerHTML={{__html: data.description}}
+                            ></p>
+                        </div>
+                    )}
+                    {!expanded && (
+                        <Button.StandardButton
+                            callback={toggleViewState}
+                            className="btn-wide"
+                        >
+                            {forceExpanded ? 'Collapse' : 'Read More'}
+                        </Button.StandardButton>
+                    )}
                 </div>
             </div>
-            <div className={`${expanded ? 'col-span-2' : 'col-span-1'} flex flex-col gap-4 p-4 ${expanded ? 'pt-12' : ''}`}>
-                <Distance distance={data.distance} />
-                {data.location && expanded && (
-                    <div className="flex flex-col gap-2 items-start">
-                        <Button.StandardButton
-                            className="btn-wide"
-                            callback={(event) => handleLinkClick(event, getGoogleMapsDirectionsUrl())}
-                        >
-                            Get Directions
-                        </Button.StandardButton>
-                        <Button.StandardButton
-                            callback={callback}
-                            className="btn-wide"
-                        >
-                            View On Map
-                        </Button.StandardButton>
-                    </div>
-                )}
-                {expanded && (
-                    <div className="flex flex-col gap-2">
-                        {data.telephone && (
-                            <a href={`tel:${data.telephone}`}>{data.telephone}</a>
-                        )}
-                        {data.website && (
-                            <a
-                                className="break-words cursor-pointer"
-                                dangerouslySetInnerHTML={{ __html: data.website }}
-                                onClick={(event) => handleLinkClick(event, data.website)}
-                            ></a>
-                        )}
-                        <p
-                            className="text-neutral-content"
-                            dangerouslySetInnerHTML={{ __html: data.description }}
-                        ></p>
-                    </div>
-                )}
-                {!expanded && (
-                    <Button.StandardButton
-                        callback={toggleViewState}
-                        className="btn-wide"
-                    >
-                        {forceExpanded ? 'Collapse' : 'Read More'}
-                    </Button.StandardButton>
-                )}
-            </div>
         </div>
-    );
-};
+            );
+            };
 
-export default Card;
+            export default Card;
