@@ -43,7 +43,7 @@ const Category = props => {
         if( activeClick.current ){
             checked.current = isChecked;
             if (isChecked) {
-                const headerHeight = document.getElementById('nav').getBoundingClientRect().height;
+                const headerHeight = document.getElementById('nav')?.getBoundingClientRect().height;
                 setTimeout(() => {
                     scrollIntoViewWithOffset({offset: (headerHeight + 80), id: category.slug })
                 }, 0); // Adjust delay as needed, 0 might be sufficient in most cases
@@ -53,8 +53,8 @@ const Category = props => {
     }
 
     return (
-        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-lg justify-between border-2 bg-base-100 rounded-md ${backgroundColor} text-base-content`}>
-            <label className={`mr-2`}>{category.name}</label>
+        <div onClick={event => handleDivClick(event)} className={`group-[.stickyContainer]:btn-sm flex flex-row items-center px-4 py-2 drop-shadow-md justify-between border-2 bg-base-100 rounded-md ${backgroundColor} text-base-content`}>
+            <label className={`mr-2 text-sm md:text-md`}>{category.name}</label>
             <input
                 type={'checkbox'}
                 className={`checkbox bg-neutral`}

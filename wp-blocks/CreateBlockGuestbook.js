@@ -1,8 +1,12 @@
 import { gql } from '@apollo/client';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {GuestBookEntry, LoadMore} from "../components";
 
 export default function CreateBlockGuestbook(props) {
+    useEffect(() => {
+        console.log('CreateBlockGuestBook');
+    });
+
     const increment = 5;
     const [limit, setLimit] = useState(increment);
     const {content} = props;
@@ -32,18 +36,29 @@ CreateBlockGuestbook.fragments = {
           className
         }
         content {
-          beam
-          boat_length_loa
-          boat_name
-          boat_type
-          draft
-          email
-          full_name
-          message
-          phone_number
-          year_make_model
-          return_image_gallery
-          reply
+            acfFields {
+                boatLengthLoa
+                beam
+                boatName
+                boatType
+                reply
+                yearMakeModel
+                draft
+            }
+            customFields {
+                message
+                name
+            }
+            imageGallery {
+                alt
+                caption
+                description
+                iD
+                name
+                type
+                title
+                src
+            }
         }
       }
   `,

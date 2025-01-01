@@ -1,7 +1,6 @@
 export default ` 
     renderedHtml     
         attributes {
-        align
         anchor
         backgroundColor
         fontFamily

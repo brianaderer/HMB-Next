@@ -15,7 +15,6 @@ CoreSeparator.fragments = {
     entry: gql`
     fragment CoreSeparatorFragment on CoreSeparator {
       attributes {
-        align
         anchor
         opacity
         gradient

@@ -5,20 +5,21 @@ import {ContentWrapper} from "../components";
 export default function CoreImage(props) {
     const {attributes, customAttributes} = props;
     return (
-        <div className="aspect-video w-full h-auto overflow-clip">
-            <img className={`min-w-full min-h-full`} src={attributes.src} alt={attributes.alt}/>
-        </div>
+        <div
+            className="rounded-lg aspect-video w-full bg-cover bg-center"
+            style={{backgroundImage: `url(${attributes.src})`}}
+            aria-label={attributes.alt}
+        />
     );
 }
 
 CoreImage.fragments = {
     entry: gql`
-    fragment CoreImageFragment on CoreImage {
-        anchor
-        apiVersion
-        customAttributes
-        attributes {
-          align
+        fragment CoreImageFragment on CoreImage {
+            anchor
+            apiVersion
+            customAttributes
+            attributes {
           alt
           anchor
           aspectRatio

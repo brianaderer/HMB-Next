@@ -14,7 +14,7 @@ const Image = props => {
     const {src, alt, size, ratio='default', className='', onLoad = null} = props;
     const imageSize = size || 'default';
     return (
-        <img onLoad={onLoad} className={`flex h-auto w-auto ${className} ${aspect[ratio]} ${sizes[imageSize]}`} alt={alt} src={src}/>
+        <img onLoad={onLoad} className={`flex h-auto w-auto rounded-lg ${className} ${aspect[ratio]} ${sizes[imageSize]}`} alt={alt} src={src}/>
     )
 }
 export default Image;

@@ -29,4 +29,17 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
     }
+    @media (prefers-color-scheme: dark) {
+        @media (prefers-color-scheme: dark) {
+            .drop-shadow-sm {
+                filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.05)); /* Smaller shadow */
+            }
+
+            .drop-shadow-md {
+                filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.05)) /* Larger but still subtle */
+                drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1)); /* Softer second shadow */
+            }
+        }
+    }
 }
+

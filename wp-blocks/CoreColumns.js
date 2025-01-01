@@ -9,7 +9,7 @@ import CoreList from "./CoreList";
 export default function CoreColumns(props) {
     const {attributes, innerBlocks, cssClassNames} = props;
     return (
-        <div className={`flex flex-col lg:flex-row items-center gap-4 xl:gap-8 px-4 xl:px-8`}>
+        <div className={`drop-shadow-md py-6 flex flex-col bg-base-200 lg:flex-row items-center gap-4 xl:gap-8 px-4 xl:px-8 border-secondary/20 border rounded-lg`}>
             <WordPressBlocksViewer blocks={innerBlocks} />
         </div>
     );
@@ -24,7 +24,6 @@ CoreColumns.fragments = {
         anchor
         cssClassNames
         attributes {
-          align
           anchor
           backgroundColor
           borderColor

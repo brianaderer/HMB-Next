@@ -10,7 +10,6 @@ export default `
         }
         clientId
         attributes {
-          align
           anchor
           className
           cssClassName

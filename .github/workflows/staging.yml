@@ -20,14 +20,15 @@ jobs:
       REST_API_APPLICATION_PASSWORD: ${{ secrets.REST_API_APPLICATION_PASSWORD }}
       NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+      REVALIDATION_SECRET: ${{ secrets.REVALIDATION_SECRET }}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Install dependencies and Build Next.js app
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
 
       - name: Rsync All Files Except .env.local
         uses: burnett01/rsync-deployments@6.0.0

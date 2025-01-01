@@ -3,7 +3,7 @@ import * as Buttons from '.././../components/Button';
 import { TbSpeedboat } from "react-icons/tb";
 import {ScreenContext} from "../../contexts";
 
-const Carousel = ({ children, className = '', fullWidth = false, scrollInterval = 4000, active=true}) => {
+const Carousel = ({ setTransitioning = scrolling => {},children, showButtons = true, className = '', fullWidth = false, scrollInterval = 4000, active=true}) => {
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
@@ -12,6 +12,7 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
     const [needsUpdate, setNeedsUpdate] = useState(false);
     const [scrolling, setScrolling] = useState(true)
     const [buttonDims, setButtonDims] = useState({});
+    const [buttonsLoaded, setButtonsLoaded] = useState(false);
     const ref = useRef();
 
     const {screen} = useContext(ScreenContext) || {};
@@ -40,9 +41,14 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
     };
 
     useEffect(() => {
+        setTransitioning(scrolling);
+    }, [scrolling]);
+
+    useEffect(() => {
         setTimeout(() => {
             const buttons = window.document.getElementsByClassName('mover');
             setButtonDims({height: buttons[0]?.getBoundingClientRect().height, width: buttons[0]?.getBoundingClientRect().width});
+            setButtonsLoaded(true);
         }, 1000)
     }, []);
 
@@ -164,8 +170,8 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
     }
 
     return (
-        <>
-            <div className={`overflow-hidden flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
+        <div className={'relative h-full'}>
+            <div className={`border border-secondary/20 bg-base-neutral rounded-2xl overflow-clip flex w-full ${fullWidth === 'noCrop' ? '' : `h-80`} ${className}`}>
                 <div
                     ref={ref}
                     onTouchStart={handleTouchStart}
@@ -175,27 +181,27 @@ const Carousel = ({ children, className = '', fullWidth = false, scrollInterval 
                     onMouseLeave={handleExit}
                     onMouseUp={stopDragging}
                     onMouseMove={onDrag}
-                    className={`${active ? 'max-xl:*:snap-always max-xl:*:snap-center max-xl:snap-x max-xl:snap-mandatory cursor-grab overflow-x-scroll' : 'overflow-x-hidden'}  rounded-lg  object-cover flex flex-row  no-scrollbar ${isDragging ? 'cursor-grabbing' : ''}`}
+                    className={`${fullWidth === 'noCrop' ? 'w-full' : ''} ${active ? 'max-xl:*:snap-always max-xl:*:snap-center max-xl:snap-x max-xl:snap-mandatory cursor-grab overflow-x-scroll' : 'overflow-x-hidden'}  rounded-2xl  object-cover flex flex-row shrink no-scrollbar items-start ${isDragging ? 'cursor-grabbing' : ''}`}
                 >
                     {children}
                 </div>
             </div>
             {
-            !isMobile && active &&
+            !isMobile && active && showButtons &&
             <>
             <div className="absolute left-full bottom-1/2">
-                <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginLeft: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={advance}>
+                <Buttons.StandardButton style={{top: ( buttonDims.height || 0 ) ? (buttonDims.height / 2) : '', marginLeft: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative transition-all ${buttonsLoaded ? 'opacity-1' : 'opacity-0'}`} callback={advance}>
                     <TbSpeedboat className={`text-accent-content`} size={30} />
                 </Buttons.StandardButton>
             </div>
             <div className="absolute right-full bottom-1/2">
-                <Buttons.StandardButton style={{top: buttonDims.height ? (buttonDims.height / 2) : '', marginRight: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative`} callback={rewind}>
+                <Buttons.StandardButton style={{top: ( buttonDims.height || 0 ) ? (buttonDims.height / 2) : '', marginRight: buttonDims.width ? -(buttonDims.width/2) : ''}} className={`mover bg-accent relative transition-all ${buttonsLoaded ? 'opacity-1' : 'opacity-0'}`} callback={rewind}>
                     <TbSpeedboat className={`text-accent-content transform -scale-x-100`} size={30} />
                 </Buttons.StandardButton>
             </div>
             </>
             }
-        </>
+        </div>
     );
 };
 

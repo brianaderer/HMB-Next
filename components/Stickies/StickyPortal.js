@@ -13,6 +13,7 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     const childrenRef = useRef();  // Reference to the children
     const originalRef = useRef(0);
     const isSticky = children.props.className?.includes("stickyElement");
+    const [transitioning, setTransitioning] = useState(false);
     const router = useRouter();
 
     if(!isSticky){
@@ -39,21 +40,34 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
 
     useEffect(() => {
         if(originalHeight === 0){
-            setOriginalHeight( originalRef.current.getBoundingClientRect().height )
+            setOriginalHeight( originalRef.current?.getBoundingClientRect().height )
         }
     }, [router]);
 
     useEffect(() => {
-        if( top !== null && !stuckOnInit ) {
-            const navHeight = screen.navHeight;
-            const offscreen = -(top) > ((navHeight - (originalHeight)) + ( originalHeight ));
-            setOffScreen(offscreen);
-            setPlaceholderHeight(offscreen ? originalHeight : 0);
-        }
-        if ( stuckOnInit ){
-            setOffScreen( true );
-        }
+        setTimeout(() => {
+            if( top !== null && !stuckOnInit ) {
+                const navHeight = screen.navHeight;
+                const offscreen = -(top) > (navHeight - (originalHeight) + 50 + originalHeight);
+                setOffScreen(offscreen);
+                // setPlaceholderHeight(offscreen ? originalHeight : 0);
+            }
+            if ( stuckOnInit ){
+                setOffScreen( true );
+            }
+        }, 150)
+
     }, [top, screen.navHeight, router]);
+
+    useEffect(() => {
+        setTransitioning(true);
+        const timeout = setTimeout(() => {
+            setTransitioning(false);
+        }, 150);
+        return () => {
+            setTransitioning(false);
+        }
+    }, [offScreen]);
 
     scroller({ target: targetId, setTop: setTop });
     useEffect(() => {
@@ -66,25 +80,38 @@ const StickyElementPortal = ({ children, targetId, stuckOnInit = false }) => {
     }, [placeholderHeight, targetId]);
     useEffect(() => {
        if(offScreen && stickyExpanded){
-           const height = document.getElementById('stickies').getBoundingClientRect().height;
+           const height = document.getElementsByClassName('stickyElement')?.[0]?.getBoundingClientRect().height;
            setStickyHeight(height);
        }
     }, [offScreen, stickyExpanded, router]);
 
-    useEffect(() => {
-        if( stuckOnInit ){
-            const main = document.getElementById('main-container');
-            //const padding = parseInt(main.style.paddingTop, 10) || 0;
-            const height = document.getElementById('stickies').getBoundingClientRect().height;
-            main.style.paddingTop = `${height}px`;
-        }
-    }, [offScreen, stuck, router]);
+    // useEffect(() => {
+    //     const stickiesElement = document.getElementById('stickies');
+    //     if (offScreen && stickyExpanded && stickiesElement) {
+    //         const updateStickyHeight = () => {
+    //             const height = stickiesElement?.getBoundingClientRect().height;
+    //             setStickyHeight(height);
+    //         };
+    //
+    //         // updateStickyHeight(); Initial calculation
+    //
+    //         // Use MutationObserver to listen for changes in the #stickies element
+    //         const observer = new MutationObserver(() => updateStickyHeight());
+    //         observer.observe(stickiesElement, { attributes: true, childList: true, subtree: true });
+    //
+    //         return () => {
+    //             observer.disconnect(); // Cleanup observer on unmount
+    //         };
+    //     }
+    // }, [offScreen, stickyExpanded, router]);
+
+
 
     return (
         <>
             {isSticky && (offScreen && container) ? ReactDOM.createPortal(
-                <div ref={childrenRef}>{children}</div>, container
-            ) : <div ref={originalRef}>{children}</div>}
+                <div className={`transition-all`} ref={childrenRef}>{children}</div>, container
+            ) : <div className={`transition-all`} ref={originalRef}>{children}</div>}
         </>
     );
 };

@@ -56,14 +56,15 @@ module.exports = {
     },
   },
   plugins: [
-      require("daisyui")
+      require("daisyui"),
+
   ],
   daisyui: {
     themes: [{
       hmbLight : {
-        'base-100': '#f7fdff',
+        'base-100': '#FAFCFF',
         'base-300': '#badaff',
-        'base-200': '#f3fffb',
+        'base-200': '#F2F8FF',
         'base-content': '#310046',
         'primary': '#19257D',
         'primary-content': '#FFFAE4',
@@ -75,15 +76,15 @@ module.exports = {
         'secondary-content': '#5cfff8',
       },
       hmbDark : {
-        'base-100': '#121b2d',
+        'base-100': '#1a243e',
         'base-300': '#080c10',
         'base-200': '#0a101e',
         'base-content': '#D1F1FF',
-        'primary': '#19257D',
+        'primary': '#333f97',
         'primary-content': '#FFFAE4',
         'accent-content': '#8cead5',
         'accent': '#270036',
-        'neutral': '#353746',
+        'neutral': '#585b67',
         'neutral-content': '#EDF4FF',
         'secondary': '#c548f8',
         'secondary-content': '#270036',

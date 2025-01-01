@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import {Text, Review} from "../components";
+import {Review} from "../components";
 import {Carousel} from '../components';
 
 export default function CreateBlockReviews(props) {
@@ -18,7 +18,7 @@ export default function CreateBlockReviews(props) {
     reviews.sort((a, b) => b.date - a.date);
     return (
         <>
-            <div className="w-full rounded-box p-2 lg:p-6 drop-shadow-lg">
+            <div className="w-full rounded-box p-2 lg:p-6 drop-shadow-md">
             <Carousel fullWidth={'noCrop'} scrollInterval={7000} className={``}>
             {
                 reviews.map((review) => {

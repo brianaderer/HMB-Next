@@ -16,7 +16,9 @@ const ReactDrawer = props => {
     }
 
     useEffect(() => {
-       setStickyExpanded(isOpen);
+        setTimeout(() => {
+            setStickyExpanded(isOpen);
+        }, 150);
     }, [isOpen]);
 
     useEffect(() => {
@@ -44,7 +46,7 @@ const ReactDrawer = props => {
                 className='!bg-transparent !border-l-0 !shadow-transparent !shadow-none'
             >
                 {children}
-                <Button.VTab expanded={isOpen} style={ buttonStyle } className={`py-0 absolute right-full top-0 ${offScreen ? `!visible` : `!hidden` }`} callback={toggleDrawer}></Button.VTab>
+                <Button.VTab expanded={isOpen} style={ buttonStyle } className={`py-0 absolute h-full right-full top-0 ${offScreen ? `!visible` : `!hidden` }`} callback={toggleDrawer}></Button.VTab>
             </Drawer>
         </div>
     )

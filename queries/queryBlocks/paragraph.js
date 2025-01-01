@@ -9,6 +9,5 @@ export default `
         fontFamily
         dropCap
         gradient
-        align
         content
       }`
