@@ -20,6 +20,7 @@ jobs:
       REST_API_APPLICATION_PASSWORD: ${{ secrets.REST_API_APPLICATION_PASSWORD }}
       NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+      REVALIDATION_SECRET: ${{ secrets.REVALIDATION_SECRET }}
 
     steps:
       - uses: actions/checkout@v2
@@ -38,14 +39,14 @@ jobs:
           remote_host: 3.15.144.253
           remote_port: 22
           remote_user: main
-          remote_key: ${{ secrets.STAGING_SSH }}
+          remote_key: ${{ secrets.MAIN_SSH }}
 
       - name: Restart Application and Clear Cache
         uses: appleboy/ssh-action@master
         with:
           host: 3.15.144.253
           username: main
-          key: ${{ secrets.STAGING_SSH }}
+          key: ${{ secrets.MAIN_SSH }}
           script: |
             rm -rf /var/cache/nginx/*
             pm2 restart all
