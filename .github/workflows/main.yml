@@ -27,8 +27,8 @@ jobs:
 
       - name: Install dependencies and Build Next.js app
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
 
       - name: Rsync All Files Except .env.local
         uses: burnett01/rsync-deployments@6.0.0
