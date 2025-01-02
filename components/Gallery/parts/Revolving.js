@@ -20,7 +20,7 @@ const Revolving = props => {
                 }, 0);
                 setDynamicWidth(totalWidth.current);
             }
-        }, 150);
+        }, 300);
     }, [imageGallery]);
 
 
