@@ -13,12 +13,14 @@ const Revolving = props => {
     const router = useRouter(); // Access router object
 
     useEffect(() => {
-        if (imagesRef.current.length > 0) {
-            totalWidth.current = imagesRef.current.reduce((total, img) => {
-                return total + (img?.offsetWidth || 0);
-            }, 0);
-            setDynamicWidth(totalWidth.current);
-        }
+        setTimeout(() => {
+            if (imagesRef.current.length > 0) {
+                totalWidth.current = imagesRef.current.reduce((total, img) => {
+                    return total + (img?.offsetWidth || 0);
+                }, 0);
+                setDynamicWidth(totalWidth.current);
+            }
+        }, 150);
     }, [imageGallery]);
 
 
